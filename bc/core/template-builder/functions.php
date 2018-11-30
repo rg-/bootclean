@@ -1,0 +1,302 @@
+<?php
+
+/* HERE all the functions and filters to build the div structure globaly */
+
+function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
+
+	$value = apply_filters('wpbc/filter/layout/main_container/args?='.$key.'', $value);
+
+	$value = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/args', $value);
+
+	$id = !empty($value['id']) ? ' id="'.$value['id'].'" ' : ''; 
+	
+	$class  = !empty($value['class']) ? $value['class'] : '';
+	
+	if(!empty( $value['container_type'] )){
+		$container_type = $value['container_type'];
+		if($container_type == 'fluid'){
+			$class .= ' container-fluid';
+		}
+		if($container_type == 'fixed'){
+			$class .= ' container';
+		}
+		if($container_type == 'fixed-left'){
+			$class .= ' container container-left';
+		}
+		if($container_type == 'fixed-right'){
+			$class .= ' container container-right';
+		}
+		if($container_type == 'none'){
+			$class .= '';
+		}
+		$class .= ' -'.$value['container_type'];
+	}
+	
+	if(!empty($value['area-name'])){
+		//$class = apply_filters('wpbc/filter/layout/main_container/area-name/'.$value['area-name'].'/class', $class);
+		$class = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/area-name/'.$value['area-name'].'/class', $class);
+	} 
+	$class = ' class="'.$structure_id.' '.$class.'" ';
+	
+	$attrs = !empty($value['attrs']) ? ' '.$value['attrs'].' ' : '';
+	
+	$type = !empty($value['type']) ? ' data-type="'.$value['type'].'" ' : '';
+
+	$container_type = !empty($value['container_type']) ? ' data-container-type="'.$value['container_type'].'" ' : '';
+	
+	$data = $id.$class.$attrs;
+	
+	$tag = !empty($value['tag']) ? $value['tag'] : 'div';
+	
+	$index = ' data-index="'.$count.'" ';
+	
+	$areaname = !empty($value['area-name']) ? ' data-area-name="'.$value['area-name'].'" ' : '';
+	
+	$layout_template = ' data-struture="'. $structure_id .'" data-layout="'.$key.'" ';
+
+	return "<$tag $layout_template $data $type $container_type $index $areaname>";
+}
+function WPBC_make_div_end($key='', $value='', $count=''){
+	$tag = !empty($value['tag']) ? $value['tag'] : 'div';
+	return "</$tag>";
+}
+
+function WPBC_make_div_inner($key='', $value='', $count='', $main_key){
+	$out = '';
+	$shortcode = '';
+	$name = '';
+	if(!empty($value['shortcode'])){
+		$shortcode = !empty($value['shortcode']) ? $value['shortcode'] : '';
+		if(!empty($value['is-main'])){
+			$shortcode = apply_filters('wpbc/filter/layout/is-main', $shortcode);
+		} 
+	} 
+	if(!empty($value['content-area'])){ 
+		$name = !empty($value['content-area']['name']) ? $value['content-area']['name'] : '';
+		$shortcode = !empty($value['content-area']['shortcode']) ? $value['content-area']['shortcode'] : '';
+		
+	}
+	$shortcode = apply_filters('wpbc/filter/layout/content-area/shortcode/'.$name, $shortcode, $key, $value);
+	$shortcode = apply_filters('wpbc/filter/layout/'.$main_key.'/content-area/shortcode/'.$name, $shortcode, $value);
+	$out .= do_shortcode($shortcode);
+	return $out;
+} 
+
+
+function WPBC_layout_struture__build($section=''){ 
+	$layout_defaults = WPBC_layout_struture__defaults();
+	$args = WPBC_filter_layout_structure_build($layout_defaults, $section);
+	$out = '';
+	$count = 0;
+	foreach ($args as $key => $value) { 
+
+		$structure_id = $key;
+
+		$out .= WPBC_make_div_start($key, $value, $count, $structure_id); 
+		$out .= WPBC_make_div_inner($key, $value, $count, $key);  
+
+		$ccount = 0;
+
+		if(!empty($value['content'])){
+			$content = $value['content'];  
+			foreach ($content as $kkey => $vvalue) {
+				$out .= WPBC_make_div_start($kkey, $vvalue, $ccount, $structure_id); 
+				$out .= WPBC_make_div_inner($kkey, $vvalue, $ccount, $key);  
+				
+				$cccount = 0;
+
+				if(!empty($vvalue['content'])){
+					$ccontent = $vvalue['content'];
+					foreach ($ccontent as $kkkey => $vvvalue) {
+						
+						$out .= WPBC_make_div_start($kkkey, $vvvalue, $cccount, $structure_id); 
+						$out .= WPBC_make_div_inner($kkkey, $vvvalue, $cccount, $key); 
+						// Posible 4 Level ?? 
+						$out .= WPBC_make_div_end($kkkey, $vvvalue, $cccount); 
+
+						$cccount++;
+					}
+				}
+
+				$out .= WPBC_make_div_end($kkey, $vvalue, $count); 
+				$ccount++;
+			} 
+		}
+
+		$out .= WPBC_make_div_end($key, $value, $count); 
+		$count++;
+	}
+	$out = apply_filters('wpbc/filter/layout/'.$section.'/html', $out); // USED ??
+
+	echo $out;
+}
+
+
+
+function WPBC_filter_layout_structure_build($args, $section=''){
+	// This one in resume will apply right before font-end output
+	// Here i will decide if use custom settings, options settings or default ones (same default option ones)
+	$sections = WPBC_layout_sections();
+	foreach ($sections as $key => $value) { 
+	 	$args[$key] = apply_filters('wpbc/filter/layout/struture/?section='.$key, $args[$key]);
+	} 
+	
+	$args = apply_filters('wpbc/filter/layout/struture', $args); 
+	if(!empty($section)){
+		return $args[$section]; 
+	} else{
+		return $args; 
+	}
+	
+} 
+
+function WPBC_layout_sections(){
+	$sections = array();  
+	return apply_filters('wpbc/filter/layout/sections', $sections);
+} 
+
+function WPBC_get_layout_locations(){
+	$location_rules = array(); 
+	return apply_filters('wpbc/filter/layout/locations', $location_rules);
+}
+
+function WPBC_layout_struture__defaults(){  
+	$defaults = WPBC_layout_sections();  
+	$args = apply_filters('wpbc/filter/layout/struture/defaults', $defaults);
+	$args = wp_parse_args( $args, $defaults ); 
+	return $args;
+}
+
+
+function WPBC_searchByKey($array, $needle, &$results) {
+	if (is_array($array)) {
+		foreach ($array as $item) {
+			if (isset($item[$needle])) {
+				$results[] = $item[$needle];
+				continue;
+			}
+			if (is_array($item)) {
+				WPBC_searchByKey($item, $needle, $results);
+			}
+		}
+	}
+	return $results;
+}
+
+
+function WPBC_get_layout_structure_path($child=false){
+	$path_base = '/template-parts/layout/structure/';
+	if(!$child){
+		$path = get_template_directory().$path_base;
+	}else{
+		$path = get_stylesheet_directory().$path_base;
+	} 
+	return $path;
+}
+
+function WPBC_get_layout_structure_build_layout(){
+
+	$template = WPBC_get_template();
+	$post_type = get_post_type();
+
+	// home, when root, page for post, front page or none
+	// home-blog when default settings and no front page or page for post selected
+	// blog when viewing the blog page if using page for post option 
+
+	$layout = 'defaults';
+	if( is_page_template('_template_builder.php') ){ 
+		$template = '_template_builder';
+	} 
+	
+	$locations = WPBC_get_layout_locations(); 
+	if( !empty($locations[$template]['id']) ){
+		$path = WPBC_get_layout_structure_path();
+		if( file_exists( $path.$locations[$template]['id'].'.php') ){
+			$layout = $locations[$template]['id'];
+		}
+	}
+
+	/* Theme Options PART */
+	$custom_layout_locations__enable = WPBC_get_option('custom_layout_locations__enable');
+	// custom_layout__custom_locations__builder
+	if(!empty($custom_layout_locations__enable)){
+		$layout = WPBC_get_option('custom_layout__custom_locations__'.$template ); // ??
+	}
+	/* ACF PART */
+	$custom_layout__enable = WPBC_get_field('custom_layout__enable');
+	$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location'); 
+	if(!empty($custom_layout__enable)){ 
+		if(!empty($custom_layout__custom_location)){ 
+			$layout = $custom_layout__custom_location; 
+		} 
+	}
+ 
+	if(''==$layout){
+		$layout = 'defaults'; // Yes again, if anything fails, use defaults.
+	}
+
+	return $layout;
+}
+
+function WPBC_get_layout_using_settings($section=''){
+	$layout = WPBC_get_layout_structure_build_layout();
+	$layout_defaults = WPBC_layout_struture__defaults();
+	$layout_args = WPBC_filter_layout_structure_build( $layout_defaults );
+	if(!empty($layout_args[$section][$layout]['using_settings'])){
+		return $layout_args[$section][$layout]['using_settings'];
+	} 
+}
+
+
+function WPBC_get_main_container_max_content_areas($return=''){ 
+	$layout_defaults = WPBC_layout_struture__defaults();
+	$temp = array();
+	foreach($layout_defaults as $k=>$v){ 
+		$main_container = $layout_defaults['main_container'];
+		foreach($main_container as $k=>$v){ 
+			$temp[$k] = $v['content_areas']; 
+		}  
+	}
+	if($return=='array'){
+		return $temp;
+	}else{
+		return max($temp);
+	}  
+}
+
+function WPBC_get_main_container_content_areas($args){ 
+	// Extreme importan function to get an array with content areas used.
+	// Here you will be able to access, shortcode, id, area-name and son one for each layout.
+	// Args can be all defaults, or just the args used on page.
+	global $WPBC_layout_content_areas;
+	$WPBC_layout_content_areas = array(); 
+	//$layout_defaults = WPBC_layout_struture__defaults(); 
+	//$layout_args = WPBC_filter_layout_structure_build( $layout_defaults ); 
+	function findKey($arr, $key, $WWW){
+	$count = 0; 
+		$temp = array(); 
+		global $WPBC_layout_content_areas; 
+	    foreach($arr as $k => $value){
+		    if( $k != 'using_settings' || $k != 'options'){
+		        if($k==$key) { 
+		        	$temp[$k] = $value;  
+		        }
+		        if(is_array($value)){
+		        	$count++;
+		        	$find = findKey($value, $key, $count);
+	         		if($find) {
+	         			$temp[$count] = $find;
+	         			if(!empty($value[$key])){
+	         				$WPBC_layout_content_areas[$k] = $value;
+	         			} 
+	         		}
+		        } 
+		        
+	        }  
+	    } 
+	    return $temp;
+	} 
+
+	$o = findKey( $args['main_container'], 'content-area', $WPBC_layout_content_areas);
+	return $WPBC_layout_content_areas;
+}

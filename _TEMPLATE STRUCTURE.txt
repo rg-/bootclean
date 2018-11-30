@@ -1,0 +1,144 @@
+################################################################################################
+
+## Actions for Layout
+
+	wpbc/layout/body/start
+
+		wpbc/layout/start
+	
+			wpbc/layout/inner
+
+				> col_content #MAIN
+					wpbc/layout/inner/content/before
+
+						if loop
+							wpbc/layout/inner/content/loop/before
+
+								while loop
+
+									wpbc/layout/inner/content/post/before
+
+										> post
+
+									wpbc/layout/inner/content/post/after
+
+							wpbc/layout/inner/content/loop/after
+
+
+					wpbc/layout/inner/content/after
+		
+				> col_sidebar
+
+		wpbc/layout/end
+	
+	wpbc/layout/body/end
+
+
+################################################################################################
+
+## Filters
+
+	Layout
+
+		wpbc/filter/layout/start/defaults
+
+			
+			> if loop > while loop > 
+			wpbc/filter/layout/inner/content/template
+
+
+	Main Navbar
+
+		wpbc/filter/layout/main-navbar/defaults
+
+	Main Footer
+
+		wpbc/filter/layout/main-footer/defaults
+
+
+
+################################################################################################
+
+
+
+body
+	
+	#########################
+	#########################
+	#########################
+	## wpbc/layout/body/start 
+
+	> loader
+
+	> main-content
+
+		> main navbar
+
+		> page header
+
+		> main-content-wrap
+
+	## wpbc/layout/body/start
+	#########################
+
+			Default Template
+
+			####################
+			####################
+			## wpbc/layout/start
+			
+			> layout__container_block_start
+
+				> layout__container_start
+
+					> layout__container_row_start
+
+			## wpbc/layout/start
+
+						####################
+						## wpbc/layout/inner (> col_content, > col_sidebar)
+						
+						> main (col_content) layout__container_content
+
+							## wpbc/layout/inner/content/before
+
+								> post
+									> ## wpbc/layout/inner/post/before
+									> ... content...
+									> ## wpbc/layout/inner/post/after
+
+								## wpbc/layout/inner/content/loop/before
+								> loop
+									> ## wpbc/layout/inner/post/before
+									> posts
+									> ## wpbc/layout/inner/post/after
+
+								## wpbc/layout/inner/content/loop/after
+
+							## wpbc/layout/inner/content/after
+
+						> sidebar (col_sidebar)
+							## wpbc/layout/inner/sidebar/before
+							> customs...
+							## wpbc/layout/inner/sidebar/after
+
+						## wpbc/layout/inner
+						####################
+
+			## wpbc/layout/end
+
+					> layout__container_block_start
+
+				> layout__container_start
+
+			> layout__container_row_start
+
+			## wpbc/layout/end
+			####################
+			####################
+ 
+
+
+			Builder 
+
+			> cutoms...

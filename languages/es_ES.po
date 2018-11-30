@@ -1,0 +1,1932 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bootclean\n"
+"POT-Creation-Date: 2018-11-26 03:14-0300\n"
+"PO-Revision-Date: 2018-11-26 03:14-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_x;esc_html__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../bc/version_compare.php:35
+#, php-format
+msgid ""
+"Bootclean requires at least ACF version 5. You are running version %s. "
+"Please upgrade and try again."
+msgstr ""
+"Bootclean requiere al menos la versión 5 de ACF. Está ejecutando la versión"
+"%s. Por favor actualice y vuelva a intentarlo."
+
+#: ../bc/version_compare.php:46
+msgid ""
+"<b>Bootclean</b> uses ACF for better customization experience, without it "
+"you will loose many extra features."
+msgstr ""
+"<b>Bootclean </b> utiliza ACF para una mejor experiencia de personalización, "
+"sin él perderá muchas características adicionales."
+
+#: ../bc/components/wp-navbar.php:65
+msgid "Toggle navigation"
+msgstr "Navegación de palanca"
+
+#: ../bc/core/admin.php:20 ../bc/core/admin.php:33
+msgid "Option updated"
+msgstr "Opción actualizada"
+
+#: ../bc/core/admin.php:23
+msgid "Options not updated, something went wrong."
+msgstr "Opciones no actualizadas, algo salió mal."
+
+#: ../bc/core/back-compat.php:41 ../bc/core/back-compat.php:53
+#: ../bc/core/back-compat.php:68
+#, php-format
+msgid ""
+"Bootclean requires at least WordPress version 4.4. You are running version "
+"%s. Please upgrade and try again."
+msgstr ""
+"Bootclean requiere al menos WordPress versión 4.4. Está ejecutando la versión"
+"%s. Por favor actualice y vuelva a intentarlo."
+
+#: ../bc/core/customize.php:49
+msgid "Theme Layout"
+msgstr "Diseño del tema"
+
+#: ../bc/core/customize.php:50
+msgid "Several settings pertaining to layout."
+msgstr "Varios ajustes relacionados con el diseño."
+
+#: ../bc/core/acf/group-fields.php:360
+#: ../bc/core/theme-options-defaults/layout/main_content.php:75
+msgid "Container class"
+msgstr "Clase de Container"
+
+#: ../bc/core/acf/group-fields.php:388
+#: ../bc/core/theme-options-defaults/layout/main_content.php:83
+msgid "Container > Row class"
+msgstr "Container > Clase de fila"
+
+#: ../bc/core/acf/group-fields.php:416
+#: ../bc/core/theme-options-defaults/layout/main_content.php:91
+msgid "Main content column class"
+msgstr "Clase de columna de contenido principal"
+
+#: ../bc/core/acf/group-fields.php:444
+#: ../bc/core/theme-options-defaults/layout/main_content.php:99
+msgid "Secondary content column class"
+msgstr "Clase de columna de contenido secundario"
+
+#: ../bc/core/acf/reusable-fields.php:615
+msgid ""
+"Insert css code only. Use XS, SM... for particular bootstrap breakpoint."
+msgstr ""
+"Insertar código css solamente. Utilice XS, SM ... para un punto de "
+"interrupción de arranque específico."
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:83
+msgid "Custom Bootclean settings"
+msgstr "Bootclean seteos customizados"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:91
+msgid "Website Visibility"
+msgstr "Visibilidad del sitio web"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:113
+msgid "Customize this feature under"
+msgstr "Personaliza esta característica bajo"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:114
+msgid "Options"
+msgstr "Opciones"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:114
+msgid "BC Mainteneance"
+msgstr "Mantenimiento BC"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:118
+msgid "Only logged users can view this site."
+msgstr "Solo usuarios logeados pueden ver este sitio."
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:138
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:139
+msgid "Category"
+msgstr "Categoría"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:139
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:157
+msgid "All"
+msgstr "Todo"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:156
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:157
+#: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:22
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:247
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:35
+#: ../bc/core/template-tags/wpbc_template_builder/shortcode.php:96
+msgid "Load more"
+msgstr "Cargar más"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:248
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:37
+msgid "No more post to load"
+msgstr "No hay más para cargar"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:249
+msgid "Not found posts"
+msgstr "No hay resultados"
+
+#: ../bc/core/addons/wpbc_get_query_posts/defaults.php:250
+#, php-format
+msgid "Showing %u of %u."
+msgstr "Mostrando %u de %u."
+
+#: ../bc/core/addons/wpbc_get_query_posts/functions.php:188
+#: ../bc/core/addons/wpbc_realstate/functions/WPBC_get_property_tax_dropdown.php:27
+msgid "Select"
+msgstr "Seleccionar"
+
+#: ../bc/core/addons/wpbc_get_query_posts/shortcodes/actions_form.php:99
+msgid "Search Ajax"
+msgstr "Buscador Ajax"
+
+#: ../bc/core/addons/wpbc_get_query_posts/shortcodes/actions_form.php:101
+#: ../bc/core/addons/wpbc_realstate/functions/WPBC_get_property_search_button.php:15
+msgid "Search"
+msgstr "Buscar"
+
+#: ../bc/core/addons/wpbc_get_query_posts/shortcodes/actions_form.php:104
+#: ../bc/core/addons/wpbc_realstate/functions/WPBC_get_property_reset_button.php:16
+#: ../bc/core/theme-options/includes/class-options-interface.php:128
+msgid "Reset"
+msgstr "Resetear"
+
+#: ../bc/core/addons/wpbc_get_query_posts/shortcodes/actions_form.php:104
+msgid "Reload"
+msgstr "Recargar"
+
+#: ../bc/core/addons/wpbc_realstate/acf.php:99
+msgid "Property Record"
+msgstr "Registro de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/acf.php:121
+msgid "Property Pricing"
+msgstr "Precios"
+
+#: ../bc/core/addons/wpbc_realstate/acf.php:141
+#: ../bc/core/addons/wpbc_realstate/functions.php:291
+msgid "Property Gallery"
+msgstr "Galería de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/acf.php:163
+msgid "Property Location Map"
+msgstr "Mapa de ubicación de la propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:126
+#: ../bc/core/addons/wpbc_realstate/functions.php:138
+#: ../bc/core/addons/wpbc_realstate/functions.php:424
+#: ../bc/core/addons/wpbc_realstate/functions.php:592
+msgid "Available"
+msgstr "Disponible"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:127
+#: ../bc/core/addons/wpbc_realstate/functions.php:139
+msgid "Not available"
+msgstr "No disponible"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:154
+msgid "Load Map"
+msgstr "Cargar Mapa"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:175
+msgid "Price min"
+msgstr "Precio mín"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:179
+msgid "Price max"
+msgstr "Precio máx"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:336
+msgid "Iframe Map"
+msgstr "Mapa Iframe"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:339
+msgid "Paste iframe URL code ONLY."
+msgstr "Pegar URL del iframe SOLAMENTE."
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:358
+msgid "Google Map"
+msgstr "Mapa de Google"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:384
+#: ../bc/core/addons/wpbc_realstate/functions.php:530
+msgid "Label"
+msgstr "Etiqueta"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:396
+#: ../bc/core/addons/wpbc_realstate/functions.php:542
+msgid "Ej: First half of January"
+msgstr "Ej: Primer semana de Enero"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:404
+#: ../bc/core/addons/wpbc_realstate/functions.php:572
+msgid "Description"
+msgstr "Descripción"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:475
+msgid "Single Price Details"
+msgstr "Detalle de precios simple"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:510
+msgid "Period prices list"
+msgstr "Lista de precios por periodo"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:513
+msgid "Add, move, order list."
+msgstr "Añadir, mover, ordenar lista."
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:550
+msgid "Amount"
+msgstr "Cantidad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:646
+msgid "Property Temporary Prices"
+msgstr "Precios Temporales de Propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:681
+msgid "Property Search Price"
+msgstr "Precio de búsqueda de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:706
+msgid "Use temporary prices?"
+msgstr "¿Usar Precios Temporales?"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:760
+msgid "Property Type"
+msgstr "Tipo de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:783
+msgid "Property Operation"
+msgstr "Operaciones"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:806
+msgid "Main Details"
+msgstr "Detalles Principales"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:844
+#: ../bc/core/addons/wpbc_realstate/settings.php:73
+msgid "Property Services"
+msgstr "Servicios de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/functions.php:867
+#: ../bc/core/addons/wpbc_realstate/settings.php:86
+msgid "Property Aditionals"
+msgstr "Adicionales de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/posts_columns.php:7
+#: ../template-parts/wpbc_realstate/post_property_single.php:60
+msgid "Price"
+msgstr "Precio"
+
+#: ../bc/core/addons/wpbc_realstate/posts_columns.php:8
+#: ../bc/core/post_types/manage_columns.php:90
+#: ../bc/core/post_types/manage_columns.php:134
+msgid "Featured Image"
+msgstr "Imagen destacada"
+
+#: ../bc/core/addons/wpbc_realstate/posts_columns.php:9
+msgid "Actions"
+msgstr "Acciones"
+
+#: ../bc/core/addons/wpbc_realstate/posts_columns.php:21
+msgid "NO PRICE"
+msgstr "SIN PRECIO"
+
+#: ../bc/core/addons/wpbc_realstate/posts_columns.php:61
+#: ../template-parts/header-post_title.php:14
+#: ../template-parts/wpbc_realstate/post_property.php:18
+msgid "Featured"
+msgstr "Destacada"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:31
+msgid "Property Locations"
+msgstr "Ubicaciones de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:33
+msgid "Add New Property Location"
+msgstr "Agregar Ubicación"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:46
+msgid "Property Operations"
+msgstr "Operaciones de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:48
+msgid "Add New Property Operation"
+msgstr "Agregar Operación"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:60
+msgid "Property Types"
+msgstr "Tipos de propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:62
+msgid "Add New Property Type"
+msgstr "Agregar Tipo"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:75
+msgid "Add New Property Service"
+msgstr "Agregar Servicio"
+
+#: ../bc/core/addons/wpbc_realstate/settings.php:88
+msgid "Add New Property Aditional"
+msgstr "Agregar Adicional"
+
+#: ../bc/core/addons/wpbc_realstate/init/post_type.php:7
+msgid "Properties"
+msgstr "Propiedades"
+
+#: ../bc/core/addons/wpbc_realstate/init/post_type.php:8
+msgid "Property"
+msgstr "Property"
+
+#: ../bc/core/addons/wpbc_realstate/init/post_type.php:9
+msgid "Edit property"
+msgstr "Editar Propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/init/post_type.php:10
+msgid "New property"
+msgstr "Nueva Propiedad"
+
+#: ../bc/core/addons/wpbc_realstate/init/post_type.php:11
+msgid "View property"
+msgstr "Ver Propiedad"
+
+#: ../bc/core/bootstrap/class-wp-bootstrap-navwalker.php:383
+msgid "Add a menu"
+msgstr "Agregar menú"
+
+#: ../bc/core/cleaner/comments.php:260
+msgid "Comments are disabled on this site."
+msgstr "Los comentarios están deshabilitados en este sitio."
+
+#: ../bc/core/cleaner/comments.php:403 ../bc/core/cleaner/comments.php:436
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: ../bc/core/cleaner/comments.php:408
+#, php-format
+msgid "%1$s %2$s Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/comments.php:438
+#, php-format
+msgid "%1$s %2$s %3$s Category Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/comments.php:440
+#, php-format
+msgid "%1$s %2$s %3$s Tag Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/comments.php:442
+#, php-format
+msgid "%1$s %2$s Posts by %3$s Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/comments.php:444
+#, php-format
+msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/comments.php:446
+#, php-format
+msgid "%1$s %2$s %3$s Feed"
+msgstr ""
+
+#: ../bc/core/cleaner/dashboard.php:59
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: ../bc/core/cleaner/dashboard.php:86
+#, php-format
+msgid "Hi, site is using <b>%1$s</b> theme."
+msgstr "Hola, estás usando el theme <b>%1$s</b>."
+
+#: ../bc/core/cleaner/dashboard.php:120
+msgid "cURL is installed."
+msgstr "cURL instalado"
+
+#: ../bc/core/cleaner/dashboard.php:122
+msgid "cURL is not installed."
+msgstr "cURL no instalado"
+
+#: ../bc/core/cleaner/dashboard.php:130
+msgid "allow_url_fopen is installed."
+msgstr "allow_url_fopen instalado"
+
+#: ../bc/core/cleaner/dashboard.php:132
+msgid "allow_url_fopen is not installed."
+msgstr "allow_url_fopen no instalado"
+
+#: ../bc/core/cleaner/login.php:195
+msgid "Back to"
+msgstr "Volver a"
+
+#: ../bc/core/gutenberg/edit-block/index.php:41
+msgid "Edit Content Block"
+msgstr "Editar bloque de contenido"
+
+#: ../bc/core/gutenberg/simple-block/index.php:41
+msgid "Fixed Content Block"
+msgstr "Bloque de contenido fijo"
+
+#: ../bc/core/post_types/manage_columns.php:88
+msgid "Template used"
+msgstr "Plantilla usada"
+
+#: ../bc/core/post_types/manage_columns.php:89
+msgid "Layout"
+msgstr "Diseño"
+
+#: ../bc/core/setup/register_nav_menus.php:10
+msgid "Primary Menu"
+msgstr "Menú Primario"
+
+#: ../bc/core/setup/widgets_init.php:333
+#, php-format
+msgid ""
+"%s: Widget class not found. Make sure this widget exists and the class name "
+"is correct"
+msgstr ""
+"%s: Widget class no encontrada. Asegúrate este widget existe y el nombre de "
+"class es correcto."
+
+#: ../bc/core/template-tags/WPBC_template_builder.php:203
+#: ../template-parts/wpbc_realstate/post_property.php:46
+msgid "Edit"
+msgstr "Editar"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:28
+msgid "First"
+msgstr "Primera"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:29
+msgid "Last"
+msgstr "Última"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:30
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:17
+msgid "Page"
+msgstr "Página"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:31
+msgid "of"
+msgstr "de"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:32
+msgid "posts under this term."
+msgstr "publicaciones bajo este término."
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:33
+#: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:9
+msgid "Previous"
+msgstr "Anterior"
+
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:34
+#: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:10
+msgid "Next"
+msgstr "Siguiente"
+
+#: ../bc/core/template-tags/parts/WPBC_excerpt.php:54
+msgid "Read more"
+msgstr "Leer más"
+
+#: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:11
+msgid "Posts navigation"
+msgstr "Navegación de publicaciones"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:11
+msgid "Home"
+msgstr "Inicio"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:12
+msgid "Archive"
+msgstr "Archivo"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:13
+msgid "Search Results"
+msgstr "Resultados de Búsqueda"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:14
+msgid "Tagged as"
+msgstr "Etiquetado como"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:15
+msgid "Article"
+msgstr "Artículo"
+
+#: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:16
+msgid "Error 404"
+msgstr "Error 404"
+
+#: ../bc/core/template-tags/parts/WPBC_post_date.php:28
+msgid "Posted on"
+msgstr "Publicado en"
+
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:5
+msgid "Share this publication"
+msgstr "Compartir publicación"
+
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:90
+msgid "Share this on"
+msgstr "Compartir en"
+
+#: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:19
+msgid ", "
+msgstr ""
+
+#: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:108
+msgid "Categories"
+msgstr "Categorias"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:78
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:80
+msgid "Templates"
+msgstr "Plantillas"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:79
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:81
+msgid "Template"
+msgstr "Template"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:82
+msgid "Add New"
+msgstr "Agregar Nuevo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:83
+msgid "Add New Template"
+msgstr "Agregar nueva Plantilla"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:84
+msgid "New Template"
+msgstr "Nueva Plantilla"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:85
+msgid "Edit Template"
+msgstr "Editar Plantilla"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:86
+msgid "View Template"
+msgstr "Ver Plantilla"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:87
+msgid "All Templates"
+msgstr "Todas las Plantillas"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:88
+msgid "Search Templates"
+msgstr "Buscar Plantillas"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:89
+msgid "Parent Template:"
+msgstr "Plantilla padre"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:90
+msgid "No Template found."
+msgstr "Plantilla"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:91
+msgid "No Template found in Trash."
+msgstr "No hay Plantillas en la Papelera"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:98
+msgid "Bootclean Template Builder, or BTB!!."
+msgstr "Bootclean Template Builder, o BTB!!."
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:123
+msgid "Template Types"
+msgstr "Typo de Plantillas"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:124
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:133
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:285
+#: ../template-parts/wpbc_realstate/post_property_single.php:41
+msgid "Type"
+msgstr "Tipo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:125
+msgid "Search Types"
+msgstr "Buscar Typos"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:126
+msgid "All Types"
+msgstr "Todos los Typos"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:127
+msgid "Parent Type"
+msgstr "Typo ancestro"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:128
+msgid "Parent Type:"
+msgstr "Typo ancestro:"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:129
+msgid "Edit Type"
+msgstr "Editar Typo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:130
+msgid "Update Type"
+msgstr "Actualizar Typo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:131
+msgid "Add New Type"
+msgstr "Agregar Tipo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:132
+msgid "New Type"
+msgstr "Agregar Tipo"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:284
+msgid "Template ID / Shortcode"
+msgstr "Template ID / Shortcode"
+
+#: ../bc/core/theme-options/_test_default-options.php:6
+msgid "One"
+msgstr "Uno"
+
+#: ../bc/core/theme-options/_test_default-options.php:7
+msgid "Two"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:8
+msgid "Three"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:9
+msgid "Four"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:10
+msgid "Five"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:15
+msgid "French Toast"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:16
+msgid "Pancake"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:17
+msgid "Omelette"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:18
+msgid "Crepe"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:19
+msgid "Waffle"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:95
+msgid "Basic Settings"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:100
+msgid "Repeater field"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:101
+msgid "A repeater field."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:108
+msgid "Input Text Mini"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:109
+msgid "A mini text input field."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:117
+msgid "Input Text"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:118
+msgid "A text input field."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:125
+msgid "Input with Placeholder"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:126
+msgid "A text input field with an HTML5 placeholder."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:133
+msgid "Textarea"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:134
+msgid "Textarea description."
+msgstr "Descripción Textarea."
+
+#: ../bc/core/theme-options/_test_default-options.php:141
+msgid "Input Select Small"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:142
+msgid "Small Select Box."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:151
+msgid "Input Select Wide"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:152
+msgid "A wider select box."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:161
+msgid "Select a Category"
+msgstr "Seleccione una Categoría"
+
+#: ../bc/core/theme-options/_test_default-options.php:162
+msgid "Passed an array of categories with cat_ID and cat_name"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:171
+msgid "Select a Tag"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:172
+msgid "Passed an array of tags with term_id and term_name"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:180
+msgid "Select a Page"
+msgstr "Seleccione una página"
+
+#: ../bc/core/theme-options/_test_default-options.php:181
+msgid "Passed an pages with ID and post_title"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:188
+msgid "Input Radio (one)"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:189
+msgid "Radio select with default options \"one\"."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:197
+msgid "Example Info"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:198
+msgid "This is just some example information you can put in the panel."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:203
+msgid "Input Checkbox"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:204
+msgid "Example checkbox, defaults to true."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:211
+msgid "Advanced Settings"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:216
+msgid "Check to Show a Hidden Text Input"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:217
+msgid "Click here and see what happens."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:223
+msgid "Hidden Text Input"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:224
+msgid "This option is hidden unless activated by a checkbox click."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:232
+msgid "Uploader Test"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:233
+msgid "This creates a full size uploader that previews the image."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:252
+msgid "Example Background"
+msgstr "Fondo ejemplo"
+
+#: ../bc/core/theme-options/_test_default-options.php:253
+msgid "Change the background CSS."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:260
+msgid "Multicheck"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:261
+msgid "Multicheck description."
+msgstr "Descripción multicheck."
+
+#: ../bc/core/theme-options/_test_default-options.php:269
+msgid "Colorpicker"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:270
+msgid "No color selected by default."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:276
+msgid "Typography"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:277
+msgid "Example typography."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:284
+msgid "Custom Typography"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:285
+msgid "Custom typography options."
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:293
+msgid "Text Editor"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:312
+msgid "Default Text Editor"
+msgstr ""
+
+#: ../bc/core/theme-options/_test_default-options.php:313
+#, php-format
+msgid ""
+"You can also pass settings to the editor.  Read more about wp_editor in <a "
+"href=\"%1$s\" target=\"_blank\">the WordPress codex</a>"
+msgstr ""
+
+#: ../bc/core/theme-options/fields/repeater.php:32
+#: ../bc/core/theme-options/fields/repeater.php:47
+#: ../bc/core/theme-options/fields/repeater.php:66
+msgid "&times;"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:84
+msgid "Options updated falied."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:86
+msgid "Options updated."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:119
+msgid "Options saved for first time! Enjoy it."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:149
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:150
+msgid "Theme Options"
+msgstr "Opciones de tema"
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:320
+msgid "Click OK to reset. Any theme settings will be lost!"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:378
+msgid "Default options restored."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-framework-admin.php:432
+msgid "Options saved."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:81
+msgid "View File"
+msgstr "Ver Archivo"
+
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:89
+msgid "No file chosen"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:93
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:128
+msgid "Upload"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:95
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:129
+msgid "Remove"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-media-uploader.php:98
+msgid "Upgrade your version of WordPress for full media support."
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:324
+msgid "No Repeat"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:325
+msgid "Repeat Horizontally"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:326
+msgid "Repeat Vertically"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:327
+msgid "Repeat All"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:339
+msgid "Top Left"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:340
+msgid "Top Center"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:341
+msgid "Top Right"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:342
+msgid "Middle Left"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:343
+msgid "Middle Center"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:344
+msgid "Middle Right"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:345
+msgid "Bottom Left"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:346
+msgid "Bottom Center"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:347
+msgid "Bottom Right"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:359
+msgid "Scroll Normally"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:360
+msgid "Fixed in Place"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:443
+msgid "Normal"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:444
+msgid "Italic"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:445
+msgid "Bold"
+msgstr ""
+
+#: ../bc/core/theme-options/includes/class-options-sanitization.php:446
+msgid "Bold Italic"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:18
+msgid "Admin Settings"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:28
+msgid "Login screen"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:33
+msgid "Enable custom Login screen"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:34
+msgid "Data will not be removed."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:55
+msgid "Body styles"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:62
+msgid "Background"
+msgstr "Fondo"
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:82
+msgid "Text color"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:92
+msgid "Text color hover"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:108
+msgid "Brand"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:114
+msgid "Brand logo"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:115
+msgid "Change default WP logo here."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:121
+msgid "Logo width (px)"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/admin-settings.php:129
+msgid "Logo height (px)"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/color-scheme.php:18
+msgid "Color Scheme"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/color-scheme.php:24
+msgid "Customize colors"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/color-scheme.php:44
+msgid ""
+"This color variations are the ones in the front-end styles used by theme, "
+"and also are applied to UI elements accross back-end side."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/develope.php:28
+msgid "Show Options Names in panels."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/develope.php:43
+msgid "Template helpers."
+msgstr "Ayudantes de plantilla."
+
+#: ../bc/core/theme-options-defaults/post_types.php:10
+msgid "Enable Realstate post types."
+msgstr "Habilitar Propiedades"
+
+#: ../bc/core/theme-options-defaults/widgets.php:35
+msgid "Widget Areas"
+msgstr "Áreas de Widgets"
+
+#: ../bc/core/theme-options-defaults/widgets.php:40
+msgid "Manage widget areas"
+msgstr "Administrar áreas de widgets"
+
+#: ../bc/core/theme-options-defaults/widgets.php:50
+msgid "How to"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/widgets.php:51
+msgid ""
+"Add as many widgets areas needed, they will appear under Appeareance -> "
+"Widgets for you to use."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/widgets.php:58
+msgid ""
+"<b>Take care</b> when removing/renaming, idealy don´t do it unless you re-"
+"edit the windgets areas and it´s contents too. If you accidentaly delete a "
+"widget area, you can create it again with the same name, that way you wiget "
+"area will appear again with all the widgets inside."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/widgets.php:65
+msgid ""
+"Once you have widgets areas created, you can use them over pages almost "
+"anywhere and also here on Layout settings for a default use over the site. "
+"Ex, you can create a Template that will hold a widget area and then use that "
+"template as a Footer on some pages but not on all of them. Same applys for "
+"Sidebars or whatever you need that can be done using widgets."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content.php:6
+msgid "Main Content"
+msgstr "Contenido Principal"
+
+#: ../bc/core/theme-options-defaults/layout/main_content.php:21
+msgid "Enable for custom settinngs."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:15
+msgid "Secondary Content Areas"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:21
+msgid "Theme has "
+msgstr "El Tema tiene"
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:21
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:198
+msgid "Secondary Content Area"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:21
+msgid "over all layouts"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:22
+msgid ""
+"TODO: See how to mix/deal this with layout for each template, home, page, "
+"post, etc.... Content for this areas can be changed over pages/posts/"
+"categories and every template too."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:27
+msgid "Secondary Areas Default content"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:28
+msgid "Enable for custom settings or use defaults."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:62
+#: ../bc/core/theme-options-defaults/layout/main_footer.php:30
+#: ../bc/core/theme-options-defaults/layout/main_navbar.php:28
+#: ../bc/core/theme-options-defaults/layout/main_page_header.php:27
+msgid "Select a Template"
+msgstr "Seleccionar una Plantilla"
+
+#: ../bc/core/theme-options-defaults/layout/main_content_areas.php:72
+msgid "Select a Widget Area"
+msgstr "Seleccione un área de widgets"
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:7
+msgid "Main Content Builder"
+msgstr "Main Content Builder"
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:72
+msgid "Custom Template Layout Locations"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:73
+msgid ""
+"Here you can change the layout used for each template, that is posts, pages, "
+"archives, when home, when blog, and so on. Also child themes can add more "
+"locations and more layout templates using filters."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:87
+msgid "Enable for custom location settings."
+msgstr "Habilitar para la configuración de ubicación personalizada."
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:100
+msgid "Layout Locations"
+msgstr "Ubicaciones de diseño"
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:137
+msgid "Container Type"
+msgstr "Tipo de Propiedad "
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:180
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:229
+msgid "Row"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:181
+msgid "Row class"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:186
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:233
+msgid "Column"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:187
+msgid "Column class"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:194
+msgid "Main Content Area"
+msgstr "Contenido Principal "
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:225
+msgid "Container"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:298
+msgid ""
+"Here you can change settings for each layout, that is id, class, custom "
+"attributes, so on. Child themes can filter anything too from functions. "
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:300
+msgid "Custom Layout Settings"
+msgstr "Bootclean seteos customizados "
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:313
+msgid "Enable for custom settings."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_content_builder.php:326
+msgid "Layout Settings"
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_footer.php:5
+msgid "Main Footer"
+msgstr "Pie de página Principal"
+
+#: ../bc/core/theme-options-defaults/layout/main_footer.php:11
+#: ../bc/core/theme-options-defaults/layout/main_navbar.php:13
+#: ../bc/core/theme-options-defaults/layout/main_page_header.php:12
+msgid "Enable for custom or none."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_footer.php:31
+msgid "Needs some Template type \"footer\" created."
+msgstr ""
+
+#: ../bc/core/theme-options-defaults/layout/main_navbar.php:8
+msgid "Main Navbar"
+msgstr "Barra de navegación principal"
+
+#: ../bc/core/theme-options-defaults/layout/main_page_header.php:8
+msgid "Main Page Header"
+msgstr "Encabezado de la página principal"
+
+#: ../template-parts/content-404.php:7
+msgid ""
+"Sorry the page you are looking at does not exist or an error occurred. Try "
+"again later or contact us if the problem persists."
+msgstr ""
+"Lamentamos que la página que estás viendo no exista o haya ocurrido un "
+"error. Inténtalo de nuevo más tarde o contáctanos si el problema persiste."
+
+#: ../template-parts/content-search-404.php:9
+msgid "Sorry what you are looking at does not exist or an error occurred."
+msgstr ""
+"Lamentamos que la página que estás viendo no exista o haya ocurrido un "
+"error. Inténtalo de nuevo más tarde o contáctanos si el problema persiste. "
+
+#: ../template-parts/content-search-404.php:10
+msgid "Try again later or use a diferent search combination."
+msgstr ""
+"Inténtalo de nuevo más tarde o usa una combinación de búsqueda diferente."
+
+#: ../template-parts/edit_post_link.php:5
+#, php-format
+msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Editar<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#: ../template-parts/entry_meta.php:5
+msgid "Category: "
+msgstr "Categoría:"
+
+#: ../template-parts/entry_meta.php:12
+msgid "Tag: "
+msgstr "Etiquetaa:"
+
+#: ../template-parts/post_advanced_pagination.php:6
+msgid "Load more posts"
+msgstr "Cargar más"
+
+#: ../template-parts/post_advanced_pagination.php:7
+msgid "No more posts to load"
+msgstr "No hay más para cargar"
+
+#: ../template-parts/post_content.php:9
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Leer más<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#: ../template-parts/post_header-search.php:2
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Resutados de Búsqueda para: %s"
+
+#: ../template-parts/layout/structure/a1.php:17
+msgid "One Content Area"
+msgstr "Contenido Principal"
+
+#: ../template-parts/layout/structure/a1.php:18
+msgid "Just One content area, free form."
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mb.php:14
+msgid "2 Content Areas - Main Bottom"
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mb.php:15
+msgid ""
+"Container with 2 content areas, main on the bottom, secondary on the top."
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-ml.php:14
+msgid "2 Content Areas - Main Left"
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-ml.php:15
+msgid ""
+"Container with 2 content areas, main on the left, secondary on the right."
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mr.php:14
+msgid "2 Content Areas - Main Right"
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mr.php:15
+msgid ""
+"Fixed Container with 2 content areas, main on the right, secondary on the "
+"left."
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mt.php:14
+msgid "2 Content Areas - Main Top"
+msgstr ""
+
+#: ../template-parts/layout/structure/a2-mt.php:15
+msgid ""
+"Container with 2 content areas, main on the top, secondary on the bottom."
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-mc.php:14
+msgid "3 Content Areas - Main Center"
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-mc.php:15
+msgid ""
+"Container with 3 content areas, main on the center, secondary areas on the "
+"left and right."
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-ml.php:14
+msgid "3 Content Areas - Main Right"
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-ml.php:15
+msgid ""
+"Container with 3 content areas, main on the right, 2 secondary areas on the "
+"left."
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-mm.php:14
+msgid "3 Content Areas - Main Middle"
+msgstr ""
+
+#: ../template-parts/layout/structure/a3-mm.php:15
+msgid ""
+"Container with 3 content areas, main on the middle, 2 secondary areas on the "
+"top and bottom."
+msgstr ""
+"Contenedor con 3 áreas de contenido, principal en el medio, 2 áreas "
+"secundarias en la parte superior e inferior."
+
+#: ../template-parts/layout/structure/a3-mr.php:14
+msgid "3 Content Areas - Main Left"
+msgstr "3 áreas de contenido - Principal izquierda"
+
+#: ../template-parts/layout/structure/a3-mr.php:15
+msgid ""
+"Container with 3 content areas, main on the left, 2 secondary areas on the "
+"right."
+msgstr ""
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:20
+msgid "Location Map"
+msgstr "Mapa de localización"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:36
+msgid "Operation"
+msgstr "Operación"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:65
+msgid "Temporary Prices"
+msgstr "Precios Temporales"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:80
+msgid "Features"
+msgstr "Caracteristicas"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:85
+msgid "Services"
+msgstr "Servicios"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:90
+msgid "Aditionals"
+msgstr "Adicionales"
+
+#: ../template-parts/wpbc_realstate/post_property_single.php:97
+msgid "Details"
+msgstr "Detalles"
+
+#~ msgid "Uruguay"
+#~ msgstr "Uruguay"
+
+#~ msgid "Argentina"
+#~ msgstr "Argentina"
+
+#~ msgid "Brasil"
+#~ msgstr "Brasil"
+
+#~ msgid "Sale"
+#~ msgstr "Venta"
+
+#~ msgid "Rental"
+#~ msgstr "Alquiler"
+
+#~ msgid "Temporary rent"
+#~ msgstr "Alquiler Temporario"
+
+#~ msgid "House"
+#~ msgstr "Casa"
+
+#~ msgid "Apartment"
+#~ msgstr "Apartamento"
+
+#~ msgid "Land"
+#~ msgstr "Terreno"
+
+#~ msgid "Office"
+#~ msgstr "Officina"
+
+#~ msgid "Running water"
+#~ msgstr "Agua corriente"
+
+#~ msgid "Cable"
+#~ msgstr "Cable"
+
+#~ msgid "Sewer"
+#~ msgstr "Alcantarilla"
+
+#~ msgid "Electricity"
+#~ msgstr "Electricidad"
+
+#~ msgid "Natural gas"
+#~ msgstr "Gas Natural"
+
+#~ msgid "Internet"
+#~ msgstr "Internet"
+
+#~ msgid "Telephone"
+#~ msgstr "Teléfono"
+
+#~ msgid "Built Area"
+#~ msgstr "Área construida"
+
+#~ msgid "Total Area"
+#~ msgstr "Área total"
+
+#~ msgid "Rooms"
+#~ msgstr "Habitaciones"
+
+#~ msgid "Toilets"
+#~ msgstr "Baños"
+
+#~ msgid "Bedrooms"
+#~ msgstr "Habitaciones"
+
+#~ msgid "Garage"
+#~ msgstr "Garage"
+
+#~ msgid "Loft"
+#~ msgstr "Loft"
+
+#~ msgid "Balcony"
+#~ msgstr "Balcón"
+
+#~ msgid "Laundry"
+#~ msgstr "Lavandería"
+
+#~ msgid "Show All"
+#~ msgstr "Ver todo"
+
+#~ msgid "Property Features"
+#~ msgstr "Caracteristicas de Propiedades"
+
+#~ msgid "New Type Name"
+#~ msgstr "Nuevo Typo"
+
+#~ msgid "Permanent link to "
+#~ msgstr "Enlace permanente a "
+
+#~ msgid "< Left aside"
+#~ msgstr "< Lateral Izquierda"
+
+#~ msgid "Right aside >"
+#~ msgstr "Lateral Derecha >"
+
+#~ msgid "Full width"
+#~ msgstr "Ancho total"
+
+#~ msgid "News"
+#~ msgstr "Novedades"
+
+#~ msgid "Add News"
+#~ msgstr "Agregar Novedad"
+
+#~ msgid "News Tags"
+#~ msgstr "Etiquetas"
+
+#~ msgid "New"
+#~ msgstr "Novedad"
+
+#, fuzzy
+#~ msgid "Edit This New"
+#~ msgstr "Editar Novedades"
+
+#~ msgid "View News"
+#~ msgstr "Ver Novedades"
+
+#~ msgid "No News found"
+#~ msgstr "No hay Novedades"
+
+#~ msgid "No News found in Trash"
+#~ msgstr "No hay Novedades en la Papelera"
+
+#~ msgid "All News"
+#~ msgstr "Todas las Novedades"
+
+#~ msgid "Design"
+#~ msgstr "Diseño"
+
+#~ msgid "Show Background Color?"
+#~ msgstr "¿Mostrar color de fondo?"
+
+#~ msgid "Yes"
+#~ msgstr "Si"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#, fuzzy
+#~ msgid "Architecture"
+#~ msgstr "Archivo"
+
+#, fuzzy
+#~ msgid "Construction"
+#~ msgstr "Locación"
+
+#~ msgid "Slider Items"
+#~ msgstr "Elementos del Slider"
+
+#~ msgid "Slider Config"
+#~ msgstr "Configuración del Slider"
+
+#~ msgid "Size"
+#~ msgstr "Tamaño"
+
+#~ msgid "Overlay background?"
+#~ msgstr "¿Fondo de superposición?"
+
+#~ msgid "Force Transparent Header?"
+#~ msgstr "¿Forzar Header transparente?"
+
+#~ msgid "Force Full Height"
+#~ msgstr "Forzar Alto 100%"
+
+#~ msgid "Fade In/Out?"
+#~ msgstr "Efecto opacidad?"
+
+#~ msgid "<i class=\"fa fa-thumb-tack\"></i> Bootclean Quicklinks"
+#~ msgstr "<i class=\"fa fa-thumb-tack\"></i> Bootclean Atajos."
+
+#~ msgid "Menus"
+#~ msgstr "Menues"
+
+#~ msgid "Contact Forms"
+#~ msgstr "Formularios de Contacto"
+
+#~ msgid "Sliders"
+#~ msgstr "Sliders"
+
+#~ msgid "Banners"
+#~ msgstr "Banners"
+
+#~ msgid "Banner"
+#~ msgstr "Banner"
+
+#~ msgid "Comboboxes"
+#~ msgstr "Comboboxes"
+
+#~ msgid "Combobox"
+#~ msgstr "Combobox"
+
+#~ msgid "Megamenu"
+#~ msgstr "Megamenu"
+
+#~ msgid "Modals"
+#~ msgstr "Modals"
+
+#~ msgid "Modal"
+#~ msgstr "Modal"
+
+#~ msgid "Slider"
+#~ msgstr "Slider"
+
+#~ msgid "Edit '%s' %s."
+#~ msgstr "Editar '%s' %s."
+
+#~ msgid "Search for:"
+#~ msgstr "Resutados de Búsqueda para: "
+
+#~ msgid "Page %s"
+#~ msgstr "Página %s"
+
+#~ msgid "&#8250;"
+#~ msgstr "&#8250;"
+
+#~ msgid "&#39;"
+#~ msgstr "&#39;"
+
+#~ msgid "Item has not direct link from admin: "
+#~ msgstr "El item no tiene link directo desde el admin."
+
+#, fuzzy
+#~ msgid "Edit this Modal."
+#~ msgstr "Editar Novedades"
+
+#, fuzzy
+#~ msgid "Edit this Megamenu."
+#~ msgstr "Editar Novedades"
+
+#~ msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+#~ msgstr "Siguiente <span class=\"meta-nav\">&rarr;</span>"
+
+#~ msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+#~ msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
+
+#~ msgid "<i class=\"fa fa-angle-left\"></i>"
+#~ msgstr "<i class=\"fa fa-angle-left\"></i>"
+
+#~ msgid "<i class=\"fa fa-angle-right\"></i>"
+#~ msgstr "<i class=\"fa fa-angle-right\"></i>"
+
+#~ msgid "Show More"
+#~ msgstr "Mostrar más"
+
+#~ msgid "Show Less"
+#~ msgstr "Mostrar menos"
+
+#~ msgid "Back to Website"
+#~ msgstr "Volver al sitio web"
+
+#~ msgid "BC Widget"
+#~ msgstr "BC Widget"
+
+#~ msgid "Bootclean Widget"
+#~ msgstr "Bootclean Widget"
+
+#, fuzzy
+#~ msgid "Add New Offer Feature"
+#~ msgstr "Agregar Operación"
+
+#~ msgid "Footer"
+#~ msgstr "Footer"
+
+#, fuzzy
+#~ msgid "New Footer"
+#~ msgstr "Nuevo Miembro"
+
+#, fuzzy
+#~ msgid "Search Footer"
+#~ msgstr "Resutados de Búsqueda para: "
+
+#, fuzzy
+#~ msgid "Parent Footer:"
+#~ msgstr "Página padre:"
+
+#, fuzzy
+#~ msgid "No Footer found."
+#~ msgstr "No hay Miembros"
+
+#, fuzzy
+#~ msgid "No Footer found in Trash."
+#~ msgstr "No hay Miembros en la Papelera"
+
+#, fuzzy
+#~ msgid "Footer Content."
+#~ msgstr "Menú Pié"
+
+#~ msgid "Listing Operations"
+#~ msgstr "Operaciones"
+
+#, fuzzy
+#~ msgid "Add New Listing Operation"
+#~ msgstr "Agregar Operación"
+
+#~ msgid "Listing Types"
+#~ msgstr "Tipo de Propiedad"
+
+#, fuzzy
+#~ msgid "Add New Listing Type"
+#~ msgstr "Tipo de Propiedad"
+
+#, fuzzy
+#~ msgid "Listing Fields Types"
+#~ msgstr "Tipo de Propiedad"
+
+#, fuzzy
+#~ msgid "Listing Field Type"
+#~ msgstr "Tipo de Propiedad"
+
+#, fuzzy
+#~ msgid "Add New Listing Field Type"
+#~ msgstr "Tipo de Propiedad"
+
+#, fuzzy
+#~ msgid "Listing Location"
+#~ msgstr "Locación"
+
+#, fuzzy
+#~ msgid "Add New Listing Location"
+#~ msgstr "Agregar Operación"
+
+#~ msgid "Listings"
+#~ msgstr "Propiedades"
+
+#~ msgid "Listing"
+#~ msgstr "Propiedad"
+
+#, fuzzy
+#~ msgid "Edit Listing"
+#~ msgstr "Propiedad"
+
+#, fuzzy
+#~ msgid "New Listing"
+#~ msgstr "Propiedad"
+
+#~ msgid "View Listing"
+#~ msgstr "Propiedad"
+
+#~ msgid "Projects"
+#~ msgstr "Proyectos"
+
+#~ msgid "Project"
+#~ msgstr "Proyecto"
+
+#, fuzzy
+#~ msgid "Add New Projects"
+#~ msgstr "Agregar Zona"
+
+#, fuzzy
+#~ msgid "View Projects"
+#~ msgstr "Ver Novedades"
+
+#, fuzzy
+#~ msgid "All Projects"
+#~ msgstr "Todas las Novedades"
+
+#~ msgid "Parent Project:"
+#~ msgstr "Proyecto Padre"
+
+#, fuzzy
+#~ msgid "No Projects found."
+#~ msgstr "No hay Novedades"
+
+#, fuzzy
+#~ msgid "No Projects found in Trash."
+#~ msgstr "No hay Novedades en la Papelera"
+
+#~ msgid "Team members"
+#~ msgstr "Equipo"
+
+#~ msgid "Team member"
+#~ msgstr "Miembro"
+
+#~ msgid "Add New Member"
+#~ msgstr "Agregar Miembro"
+
+#~ msgid "New Member"
+#~ msgstr "Nuevo Miembro"
+
+#~ msgid "Edit Member"
+#~ msgstr "Editar Miembro"
+
+#~ msgid "View Member"
+#~ msgstr "Ver Miembro"
+
+#~ msgid "All Members"
+#~ msgstr "Todos los Miembros"
+
+#~ msgid "Search Members"
+#~ msgstr "Buscar Miembros"
+
+#~ msgid "Parent Member:"
+#~ msgstr "Página padre:"
+
+#~ msgid "No Member found."
+#~ msgstr "No hay Miembros"
+
+#~ msgid "No Member found in Trash."
+#~ msgstr "No hay Miembros en la Papelera"
+
+#~ msgid "Member Position"
+#~ msgstr "Posición/Descripción"
+
+#~ msgid "Member Thumbnail"
+#~ msgstr "Imagen"
+
+#~ msgid "Page not found"
+#~ msgstr "Página no encontrada"
+
+#~ msgid "Sorry, nothing here."
+#~ msgstr "Lo siento, nada por aquí."
+
+#~ msgid "NEWS"
+#~ msgstr "NOTICIAS"
+
+#~ msgid "PROPERTIES"
+#~ msgstr "PROPIEDADES"
+
+#~ msgid "404 error"
+#~ msgstr "404 error"
+
+#~ msgid "ARTICLES"
+#~ msgstr "ARTÍCULOS"
+
+#~ msgid "ESTATE"
+#~ msgstr "INMUEBLES"
+
+#~ msgid "Read More"
+#~ msgstr "Leer más"
+
+#~ msgid "Download Options"
+#~ msgstr "Opciones de descarga"
+
+#~ msgid "Contact us"
+#~ msgstr "Contacto"
+
+#~ msgid "Contact for more information"
+#~ msgstr "Contactános por más informaión"
+
+#~ msgid "Back / See more listings"
+#~ msgstr "Volver / Ver más propiedades"
+
+#~ msgid "This template require ACF Pro to be installed."
+#~ msgstr "Esta plantilla requiere ACF Pro instalado."
+
+#, fuzzy
+#~ msgid "Main Menu Top"
+#~ msgstr "Menú Principal"
+
+#, fuzzy
+#~ msgid "Footer Menu 2"
+#~ msgstr "Menú Pié"
+
+#, fuzzy
+#~ msgid "Footer Menu 3"
+#~ msgstr "Menú Pié"
+
+#, fuzzy
+#~ msgid "Footer Menu 4"
+#~ msgstr "Menú Pié"
+
+#~ msgid "Map/Adress"
+#~ msgstr "Dirección/Mapa"
+
+#~ msgid "Teamssss members"
+#~ msgstr "Equipo"
+
+#~ msgid "&#8249;"
+#~ msgstr "&#8249;"
+
+#~ msgid "Sidebar Posts"
+#~ msgstr "Sidebar para Novedades"
+
+#~ msgid "Sidebar Listings"
+#~ msgstr "Propiedades Sidebar"
+
+#~ msgid "Listing Zones"
+#~ msgstr "Zonas"
+
+#~ msgid "Zone"
+#~ msgstr "Zona"
+
+#~ msgid "Sidebar News"
+#~ msgstr "Sidebar News"
+
+#~ msgid "This listing has expired."
+#~ msgstr "Esta propiedad ha expirado."

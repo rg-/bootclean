@@ -1,0 +1,109 @@
+<?php
+
+function WPBC_get_field($field, $id=''){
+	if(function_exists('get_field')){
+		return get_field($field, $id) ? get_field($field, $id) : '';
+	}else{
+		if($id!='options'){
+			return get_post_meta($id, $field, true);
+		}else{
+			return get_option('options_'.$field);
+		}
+	} 
+}
+
+
+
+
+include('acf/group-fields.php');  
+include('acf/reusable-fields.php');
+include('acf/layouts.php');
+include('acf/groups.php');
+
+if( !function_exists('WPBC_ACF_FORM') ){
+	function WPBC_ACF_FORM(){
+		if( is_user_logged_in() && current_user_can( 'manage_options' ) ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+
+
+// 
+if ( version_compare( $WPBC_VERSION, '9.0.0', '>' ) ) {
+	// $filter_tag = 'wpbc/layout/start';
+	$filter_tag = 'wpbc/layout/acf_form'; 
+	add_action('wpbc/layout/acf_form', function ($post_id){ 
+		if( WPBC_ACF_FORM() && !wp_doing_ajax() ){ 
+			WPBC_get_acf_form($post_id);
+		} 
+	},10,1);
+
+}else{
+	
+	//$filter_tag = 'wpbc/layout/inner/content/loop/after';
+
+	add_action('wpbc/layout/inner/content/loop/after', function (){ 
+		if( WPBC_ACF_FORM() && !wp_doing_ajax() ){
+			WPBC_get_acf_form();
+		} 
+	},10);
+}
+
+
+add_action('wpbc/layout/builder/loop/after', function (){ 
+	if( WPBC_ACF_FORM()  && !wp_doing_ajax() ){
+	//	WPBC_get_acf_form();
+	} 
+},10);
+
+function WPBC_get_acf_form($post_id=''){
+	?>
+	<div id="WPBC_acf_form">
+			<button class="btn btn-primary btn-sm button--form" type="button" data-toggle="collapse" data-target="#collapse-form" aria-expanded="false" aria-controls="collapseExample">
+			<?php 
+			echo $edit_icon = WPBC_get_svg_img('md-cube', array(
+				'width'=>'20px',
+				'height'=>'20px',
+				'color'=>'white'
+			));
+			?>
+			</button>
+			<?php echo apply_filters('wpbc/acf/form/before/collapse',''); ?>
+			<div class="collapse-form-holder">
+				<div class="collapse" id="collapse-form">
+					<?php
+					if( is_page_template('_template_builder.php') ){ 
+						$settings = array(
+							'post_id'=>$post_id,
+
+						);
+					}else{
+						$settings = array( 
+							'post_title' => true,
+							'post_content' => true, 
+							'property_location_map' => false,
+						);
+						if(is_page()){
+							$settings = array( 
+								'post_title' => true,
+								'post_content' => true, 
+								'property_location_map' => false,
+							);
+						} 
+						
+					}
+					/*
+	
+
+					TODO filter locations, enable, settings, etc
+
+					*/
+					acf_form($settings);?>
+				</div>
+			</div>
+		</div>
+	<?php
+}

@@ -1,0 +1,1 @@
+<?php WPBC_post_thumbnail(); ?>

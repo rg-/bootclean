@@ -1,0 +1,1 @@
+<?php WPBC_posts_pagination(); ?>

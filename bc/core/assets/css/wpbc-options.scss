@@ -1,0 +1,160 @@
+
+$primary: #e97f02; 
+$primary-dark: #331d03;
+$secondary: #8A9B0F ; 
+$gray-100: #dcdcdc;
+$gray-200: #eee;
+$gray-300: #ddd;
+$gray-700: #777;
+
+.radio-as-thumb label img,
+.radio-with-thumb label img{
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.radio-as-thumb label:hover img,
+.radio-with-thumb label:hover img{
+	opacity:.8;
+	-webkit-filter: grayscale(0.5);
+	filter: grayscale(0.5);
+}
+.radio-as-thumb label.selected img ,
+.radio-with-thumb label.selected img { 
+	-webkit-filter: grayscale(0);
+	filter: none;
+}
+
+
+
+.radio-with-thumb{
+
+	.acf-radio-list{
+
+		display: flex;
+		flex-flow: row;
+		flex-wrap: wrap;
+		li{
+			display: flex;
+		    flex-flow: row;
+		    align-items: flex-start;
+		    //flex:20% 0 0;
+		    margin:0!important;
+		    label{
+ 
+ 				margin-right:5px;
+
+		    	input[type="radio"]{ 
+					position:relative; 
+					top:-4px;
+				}
+
+
+		    }
+		}
+
+	}
+
+}
+.radio-as-thumb{
+	.of-input-flex{
+
+		flex-wrap: wrap;
+
+		.flex-item{
+			align-items: flex-start;
+			flex:20% 0 0;
+			margin:0!important;
+		}
+	} 
+	.wpbc-input-as-thumb {
+
+		label{
+
+			float: none;
+		    max-width: inherit;
+		    line-height: inherit;
+		    margin-bottom: 0;
+
+		}
+
+	}
+
+	.acf-radio-list{
+
+		display: flex;
+		flex-flow: row;
+		flex-wrap: wrap;
+		li{
+			display: flex;
+		    flex-flow: row;
+		    align-items: flex-start;
+		    //flex:20% 0 0;
+		    margin:0!important;
+		    label{
+
+
+
+		    }
+		}
+
+	}
+
+
+	.wpbc-input-as-thumb,
+	.acf-radio-list{
+
+		label{
+			align-items: flex-start;
+			display: flex;
+			flex-flow: column;
+			position:relative; 
+			border:3px solid transparent;
+			padding:0;
+			margin-right:5px;
+			input[type="radio"]{ 
+				position:absolute;
+				visibility:hidden;
+			}
+			input{
+				width: 16px!important;
+				&:checked + .wpbc-input-as-thumb--icon{
+					border-color:$primary;
+				}
+				&:checked {
+					
+				}
+			}
+			&.selected{
+				border-color:$primary;
+			}
+		}
+		input:checked + img{
+			border-color:$primary;
+		}
+ 		label + input:checked {
+ 			border-color:$primary;
+ 		}
+
+		.wpbc-input-as-thumb--name{
+ 			margin:5px 0;
+		}
+
+		.wpbc-input-as-thumb--icon{
+			display:inline-block; 
+  			border:2px solid transparent;
+  			img{
+  				display:block; 
+  			}
+		}
+ 
+		.wpbc-input-as-thumb--description{
+ 			font-size:10px;
+ 			line-height:13px;
+		}
+
+	}
+
+
+} 
+   

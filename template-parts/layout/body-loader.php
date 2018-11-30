@@ -1,0 +1,1 @@
+<script>var a = document.body; a.classList ? a.classList.add('loading') : a.className += ' loading';g=document.createElement('div'); g.setAttribute("id", "body-loader"); document.body.insertBefore(g,document.body.childNodes[0]);</script>
