@@ -15,11 +15,14 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 	}
 
 	if(wpbc_get_query_posts_select.length>0){
+		/*
 		wpbc_get_query_posts_select.selectpicker( {
 			liveSearch : true,
 			showTick : true,
 			style: 'btn-light',
 		} );
+		*/
+		wpbc_get_query_posts_select.selectpicker();
 
 		wpbc_get_query_posts_select.on('hidden.bs.select', function (e, relatedTarget, clickedIndex, isSelected, previousValue) {
 			var select = $(relatedTarget.relatedTarget); 
