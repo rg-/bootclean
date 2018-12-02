@@ -14,6 +14,8 @@ $WPBC_enable_post_type_realstate = WPBC_enable_post_type_realstate();
 
 	if( !empty($WPBC_enable_post_type_realstate) && $ACF_ENABLED ){
 
+		include('wp-dashboard.php');
+
 		include('settings.php');
 
 		include('functions.php');
