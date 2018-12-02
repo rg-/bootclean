@@ -55,14 +55,29 @@ function WPBC_get_query_form_default_form_elements( $template_args, $query){
 
 	if( $query['post_type'] == 'post' ){
 
-		$form_elements['search'] = array( 
+		$form_elements['p_search'] = array( 
 			'type'=>'text',
 			'form_args'=>array( 
-				'form_id' => 'search',
+				'form_id' => 'p_search',
 				'label' => 'Search',
 				'placeholder' => 'Search',
-				'current' => !empty($query['search']) ? $query['search'] : '', 
+				'current' => !empty($query['p_search']) ? $query['p_search'] : '', 
 				// 'show_actions_all' => true,
+				'show_actions_reset' => true,
+			),
+		);  
+
+		$form_elements['p_order'] = array( 
+			'type'=>'radio',
+			'form_args'=>array( 
+				'form_id' => 'p_order',
+				'label' => 'Order',
+				'label_all' => 'None',
+				'current' => !empty($query['p_order']) ? $query['p_order'] : 'DESC',
+				'items' => array( 
+					'DESC' => 'DESC',
+					'ASC' => 'ASC',
+				), 
 				'show_actions_reset' => true,
 			),
 		);
@@ -81,7 +96,25 @@ function WPBC_get_query_form_default_form_elements( $template_args, $query){
 				),
 			),
 		);
+		*/
 
+		$form_elements['p_orderby'] = array( 
+			'type'=>'radio',
+			'form_args'=>array( 
+				'form_id' => 'p_orderby',
+				'label' => 'Order by', 
+				'current' => !empty($query['p_orderby']) ? $query['p_orderby'] : 'date',  
+				'items' => array(
+					'date'  => 'Date',
+					'modified' => 'Last modified',
+					'title' => 'Title',
+					'rand' => 'Rand',
+				), 
+				'show_actions_reset' => true,
+			),
+		);
+
+		/*
 		$form_elements['orderby'] = array( 
 			'type'=>'dropdown',
 			'form_args'=>array( 
@@ -98,37 +131,6 @@ function WPBC_get_query_form_default_form_elements( $template_args, $query){
 			),
 		);
 		*/
-
-		$form_elements['order'] = array( 
-			'type'=>'radio',
-			'form_args'=>array( 
-				'form_id' => 'order',
-				'label' => 'Order',
-				'label_all' => 'None',
-				'current' => !empty($query['order']) ? $query['order'] : 'DESC',
-				'items' => array( 
-					'DESC' => 'DESC',
-					'ASC' => 'ASC',
-				), 
-				'show_actions_reset' => true,
-			),
-		);
-
-		$form_elements['orderby'] = array( 
-			'type'=>'radio',
-			'form_args'=>array( 
-				'form_id' => 'orderby',
-				'label' => 'Order by', 
-				'current' => !empty($query['orderby']) ? $query['orderby'] : 'date',  
-				'items' => array(
-					'date'  => 'Date',
-					'modified' => 'Last modified',
-					'title' => 'Title',
-					'rand' => 'Rand',
-				), 
-				'show_actions_reset' => true,
-			),
-		);
 
 		$form_elements['category'] = array( 
 			
@@ -213,8 +215,17 @@ function WPBC_get_query_posts_default_query($query){
 	}   
 
 	// "s" as "search" trick
-	if( !empty( $query['search'] ) ){ 
+	if( !empty( $query['search'] ) ){ // DELETE
 		$query['s'] = esc_attr($query['search']);  
+	}
+	if(!empty($query['p_search'])){
+		$query['s'] = esc_attr($query['p_search']);
+	} 
+	if(!empty($query['p_order'])){
+		$query['order'] = esc_attr($query['p_order']);
+	}
+	if(!empty($query['p_orderby'])){
+		$query['orderby'] = esc_attr($query['p_orderby']);
 	}
 
 	// meta_query

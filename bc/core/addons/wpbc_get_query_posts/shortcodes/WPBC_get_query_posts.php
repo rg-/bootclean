@@ -72,10 +72,20 @@ function WPBC_get_query_posts_FX( $atts, $content = null) {
 
 	// Filter here target_id and so on?? 
 
-	if(!empty($query['search'])){
+	if(!empty($query['search'])){ // DELETE
 		$query['s'] = esc_attr($query['search']);
 	} 
 
+	if(!empty($query['p_search'])){
+		$query['s'] = esc_attr($query['p_search']);
+	} 
+	if(!empty($query['p_order'])){
+		$query['order'] = esc_attr($query['p_order']);
+	}
+	if(!empty($query['p_orderby'])){
+		$query['orderby'] = esc_attr($query['p_orderby']);
+	}
+	
 	$query_posts = new WP_Query( $query ); 
 
 	if(!empty( $_GET['pagename'] )){
