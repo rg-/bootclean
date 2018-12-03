@@ -9,6 +9,19 @@
  * This function is not part of WP theme, is just PHP thing and evrything is under bc/init.php file, take a look, all there.
  *
  */
+
+/*
+
+	$WPBC_VERSION is NOT the same thing as $the_theme->get( 'Version' )
+	used on __scripts_version()
+
+	$WPBC_VERSION is used to include or not some new addons that replace old ones
+	mostly on template builder and layout sctructure new way implemented on 9.0.1
+	
+	New sites showld forget about this, on future versions, let´s say 10.0.0
+	i will remove old stuff (TODO_10)
+
+*/
 global $WPBC_VERSION;
 $WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.3');
 function WPBC_version(){

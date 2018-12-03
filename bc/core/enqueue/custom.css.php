@@ -1,10 +1,8 @@
 <?php
 
-header( "Content-type: text/css; charset: UTF-8" ); 
+header( "Content-type: text/css; charset: UTF-8" );  
 
-
-$BC_get_root_breakpoint = BC_get_root_breakpoint(); 
-
+$BC_get_root_breakpoint = BC_get_root_breakpoint();  
 
 if( WPBC_get_option('color-scheme-advanced-settings') ){
 	include('colors/customs.php');
@@ -12,15 +10,12 @@ if( WPBC_get_option('color-scheme-advanced-settings') ){
 
 /* 
 
-	Main navbar size
+	Main navbar sizes ???? 
 
 */ 
 
 
-$WPBC_get_layout_customize = WPBC_get_layout_customize(); 
-
-
-
+$WPBC_get_layout_customize = WPBC_get_layout_customize();  
 
 if( isset( $WPBC_get_layout_customize['main_navbar']['navbar_brand']['styles'] ) ){
 	$styles = $WPBC_get_layout_customize['main_navbar']['navbar_brand']['styles'];

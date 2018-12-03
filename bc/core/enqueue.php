@@ -150,9 +150,18 @@ add_action('wp_head', 'WPBC_wp_head_google_fonts', 10);
  *
 */ 
 
+function WPBC_use_dynamic_css(){
+	$color = WPBC_get_option('color-scheme-advanced-settings');
+
+	if(!empty($color)){
+		return true;
+	}
+}
 
 function WPBC_enqueue_dynamic_css() {
-	wp_enqueue_style( 'dynamic-css', admin_url('admin-ajax.php').'?action=dynamic_css', '', __scripts_version());
+	if(WPBC_use_dynamic_css()){
+		wp_enqueue_style( 'dynamic-css', admin_url('admin-ajax.php').'?action=dynamic_css', '', __scripts_version());
+	}
 }
 add_action( 'wp_enqueue_scripts', 'WPBC_enqueue_dynamic_css', 999 );
 

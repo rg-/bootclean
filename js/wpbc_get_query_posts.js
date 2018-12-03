@@ -3,6 +3,21 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 +function ($) {
     'use strict';
 
+    function wpbc_do_selectpicker(item){
+    	var select = item;
+    	item.selectpicker();
+
+	select.on('hidden.bs.select', function (e, relatedTarget, clickedIndex, isSelected, previousValue) {
+		var me = $(relatedTarget.relatedTarget); 
+			wpbc_get_query_posts_select_fix(me); 
+	});
+
+	select.on('loaded.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+		var me = $(e.currentTarget).parent().find('.dropdown-toggle'); 
+			wpbc_get_query_posts_select_fix(me); 
+	});
+    }
+
     	// https://developer.snapappointments.com/bootstrap-select
 	var wpbc_get_query_posts_select = $('.wpbc_get_query_posts_select');
 	var wpbc_get_query_posts_select_args = {};
@@ -125,33 +140,27 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 	
 
 
-    // Something....  
-    $(".dropdown-select .dropdown-menu .dropdown-item").on('click', function(){
+    	// dropdown-selects ....  
+    	$(".dropdown-select .dropdown-menu .dropdown-item").on('click', function(){
 	  
-	  var selText = $(this).text();
-	  var valueText = $(this).data('value'); 
-	  var me = $(this).closest('.dropdown-select'); 
-	  var inputTarget = me.data('input-target'); 
-	  $(inputTarget).val(valueText);
-	  me.find('.active').removeClass('active');
-	  $(this).addClass('active');
-	  me.find('.dropdown-select-value').data('value',valueText);
-	  me.find('.dropdown-select-value').html(selText); 
+		var selText = $(this).text();
+		var valueText = $(this).data('value'); 
+		var me = $(this).closest('.dropdown-select'); 
+		var inputTarget = me.data('input-target'); 
+		$(inputTarget).val(valueText);
+		me.find('.active').removeClass('active');
+		$(this).addClass('active');
+		me.find('.dropdown-select-value').data('value',valueText);
+		me.find('.dropdown-select-value').html(selText); 
 
-	  // Close this or any other opened...
-	  $('.dropdown-select.show .dropdown-toggle').trigger('click');
+		// Close this or any other opened...
+		$('.dropdown-select.show .dropdown-toggle').trigger('click');
 
-	  return false;
+		return false;
 
 	});
 
-}(jQuery);
-
-
-/* Property Form Ajax functions */
-
-+function ($) {
-    'use strict';
+	/* Property Form Ajax functions */
 
       $(document).on( 'load', '[data-ajax-form]', function( event ) {
 		// var serialize = $(this).serialize();
@@ -187,8 +196,8 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 		So it´s like a reset to defaults button
       	*/
 
-      	console.log("wpbc_reset_form");
-      	console.log(form);
+      	//console.log("wpbc_reset_form");
+      	//console.log(form);
 
       	form.find('.dropdown-select [data-all]').trigger('click'); 
       	form.find('.dropdown-select [data-current]').trigger('click'); 
@@ -253,7 +262,7 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 		}
 
 		var target_url = form.attr('action') + "?" + form.serialize(); 
-		console.log(target_url);
+		
 		if(form.attr("method")=="get"){
 			//return;
 		}
@@ -263,6 +272,15 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 			var target_url_params = removeURLParameter(target_url_string, 'action');
 			target_url_params = removeURLParameter(target_url_params, 'post_type'); 
 			window.history.pushState(null, null, target_url_params);
+
+			/*
+		
+			TODO_10:
+			see this: https://css-tricks.com/examples/State/app.js
+
+			in order to make back history to fire the function again and reload
+
+			*/
 		}
 
 		/* This generates the url for the get_query_form ajax call like:
@@ -296,41 +314,86 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 		//$("<div id='get-loading-loader' class='get-loading-loader'><span class='loader-icon'></span></div>").insertAfter(get_target);
 
 		var loader = $('#get-loading-loader');
-		var loader_overlay = $('#get-loading-overlay');
+		var loader_overlay = $('#get-loading-overlay'); 
 
+		// # ME QUEDE ACA 8 nov 18
+		// TODO_10
+		$('#property-map').html(target_url); // if debug div on html
+		
+		// For the loop ajax url with params
+		console.log(target_url);
+		// For the form ajax url with params
+		console.log(target_form_url);
+
+
+		/*
+
+		Ajax re-loading for the form
+
+		Idea here is to re-build form elements based on params, like:
+
+			if some taxonomy, filter some meta if not posts sharing both....
+
+		*/
+		$("<div id='get-loading-form-temp' class='d-none'></div>").insertAfter(form);
+		var form_temp = $('#get-loading-form-temp');
+
+		form_temp.load(target_form_url, function(responseTxt, statusTxt, xhr) {
+			
+			var new_form_html = form_temp.find('form').html();
+			form.html(new_form_html);
+
+			// apply some functions for elements loaded
+			var select = form.find('.wpbc_get_query_posts_select');
+			wpbc_do_selectpicker(select);
+			var slider_range = form.find('.form-slider-range');
+			wpbc_do_slider_range(slider_range);
+
+			// remove temp div
+			form_temp.remove(); 
+
+		});
+
+		/*
+	
+		Ajax re-loading for the query loop
+
+		*/
 		$("<div id='get-loading-temp'></div>").insertAfter(get_target);
 		var temp = $('#get-loading-temp');
 
-		// # ME QUEDE ACA 8 nov 18
-		$('#property-map').html(target_url); // if debug div on html
-		
-
 		temp.load(target_url, function(responseTxt, statusTxt, xhr) { 
 
+			// new contents
 			var content = temp.find(get_target).html();
 			var content_nav = temp.find(nav_target).html(); 
 
+			// manipulating classes
 			form.removeClass('loading');
 			this_target.removeClass('loading');
-			me.removeClass('loading');
-			me.trigger( "blur" );
+			me.removeClass('loading'); 
 			this_nav_target.removeClass('loading');
+
+			// blur me, i´m a button
+			me.trigger( "blur" );
+
+			// remove loader things
 			loader.remove(); 
 			loader_overlay.remove(); 
 			
+			// replace new html into elements
 			this_target.html(content); 
 			this_nav_target.html(content_nav); 
 			
+			// remove temp div
 			temp.remove(); 
 
+			// apply some functions for elements loaded
 			this_target.find('[data-inview]:not(.inview-me)').inview();
-			$(window).trigger('resize');
-			
-			$('#ajax-debug').html(target_url); // if debug div on html
+			$(window).trigger('resize'); 
 
-			
-
-
+			// if debug div on html(optional on html template)
+			$('#ajax-debug').html(target_url);  
 		});
 
 		// console.log(target_url);
@@ -377,86 +440,91 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
 	});
 
-}(jQuery);
+	/*
 
-// Initialize slider range:
+	Slider Range
 
-$(document).ready(function() {
-  
-  $('.noUi-handle').on('click', function() {
-    $(this).width(50);
-  });
- 
-  var rangeSlider_group = $('.form-slider-range'); 
+	TODO_10:
 
-  rangeSlider_group.each(function(){ 
+		make data-* anything
 
-  	var range = $(this);
-  	var rangeSliderJQ = range.find('.slider-range');
-  	var rangeSlider = rangeSliderJQ.get(0);
+	*/
 
+	function wpbc_do_slider_range(range){
+		var rangeSliderJQ = range.find('.slider-range');
+	  	var rangeSlider = rangeSliderJQ.get(0); 
 
-  	var deffaults_moneyFormat = {
-	    decimals: 0,
-	    thousand: '.',
-	    prefix: 'USD'
-	  };
-  	var data_money_format = range.data('money-format') ? range.data('money-format') : deffaults_moneyFormat; 
-  	
-  	var moneyFormat = wNumb(data_money_format);
+	  	var deffaults_moneyFormat = {
+		    decimals: 0,
+		    thousand: '.',
+		    prefix: 'USD'
+		  };
 
-  	var deffaults_sliderArgs = {
-		    start: [500000, 1000000],
-		    step: 1000,
-		    range: {
-		      'min': [100000],
-		      'max': [1000000]
-		    },
-		    rangeLabels: {
-		    	'min': 'Min:',
-		    	'max': 'Max:'
-		    },
-		    hideRangeLabels: false,
-		    format: moneyFormat,
-		    connect: true
-		  }; 
+	  	var data_money_format = range.data('money-format') ? range.data('money-format') : deffaults_moneyFormat; 
+	  	
+	  	var moneyFormat = wNumb(data_money_format);
 
-	var data_range_args = range.data('range-args'); 
-	if(data_range_args){
-		var sliderArgs = $.extend(deffaults_sliderArgs, data_range_args);
-	}else{
-		var sliderArgs = deffaults_sliderArgs;
-	} 
+	  	var deffaults_sliderArgs = {
+			    start: [500000, 1000000],
+			    step: 1000,
+			    range: {
+			      'min': [100000],
+			      'max': [1000000]
+			    },
+			    rangeLabels: {
+			    	'min': 'Min:',
+			    	'max': 'Max:'
+			    },
+			    hideRangeLabels: false,
+			    format: moneyFormat,
+			    connect: true
+			  }; 
 
- 
-	if( sliderArgs.rangeLabels  && !sliderArgs.hideRangeLabels ){
-		var labels = range.append('<div class="range-labels"/>');
-		$.each(sliderArgs.range, function(e){ 
-			label = '<label><b>'+sliderArgs.rangeLabels[e]+' <span class="slider-range-'+ e +'"></span></b></label>'; 
-			range.find('.range-labels').append( label );
-	  	});
-  	} 
-  	var arr_range = Object.values(sliderArgs.range);
-  	var arr_rageLabels = Object.values(sliderArgs.rangeLabels);  
+		var data_range_args = range.data('range-args'); 
+		if(data_range_args){
+			var sliderArgs = $.extend(deffaults_sliderArgs, data_range_args);
+		}else{
+			var sliderArgs = deffaults_sliderArgs;
+		} 
 
-  	noUiSlider.create(rangeSlider, sliderArgs); 
 	 
-	rangeSlider.noUiSlider.on('update', function(values, handle) { 
-
-  		$.each(values, function(e,v){   
-	  		$.each(sliderArgs.range, function(index, obj){  
-	  			var ii = arr_range.indexOf(obj); 
-				if(ii == e){
-					output_values = '.slider-range-'+ index;
-					range.find(output_values).html(v); 
-					output_inputs = range.data('input-'+index);
-					$(output_inputs).val( moneyFormat.from(v) ); 
-				}
+		if( sliderArgs.rangeLabels  && !sliderArgs.hideRangeLabels ){
+			var labels = range.append('<div class="range-labels"/>');
+			$.each(sliderArgs.range, function(e){ 
+				var label = '<label><b>'+sliderArgs.rangeLabels[e]+' <span class="slider-range-'+ e +'"></span></b></label>'; 
+				range.find('.range-labels').append( label );
 		  	});
-	  	}); 
-	  
-	  });
+	  	} 
+	  	var arr_range = Object.values(sliderArgs.range);
+	  	var arr_rageLabels = Object.values(sliderArgs.rangeLabels);  
 
-  });
- 
-});
+	  	noUiSlider.create(rangeSlider, sliderArgs); 
+		 
+		rangeSlider.noUiSlider.on('update', function(values, handle) { 
+
+	  		$.each(values, function(e,v){   
+		  		$.each(sliderArgs.range, function(index, obj){  
+		  			var ii = arr_range.indexOf(obj); 
+					if(ii == e){
+						var output_values = '.slider-range-'+ index;
+						range.find(output_values).html(v); 
+						var output_inputs = range.data('input-'+index);
+						$(output_inputs).val( moneyFormat.from(v) ); 
+					}
+			  	});
+		  	}); 
+		  
+		  });
+	}
+	  
+	$('.noUi-handle').on('click', function() {
+		$(this).width(50);
+	}); 
+	var rangeSlider_group = $('.form-slider-range');  
+	rangeSlider_group.each(function(){  
+		var range = $(this);
+		wpbc_do_slider_range(range); 
+	});  
+
+// THE END
+}(jQuery);
