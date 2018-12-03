@@ -43,7 +43,7 @@ include('enqueue/WPBC_add_inline_style.php');
  */
  
 function BC_enqueue_scripts__version(){
-	$the_theme = wp_get_theme();
+	$the_theme = wp_get_theme('bootclean');
 	$theme_version = $the_theme->get( 'Version' );
 	$scripts_version = $theme_version;
 	return apply_filters('BC_enqueue_scripts__version', $scripts_version);

@@ -30,7 +30,8 @@ $WPBC_enable_post_type_realstate = WPBC_enable_post_type_realstate();
 
 		include('shortcodes.php'); 
 
-		include('enqueue_scripts.php');
+		// Disabled maps.js and google map api till this is working
+		// include('enqueue_scripts.php');
 
 		include('wpbc_get_query_posts.php');
 
