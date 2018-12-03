@@ -145,6 +145,60 @@ $brand_login = array(
 	// sub-heading-end !!
 );
 
+// under_construction
+$under_construction = array(
+	// sub-heading
+	array(
+		'name' => __( 'Under Construction', 'bootclean' ),
+		'type' => 'sub-heading'
+	),
+
+	array(
+		'name' => __( 'TITLE', 'bootclean' ),
+		'desc' => __( 'Custom page TITLE.', 'bootclean' ),
+		'id' => 'bc-options--admin-under-construction-title',
+		'std' => get_bloginfo( 'blogname' ),
+		'type' => 'text',
+		'class' => 'w-100',
+		'width' => '100%'
+	),
+
+	array(
+		'name' => __( 'BODY > HTML', 'bootclean' ),
+		'desc' => __( 'Customize how site looks like when "Settings->Reading->Website Visibility" is enabled.', 'bootclean' ),
+		'id' => 'bc-options--admin-under-construction-html',
+		'std' => '',
+		'type' => 'textarea',
+		'class' => 'codemirror',
+		'width' => '100%'
+	),
+
+	array(
+		'name' => __( 'HEAD > STYLE', 'bootclean' ),
+		'desc' => __( 'Add just custom css here. No STYLE tag needed.', 'bootclean' ),
+		'id' => 'bc-options--admin-under-construction-style',
+		'std' => '',
+		'type' => 'textarea',
+		'class' => 'codemirror codemirror-css',
+		'width' => '100%'
+	),
+
+	array(
+		'name' => __( 'Javascript', 'bootclean' ),
+		'desc' => __( 'Add just custom js here. No SCRIPT tag needed.', 'bootclean' ),
+		'id' => 'bc-options--admin-under-construction-script',
+		'std' => '',
+		'type' => 'textarea',
+		'class' => 'codemirror codemirror-js',
+		'width' => '100%'
+	),
+
+	array(
+		'type' => 'sub-heading-end'
+	)
+	// sub-heading-end !!
+);
+
 $group_end = array( 
 	array( 
 		'type' => 'heading-end'
@@ -153,6 +207,7 @@ $group_end = array(
 
 // merge all
 $args = array_merge( $args, $brand_login); 
+$args = array_merge( $args, $under_construction); 
 $args = array_merge( $args, $group_end); 
 
 // build and set option group/tab

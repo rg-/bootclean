@@ -489,9 +489,18 @@ body.appearance_page_bootclean-theme-options{
         float: none;
       }
     }
+    textarea.of-input{
+      width:100%!important;
+    }
+    .w-100.of-input{
+      width:100%!important;
+    }
     .of-radio {
       width: auto !important;
     }
+  }
+  .section.w-100 .of-input{
+      width:100%!important;
   }
   .section-background .wp-picker-container {
     margin-bottom: 10px;

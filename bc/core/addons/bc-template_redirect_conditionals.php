@@ -27,19 +27,44 @@ function get__bc_admin_mainteneance_html_fx($atts, $content=null){
 		"class" => '',
 	), $atts)); 
 	$out = ''; 
-	$bc_admin_mainteneance_html = WPBC_get_field('bc_admin_mainteneance_html','options');
+
+	$bc_admin_mainteneance_html = BC_get_option('bc-options--admin-under-construction-html'); 
 	$out .= apply_filters('the_content', $bc_admin_mainteneance_html); 
 	return $out; 
 }
 
+add_action('bc_admin_mainteneance_title','bc_admin_mainteneance_title_fx');
+function bc_admin_mainteneance_title_fx(){ 
+	$bc_admin_mainteneance_title = BC_get_option('bc-options--admin-under-construction-title');
+	?>
+	<title>
+		<?php echo $bc_admin_mainteneance_title; ?>
+	</title>
+	<?php
+	
+}
+
 add_action('bc_admin_mainteneance_style','bc_admin_mainteneance_style_fx');
-function bc_admin_mainteneance_style_fx(){
-	$bc_admin_mainteneance_style = WPBC_get_field('bc_admin_mainteneance_style','options');
+function bc_admin_mainteneance_style_fx(){ 
+	$bc_admin_mainteneance_style = BC_get_option('bc-options--admin-under-construction-style');
 	?>
 	<style>
 		<?php echo $bc_admin_mainteneance_style; ?>
 	</style>
 	<?php
+	
+}
+
+add_action('bc_admin_mainteneance_script','bc_admin_mainteneance_script_fx');
+function bc_admin_mainteneance_script_fx(){ 
+	$bc_admin_mainteneance_script = BC_get_option('bc-options--admin-under-construction-script');
+	if(!empty($bc_admin_mainteneance_script)){
+	?>
+	<script>
+		<?php echo $bc_admin_mainteneance_script; ?>
+	</script>
+	<?php
+	}
 	
 }
 

@@ -154,6 +154,81 @@ function WPBC_codemirror_enqueue_scripts(){
 add_action( 'admin_enqueue_scripts', 'WPBC_codemirror_enqueue_scripts', 10 ); 
 add_action( 'wp_enqueue_scripts', 'WPBC_codemirror_enqueue_scripts', 10 ); 
 
+add_action( 'admin_footer', 'WPBC_codemirror_admin_footer_by_class', 10 );
+function WPBC_codemirror_admin_footer_by_class(){
+
+	global $WPBC_codemirror_args;
+	?>
+	<script> 
+	
+	(function( $ ) {
+
+
+		function initialize_code_field( $el ) {
+
+			if($el.hasClass('codemirror')){
+				var $textarea = $el.find( 'textarea.of-input' ); 
+				var $mode = "text/html";
+				if($el.hasClass('codemirror-css')){
+					$mode = "text/css";
+				}
+				if($el.hasClass('codemirror-js')){
+					$mode = "text/javascript";
+				}
+			}
+
+			
+
+			var editor = window.CodeMirror.fromTextArea( $textarea[ 0 ], {
+				lineNumbers: true,
+				fixedGutter: false,
+				mode: $mode,
+				theme: "<?php echo $WPBC_codemirror_args ['theme']; ?>",
+				extraKeys: { "Ctrl-Space": "autocomplete" },
+				matchBrackets: true,
+				styleSelectedText: true,
+				autoRefresh: true,
+				value: document.documentElement.innerHTML,
+				viewportMargin: 10,
+				lineWrapping: true,
+				indentUnit: 2,
+				
+				lint:true,
+				autoCloseBrackets:true,
+				autoCloseTags: true,
+				matchTags: {"bothTags":true},
+				
+				extraKeys: {
+					"F11": function(cm) {
+					  cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+					},
+					"Esc": function(cm) {
+					  if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+					}
+				  },  
+
+			} );
+			editor.refresh();
+			editor.on("change", function(cm, change) { 
+				//console.log(change);
+			});
+
+		}
+
+		$( document ).on( 'ready', function( $el ) {
+			$( '.section-textarea.codemirror' ).each( function() { 
+				initialize_code_field($(this)); 
+				//initialize_code_buttons($(this));
+			} ); 
+		} );
+
+	})( jQuery );
+	
+	</script>
+	<?php
+
+}
+
 add_action( 'acf/input/admin_footer', 'WPBC_codemirror_admin_footer', 10 );
 function WPBC_codemirror_admin_footer(){ 
 	global $WPBC_codemirror_args;
@@ -169,7 +244,8 @@ function WPBC_codemirror_admin_footer(){
 				var $textarea = $el.find( '.acf-input textarea.wp-editor-area' ); 
 			}else{
 				var $textarea = $el.find( '.acf-input>textarea' ); 
-			} 
+			}  
+
 			if ( $el.parents( ".acf-clone" ).length > 0 ) {
 				return;
 			} 
@@ -211,7 +287,7 @@ function WPBC_codemirror_admin_footer(){
 			} );
 			editor.refresh();
 			editor.on("change", function(cm, change) { 
-				console.log(change);
+				//console.log(change);
 			});
 		}
 
