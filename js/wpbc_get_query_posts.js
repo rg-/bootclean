@@ -321,10 +321,9 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 		$('#property-map').html(target_url); // if debug div on html
 		
 		// For the loop ajax url with params
-		console.log(target_url);
+		//console.log(target_url);
 		// For the form ajax url with params
-		console.log(target_form_url);
-
+		//console.log(target_form_url); 
 
 		/*
 
