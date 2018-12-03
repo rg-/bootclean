@@ -70,7 +70,7 @@ $args['main_container']['defaults'] = array(
 	'options' => array(
   		'name' => 'Default',
 		'desc' => 'Default layout. Two columns, main content left, secondary content right.',
-		'icon' => get_stylesheet_directory_uri().'/template-parts/layout/structure/defaults.png',
+		'icon' => get_template_directory_uri().'/template-parts/layout/structure/defaults.png',
   	),
 
 	'content' => array( // First level

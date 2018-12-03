@@ -13,7 +13,7 @@ $args['main_container']['a3-mr'] = array(
 	'options' => array(
   		'name' => '[a3-mr] '.__('3 Content Areas - Main Left', 'bootclean'),
 		'desc' => __('Container with 3 content areas, main on the left, 2 secondary areas on the right.', 'bootclean'),
-		'icon' => get_stylesheet_directory_uri().'/template-parts/layout/structure/a3-mr.png',
+		'icon' => get_template_directory_uri().'/template-parts/layout/structure/a3-mr.png',
   	),
 
   	'content' => array( // First level

@@ -16,7 +16,7 @@ $args['main_container']['a1'] = array(
 	'options' => array(
   		'name' => '[a1] '.__('One Content Area', 'bootclean'),
 		'desc' => __('Just One content area, free form.', 'bootclean'),
-		'icon' => get_stylesheet_directory_uri().'/template-parts/layout/structure/a1.png',
+		'icon' => get_template_directory_uri().'/template-parts/layout/structure/a1.png',
   	),
 
 	'is-main' => true, // required

@@ -13,7 +13,7 @@ $args['main_container']['a2-mt'] = array(
 	'options' => array(
   		'name' => '[a2-mt] '.__('2 Content Areas - Main Top', 'bootclean'),
 		'desc' => __('Container with 2 content areas, main on the top, secondary on the bottom.', 'bootclean'),
-		'icon' => get_stylesheet_directory_uri().'/template-parts/layout/structure/a2-mt.png',
+		'icon' => get_template_directory_uri().'/template-parts/layout/structure/a2-mt.png',
   	),
 
   	'content' => array( // First level
