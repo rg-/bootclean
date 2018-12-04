@@ -32,6 +32,14 @@ if( !function_exists('WPBC_ajax_get_query_posts') ){
 }
 if( !function_exists('WPBC_ajax_get_query_form') ){
 
+/*
+
+	URL example:
+
+	/wp-admin/admin-ajax.php?posts_per_page=4&paged=1&post_type=property&target_id=property&form_id=property-home-form&use_map=&p_search=casa&property_price_min=0&property_price_max=240000&p_order=DESC&p_orderby=date&property_location=punta-del-este&property_operation=&property_type=&action=get_query_form&use_as_search=1
+
+*/
+
 	function WPBC_ajax_get_query_form(){
 
 		$query_string = !empty($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : ''; 

@@ -79,7 +79,15 @@ function wpbc_get_query_form_controls($query, $shortcode_args, $template_args, $
 		echo !empty($wrap['before']) ? $wrap['before'] : '';
 		echo '<div class="'. (!empty($wrap['form_group_class']) ? $wrap['form_group_class'] : $form_group_class) .'">';
 
-
+		if($v['type'] == 'html'){ 
+			if(!empty($v['content'])){
+				echo $v['content'];
+			}
+			if(!empty($v['template_part'])){ 
+				$template_args = !empty($v['template_args']) ? $v['template_args'] : '';
+				WPBC_get_template_part($v['template_part'], $template_args);
+			}
+		}
 		if($v['type'] == 'text'){ 
 			echo WPBC_get_query_posts_input($form_args, 'text');
 		}

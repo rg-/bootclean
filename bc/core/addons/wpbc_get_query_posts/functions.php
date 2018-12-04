@@ -96,6 +96,49 @@ function WPBC_get_term_parents_list( $term_id, $taxonomy, $args = array() ) {
 	Almos same as: https://developer.wordpress.org/reference/functions/wp_dropdown_categories/
 
 */
+class WPBC_dropdown_categories_waker extends Walker_CategoryDropdown{
+	
+	public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
+        $pad = str_repeat('&nbsp;', $depth * 3);
+ 
+        /** This filter is documented in wp-includes/category-template.php */
+        $cat_name = apply_filters( 'list_cats', $category->name, $category );
+ 
+        if ( isset( $args['value_field'] ) && isset( $category->{$args['value_field']} ) ) {
+            $value_field = $args['value_field'];
+        } else {
+            $value_field = 'term_id';
+        }
+ 
+        $output .= "\t<option class=\"level-$depth\" value=\"" . esc_attr( $category->{$value_field} ) . "\"";
+ 
+        // Type-juggling causes false matches, so we force everything to a string.
+        if ( (string) $category->{$value_field} === (string) $args['selected'] )
+            $output .= ' selected="selected"';
+        $output .= '>';
+
+        $show_count_before = '&nbsp;(';
+        $show_count_after = ')';
+        $show_count = $show_count_before. number_format_i18n( $category->count ) .$show_count_after;
+        $new_show_count = 0;
+
+        $term_children = get_term_children($category->term_id, $category->taxonomy);
+        if ( !empty( $term_children ) && !is_wp_error( $term_children ) ){
+        	// $output .= ' HAS CHILDREN: ';
+        	foreach ( $term_children as $child ) {
+        		$term = get_term_by( 'id', $child, $category->taxonomy );
+        		$new_show_count = $new_show_count + number_format_i18n( $term->count );
+        	}
+        	$show_count = $show_count_before.$new_show_count.$show_count_after;
+        }
+
+        $output .= $pad.$cat_name;
+        if ( $args['show_count'] )
+            $output .= $show_count;
+        $output .= "</option>\n";
+    }
+}
+
 function WPBC_dropdown_categories( $args = '' ) {
     $defaults = array(
         'show_option_all'   => '',
@@ -121,6 +164,7 @@ function WPBC_dropdown_categories( $args = '' ) {
         'required'          => false,
 
         'data_attr'		=> '',
+        'walker'			=> new WPBC_dropdown_categories_waker(),
     );
  
     $defaults['selected'] = ( is_category() ) ? get_query_var( 'cat' ) : 0;
