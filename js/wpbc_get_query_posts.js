@@ -3,6 +3,13 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 +function ($) {
     'use strict';
 
+    /*
+
+	TODO, when form loads from ajax call, form restes and others must re-initialized
+	Same way i did with wpbc_do_selectpicker
+
+    */
+
     function wpbc_do_selectpicker(item){
     	var select = item;
     	item.selectpicker();
@@ -50,6 +57,100 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 		});
 	}
 
+
+	function wpbc_do_form_helpers(){
+		$('[data-select-all]').on('click', function(){ 
+			var me = $(this);
+			var input = me.data('select-all');
+			var type = me.data('type');
+
+			if(type=='checkbox'){
+				$(input).prop('checked', true); 
+			}
+
+			return false;
+		});
+	    $('[data-select-reset]').on('click', function(){ 
+			var me = $(this);
+			var input = me.data('select-reset');
+			var type = me.data('type');
+			if(type=='text'){ 
+				$(input).val('');
+			} 
+			if(type=='radio'){ 
+				$(input).prop('checked', false); 
+				$(input+'[data-current]').trigger('click');
+			} 
+			if(type=='checkbox'){
+				$(input).prop('checked', false); 
+				$(input+'[data-current]').trigger('click');
+			} 
+			if(type=='dropdown'){ 
+				if( $('[data-input-target="'+input+'"]').find('[data-current]').length>0 ){
+					$('[data-input-target="'+input+'"]').find('[data-current]').trigger('click');
+				}else{
+					$('[data-input-target="'+input+'"]').find('[data-all]').trigger('click');
+				}
+			}
+			if(type=='select'){ 
+				$(input).val('-1').change();
+			}
+			return false;
+		});
+
+	    $('[data-range-clear]').on('click', function(){ 
+			var me = $(this); 
+			var range = $(me.data('range-clear')).find('.slider-range').get(0); 
+	      	if(range){
+		      	var range_args = $(me.data('range-clear')).data('range-args'); 
+		      	range.noUiSlider.set([range_args.range.min[0], range_args.range.max[0]]);
+	      	}
+			return false;
+		});
+
+		$('[data-check-all]').on('click', function(){ 
+			var me = $(this);
+			var input = me.data('check-all');
+			$(input).prop('checked', true);
+			return false;
+		});
+		$('[data-check-none]').on('click', function(){ 
+			var me = $(this);
+			var input = me.data('check-none');
+			$(input).prop('checked', false);
+			return false;
+		});
+		$('[data-select-none]').on('click', function(){ 
+			var me = $(this);
+			var input = me.data('select-none');
+			$('[data-input-target="'+input+'"]').find('[data-all]').trigger('click');
+			return false;
+		});
+		
+
+
+	    	// dropdown-selects ....  
+	    	$(".dropdown-select .dropdown-menu .dropdown-item").on('click', function(){
+		  
+			var selText = $(this).text();
+			var valueText = $(this).data('value'); 
+			var me = $(this).closest('.dropdown-select'); 
+			var inputTarget = me.data('input-target'); 
+			$(inputTarget).val(valueText);
+			me.find('.active').removeClass('active');
+			$(this).addClass('active');
+			me.find('.dropdown-select-value').data('value',valueText);
+			me.find('.dropdown-select-value').html(selText); 
+
+			// Close this or any other opened...
+			$('.dropdown-select.show .dropdown-toggle').trigger('click');
+
+			return false;
+
+		});
+	}
+	wpbc_do_form_helpers();
+
     $('[data-swap-preview]').each(function(){
     	
     	var target = $(this).data('swap-preview'); 
@@ -70,95 +171,7 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
     
 
-    $('[data-select-all]').on('click', function(){ 
-		var me = $(this);
-		var input = me.data('select-all');
-		var type = me.data('type');
-
-		if(type=='checkbox'){
-			$(input).prop('checked', true); 
-		}
-
-		return false;
-	});
-    $('[data-select-reset]').on('click', function(){ 
-		var me = $(this);
-		var input = me.data('select-reset');
-		var type = me.data('type');
-		if(type=='text'){ 
-			$(input).val('');
-		} 
-		if(type=='radio'){ 
-			$(input).prop('checked', false); 
-			$(input+'[data-current]').trigger('click');
-		} 
-		if(type=='checkbox'){
-			$(input).prop('checked', false); 
-			$(input+'[data-current]').trigger('click');
-		} 
-		if(type=='dropdown'){ 
-			if( $('[data-input-target="'+input+'"]').find('[data-current]').length>0 ){
-				$('[data-input-target="'+input+'"]').find('[data-current]').trigger('click');
-			}else{
-				$('[data-input-target="'+input+'"]').find('[data-all]').trigger('click');
-			}
-		}
-		if(type=='select'){ 
-			$(input).val('-1').change();
-		}
-		return false;
-	});
-
-    $('[data-range-clear]').on('click', function(){ 
-		var me = $(this); 
-		var range = $(me.data('range-clear')).find('.slider-range').get(0); 
-      	if(range){
-	      	var range_args = $(me.data('range-clear')).data('range-args'); 
-	      	range.noUiSlider.set([range_args.range.min[0], range_args.range.max[0]]);
-      	}
-		return false;
-	});
-
-	$('[data-check-all]').on('click', function(){ 
-		var me = $(this);
-		var input = me.data('check-all');
-		$(input).prop('checked', true);
-		return false;
-	});
-	$('[data-check-none]').on('click', function(){ 
-		var me = $(this);
-		var input = me.data('check-none');
-		$(input).prop('checked', false);
-		return false;
-	});
-	$('[data-select-none]').on('click', function(){ 
-		var me = $(this);
-		var input = me.data('select-none');
-		$('[data-input-target="'+input+'"]').find('[data-all]').trigger('click');
-		return false;
-	});
-	
-
-
-    	// dropdown-selects ....  
-    	$(".dropdown-select .dropdown-menu .dropdown-item").on('click', function(){
-	  
-		var selText = $(this).text();
-		var valueText = $(this).data('value'); 
-		var me = $(this).closest('.dropdown-select'); 
-		var inputTarget = me.data('input-target'); 
-		$(inputTarget).val(valueText);
-		me.find('.active').removeClass('active');
-		$(this).addClass('active');
-		me.find('.dropdown-select-value').data('value',valueText);
-		me.find('.dropdown-select-value').html(selText); 
-
-		// Close this or any other opened...
-		$('.dropdown-select.show .dropdown-toggle').trigger('click');
-
-		return false;
-
-	});
+    
 
 	/* Property Form Ajax functions */
 
@@ -347,7 +360,7 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 			wpbc_do_selectpicker(select);
 			var slider_range = form.find('.form-slider-range');
 			wpbc_do_slider_range(slider_range);
-
+			wpbc_do_form_helpers();
 			// remove temp div
 			form_temp.remove(); 
 
