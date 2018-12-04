@@ -49,9 +49,12 @@ if( !function_exists('WPBC_ajax_get_query_form') ){
 		$target_post_id = !empty($parsed_query_string['target_post_id']) ? $parsed_query_string['target_post_id'] : '';
 		unset($parsed_query_string['target_post_id']);
 
+		$form_id = !empty($parsed_query_string['form_id']) ? $parsed_query_string['form_id'] : '';
+		unset($parsed_query_string['form_id']);
+
 		$parsed_query_string = http_build_query($parsed_query_string, '', '&'); 
 
-		echo do_shortcode('[WPBC_get_query_form target_id="'.$target_id.'" target_post_id="'.$target_post_id.'" use_as_search="'. $use_as_search .'" action="'.$action.'" query_string="'.$parsed_query_string.'"/]');   
+		echo do_shortcode('[WPBC_get_query_form target_id="'.$target_id.'" target_post_id="'.$target_post_id.'" use_as_search="'. $use_as_search .'" action="'.$action.'" query_string="'.$parsed_query_string.'" form_id="'.$form_id.'"/]');   
 		die(); 
 	}
 	add_action('wp_ajax_get_query_form', 'WPBC_ajax_get_query_form');
