@@ -1,27 +1,15 @@
-# bootclean
+# Wordpress "Bootclean" Theme
 
-Master Wordpress Theme
+Version 9.0.3
 
-Current version: 9.0.1
+```
+A complete All-in-One Framework Wordpress Theme
+```
 
-This theme is developed using bootstrap 4 and jquery mainly.
-It´s a "parent" theme to use with "child" themes for customizations.
+## Requisites 
 
-Bootclean is not created for "normal" users.
+- ACF Advanced Custom Fields 
 
-Features included:
+### Demos
 
-- Admin Options
-- Custom login/admin
-- Shortcodes/Ajax Templates
-- Slick Slider, custom forms, select as dropdown, dropdown hover, custom collapse navbars and many more js implemented ready to use by data-* tags.
-- Codemirror for textareas on edit screens
-- Everything has a filter or an action
-- Many more to include....
-
-Requires ACF5 to run.
-
-
-Websites examples using Bootclean:
-
-- http://realstate.rgdesign.org (Realstate child theme)
+- http://realstate.rgdesign.org ("Realstate" child theme)
