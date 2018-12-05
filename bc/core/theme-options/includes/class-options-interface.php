@@ -296,8 +296,9 @@ class Options_Framework_Interface {
 
 			// Checkbox
 			case "checkbox": 
+				$disabled = !empty($value['disabled']) ? ' disabled="disabled" ' : '';
 				$data_condition = _get_data_condition($value); 
-				$output .= '<input '.$data_condition.' id="' . esc_attr( $value['id'] ) . '" class="checkbox of-checkbox" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
+				$output .= '<input '.$data_condition.' id="' . esc_attr( $value['id'] ) . '" class="checkbox of-checkbox" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' '.$disabled.' />';
 				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				break;
 

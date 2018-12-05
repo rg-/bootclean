@@ -330,9 +330,24 @@ function WPBC_get_svg_img($icon='', $atts=array()){
 
 	Enable/disable addons
 
+	Functions should go here sinde this file load first of all
+
 */
 
 function WPBC_enable_post_type_realstate(){ 
-	$enable = apply_filters('wpbc/filter/post_types/enable/realstate', '0');
+	$enable = apply_filters('wpbc/filter/post_types/enable/realstate', 0);
 	return $enable;
+}
+
+function WPBC_enable_post_type_realstate_op(){  
+	return apply_filters('wpbc/filter/post_types/options/realstate/disable', 0);
+}
+
+function WPBC_enable_post_type_resource(){ 
+	$enable = apply_filters('wpbc/filter/post_types/enable/resource', 0);
+	return $enable;
+}
+
+function WPBC_enable_post_type_resource_op(){  
+	return apply_filters('wpbc/filter/post_types/options/resource/disable', 0);
 }

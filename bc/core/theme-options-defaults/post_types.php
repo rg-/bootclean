@@ -3,6 +3,10 @@
 $svg_uri = BC_URI.'/core/assets/svg'; 
 
 $WPBC_enable_post_type_realstate = WPBC_enable_post_type_realstate();
+$WPBC_enable_post_type_resource = WPBC_enable_post_type_resource();
+
+$WPBC_enable_post_type_realstate_op = WPBC_enable_post_type_realstate_op();
+$WPBC_enable_post_type_resource_op = WPBC_enable_post_type_resource_op();
 
 $fields = array( 
 
@@ -12,6 +16,17 @@ $fields = array(
 		'std' => $WPBC_enable_post_type_realstate,
 		'type' => 'checkbox',
 		'ui' => true,
+		'disabled'=> $WPBC_enable_post_type_realstate_op,
+		'hide-reset'=> true, 
+	), 
+
+	array( 
+		'desc' => __( 'Enable Resources post types.', 'bootclean' ),
+		'id' => 'post-type-resource-enable',
+		'std' => $WPBC_enable_post_type_resource,
+		'type' => 'checkbox',
+		'ui' => true,
+		'disabled'=> $WPBC_enable_post_type_resource_op,
 		'hide-reset'=> true, 
 	),  
 	

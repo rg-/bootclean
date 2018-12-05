@@ -16,7 +16,7 @@
 	
 */
 
-$remove_type_tag = apply_filters('wpbc/filter/cleaner/javascript/remove_type_tag', 1);
+$remove_type_tag = apply_filters('wpbc/filter/cleaner/javascript/remove_type_tag', 0);
 if( !empty($remove_type_tag) ){
 	add_filter('script_loader_tag', 'bc_script_tag_type',10,2);
 	function bc_script_tag_type($tag, $handle) {

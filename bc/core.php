@@ -14,6 +14,8 @@
 */
 require BC_WP_DIR . 'core/functions.php'; 
 
+require BC_WP_DIR . 'core/theme-helpers.php'; 
+
 require BC_WP_DIR . 'core/admin.php';
 
 require BC_WP_DIR . 'core/template-builder.php';

@@ -17,7 +17,7 @@ register_post_type( $property_slug,
 	'publicly_queryable' => true,
 	'query_var' => true,
 	'supports' => array('title','editor','thumbnail'),
-	'menu_icon' => 'dashicons-admin-multisite',  // Icon Path
+	'menu_icon' => 'dashicons-welcome-learn-more', 
 	
 	/**/
 	'rewrite' => array(

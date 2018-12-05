@@ -1,6 +1,6 @@
 # Wordpress "Bootclean" Theme
 
-Version 9.0.3
+Version 9.0.4
 
 ```
 A complete All-in-One Framework Wordpress Theme

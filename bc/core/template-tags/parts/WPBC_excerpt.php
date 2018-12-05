@@ -4,34 +4,7 @@
 * @function WPBC_excerpt 
 * @since Bootclean 9.0
 *
-*/
-
-/*
-	Set filters used here, will produce: "WPBC_excerpt__defaults", "WPBC_excerpt__args"...
-	
-*/
-BC_set_bootclean_filters('excerpt', array(
-	
-	'WPBC_excerpt' => array( // filter/function name base
-		
-		'description' => 'Enable/Disable custom Excerpt', 
-		'defaults' => '__return_true',
-		'inc' => __FILE__,
-		
-		'sub_filters' => array( // sub filters/functions name bases
-			'defaults' => array(
-				'description' => 'Filter defaults values',
-				'defaults' => 'Array() $defaults'
-			),
-			'args' => array(
-				'description' => 'Filter after wp_parse_args defaults',
-				'defaults' => 'Array() $defaults'
-			)
-		
-		)
-	)
-	
-)); 
+*/ 
 
 if ( ! function_exists( 'WPBC_excerpt' ) ) : 
 	 
@@ -102,3 +75,35 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 		} 
 	}
 endif;
+
+
+
+/*
+	
+	Theme Helper Part
+
+	Set filters used here, will produce: "WPBC_excerpt__defaults", "WPBC_excerpt__args"...
+	
+*/
+BC_set_bootclean_filters('excerpt', array(
+	
+	'WPBC_excerpt' => array( // filter/function name base
+		
+		'description' => 'Enable/Disable custom Excerpt', 
+		'defaults' => '__return_true',
+		'inc' => __FILE__,
+		
+		'sub_filters' => array( // sub filters/functions name bases
+			'defaults' => array(
+				'description' => 'Filter defaults values',
+				'defaults' => 'Array() $defaults'
+			),
+			'args' => array(
+				'description' => 'Filter after wp_parse_args defaults',
+				'defaults' => 'Array() $defaults'
+			)
+		
+		)
+	)
+	
+)); 

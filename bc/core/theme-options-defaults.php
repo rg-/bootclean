@@ -3,7 +3,7 @@
 $default_options = apply_filters('BC_default_options' , array(
 	'layout',
 	'widgets',
-	// 'post_types',
+	'post_types',
 	'admin-settings',
 	'color-scheme',
 	'develope'

@@ -194,7 +194,7 @@ function _start_sub_group($k='', $key='', $value='', $count='', $ccount=''){
 		$is_main = '<span class="bg-secondary label">'.__('Main Content Area','bootclean').'</span> ';
 		$class = 'option_main_content_area';
 	}
-	if(!empty($value['content-area'])){
+	if(!empty($value['content-area']) && empty($value['is-main'])){
 		$is_main = '<span class="bg-primary label">'.__('Secondary Content Area','bootclean').'</span> ';
 		$class = 'option_secondary_content_area';
 	}

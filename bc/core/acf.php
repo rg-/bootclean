@@ -10,9 +10,7 @@ function WPBC_get_field($field, $id=''){
 			return get_option('options_'.$field);
 		}
 	} 
-}
-
-
+} 
 
 
 include('acf/group-fields.php');  

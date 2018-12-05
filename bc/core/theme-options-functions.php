@@ -15,29 +15,15 @@ function optionsframework_menu_slug() {
 global $bootclean_theme_root;
 $bootclean_theme_root = BC_theme_root();
 global $bootclean_options; 
-$bootclean_options = array(); 
+$bootclean_options = array();  
 
-global $bootclean_admin_filters;
-$bootclean_admin_filters = array();
-function BC_set_bootclean_filters($group, $arr){
-	global $bootclean_admin_filters;
-	$new = array(
-		$group => $arr
-	);
-	$bootclean_admin_filters = array_merge_recursive($bootclean_admin_filters, $new); 
-}
-function BC_get_bootclean_filters($group=''){
-	global $bootclean_admin_filters;
-	if(!$group) {
-		return $bootclean_admin_filters;
-	}else{
-		if(isset( $bootclean_admin_filters[$group] )){
-			return $bootclean_admin_filters[$group];
-		}
-	}
-}
+/*
 
+	Used to create an Option Group
 
+	See: core/theme-options-defaults/[group.php]
+
+*/
 function WPBC_set_option_group( $layout_id, $layout_name, $icon='', $fields=array() ){
 
 	$group_start = array( 
