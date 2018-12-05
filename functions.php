@@ -23,7 +23,7 @@
 
 */
 global $WPBC_VERSION;
-$WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.3');
+$WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.4');
 function WPBC_version(){
 	global $WPBC_VERSION;
 	return $WPBC_VERSION;

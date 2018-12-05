@@ -60,7 +60,7 @@ add_action( 'acf/load_field', function($field) use($code_mirror_fields_apply){
 
 
 function WPBC_addons__codemirror_styles(){
-	
+	if(is_user_logged_in() && current_user_can( 'manage_options' )){
 	?><style>
 		.codemirror-btn-change-size{
 			cursor:pointer;
@@ -101,7 +101,7 @@ function WPBC_addons__codemirror_styles(){
 			border-color:var(--primary);
 		}
 	</style><?php
-	
+	}
 }
 
 add_action('wp_head','WPBC_addons__codemirror_styles', 9999);

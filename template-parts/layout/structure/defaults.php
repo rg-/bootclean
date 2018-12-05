@@ -131,7 +131,7 @@ $args['main_container']['defaults'] = array(
 
 $args['main_navbar']['defaults'] = array(
  
-	'id' => 'main-navbar',
+	'id' => 'main_navbar_container',
 	'type' => 'container',
 	'tag' => 'div',
 	'attrs' => '',
@@ -145,7 +145,7 @@ $args['main_navbar']['defaults'] = array(
 );
 $args['main_pageheader']['defaults'] = array(
  
-	'id' => 'main-page-header',
+	'id' => 'main_pageheader_container',
 	'type' => 'container',
 	'tag' => 'div',
 	'attrs' => '',
@@ -159,7 +159,7 @@ $args['main_pageheader']['defaults'] = array(
 );
 $args['main_footer']['defaults'] = array(
  
-	'id' => 'main-footer',
+	'id' => 'main_footer_container',
 	'type' => 'container',
 	'tag' => 'div',
 	'attrs' => '',

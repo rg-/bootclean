@@ -23,7 +23,7 @@ include ('wpbc_template_builder/post_type.php');
 
 
 	*/
-function WPBC_get_template_builder_rows($post_id='', $sub_flex = false){
+function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''){
 	// key__flexible_secondary_content_rows
 	if($sub_flex){
 		$row = $sub_flex;
@@ -113,7 +113,7 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false){
 						
 						// TODO from here... make template-part includeable child/filter.. etc
 						
-						$layout_id = $content_row_id ? $content_row_id: ( $post_id.'-'.$layout.'-'.$layout_count );
+						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$post_id.'-'.$name.'-'.$layout.'-'.$layout_count );
 						
 						$layout_start = '<div id="'. $layout_id .'" class="flexible_content_row '.$content_row.'" data-layout="'.$layout.'" data-layout-index="'.$layout_count.'">';
 							
@@ -249,6 +249,9 @@ function WPBC_get_template_builder($post_id=''){
 	 *		@hooked action__wpbc_builder_layout_inner__col_content - 10 
 	 *		@hooked action__wpbc_builder_layout_inner__col_sidebar - 20 
 	 *
+	 *
+	 *		@deprecated since 9.0.1
+	 *			see: template-builder/.....
 	 */
  
 

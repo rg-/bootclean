@@ -59,9 +59,13 @@ add_action('wpbc/head/scripts', 'action__wpbc_head_scripts_config', 10);
 
 		@hooked action__wpbc_layout_body_start__loader - 10
 		@hooked action__wpbc_layout_body_start__main_content_start - 20
-		@hooked action__wpbc_layout_body_start__main_navbar - 20
+
+		@hooked action__wpbc_layout_body_start__main_navbar - 30
+			@deprecated since 9.0.1 see /template-builder/...
  		@hooked action__wpbc_layout_body_start__page_header - 35
+ 			@deprecated since 9.0.1 see /template-builder/...
  		@hooked action__wpbc_layout_body_start__main_content_wrap_start - 40
+ 			@deprecated since 9.0.1 see /template-builder/...
 
 */
   
@@ -102,7 +106,10 @@ add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__main_conte
 	wpbc/layout/body/end action
 
 		@hooked action__wpbc_layout_body_end__main_footer - 10
+			@deprecated since 9.0.1 see /template-builder/...
 		@hooked action__wpbc_layout_body_end__main_content_end - 20
+			@deprecated since 9.0.1 see /template-builder/...
+			
 		@hooked action__wpbc_layout_body_end__main_content_wrap_end - 30
 		@hooked action__wpbc_layout_body_end__main_modal - 40
 		@hooked action__wpbc_layout_body_end__go_up - 50
@@ -154,7 +161,10 @@ add_action('wpbc/layout/body/end', 'action__wpbc_layout_body_end__go_up', 50);
  *	
  *		@hooked action__wpbc_layout_start__container_block_start - 1 
  *		@hooked action__wpbc_layout_start__container_start - 10 
+ *			@deprecated since 9.0.1 see /template-builder/...
  *		@hooked action__wpbc_layout_start__container_row_start - 20 
+ *			@deprecated since 9.0.1 see /template-builder/...
+ *
  *
  */ 
 
@@ -179,6 +189,8 @@ add_action('wpbc/layout/start', 'action__wpbc_layout_start__container_row_start'
 	 *		@hooked action__wpbc_layout_inner__col_content - 10 
 	 *		@hooked action__wpbc_layout_inner__col_sidebar - 20 
 	 *
+	 *		@deprecated since 9.0.1 see /template-builder/...
+	 *
 	 */
  
 
@@ -197,8 +209,10 @@ add_action('wpbc/layout/start', 'action__wpbc_layout_start__container_row_start'
  *	wpbc/layout/end action 
  *
  *		@hooked action__wpbc_layout_end__container_row_end - 10
- *		@hooked action__wpbc_layout_end__container_end - 20 
- *		@hooked action__wpbc_layout_end__container_block_end - 30 
+ *			@deprecated since 9.0.1 see /template-builder/...
+ *		@hooked action__wpbc_layout_end__container_end - 20
+ *			@deprecated since 9.0.1 see /template-builder/... 
+ *		@hooked action__wpbc_layout_end__container_block_end - 99 
  *
  */
 

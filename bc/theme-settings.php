@@ -1,4 +1,6 @@
 <?php
+
+// TO REMOVE
  
 // TODO, leave this for WP, use something else DONE!
 

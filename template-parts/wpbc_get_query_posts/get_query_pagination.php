@@ -46,17 +46,19 @@ if( !$query_posts->is_singular ){
 ?>
 <div id="<?php echo $template_args['target_nav_id']; ?>" class="wpbc_get_query_posts_nav <?php echo $template_args['target_nav_class']; ?>">
 	<nav class="<?php echo $template_args['target_nav_ul_class']; ?>">
+		<ul class="nav">
 		<?php
 		if( $paged < $total_pages && $total_pages != 1 ){ 
 			?>
-			<li><a class="page-link" data-shortcode-load="#<?php echo $template_args['target_id']; ?>" data-shortcode-nav="#<?php echo $template_args['target_nav_id']; ?>" href="<?php echo $next_link; ?>"><?php echo $template_args['pagination_load_more']; ?></a></li>
+			<li class="nav-item"><a class="nav-link page-link" data-shortcode-load="#<?php echo $template_args['target_id']; ?>" data-shortcode-nav="#<?php echo $template_args['target_nav_id']; ?>" href="<?php echo $next_link; ?>"><?php echo $template_args['pagination_load_more']; ?></a></li>
 			<?php
 		}else{ 
 			?>
-			<li><?php echo $template_args['pagination_no_results']; ?></li>
+			<li class="nav-item"><?php echo $template_args['pagination_no_results']; ?></li>
 			<?php
 		}
 		?>
+		</ul>
 	</nav>
 
 	<nav class="<?php echo $template_args['target_nav_ul_class']; ?>">
@@ -65,7 +67,7 @@ if( !$query_posts->is_singular ){
 		$post_count = $w + $post_count;
 		$found_posts = sprintf($template_args['pagination_showing'], $post_count, $found_posts);
 		?>
-		<li><?php echo $found_posts; ?></li>
+		<ul class="nav"><li class="nav-item"><?php echo $found_posts; ?></li></ul>
 	</nav>
 </div>
 <?php } ?>

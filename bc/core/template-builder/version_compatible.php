@@ -1,5 +1,11 @@
 <?php
 
+/*
+
+	Remove actions since new version template builder usage
+
+*/
+
 
 add_action('wpbc/builder/layout/inner', function(){ 
  
@@ -32,7 +38,7 @@ add_action('wpbc/layout/body/start', function(){
 	 
 	 remove_action('wpbc/layout/body/start','action__wpbc_layout_body_start__main_navbar', 30); 
 	 remove_action('wpbc/layout/body/start','action__wpbc_layout_body_start__page_header', 35); 
-	 remove_action('wpbc/layout/body/start','action__wpbc_layout_body_start__main_content_wrap_start', 35); 
+	 remove_action('wpbc/layout/body/start','action__wpbc_layout_body_start__main_content_wrap_start', 40); 
 	 
 }, 0 ); 
 

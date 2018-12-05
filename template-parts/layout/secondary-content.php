@@ -28,8 +28,8 @@
 		}
 		
 	}else{
-		$post_id = WPBC_layout__get_id(); 
-		WPBC_get_template_builder_rows($post_id, 'key__flexible_secondary_content_rows_'.$content_area_index);
+		$post_id = WPBC_layout__get_id();  
+		WPBC_get_template_builder_rows($post_id, 'key__flexible_secondary_content_rows_'.$content_area_index, $name);
 	}
 ?>
 <?php do_action('WPBC_layout__inner_col_sidebar__after'); ?>
