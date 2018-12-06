@@ -26,7 +26,7 @@ $code_mirror_fields_apply = array(
 	'bc_default_code_header' => 'md',
 	'bc_default_code_footer' => 'md',
 	'raw_html_row_html' => 'md',
-	'html_code' => 'md',
+	'html_code' => 'md', 
 );
 
 $code_mirror_fields_apply = apply_filters('WPBC_addons__codemirror_fields', $code_mirror_fields_apply);
@@ -41,6 +41,7 @@ add_action( 'acf/load_field', function($field) use($code_mirror_fields_apply){
 	if( strpos( $classes, $test ) !== false) {
 		$use_codemirror = true;
 	}
+
 	// test for any of the field names on te filtereable array above
 	if ( array_key_exists( $field['name'] , $code_mirror_fields_apply) ){
 		$use_codemirror = true;
@@ -249,10 +250,19 @@ function WPBC_codemirror_admin_footer(){
 			if ( $el.parents( ".acf-clone" ).length > 0 ) {
 				return;
 			} 
+
+			var $mode = "text/html";
+			if($el.hasClass('codemirror-css')){
+				$mode = "text/css";
+			}
+			if($el.hasClass('codemirror-js')){
+				$mode = "text/javascript";
+			}
+			
 			var editor = window.CodeMirror.fromTextArea( $textarea[ 0 ], {
 				lineNumbers: true,
 				fixedGutter: false,
-				mode: "text/html",
+				mode: $mode,
 				theme: "<?php echo $WPBC_codemirror_args ['theme']; ?>",
 				extraKeys: { "Ctrl-Space": "autocomplete" },
 				matchBrackets: true,

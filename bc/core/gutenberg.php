@@ -31,27 +31,7 @@ require 'gutenberg/test/index.php';
  * @return bool  $can_edit
  */
  
- BC_set_bootclean_filters('gutenberg', array( // $arg1 can be any group, will be merged
-	
-	'WPBC_gutenberg' => array( // filter/function name base ( if same group, should be unique key)
-		
-		'description' => 'Enable/Disable custom Gutenberg things', 
-		'defaults' => '__return_true',
-		'inc' => __FILE__,
-		
-		'sub_filters' => array( // sub filters/functions name bases
-			'supported_types' => array(
-				'description' => 'Filter post types',
-				'defaults' => 'array( "post" )'
-			),
-			'color_palette' => array(
-				'description' => 'Enable/Disable custom color palette.',
-				'defaults' => '__return_true'
-			),
-		)
-	)
-	
-)); 
+ 
  
 if( !function_exists( 'WPBC_gutenberg_init' ) ){
 	

@@ -19,13 +19,13 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 		$defaults = array(
 			'post'            => '',
 			'length'          => 20,
-			'class'				=> 'entry-summary', 
+			'class'		=> 'entry-summary', 
 			'excerpt_before'	=> '<span class="entry-excerpt">',
 			'excerpt_after'	=> '</span>',
 			'readmore'        => true,
 			'readmore_show_title' => false,
 			'readmore_text'   => esc_html__( 'Read more', 'bootclean' ),
-			'readmore_before'  => '&hellip; <span class="entry-more">',
+			'readmore_before'	=> '&hellip; <span class="entry-more">',
 			'readmore_after'  => '</span>',
 			'readmore_class'  => 'more-link'
 		); 
@@ -74,36 +74,4 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 			return apply_filters( 'WPBC_excerpt', $output );
 		} 
 	}
-endif;
-
-
-
-/*
-	
-	Theme Helper Part
-
-	Set filters used here, will produce: "WPBC_excerpt__defaults", "WPBC_excerpt__args"...
-	
-*/
-BC_set_bootclean_filters('excerpt', array(
-	
-	'WPBC_excerpt' => array( // filter/function name base
-		
-		'description' => 'Enable/Disable custom Excerpt', 
-		'defaults' => '__return_true',
-		'inc' => __FILE__,
-		
-		'sub_filters' => array( // sub filters/functions name bases
-			'defaults' => array(
-				'description' => 'Filter defaults values',
-				'defaults' => 'Array() $defaults'
-			),
-			'args' => array(
-				'description' => 'Filter after wp_parse_args defaults',
-				'defaults' => 'Array() $defaults'
-			)
-		
-		)
-	)
-	
-)); 
+endif; 

@@ -11,7 +11,7 @@
 global $bootclean_admin_filters;
 $bootclean_admin_filters = array();
 
-
+include('theme-helpers/filters.php');
 /*
 
 	Insert data into array like:
@@ -89,6 +89,9 @@ function _BC_build_filter_table_html($group,$test){
 		foreach($test as $k=>$v){  
 			
 			$out .= '<tr>'; 
+			$out .= '<td colspan="3" class="p-0">';
+			$out .= '<table class="tableX table-dark table-borderless"><tbody><tr>';
+
 				$out .= '<td>';
 				$out .= $k;
 				$out .= '</td>';
@@ -98,28 +101,45 @@ function _BC_build_filter_table_html($group,$test){
 				$out .= '<td>';
 					$out .= $v['defaults'];
 				$out .= '</td>';
+
+			$out .= '</tr></tbody></table>';
+			$out .= '</td>';
+
 			$out .= '</tr>';
 		
 			$sub_filters = $v['sub_filters'];
 			foreach($sub_filters as $kk=>$vv){
 				$out .= '<tr>'; 
-					$out .= '<td>';
-						$out .= $k.'__'.$kk.'';
+
+					$out .= '<td colspan="3" class="p-0">';
+
+					$out .= '<table class="tableX table-dark table-borderless"><tbody><tr>';
+						$out .= '<td>';
+							$out .= $k.'__'.$kk.'';
+						$out .= '</td>';
+						$out .= '<td>';
+							$out .= $vv['description'];
+						$out .= '</td>';
+						$out .= '<td>';
+							$out .= $vv['defaults'];
+						$out .= '</td>';
+					$out .= '</tr></tbody></table>';
+
 					$out .= '</td>';
-					$out .= '<td>';
-						$out .= $vv['description'];
-					$out .= '</td>';
-					$out .= '<td>';
-						$out .= $vv['defaults'];
-					$out .= '</td>';
+
+					
 				$out .= '</tr>';
 			}
 			
 			
 			$out .= '<tr>'; 
 				$out .= '<td colspan="3">';
-				$inc = str_replace('C:\xampp\htdocs\_www\_BC_builder_v4\_WPMU\wordpress\wp-content\themes','',$v['inc']);
-				$out .= '<small class="p-1 bg-warning text-dark"><small style="opacity:.6;">Above used in: </small>'.$inc.'</small>';
+				$inc = str_replace('C:\xampp\htdocs\_www\_BC_builder_v4\_WPMU\wordpress\wp-content\themes\bootclean','',$v['inc']);
+
+	$github_base = 'https://github.com/rg-/bootclean/blob/master';
+	$inc = str_replace('\\', '/', $inc);
+	$href = $github_base.$inc;
+				$out .= '<small class="p-1 bg-warning text-dark"><small style="opacity:.6;">Above used in: </small><a href="'.$href.'" target="_blank">'.$inc.'</a></small>';
 				$out .= '</td>';
 			$out .= '</tr>';
 			

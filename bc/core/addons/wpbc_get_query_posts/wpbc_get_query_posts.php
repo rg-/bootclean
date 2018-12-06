@@ -17,6 +17,8 @@
 
 	Use filters and actions for customization. 
 
+	// see this for.. mmm many things: https://gist.github.com/rfmeier/6091158
+
 */
 
 global $WPBC_get_query_posts;

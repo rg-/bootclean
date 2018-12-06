@@ -9,7 +9,7 @@
 	</div>
 	
 	<header class="entry-header">
-		<h4 class="property-title gmy-1"><a href="<?php the_permalink($post_id); ?>"><?php echo get_the_title($post_id); ?></a></h4>
+		<?php get_template_part( 'template-parts/header-post_title' ); ?>
 	</header>
 	
 	<div class="entry-content">

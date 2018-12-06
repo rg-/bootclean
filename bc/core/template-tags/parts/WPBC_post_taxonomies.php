@@ -68,6 +68,7 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 			"sep" => ', ',
 			"after" => '',
 			"use_icons" => false,
+			"use_links" => true,
 		), $args));
 		$out = '';
 		if($post_id){
@@ -90,7 +91,11 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 					$a = '<a href="'.$term_link.'">';
 					$aa = '</a>';
 
-					$temp[] = $a.$item.$aa;
+					if($use_links){
+						$item = $a.$item.$aa;
+					}
+					
+					$temp[] = $item;
 
 				} 
 				$out = $before.join( "$sep ", $temp ).$after;

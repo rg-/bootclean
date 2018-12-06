@@ -1,8 +1,10 @@
 <?php
 
 /*
-
+	
+	#############
 	wpbc_resource
+	#############
 
 */ 
 
@@ -28,7 +30,7 @@ function wpbc_create_post_type_resource(){
 		'show_in_nav_menus' => true,
 		'publicly_queryable' => true,
 		'query_var' => true,
-		'supports' => array('title','editor','thumbnail'),
+		'supports' => array('title', 'excerpt' ),
 		'menu_icon' => 'dashicons-admin-multisite',  // Icon Path
 		
 		/**/
@@ -38,6 +40,52 @@ function wpbc_create_post_type_resource(){
 		), 
 		
 		//'rewrite' => false,
+		)
+	);
+
+	register_taxonomy(
+		'wpbc_resource_type',
+		array( 'wpbc_resource' ),
+		array(
+			'label' => __('Resource Type','bootclean'),
+			'labels' => array(
+				'add_new_item' => __('Add Resource Type','bootclean'),
+			),  
+			
+			'public' => true, 
+			'hierarchical' => true,
+			'sort' => true,
+			'show_ui' => true,
+		      'show_in_quick_edit' => true,
+		      //'meta_box_cb' => 'post_categories_meta_box',
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true,
+			'rewrite' => false, 
+			'query_var' => false, 
+			//'rewrite' => array( 'slug' => 'operation', 'with_front' => true ),
+		)
+	);
+
+	register_taxonomy(
+		'wpbc_resource_category',
+		array( 'wpbc_resource' ),
+		array(
+			'label' => __('Resource Category','bootclean'),
+			'labels' => array(
+				'add_new_item' => __('Add Resource Category','bootclean'),
+			),  
+			
+			'public' => true, 
+			'hierarchical' => true,
+			'sort' => true,
+			'show_ui' => true,
+		      'show_in_quick_edit' => true,
+		      //'meta_box_cb' => 'post_categories_meta_box',
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true,
+			'rewrite' => false, 
+			'query_var' => false, 
+			//'rewrite' => array( 'slug' => 'operation', 'with_front' => true ),
 		)
 	);
 
@@ -57,3 +105,235 @@ function wpbc_create_post_type_resource(){
 	},10,1);
 
 }
+
+/*
+	
+	##############
+	Some functions
+	##############
+
+*/
+
+function WPBC_include_resource_part($template){
+	
+	$inc = false; 
+
+	$file_uri = get_template_directory_uri().'/bc/core/addons/wpbc_resource/templates/'.$template;
+	$file_path = get_template_directory().'/bc/core/addons/wpbc_resource/templates/'.$template;
+	
+	$child_file_uri = get_stylesheet_directory_uri().'/template-parts/wpbc_resource/'.$template;
+	$child_file_path = get_stylesheet_directory().'/template-parts/wpbc_resource/'.$template; 
+	
+	if( file_exists( $child_file_path.'.php' ) ){
+		$inc = $child_file_path.'.php'; 
+	}else{
+		if( file_exists( $file_path.'.php' ) ){
+			$inc = $file_path.'.php'; 
+		}
+	}
+
+	return $inc;
+
+}
+
+/*
+
+	##########################
+	'wpbc/filter/layout' Parts
+	##########################
+
+	<-
+
+	apply_filters('wpbc/filter/layout/'.$main_key.'/content-area/shortcode/'.$name, $shortcode, $value);
+	
+		$main_key = layout name
+		$name = conten area name
+
+		See template-parts/layout/structure/ layouts files to better understand
+		Each template name is the "main_key", each layout has one or more content areas,
+		each content area has a name. That is. 
+
+		The $value parameter will return an array, same array used on the layout previously described.
+
+		The $shortcode param will return something like:
+
+		[WPBC_get_template name="layout/main-content"/]
+
+		You can filter that and return something else.
+
+	->
+
+*/
+add_filter('wpbc/filter/layout/a1/content-area/shortcode/area-main',function($shortcode, $value){
+	$post_type = get_post_type(); 
+	if( $post_type  == 'wpbc_resource' && is_singular('wpbc_resource') ){  
+		$inc = WPBC_include_resource_part('resource-single'); 
+		if(!empty($inc)){
+			ob_start();  
+			include ($inc);
+			$shortcode = ob_get_contents();
+			ob_end_clean();  
+		} 
+	}
+
+	return $shortcode;
+},10,2);
+
+
+function WPBC_get_resources_FX($atts, $content = null){
+	$out = '';
+	extract(shortcode_atts(array(  
+		'taxonomy' => '',
+		'meta' => '',
+		'args' => '',
+	), $atts));
+
+	$query = array(
+		'post_type' => 'wpbc_resource',
+	);
+	$query_posts = new WP_Query( $query ); 
+	if( $query_posts->have_posts() ){
+		while ( $query_posts->have_posts() ) {  
+			$query_posts->the_post();  
+			$inc = WPBC_include_resource_part('resource'); 
+			if(!empty($inc)){
+				include ($inc);
+			} 
+		}
+		wp_reset_postdata();
+	}
+}
+add_shortcode('WPBC_get_resources', 'WPBC_get_resources_FX');
+
+function WPBC_resource_template__path($post_id){
+
+	$wpbc_resource_path = WPBC_get_field('wpbc_resource_path', $post_id);
+	$wpbc_resource_path = str_replace('C:\xampp\htdocs\_www\_BC_builder_v4\_WPMU\wordpress\wp-content\themes\bootclean','',$wpbc_resource_path);
+	$wpbc_resource_path = str_replace('\\', '/', $wpbc_resource_path);
+	$github_base = 'https://github.com/rg-/bootclean/blob/master';
+	$href = $github_base.$wpbc_resource_path;
+
+	$icon = WPBC_get_svg_img('logo-github', array(
+		'width'=>'18px',
+		'height'=>'18px',
+		'color'=>'black'
+	));
+
+	echo '<a href="'.$href.'" target="_blank">'.$icon.' '.$wpbc_resource_path.'</a>';
+}
+
+function WPBC_resource_template__terms($post_id){
+
+	echo WPBC_get_the_terms(array(
+			'taxonomy' => 'wpbc_resource_category',
+			'post_id'=> $post_id,
+			'before' => __('Category: ','bootclean'),
+		));
+	echo " | ";
+	echo WPBC_get_the_terms(array(
+			'taxonomy' => 'wpbc_resource_type',
+			'post_id'=> $post_id,
+			'before' => __('Type: ','bootclean'),
+		)); 
+
+}
+ 
+
+/*
+	
+	########
+	ACF part
+	########
+
+*/
+
+if( function_exists('acf_add_local_field_group') ):
+
+$group_wpbc_resource_metadata = array( 
+
+	array (
+		'key' => 'field_wpbc_resource_desc',
+		'label' => __('Description','bootclean'),
+		'name' => 'wpbc_resource_desc',
+		'type' => 'textarea',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'html_code', // For codemirror
+			'id' => '',
+		),
+		'default_value' => '',
+		'placeholder' => '',
+		'maxlength' => '',
+		'rows' => '',
+		'new_lines' => '',
+	),
+
+	array (
+		'key' => 'field_wpbc_resource_code',
+		'label' => __('Code','bootclean'),
+		'name' => 'wpbc_resource_code',
+		'type' => 'textarea',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'html_code', // For codemirror
+			'id' => '',
+		),
+		'default_value' => '',
+		'placeholder' => '',
+		'maxlength' => '',
+		'rows' => '',
+		'new_lines' => '',
+	),
+
+	array (
+		'key' => 'field_wpbc_resource_path',
+		'label' => 'Path',
+		'name' => 'wpbc_resource_path',
+		'type' => 'text',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'default_value' => '',
+		'placeholder' => '',
+		'prepend' => '',
+		'append' => '',
+		'maxlength' => '',
+	),
+
+);
+
+acf_add_local_field_group(array(
+	'key' => 'group_wpbc_resource_metadata',
+	'title' => __('Resource Metadata','bootclean'),
+	'fields' => $group_wpbc_resource_metadata,
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'wpbc_resource',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
