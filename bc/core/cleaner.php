@@ -4,6 +4,7 @@
 // see https://github.com/taniarascia/wp-functions
 // see https://github.com/vincentorback/clean-wordpress-admin
 
+$WPBC_is_acf = WPBC_is_acf(); 
 
 require 'cleaner/login.php';
 require 'cleaner/dashboard.php';

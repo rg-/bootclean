@@ -2755,6 +2755,9 @@ button.card-dark:focus {
   .gpl-xl-6,
   .gpx-xl-6 {
     padding-left: 90px !important; } }
+#main-content-wrap {
+  overflow: hidden; }
+
 .container-left {
   margin-right: auto !important;
   margin-left: 0 !important; }

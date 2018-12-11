@@ -98,14 +98,14 @@ function WPBC_property_template_taxonomy_args($single=false, $property_id='', $t
 	if( is_single() && $post_type == 'property' ){
 		$taxonomy_args = array(
 			'class' => 'list-group',
-			'row_class' => 'list-group-item flex-column align-items-start',
-			'row_head_class' => 'd-flex w-100 justify-content-between',
+			'row_class' => 'list-group-item flex-column align-items-center',
+			'row_head_class' => 'd-flex w-100 justify-content-between ',
 			'row_label_class' => 'h5', 
 			'row_desc_class' => '', 
 			'use_icons' => true,
 			'use_links' => true,
 			'btn_class' => 'btn btn-link',
-			'btn_current_class' => 'btn btn-primary gmt-1',
+			'btn_current_class' => 'btn btn-primary',
 			'sep' => ' | ',
 			'row_items' => false,
 		);

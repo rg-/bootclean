@@ -197,7 +197,7 @@ $under_construction = array(
 		'type' => 'sub-heading-end'
 	)
 	// sub-heading-end !!
-);
+); 
 
 $group_end = array( 
 	array( 
@@ -207,7 +207,7 @@ $group_end = array(
 
 // merge all
 $args = array_merge( $args, $brand_login); 
-$args = array_merge( $args, $under_construction); 
+$args = array_merge( $args, $under_construction);  
 $args = array_merge( $args, $group_end); 
 
 // build and set option group/tab

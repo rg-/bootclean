@@ -6,6 +6,7 @@ $default_options = apply_filters('BC_default_options' , array(
 	'post_types',
 	'admin-settings',
 	'color-scheme',
+	'advanced',
 	'develope'
 	));
 

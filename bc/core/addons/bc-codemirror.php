@@ -53,6 +53,7 @@ add_action( 'acf/load_field', function($field) use($code_mirror_fields_apply){
 	
 	if( $use_codemirror ){  
 		$size = !empty($code_mirror_fields_apply[$field['name']]) ? $code_mirror_fields_apply[$field['name']] : 'md';
+
 		$field['wrapper']['class'] = $field['wrapper']['class'] . ' codemirror-custom-field '.$size.' '; 
 	}
 	
@@ -232,10 +233,29 @@ function WPBC_codemirror_admin_footer_by_class(){
 
 add_action( 'acf/input/admin_footer', 'WPBC_codemirror_admin_footer', 10 );
 function WPBC_codemirror_admin_footer(){ 
-	global $WPBC_codemirror_args;
+	global $WPBC_codemirror_args; 
+
 	?>
-	<script> 
+	<script>
+
+	function _getCookie(cname) {
+	  var name = cname + "=";
+	  var decodedCookie = decodeURIComponent(document.cookie);
+	  var ca = decodedCookie.split(';');
+	  for(var i = 0; i <ca.length; i++) {
+	    var c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	} 
 	
+	var wpbc_codemirror_size = _getCookie('wpbc_codemirror_size');  
+
 	(function( $ ) {
 		
 		function initialize_code_field( $el ) { 
@@ -341,8 +361,15 @@ function WPBC_codemirror_admin_footer(){
 				$('.codemirror-btn-change-size.current').removeClass('current');
 				$(this).addClass('current');
 				$(this).closest('.codemirror-custom-field').removeClass('sm md lg xlg').addClass($(this).attr('data-size')); 
+
+				document.cookie = "wpbc_codemirror_size="+ $(this).attr('data-size') +"; expires=<?php echo time() + 3600 * 24 * 100; ?>; path=<?php echo COOKIEPATH; ?>";
+
 				return false; 
-			});
+			});  
+
+			if(wpbc_codemirror_size){
+				$el.removeClass('sm md lg xlg').addClass(wpbc_codemirror_size); 
+			} 
 		}
 		//initialize_code_buttons(false);
 		
@@ -356,4 +383,21 @@ function WPBC_codemirror_admin_footer(){
 	<?php
 	
 };
+
+
+
+add_action( 'init', 'WPBC_codemirror_cookies' );
+
+function WPBC_codemirror_cookies() {
+	if( !isset($_COOKIE['wpbc_codemirror_size']) ) {
+	 	setcookie( 'wpbc_codemirror_size', 'md', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false );
+	 }
+}
+
+function WPBC_get_codemirror_cookies(){
+	if( isset($_COOKIE['wpbc_codemirror_size']) ) {
+		return $_COOKIE['wpbc_codemirror_size'];
+	}
+}
+
 ?>

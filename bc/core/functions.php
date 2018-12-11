@@ -298,6 +298,7 @@ function WPBC_get_svg_img($icon='', $atts=array()){
 		'color' => '',
 		'width' => '',
 		'height' => '', 
+		'class' => '',
 		//'data_src_type' => 'data:image/svg+xml;utf8,'
 		'data_src_type' => 'base64',
 		'return' => 'img'
@@ -316,7 +317,7 @@ function WPBC_get_svg_img($icon='', $atts=array()){
 	}
 	
 	if($return == 'img'){
-		$out = "<img class='wpbc_svg_img' src='". $url ."' ".$attrs."/>"; 
+		$out = "<img class='". $class ." wpbc_svg_img' src='". $url ."' ".$attrs."/>"; 
 	}
 	if($return == 'src'){
 		$out = $url;
@@ -334,6 +335,8 @@ function WPBC_get_svg_img($icon='', $atts=array()){
 
 */
 
+/* post_type */
+
 function WPBC_enable_post_type_realstate(){ 
 	$enable = apply_filters('wpbc/filter/post_types/enable/realstate', 0);
 	return $enable;
@@ -350,4 +353,24 @@ function WPBC_enable_post_type_resource(){
 
 function WPBC_enable_post_type_resource_op(){  
 	return apply_filters('wpbc/filter/post_types/options/resource/disable', 0);
+}
+
+/* advanced */
+
+function WPBC_enable_cleaner_updates_notifications(){ 
+	$enable = apply_filters('wpbc/filter/cleaner/updates/notifications', 0);
+	return $enable;
+}
+function WPBC_enable_cleaner_updates_notifications_op(){ 
+	$enable = apply_filters('wpbc/filter/cleaner/updates/notifications/disable', 0);
+	return $enable;
+}
+
+function WPBC_enable_cleaner_updates_checks(){ 
+	$enable = apply_filters('wpbc/filter/cleaner/updates/checks', 0);
+	return $enable;
+}
+function WPBC_enable_cleaner_updates_checks_op(){ 
+	$enable = apply_filters('wpbc/filter/cleaner/updates/checks/disable', 0);
+	return $enable;
 }

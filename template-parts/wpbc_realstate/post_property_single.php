@@ -8,7 +8,7 @@ $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
 	
 	<div class="row">
 
-		<div class="col-sm-8">
+		<div class="col-md-8">
 			<!--
 			<div class="property_thumbnail gmb-2">
 			<?php echo do_shortcode('[WPBC_get_property id="'.$property_id.'" part="property_thumbnail"/]'); ?>
@@ -37,7 +37,7 @@ $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
 			
 		</div>
 
-		<div class="col-sm-4">
+		<div class="col-md-4">
 
 			<div class="property_title_header gmb-2">
 				<h2 class="section-title property_title h1"><?php echo get_the_title($property_id); ?></h2>
@@ -68,7 +68,17 @@ $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
 					<?php
 				if(!empty($temporary_prices)){
 					?>
-					<h5 class="property_label gmt-2"><?php echo __('Temporary Prices','bootclean');?></h5>
+					<h5 class="property_label gmt-2"><?php  
+				$atts = array(
+					'alt' => 'Reset',
+					'color' => '#999',
+					'width' => '24',
+					'height' => '24', 
+					'class' => 'mb-1 mr-1', 
+				); 
+				$icon = WPBC_get_svg_img('md-pricetags', $atts); 
+				echo $icon; 
+				?><?php echo __('Temporary Prices','bootclean');?></h5>
 					<?php echo do_shortcode('[WPBC_get_property id="'.$property_id.'" part="property_temporary_prices"/]'); ?>
 					<?php
 				}
@@ -76,7 +86,17 @@ $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
 			</div>
 
 			<div class="property_meta">
-				<h5 class="property_label"><?php echo __('Location','bootclean');?></h5>
+				<h5 class="property_label"><?php  
+				$atts = array(
+					'alt' => 'Reset',
+					'color' => '#999',
+					'width' => '24',
+					'height' => '24', 
+					'class' => 'mb-1 mr-1', 
+				); 
+				$icon = WPBC_get_svg_img('md-globe', $atts); 
+				echo $icon; 
+				?><?php echo __('Location','bootclean');?></h5>
 				<?php echo do_shortcode('[WPBC_get_property id="'.$property_id.'" part="property_taxonomy" args="include_parents=1&include_current=0&last_current=1" taxonomy="property_location"/]'); ?>
 			</div>
 

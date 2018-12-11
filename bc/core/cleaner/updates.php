@@ -9,9 +9,12 @@
 
 /**
  * Disable update notifcations.
- */
- 
-if( apply_filters('BC_cleaner__updates__disable', '__return_true') ){ 
+ */  
+
+$notifications_disable_op = WPBC_get_option( 'cleaner-updates-notifications' );
+$notifications_disable = WPBC_enable_cleaner_updates_notifications(); 
+
+if( !empty($notifications_disable_op) ){ 
 	// Core update notifications
 	add_filter('pre_site_transient_update_core', 'last_checked_now');
 	// Plugin update notifications
@@ -43,10 +46,13 @@ if( apply_filters('BC_cleaner__updates__disable', '__return_true') ){
  * Remove actions that checks for updates
  */
 add_action( 'admin_init', function () {
-  if( apply_filters('BC_cleaner__updates__disable', '__return_true') ){ 
-	  remove_action( 'wp_maybe_auto_update', 'wp_maybe_auto_update' );
-	  remove_action( 'admin_init', 'wp_maybe_auto_update' );
-	  remove_action( 'admin_init', 'wp_auto_update_core' );
-	  wp_clear_scheduled_hook( 'wp_maybe_auto_update' );
-  }
+
+	$checks_disable = WPBC_get_option( 'cleaner-updates-checks' );
+
+	if( !empty($checks_disable) ){ 
+		remove_action( 'wp_maybe_auto_update', 'wp_maybe_auto_update' );
+		remove_action( 'admin_init', 'wp_maybe_auto_update' );
+		remove_action( 'admin_init', 'wp_auto_update_core' );
+		wp_clear_scheduled_hook( 'wp_maybe_auto_update' );
+	}
 });
