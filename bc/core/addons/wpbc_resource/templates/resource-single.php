@@ -18,17 +18,33 @@ $post_id = get_the_ID();
 		<?php  
 		$wpbc_resource_desc = WPBC_get_field('wpbc_resource_desc');
 		echo $wpbc_resource_desc; 
-		?>
-
-		<?php
-
-		$wpbc_resource_code = WPBC_get_field('wpbc_resource_code');
-		//$wpbc_resource_code = remove_filter( $wpbc_resource_code, 'wpautop' );
-		echo '<code class="">'.$wpbc_resource_code.'</code>'; 
-		?>
+		?> 
 	</div>
 
-	<div class="entry-meta bg-light gp-1">
+	<div class="entry-code gp-2 bg-light gmt-2">
+		<?php  
+		$wpbc_resource_code = WPBC_get_field('wpbc_resource_code');
+		echo '<pre class="m-0"><code>'.$wpbc_resource_code.'</code></pre>'; 
+		?> 
+	</div>
+
+	<div class="entry-meta gmt-2">
+		<?php
+
+		$wpbc_resource_github_file = WPBC_get_field('wpbc_resource_github_file');
+		$wpbc_resource_github_file = str_replace('https://github.com/', '', $wpbc_resource_github_file); 
+		$wpbc_resource_github_file_vars = WPBC_get_field('wpbc_resource_github_file_vars');
+
+		$gist = 'https://gist-it.appspot.com/github/';
+		$file = str_replace('https://github.com', '', $wpbc_resource_github_file);
+		$vars = '?footer=0&'.$wpbc_resource_github_file_vars;
+
+		?>
+
+		<script src="<?php echo $gist.$file.$vars; ?>"></script>
+	</div>
+
+	<div class="alert alert-info gmt-2 gp-1">
 		<?php WPBC_resource_template__path($post_id); ?><br>
 		<?php WPBC_resource_template__terms($post_id); ?>
 	</div>

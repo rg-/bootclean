@@ -1,13 +1,36 @@
 <?php
 
 $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
+
 $property_gallery = WPBC_get_field('property_gallery', $property_id);
 
+// data-slick
 
-$data_slick = '{ "dots":true, "arrows":true, "infinite":true }';
-$data_breakpoint = '{"xs":{"default":"100%","min":"100%","max":"900px"},"md":{"default":"100%","min":"550px","max":"900px"}}';
+$data_slick_arr = array (
+	'dots' => true,
+	'arrows' => true,
+	'infinite' => true,
+); 
+$data_slick = json_encode($data_slick_arr); 
 
-$gallery_type = 'slick-basic';
+// data-breakpoint-height
+$data_breakpoint_arr = array (
+	'xs' => array (
+	    'default' => '100%',
+	    'min' => '100%',
+	    'max' => '900px',
+	),
+	'md' => array (
+		'default' => '100%',
+		'min' => '550px',
+		'max' => '900px',
+	),
+);
+$data_breakpoint = json_encode($data_breakpoint_arr);  
+
+// items_type
+
+$items_type = apply_filters('wpbc/filter/realstate/property_gallery/items_type','slick-basic');
 
 if(!empty($property_gallery)){ ?>
 <div id="slider-property-single" class="theme-slick-slider"
@@ -15,23 +38,26 @@ if(!empty($property_gallery)){ ?>
 	data-breakpoint-height='<?php echo $data_breakpoint; ?>' >
 	<?php
 	foreach( $property_gallery as $image ){
+		
+		if($items_type == 'slick-basic'){
 
-		//echo '<div class="item">'.$image['url'].'</div>';
-		if($gallery_type == 'slick-basic'){
-		?>
-		<div class="item">
-			<img src="<?php echo $image['url']; ?>" class="w-100 h-auto" alt=" "/>
-		</div>
-		<?php
+?>
+<div class="item">
+	<?php 
+	echo wp_get_attachment_image( $image['ID'], array($image['width'],$image['height']), '', array('class'=>'w-100 h-auto') );
+
+	?>
+</div>
+<?php
 		}
 
-		if($gallery_type == 'slick-lazyload-cover'){
-		?>
+		if($items_type == 'slick-lazyload-cover'){
+?>
 <div class="item loading">
 	<span class="lazyload-loading"></span>
 	<div data-lazyload-src="<?php echo $image['url']; ?>" class="item-container image-cover" style="background-image:url(<?php echo $image['sizes']['medium']; ?>);" ></div>					
 </div>
-		<?php
+<?php
 		} 
 		
 	}

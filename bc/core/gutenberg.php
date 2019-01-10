@@ -51,7 +51,7 @@ if( !function_exists( 'WPBC_gutenberg_init' ) ){
 				Enable gutenberg only for these post types
 			*/
 			function can_edit_post_type( $can_edit, $post_type ) {
-				$gutenberg_supported_types = apply_filters('WPBC_gutenberg__supported_types', array( 'post' ));
+				$gutenberg_supported_types = apply_filters('WPBC_gutenberg__supported_types', array( 'post','page' ));
 				if ( ! in_array( $post_type, $gutenberg_supported_types, true ) ) {
 					$can_edit = false;
 				} 

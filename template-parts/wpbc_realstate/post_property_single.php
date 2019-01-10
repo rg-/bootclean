@@ -133,6 +133,37 @@ $property_id = !empty($property->ID) ? $property->ID : get_the_ID();
 		<h2 class="section-title"><?php echo __('Related Properties','bootclean');?></h2>
 	</div>
 	<div class="col-12">
-		<?php echo  do_shortcode("[WPBC_get_query_properties query_string='posts_per_page=3&orderby=rand&hide_nav=1'/]");?>
+		<?php
+
+		// data-slick
+
+		$data_slick_arr = array (
+			'dots' => true,
+			'arrows' => true,
+			'infinite' => true,
+			'slidesToShow' => 3,
+  			'slidesToScroll' => 3,
+		); 
+		$data_slick = json_encode($data_slick_arr); 
+		// echo $data_slick;
+		// data-breakpoint-height
+		$data_breakpoint_arr = array (
+			'xs' => array (
+			    'default' => '100%',
+			    'min' => '100%',
+			    'max' => '900px',
+			),
+			'md' => array (
+				'default' => '100%',
+				'min' => '550px',
+				'max' => '900px',
+			),
+		);
+		$data_breakpoint = json_encode($data_breakpoint_arr); 
+
+		?>
+		<div class="row" data-slick='<?php echo $data_slick; ?>' data-breakpoint-height='<?php echo $data_breakpoint; ?>'>
+		<?php echo do_shortcode("[WPBC_get_query_properties query_string='posts_per_page=3&orderby=rand&hide_nav=1' target_no_wrapper='1'/]");?>
+		</div>
 	</div>
 </div>

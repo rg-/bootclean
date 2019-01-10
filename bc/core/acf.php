@@ -93,8 +93,11 @@ function WPBC_get_acf_form($post_id=''){
 						} 
 						
 					}
+
+					$post_type = get_post_type();
+					$settings = apply_filters('wpbc/filter/acf/form/settings', $settings, $post_type);
+					
 					/*
-	
 
 					TODO filter locations, enable, settings, etc
 

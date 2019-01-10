@@ -14,10 +14,12 @@
 	// reduce names:
 	$_p = $params; 
 	$is_main = isset($_p['is_main']) ? true : false;
-	// TODO, a way to sanitize all posible wrong passed values ?? This should be passed not by stupids but....
+	// TODO, a way to sanitize all posible wrong passed values ?? This should be passed not by idiots but....
 	
 	// $params passed should be an array, like defaults: 
+	// unique id generator if no id passed
 	$_uid = uniqid();
+	// defaults
 	$defauls = array( 
 		
 		'is_main' => $is_main,
@@ -52,7 +54,7 @@
 			'title' => get_bloginfo('name'),
 			'href' => get_bloginfo('url'),
 			'attrs' => '',
-			// 'sizes' => true, // Use this stead of styles to make responsive from css settings
+			// 'sizes' => true, // Use this instead of styles to make responsive from css settings
 			//'styles' => array(
 				//'xs' => 'width: auto; height: 100px;' 
 			//)
@@ -60,7 +62,7 @@
 		
 		'navbar_toggler' => array(
 			'class' => '',
-			'target' => $_uid.'-navbar-collapse',
+			'target' => 'navbar-collapse-'.$_uid,
 			'expanded' => false,
 			'label' => __('Toggle navigation', 'bootclean'), 
 			'type' => 'default', /* default | animate */
@@ -72,7 +74,7 @@
 			'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.
 			'container'       => 'div',
 			'container_class' => 'collapse navbar-collapse flex-row-reverse',
-			'container_id'    => $_uid.'-navbar-collapse',
+			'container_id'    => 'navbar-collapse-'.$_uid,
 			'menu_class'      => 'navbar-nav',
 			'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
 			'walker'          => new WP_Bootstrap_Navwalker(),

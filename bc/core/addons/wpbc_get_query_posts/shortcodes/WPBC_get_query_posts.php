@@ -65,6 +65,9 @@ function WPBC_get_query_posts_FX( $atts, $content = null) {
 		$template_args['target_id'] = $query['target_id'];
 		$template_args['target_nav_id'] = $query['target_id'].'-nav';
 	}
+	if(!empty($shortcode_args['target_no_wrapper'])){
+		$template_args['target_no_wrapper'] = $shortcode_args['target_no_wrapper'];
+	}
 
 	//$_post_type = !empty($query['post_type']) ? $query['post_type'] : 'post';
 	//$template_args['target_id'] = $template_args['target_id'].'-'.$_post_type;

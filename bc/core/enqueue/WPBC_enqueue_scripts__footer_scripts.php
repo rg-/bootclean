@@ -27,7 +27,7 @@ $scripts = array(
 	),
 	
 	'bootstrap'=>	array( 
-		'src'=>'js/bootstrap.bundle.min.js',
+		'src'=>'js/bootstrap.min.js',
 		'dependence' => array('jquery')
 	),
 	

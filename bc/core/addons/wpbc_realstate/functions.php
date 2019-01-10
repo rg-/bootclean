@@ -7,6 +7,34 @@
 //include('functions/WPBC_get_property_search_button.php'); 
 //include('functions/WPBC_get_property_price_ranger.php');  
 
+
+/*
+
+	Get plugin/template or template-parts/ templates if on child themes
+
+*/
+function WPBC_include_property_part($template){
+	
+	$inc = false; 
+
+	$file_uri = get_template_directory_uri().'/bc/core/addons/wpbc_realstate/templates/'.$template;
+	$file_path = get_template_directory().'/bc/core/addons/wpbc_realstate/templates/'.$template;
+	
+	$child_file_uri = get_stylesheet_directory_uri().'/template-parts/wpbc_realstate/'.$template;
+	$child_file_path = get_stylesheet_directory().'/template-parts/wpbc_realstate/'.$template; 
+	
+	if( file_exists( $child_file_path.'.php' ) ){
+		$inc = $child_file_path.'.php'; 
+	}else{
+		if( file_exists( $file_path.'.php' ) ){
+			$inc = $file_path.'.php'; 
+		}
+	}
+
+	return $inc;
+
+}
+
 function WPBC_property_is_featured($id){
 	$featured_post = get_post_meta($id, 'wpbc_realstate_featured_post', true);
 	if($featured_post) return true;

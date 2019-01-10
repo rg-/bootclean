@@ -19,7 +19,9 @@ add_action('wpbc/layout/end', function($out){
 		do_action('wpbc/layout/acf_form', $post_id); 
 	}
 
-	if( is_user_logged_in() && current_user_can( 'manage_options' ) ){
+	$show_wpbc_layout_debug = apply_filters('WPBC_layout_debug', 1);
+
+	if( is_user_logged_in() && current_user_can( 'manage_options' ) && !empty($show_wpbc_layout_debug) ){
 
 		$template = WPBC_get_template();
 		$post_type = get_post_type();

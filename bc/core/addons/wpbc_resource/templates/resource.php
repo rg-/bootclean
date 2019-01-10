@@ -22,15 +22,15 @@ $post_id = get_the_ID();
 			'before' => '@',
 		)); ?></small></div>
 
-	<h5 class="gmy-0 text-info"><?php echo get_the_title(); ?></h5>
+	<h5 class="gmy-0 text-info mt-1"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h5>
 
-	<div class="entry-description small">
+	<div class="entry-description small mt-1">
 		<?php  
 		$wpbc_resource_desc = WPBC_get_field('wpbc_resource_desc');
 		echo $wpbc_resource_desc; 
 		?>
 	</div>
 
-	<div class=""><small><?php WPBC_resource_template__path($post_id); ?></small></div> 
+	<div class="alert alert-info p-2 mt-1"><small><?php WPBC_resource_template__path($post_id); ?></small></div> 
 
 </article>

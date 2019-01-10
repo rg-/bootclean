@@ -87,7 +87,7 @@ function wpbc_create_post_type_resource(){
 			'query_var' => false, 
 			//'rewrite' => array( 'slug' => 'operation', 'with_front' => true ),
 		)
-	);
+	); 
 
 
 	// Template part
@@ -105,6 +105,19 @@ function wpbc_create_post_type_resource(){
 	},10,1);
 
 }
+
+
+// acf form
+add_filter('wpbc/filter/acf/form/settings', function($settings, $post_type){
+ 
+	if( $post_type  == 'wpbc_resource' ){ 
+		$settings = array( 
+			'post_title' => true, 
+		);
+	}
+	return $settings;
+
+}, 10, 2);
 
 /*
 	
@@ -207,11 +220,7 @@ add_shortcode('WPBC_get_resources', 'WPBC_get_resources_FX');
 
 function WPBC_resource_template__path($post_id){
 
-	$wpbc_resource_path = WPBC_get_field('wpbc_resource_path', $post_id);
-	$wpbc_resource_path = str_replace('C:\xampp\htdocs\_www\_BC_builder_v4\_WPMU\wordpress\wp-content\themes\bootclean','',$wpbc_resource_path);
-	$wpbc_resource_path = str_replace('\\', '/', $wpbc_resource_path);
-	$github_base = 'https://github.com/rg-/bootclean/blob/master';
-	$href = $github_base.$wpbc_resource_path;
+	$wpbc_resource_github_file = WPBC_get_field('wpbc_resource_github_file');
 
 	$icon = WPBC_get_svg_img('logo-github', array(
 		'width'=>'18px',
@@ -219,7 +228,7 @@ function WPBC_resource_template__path($post_id){
 		'color'=>'black'
 	));
 
-	echo '<a href="'.$href.'" target="_blank">'.$icon.' '.$wpbc_resource_path.'</a>';
+	echo '<a href="'.$wpbc_resource_github_file.'" target="_blank">'.$icon.' '.$wpbc_resource_github_file.'</a>';
 }
 
 function WPBC_resource_template__terms($post_id){
@@ -289,14 +298,33 @@ $group_wpbc_resource_metadata = array(
 		'maxlength' => '',
 		'rows' => '',
 		'new_lines' => '',
-	),
+	), 
 
 	array (
-		'key' => 'field_wpbc_resource_path',
-		'label' => 'Path',
-		'name' => 'wpbc_resource_path',
+		'key' => 'field_wpbc_resource_github_file',
+		'label' => 'Github File Path',
+		'name' => 'wpbc_resource_github_file',
 		'type' => 'text',
 		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'default_value' => '',
+		'placeholder' => '',
+		'prepend' => '',
+		'append' => '',
+		'maxlength' => '',
+	),
+	array (
+		'key' => 'field_wpbc_resource_github_file_vars',
+		'label' => 'Github File Path Vars',
+		'name' => 'wpbc_resource_github_file_vars',
+		'type' => 'text',
+		'instructions' => 'Ej: slice=18:31',
 		'required' => 0,
 		'conditional_logic' => 0,
 		'wrapper' => array (

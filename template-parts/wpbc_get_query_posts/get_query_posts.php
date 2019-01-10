@@ -16,10 +16,12 @@
 			
 			$template_args (array, not passed through shortcode)
 
-	*/ 
-	 
+	*/  
+
 ?>
+<?php if(empty($template_args['target_no_wrapper'])){ ?>
 <div id="<?php echo $template_args['target_id']; ?>" class="wpbc_get_query_posts_target <?php echo $template_args['target_class']; ?>">
+<?php } ?>
 <?php
 
 	while ( $query_posts->have_posts() ) { 
@@ -47,4 +49,6 @@
 	wp_reset_postdata();
 
 ?>
+<?php if(empty($template_args['target_no_wrapper'])){ ?>
 </div>
+<?php } ?>
