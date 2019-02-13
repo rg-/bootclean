@@ -18,11 +18,14 @@ function __wpbc_dashicon_no(){
 }
 
 function wpbc_get_featured_image_for_columns($id){
+	$post_type = get_post_type($id);
 	if(has_post_thumbnail($id)){
-	   $img_src = wp_get_attachment_image_url( get_post_thumbnail_id( $id ), 'thumbnail' );
+	   $img_size = apply_filters('wpbc/post_type/columns/featured-image/size', 'thumbnail', $post_type);
+	   $img_width = apply_filters('wpbc/post_type/columns/featured-image/width', '50', $post_type);
+	   $img_src = wp_get_attachment_image_url( get_post_thumbnail_id( $id ), $img_size );
 	   ?>
 	   <div class="post-image">
-			<img width="50" src="<?php echo esc_url( $img_src ); ?>" alt=" ">
+			<img width="<?php echo $img_width; ?>" src="<?php echo esc_url( $img_src ); ?>" alt=" ">
 		</div>
 	   <?php
    }else{
@@ -102,7 +105,25 @@ function wpbc_manage_pages_custom_column( $column_name, $id ){
 	   ksort( $templates );
 	   foreach ( array_keys( $templates ) as $template ) :
 		   if ( $set_template == $templates[$template] ) echo $template;
-	   endforeach; 	   
+	   endforeach;
+   		
+   		$custom_layout__enable = WPBC_get_field('custom_layout__enable', $id);
+   	if($custom_layout__enable){
+		$layout = WPBC_get_layout_structure_build_layout($id);
+		$layout_defaults = WPBC_layout_struture__defaults();
+		$layout_args = WPBC_filter_layout_structure_build( $layout_defaults );
+
+		$container_type = $layout_args['main_container'][$layout]['container_type']; 
+		$img_path = get_template_directory_uri();
+
+		$layout_icon = $img_path.'/template-parts/layout/structure/'.$layout.'.png';
+		$container_icon = $img_path.'/bc/core/assets/images/layout_'.$container_type.'.png';
+	   
+	   //echo WPBC_get_field('custom_layout__custom_location', $id);
+
+	   echo '<br><small>Container <small>'.$container_type.'</small>:<br> <img src="'.$container_icon.'" width="30" /></small>'; 
+	   echo '<br><small>Layout <small>'.$layout.'</small>:<br> <img src="'.$layout_icon.'" width="30" /></small>';  
+	   }
    }
 
    if ( $column_name === 'template-settings' ) { 

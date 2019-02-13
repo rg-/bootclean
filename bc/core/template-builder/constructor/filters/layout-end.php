@@ -8,6 +8,14 @@ add_action('wpbc/layout/end', function($out){
 		$post_id = $post->ID;
 	}
 	$post_id = $post->ID;
+	global $wp_query;
+	if(!empty($wp_query->is_posts_page)){
+		$post_id = get_option('page_for_posts');
+	}
+	$post_type = get_post_type($post);
+	if(is_single() && $post_type == 'post'){ 
+		$post_id = get_option('page_for_posts');
+	}
 
 	if(is_singular()){
 		if ( have_posts() ) {

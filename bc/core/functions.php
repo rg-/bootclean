@@ -9,6 +9,27 @@
 
 include('functions/WPBC_layout.php'); 
 
+/*
+	Get a menu name by menu location
+*/
+function WPBC_get_nav_menu_name($menu_location){ 
+	if(!empty($menu_location)){
+		$menu_locations = get_nav_menu_locations(); 
+		$menu_object = (isset($menu_locations[$menu_location]) ? wp_get_nav_menu_object($menu_locations[$menu_location]) : null); 
+		$menu_name = (isset($menu_object->name) ? $menu_object->name : ''); 
+		return esc_html($menu_name);
+	}
+}
+/*
+	Get a menu $menu_object by menu location
+*/
+function WPBC_get_nav_menu_object($menu_location){ 
+	if(!empty($menu_location)){
+		$menu_locations = get_nav_menu_locations(); 
+		$menu_object = (isset($menu_locations[$menu_location]) ? wp_get_nav_menu_object($menu_locations[$menu_location]) : null);  
+		return $menu_object;
+	}
+}
 
 // NOT USED
 function WPBC_pre_layout_main_content_choices($choices=array()){
@@ -216,7 +237,7 @@ function BC_get_reverse_root_colors($HEX=''){
 	} 
 }
 
-function __BC_get_root_colors_palette(){ 
+function __BC_get_root_colors_palette($max=7){ 
 	$css = BC_get_root_colors();
 	if(isset($css)){
 		$out = '[';
@@ -224,7 +245,7 @@ function __BC_get_root_colors_palette(){
 		foreach($css as $k=>$v){
 			$name = str_replace('--','',$k);
 			$value = $v;  
-			if($count<=7){
+			if($count<=$max || $max == 'all'){
 				$out .= "'".$v."',";
 			}
 			$count++;

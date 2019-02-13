@@ -77,27 +77,47 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 					if( !in_array($layout, $special_types) ){
  
 						if( $layout == 'flexible_row' ){
+							$flexible_row = true;
 							$key_prefix = '';
 							$flexible_count++;
 							$classes_group = get_sub_field('key__layout_flexible_row__classes_key__r_builder_classes_group', $post_id);
+
+							$global_content_visible = get_sub_field('key__layout_flexible_row__classes_key__global_content_visible', $post_id);
 						}else{
+							$flexible_row = false;
 							$flexible_count = 0;
-							$classes_group = get_sub_field('key__layout_'.$layout.'__content_key__r_builder_classes_group', $post_id);
+							$classes_group = get_sub_field('key__layout_'.$layout.'__content_key__r_builder_classes_group', $post_id); 
+
+							$global_content_visible = get_sub_field('key__layout_'.$layout.'__content_'.'key__global_content_visible', $post_id);
 						}
 						// key__layout_flexible_row__classes
 						
 						 
 						// $classes_group_flex = get_sub_field('key__layout_'.$layout.'__content', $post_id); 
-						 
+	/*	
+	ob_start();
+	 
+		
+		if(empty($classes_group) ){ 
+			print_r($global_content_visible);
+		}
+		
+	  
+	$out .= ob_get_contents();
+	ob_end_clean();  
+	*/
+	
 						//$classes_group = $classes_group_flex[0]['r_builder_classes_group'];
 						
 						/*
 							Removing $key_prefix 
 						*/
 						$classes_group_temp = array();
-						foreach($classes_group as $k=>$v){
-							$kk = str_replace($key_prefix,'',$k);
-							$classes_group_temp[$kk] = $v;
+						if(!empty($classes_group)){
+							foreach($classes_group as $k=>$v){
+								$kk = str_replace($key_prefix,'',$k);
+								$classes_group_temp[$kk] = $v;
+							}
 						}
 						$classes_group = $classes_group_temp;
 						$key_prefix = '';
@@ -111,9 +131,18 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 							$content_row__container_row = $classes_group[$key_prefix.'content_row__container_row'];
 							$content_row__container_row_col = $classes_group[$key_prefix.'content_row__container_row_col']; 
 						
+					if( empty($classes_group) ){
+						$content_visible = $global_content_visible;
+					}
+
 						// TODO from here... make template-part includeable child/filter.. etc
-						
-						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$post_id.'-'.$name.'-'.$layout.'-'.$layout_count );
+						if($layout=='template_row'){
+							$layout_id = get_sub_field('key__layout_template_row__content_'.'key__r_wpbc_template', $post_id);
+							$template_row = $layout_id;
+						}else{
+							$layout_id = $post_id; 
+						}
+						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$layout_id.'-'.$name.'-'.$layout.'-'.$layout_count );
 						
 						$layout_start = '<div id="'. $layout_id .'" class="flexible_content_row '.$content_row.'" data-layout="'.$layout.'" data-layout-index="'.$layout_count.'">';
 							
@@ -131,7 +160,9 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 									$layout_row_end .= '</div>';
 								}
 								 
-							$layout_end = WPBC_get_edit_template_builder( ( !empty($template_id) ? $template_id : $post_id ), $layout, $post_id );
+							//$layout_end = WPBC_get_edit_template_builder( ( !empty($template_id) ? $template_id : $post_id ), $layout, $post_id );
+							$edit_id = !empty($template_row)?$template_row:$post_id;
+							$layout_end = WPBC_get_edit_template_builder(number_format($edit_id));
 							
 							$layout_end .= '</div>'; // flexible_content_row_container
 							
@@ -176,13 +207,14 @@ function WPBC_get_edit_template_builder($id, $layout='', $layout_id='', $class='
 	
 	$layout_test = get_post($layout_id);
 	$id_test = get_post($id);
-	
+	/*
 	if( !empty( $layout_test ) ){ 
 		$l_id = $layout_id;
 	} 
 	if( !empty( $id_test ) ){ 
 		$p_id = $id;
 	}
+	*/
 	
 	if($l_id){
 		$post_id = $l_id;
@@ -190,17 +222,19 @@ function WPBC_get_edit_template_builder($id, $layout='', $layout_id='', $class='
 		$post_id = $p_id;
 	}
 	
-	if( !empty($post_id) ){ 
+	if( !empty($id) ){ 
 		
-		$edit_link = get_edit_post_link( $post_id );
+		$edit_link = get_edit_post_link( $id );
 		
 		$edit_icon = WPBC_get_svg_img('md-settings', array(
 			'width'=>'30px',
 			'height'=>'30px',
 			'color'=>'white'
 		));
+
+		$edit_icon = apply_filters('wpbc/filter/template_builder/edit_icon', $edit_icon);
 		
-		$out = ' <small class="wpbc-edit-link edit-link '. $class.'"><a class="post-edit-link" href="'.$edit_link.'" data-toggle="tooltip" data-placement="right" target="_blank" title="'.__('Edit','bootclean') .'-> '.get_the_title($post_id).'">'. $edit_icon .'</a></small>';   
+		$out .= ' <small class="wpbc-edit-link edit-link '. $class.'"><a class="post-edit-link" href="'.$edit_link.'" data-toggle="tooltip" data-placement="right" target="_blank" title="'.__('Edit','bootclean') .'-> '.get_the_title($id).'">'. $edit_icon .'</a></small>';   
 	}
 	
 	if ( current_user_can('edit_theme_options') ) {

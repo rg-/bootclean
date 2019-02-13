@@ -194,7 +194,33 @@ function WPBC_get_layout_structure_path($child=false){
 	return $path;
 }
 
-function WPBC_get_layout_structure_build_layout(){
+function WPBC_is_page_template( $template = '', $id = '' ) {
+    if ( ! is_singular() ) {
+        return false;
+    }
+ 
+ 	$id = !empty($id) ? $id : get_queried_object_id();
+
+    $page_template = get_page_template_slug( $id );
+ 
+    if ( empty( $template ) )
+        return (bool) $page_template;
+ 
+    if ( $template == $page_template )
+        return true;
+ 
+    if ( is_array( $template ) ) {
+        if ( ( in_array( 'default', $template, true ) && ! $page_template )
+            || in_array( $page_template, $template, true )
+        ) {
+            return true;
+        }
+    }
+ 
+    return ( 'default' === $template && ! $page_template );
+}
+
+function WPBC_get_layout_structure_build_layout($id=''){
 
 	$template = WPBC_get_template();
 	$post_type = get_post_type();
@@ -204,7 +230,7 @@ function WPBC_get_layout_structure_build_layout(){
 	// blog when viewing the blog page if using page for post option 
 
 	$layout = 'defaults';
-	if( is_page_template('_template_builder.php') ){ 
+	if( WPBC_is_page_template('_template_builder.php', $id) ){ 
 		$template = '_template_builder';
 	} 
 	
@@ -213,18 +239,25 @@ function WPBC_get_layout_structure_build_layout(){
 		$path = WPBC_get_layout_structure_path();
 		if( file_exists( $path.$locations[$template]['id'].'.php') ){
 			$layout = $locations[$template]['id'];
-		}
-	}
 
+		}
+
+	} 
 	/* Theme Options PART */
 	$custom_layout_locations__enable = WPBC_get_option('custom_layout_locations__enable');
 	// custom_layout__custom_locations__builder
 	if(!empty($custom_layout_locations__enable)){
-		$layout = WPBC_get_option('custom_layout__custom_locations__'.$template ); // ??
+		$layout = WPBC_get_option('custom_layout__custom_locations__'.$template ); // ?? 
 	}
 	/* ACF PART */
-	$custom_layout__enable = WPBC_get_field('custom_layout__enable');
-	$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location'); 
+	if(!empty($id)){
+		$custom_layout__enable = WPBC_get_field('custom_layout__enable', $id);
+		$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location', $id);
+	}else{
+		$custom_layout__enable = WPBC_get_field('custom_layout__enable');
+		$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location');
+	}
+	 
 	if(!empty($custom_layout__enable)){ 
 		if(!empty($custom_layout__custom_location)){ 
 			$layout = $custom_layout__custom_location; 

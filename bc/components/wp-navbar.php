@@ -77,7 +77,7 @@
 			'container_id'    => 'navbar-collapse-'.$_uid,
 			'menu_class'      => 'navbar-nav',
 			'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-			'walker'          => new WP_Bootstrap_Navwalker(),
+			'walker'          => new WP_Bootstrap_Navwalker(), 
 		)
 	);
 	
@@ -127,11 +127,13 @@
 			WPBC_get_partial('navbar-toggler', $_p['navbar_toggler']);
 		}
 		?> 
-		
+
 		<?php
 		// TODO, or not? what happend with "data-nav-target" ??
 		if(isset($_p['wp_nav_menu'])) { 
+			echo $_p['wp_nav_menu']['before_menu'];
 			wp_nav_menu( $_p['wp_nav_menu'] ); 
+			echo $_p['wp_nav_menu']['after_menu'];
 		}
 		?>
 	

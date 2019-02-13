@@ -4,6 +4,13 @@ $WPBC_is_acf = WPBC_is_acf();
 
 /*
 
+	qtranslate addon (if installed)	
+
+*/
+require "addons/bc-qtranslate.php";
+
+/*
+
 	CodeMirror addon for admin textareas
 
 	Used mainly on ACF fields, Option Pages, Widgets...

@@ -24,7 +24,9 @@ add_filter('WPBC_acf_builder_layouts', function($layouts){
 					0 => 'key__r_tab__content',
 					1 => 'key__r_wpbc_template',
 					2 => 'key__r_tab__settings',
-					3 => 'key__r_builder_classes_group'
+					3 => 'key__r_builder_classes_group',
+					4 => 'key__r_tab__advanced',
+					5 => 'key__r_wpbc__advanced_group_inview',
 				),
 				'display' => 'seamless',
 				'layout' => 'block',

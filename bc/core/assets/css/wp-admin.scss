@@ -3,7 +3,7 @@
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/mixins";
 
 
-@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/root";
+//@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/root";
 //@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/reboot";
 //@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/grid";
 
@@ -190,4 +190,13 @@ a > .wp-menu-name .hide-top{
 		}
 	}
 
+} 
+
+
+.acf-menu-item-fields{
+	float:none!important; 
+	clear: both;
+	display: block;
+	padding: 0 .5rem;
+	border: 1px solid #eee;	
 }

@@ -27,8 +27,9 @@
 			echo do_shortcode('[WPBC_get_template id="'.$secondary_area_template.'"/]');
 		}
 		
-	}else{
+	}else{ 
 		$post_id = WPBC_layout__get_id();  
+		$post_id = apply_filters('wpbc/filter/layout/secondary-content/post_id',$post_id);
 		WPBC_get_template_builder_rows($post_id, 'key__flexible_secondary_content_rows_'.$content_area_index, $name);
 	}
 ?>

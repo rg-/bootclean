@@ -110,25 +110,41 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 
 	$post_id = !empty($post_id) ? $post_id : WPBC_layout__get_id(); 
 	$template_ID = false;
+	$custom_html = false;
 
+	$layout_header_template_type = WPBC_get_field('layout_header_template_type', $post_id);
 	$layout_header_template = WPBC_get_field('layout_header_template', $post_id);
+	
 	if(!empty($layout_header_template)){
-		$template_ID = WPBC_get_field('layout_header_template', $post_id);
+		if($layout_header_template_type == 'template'){
+			$template_ID = WPBC_get_field('layout_header_template', $post_id);
+		}else{
+			$template_ID = false;
+		}
+		
+		
 	}else{
-		$template = WPBC_get_template();
-		$page_for_posts = get_option( 'page_for_posts' ); 
-		if( 'single' == $template ){ 
-			$template_ID = WPBC_get_field('layout_header_template_posts_page', $page_for_posts);  
+		if($layout_header_template_type == 'html'){
+			$template_ID = false;
+			$custom_html = WPBC_get_field('layout_header_template_html', $post_id);
+		}else{ 
+
+			$template = WPBC_get_template();
+			$page_for_posts = get_option( 'page_for_posts' ); 
+			if( 'single' == $template ){ 
+				$template_ID = WPBC_get_field('layout_header_template_posts_page', $page_for_posts);  
+			}
+			if( 'category' == $template ){ 
+				$template_ID = WPBC_get_field('layout_header_template_category', $page_for_posts);  
+			}
+			if( 'tag' == $template ){ 
+				$template_ID = WPBC_get_field('layout_header_template_tag', $page_for_posts);  
+			}
+			if( 'archive' == $template ){ 
+				$template_ID = WPBC_get_field('layout_header_template_archive', $page_for_posts);  
+			} 
+
 		}
-		if( 'category' == $template ){ 
-			$template_ID = WPBC_get_field('layout_header_template_category', $page_for_posts);  
-		}
-		if( 'tag' == $template ){ 
-			$template_ID = WPBC_get_field('layout_header_template_tag', $page_for_posts);  
-		}
-		if( 'archive' == $template ){ 
-			$template_ID = WPBC_get_field('layout_header_template_archive', $page_for_posts);  
-		} 
 	} 
 
 	$params = array(
@@ -136,7 +152,8 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 		'is_main' => true, 
 		'use_from_options' => $main_page_header,
 		'use_template' => $main_page_header_template, 
-		'use_custom_template' => $template_ID,  
+		'use_custom_template' => $template_ID,
+		'use_custom_html' => $custom_html,
 	); 
 
 	$template_in_use_ID = WPBC_get_layout_customize_use($params, $params['id']);

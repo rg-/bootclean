@@ -140,3 +140,145 @@ function WPBC_get_template_ajax_FX($atts, $content = null) {
 }
 
 add_shortcode('WPBC_get_template_ajax', 'WPBC_get_template_ajax_FX');
+
+
+function WPBC_get_stylesheet_directory_uri_FX($atts, $content = null){
+	return MAIN_THEME_URI;
+}
+
+add_shortcode('WPBC_get_stylesheet_directory_uri', 'WPBC_get_stylesheet_directory_uri_FX');
+
+
+function WPBC_get_attachment_image_FX($atts, $content = null){
+	extract(shortcode_atts(array(
+		"id" => 0,
+		"size" => 'thumbnail', 
+		"icon" => false,
+		"attr" => '',
+		"retina" => false,
+	), $atts));
+
+	if(!empty($id)){
+
+		$image_meta = wp_get_attachment_metadata( $id );
+		$width = $image_meta['width'];
+		$height = $image_meta['height'];
+		if($retina){
+			$width = $width/2;
+			$height = $height/2; 
+			$alt = trim( strip_tags( get_post_meta( $id, '_wp_attachment_image_alt', true ) ) );
+			$src = wp_get_attachment_image_src( $id, $size, $icon ); 
+			$hwstring = image_hwstring($width, $height);
+			$url = '<img src="'.$src[0].'" '.$hwstring.' alt="'.$alt.'" />';
+		}else{
+			$url = wp_get_attachment_image( $id, $size, $icon, $attr ); 
+		}
+		//print_r($image_meta);
+		
+		return $url;
+	}
+}
+
+add_shortcode('WPBC_get_attachment_image', 'WPBC_get_attachment_image_FX');
+
+function WPBC_get_attachment_image_src_FX($atts, $content = null){
+	extract(shortcode_atts(array(
+		"id" => 0,
+		"size" => 'thumbnail', 
+		"icon" => false,
+	), $atts));
+
+	if(!empty($id)){
+		$url = wp_get_attachment_image_src( $id, $size, $icon ); 
+		return $url;
+	}
+}
+
+add_shortcode('WPBC_get_attachment_image_src', 'WPBC_get_attachment_image_src_FX');
+
+/*
+
+	Wrong name, clone and fix on future version 10.
+
+	New function WPBC_wp_nav_menu_FX()
+
+	Shortcode OK [WPBC_wp_nav_menu /]
+
+*/
+function WPBC_wp_nav_menu_FX($atts, $content = null){
+	return WPBC_wp_nav_menuwp_nav_menu_FX($atts, $content);
+}
+function WPBC_wp_nav_menuwp_nav_menu_FX($atts, $content = null){
+	extract(shortcode_atts(array(
+		"theme_location" => '',
+		"menu_name" => false,
+		"nav_title_class" => 'nav-title',
+		"nav_title_before" => '',
+		"nav_title_after" => '',
+		"as_collapse" => false,
+		"collapse_toggle_class" => 'nav-title',
+		"collapse_toggle_before" => '',
+		"collapse_toggle_after" => '',
+		"collapse_class" => 'd-md-block',
+		"collapse_data_parent" => '',
+
+	), $atts));
+
+	$atts = apply_filters('WPBC_wp_nav_menu/atts', $atts);
+
+	if(!empty($theme_location)){
+		
+		$n_name = WPBC_get_nav_menu_name($theme_location);
+		$nav_title_name = !empty($n_name) ? $n_name : '';
+		$menu_object = WPBC_get_nav_menu_object($theme_location);
+
+		$menu_id = 'nav_menu_'.$menu_object->term_id.'_'.$menu_object->slug;
+
+		$wp_nav_menu = '';  
+		$wp_nav_menu_before = '';
+		$wp_nav_menu_after = ''; 
+
+		$menu_before = '';
+		$menu_after = ''; 
+
+		$nav_title = '';  
+
+		$nav_title_name = $nav_title_before.$nav_title_name.$nav_title_after;
+
+		if(!empty($as_collapse)){ 
+
+			$atts['container_class'] = 'card-body'; 
+			
+			$menu_before = '<div class="nav_menu_collapse">';
+			$menu_after = '</div>'; 
+
+			$collapse_data_parent = !empty($collapse_data_parent) ? 'data-parent="'.$collapse_data_parent.'"' : '';
+
+			$wp_nav_menu_before = '<div '.$collapse_data_parent.' class="collapse_menu collapse '.$collapse_class.'" id="'.$menu_id.'"><div class="card">';
+			$wp_nav_menu_after = '</div></div>'; 
+			$nav_title .= '<a class="collapsed '.$collapse_toggle_class.'" data-toggle="collapse" href="#'.$menu_id.'" role="button" aria-expanded="false" aria-controls="'.$menu_id.'">'.$collapse_toggle_before.$nav_title_name.$collapse_toggle_after.'</a>';
+
+		}
+
+		if(!empty($menu_name)){ 
+			$nav_title .= '<h3 class="'.$nav_title_class.'">'.$nav_title_name.'</h3>';
+		} 
+		
+		ob_start();   
+		wp_nav_menu($atts);
+		$wp_nav_menu .= ob_get_contents();
+		ob_end_clean(); 
+		return $menu_before.$nav_title.$wp_nav_menu_before.$wp_nav_menu.$wp_nav_menu_after.$menu_after;
+	}
+}
+
+add_shortcode('WPBC_wp_nav_menuwp_nav_menu', 'WPBC_wp_nav_menuwp_nav_menu_FX');
+add_shortcode('WPBC_wp_nav_menu', 'WPBC_wp_nav_menu_FX');
+
+function WPBC_get_post_title_FX($atts, $content = null){
+	global $post;
+	if(!empty($post)){
+		return get_the_title($post);
+	}
+}
+add_shortcode('WPBC_get_post_title', 'WPBC_get_post_title_FX');

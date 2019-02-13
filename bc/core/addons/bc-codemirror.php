@@ -27,6 +27,8 @@ $code_mirror_fields_apply = array(
 	'bc_default_code_footer' => 'md',
 	'raw_html_row_html' => 'md',
 	'html_code' => 'md', 
+
+	// 'r_html_code' => 'md',
 );
 
 $code_mirror_fields_apply = apply_filters('WPBC_addons__codemirror_fields', $code_mirror_fields_apply);
@@ -259,7 +261,7 @@ function WPBC_codemirror_admin_footer(){
 	(function( $ ) {
 		
 		function initialize_code_field( $el ) { 
-		 
+		 	
 			//$el.find('.acf-input textarea').attr('id', 'codemirror_field_' + index);
 			if($el.hasClass('acf-field-wysiwyg')){
 				var $textarea = $el.find( '.acf-input textarea.wp-editor-area' ); 
@@ -270,6 +272,10 @@ function WPBC_codemirror_admin_footer(){
 			if ( $el.parents( ".acf-clone" ).length > 0 ) {
 				return;
 			} 
+			if( $el.hasClass('acf-field-qtranslate-textarea') ){
+				//var $textarea = $el.find( '.acf-input .multi-language-field textarea' );
+				//return; 
+			}
 
 			var $mode = "text/html";
 			if($el.hasClass('codemirror-css')){
@@ -278,6 +284,8 @@ function WPBC_codemirror_admin_footer(){
 			if($el.hasClass('codemirror-js')){
 				$mode = "text/javascript";
 			}
+
+
 			
 			var editor = window.CodeMirror.fromTextArea( $textarea[ 0 ], {
 				lineNumbers: true,
@@ -324,11 +332,24 @@ function WPBC_codemirror_admin_footer(){
 		if ( typeof acf.add_action !== 'undefined' ) {
 
 			acf.add_action( 'ready', function( $el ) {
-				$el.find( '.codemirror-custom-field' ).each( function( index, field ) { 
+				
+				$el.find('.acf-field').each(function(){
+					//console.log($(this).attr('class'));
+				});
+				if( $el.hasClass('acf-field-qtranslate-textarea') ){
+
+				}else{
+					
+				}
+				$el.find( '.codemirror-custom-field:not(.acf-field-qtranslate-textarea)' ).each( function( index, field ) { 
 					initialize_code_field($(field)); 
 					initialize_code_buttons($(this));
-				} );
+				} ); 
+				$el.find( '.acf-field-qtranslate-textarea' ).each( function( index, field ) { 
+					
 
+
+				} ); 
 			} );
 
 			acf.add_action( 'append_field', function( $el ) {

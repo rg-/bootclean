@@ -130,6 +130,7 @@ add_action('wpbc/layout/body/end', 'action__wpbc_layout_body_end__main_content_w
 	function action__wpbc_layout_body_end__main_content_wrap_end(){ 
 		?> 
 			</div><!-- #main-content END -->
+			<div id="wpbc_container_reference" class="container" style="visibility:hidden;"></div>
 		<?php
 	}
 

@@ -179,9 +179,16 @@ function BC_custom_login_logo(){
 		border-radius:0;
 	}';
 	
-	$style .= '</style>';
-	
+	$style .= '</style>'; 
+
 	echo $style;
+
+	$custom_css = BC_get_option('bc-options--admin-login--custom-css');
+	if(!empty($custom_css)){
+		echo '<style>';
+		echo $custom_css;
+		echo '</style>';
+	}
 }
 
 

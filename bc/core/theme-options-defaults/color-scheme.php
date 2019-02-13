@@ -113,3 +113,43 @@ $bootclean_options['color-scheme'][] = array(
 	);
 
 */
+
+/*
+
+	Add color scheme into color pickers
+
+*/
+
+add_action('init', 'wpbc_color_scheme__init');
+function wpbc_color_scheme__init(){
+	add_action( 'acf/input/admin_footer','WPBC_color_scheme_admin_footer', 999 );
+}
+
+function WPBC_color_scheme_admin_footer(){ 
+	
+	$max = apply_filters('wpbc/filter/color_picker_max', 7);
+	$root_colors = __BC_get_root_colors_palette($max);
+
+	$color_picker_args['palettes'] = $root_colors;
+	$color_picker_args['width'] = 255;
+	$color_picker_args['mode'] = 'hsv';
+	$color_picker_args = apply_filters('wpbc/filter/color_picker_args', $color_picker_args);
+
+	
+	
+	?>
+	<script type="text/javascript">
+		var color_picker_palettes = <?php echo $color_picker_args['palettes']; ?>;
+	(function($) {
+		acf.add_filter('color_picker_args', function( args, $field ){	
+			// do something to args
+			args.palettes = <?php echo $color_picker_args['palettes']; ?>; 
+			args.width = <?php echo $color_picker_args['width']; ?>;
+			args.mode = '<?php echo $color_picker_args['mode']; ?>';
+			// return
+			return args;		
+		});
+	})(jQuery);	
+	</script>
+	<?php
+}

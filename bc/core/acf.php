@@ -18,9 +18,14 @@ include('acf/reusable-fields.php');
 include('acf/layouts.php');
 include('acf/groups.php');
 
+
+
 if( !function_exists('WPBC_ACF_FORM') ){
 	function WPBC_ACF_FORM(){
-		if( is_user_logged_in() && current_user_can( 'manage_options' ) ){
+
+		$enable_acf_form = apply_filters('wpbc/filter/acf/enable_acf_form', 1);
+
+		if( is_user_logged_in() && current_user_can( 'manage_options' ) && $enable_acf_form ){
 			return true;
 		}else{
 			return false;

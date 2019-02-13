@@ -138,6 +138,25 @@ $brand_login = array(
 		array( 
 			'type' => 'group-end'
 		),
+
+		// custom styles code
+
+		array(
+			'name' => __( 'Custom CSS', 'bootclean' ),
+			'type' => 'group-start'
+		),
+
+		array(
+			'name' => __( 'Insert custom styles here', 'bootclean' ), 
+			'id' => 'bc-options--admin-login--custom-css',
+			'std' => '/* body{ background-color:red; } */',
+			'type' => 'textarea',
+			'class' => 'codemirror codemirror-css'
+		),
+
+		array( 
+			'type' => 'group-end'
+		),
 	
 	array(
 		'type' => 'sub-heading-end'

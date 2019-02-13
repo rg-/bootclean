@@ -69,13 +69,14 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 
 			// Build a string of html containing all the atts for the item.
 			$attributes = '';
+			if(!empty($submenu_attrs)){
 			foreach ( $submenu_attrs as $attr => $value ) {
 				if ( ! empty( $value ) ) {
 					$value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
 					$attributes .= ' ' . $attr . '="' . $value . '"';
 				}
 			}
-
+			}
 			/**
 			 * The `.dropdown-menu` container needs to have a labelledby
 			 * attribute which points to it's trigger link.
@@ -85,11 +86,12 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 */
 			$labelledby = '';
 			// find all links with an id in the output.
-			preg_match_all( '/(<a.*?id=\"|\')(.*?)\"|\'.*?>/im', $output, $matches );
+			preg_match_all( '/(<a.*?data-target=\"|\')(.*?)\"|\'.*?>/im', $output, $matches );
 			// with pointer at end of array check if we got an ID match.
 			if ( end( $matches[2] ) ) {
 				// build a string to use as aria-labelledby.
 				$labelledby = 'aria-labelledby="' . end( $matches[2] ) . '"';
+
 			}
 			$output .= "{$n}{$indent}<ul$class_names $labelledby $attributes role=\"menu\">{$n}";
 		} 
@@ -178,7 +180,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 * @param int      $depth   Depth of menu item. Used for padding.
 			 */
 			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+			$id = $id ? ' id="' . esc_attr( $id ) . '"' : ''; 
 
 			$output .= $indent . '<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement"' . $id . $class_names . '>';
 			
@@ -204,7 +206,8 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 				$atts['aria-haspopup'] = 'true';
 				$atts['aria-expanded'] = 'false';
 				$atts['class']         = 'dropdown-toggle nav-link';
-				$atts['id']            = 'menu-item-dropdown-' . $item->ID;
+				$atts['id']            = 'menu-item-link-dropdown-' . $item->ID;
+				$atts['data-target']   = '#menu-item-dropdown-' . $item->ID;
 			} else {
 				$atts['href'] = ! empty( $item->url ) ? $item->url : '#';
 				// Items in dropdowns use .dropdown-item instead of .nav-link.

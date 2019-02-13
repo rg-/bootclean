@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 // -------------------------------------------------------------------------- //
 if( function_exists('acf_add_local_field_group') ){ 
 	/* 
@@ -154,6 +153,7 @@ if( function_exists('acf_add_local_field_group') ){
 	*/
 
 	// Main Content Builder
+	$layouts_main_content = WPBC_acf_builder_layouts();
 	acf_add_local_field_group(array(
 		'key' => 'group_builder__flexible',
 		'title' => 'Main Content Builder',
@@ -171,13 +171,14 @@ if( function_exists('acf_add_local_field_group') ){
 					'class' => '',
 					'id' => '',
 				),
-				'layouts' => WPBC_acf_builder_layouts(),
-				'button_label' => 'Add Row',
+				'layouts' => $layouts_main_content,
+				'button_label' => __('Add Layout Row','bootclean'),
 				'min' => '',
 				'max' => '',
 			),
 		),
 		'location' => array(
+
 			array(
 				array(
 					'param' => 'page_template',
@@ -185,6 +186,7 @@ if( function_exists('acf_add_local_field_group') ){
 					'value' => '_template_builder.php',
 				)
 			), 
+			/*
 			array(
 				array(
 					'param' => 'post_type',
@@ -197,6 +199,9 @@ if( function_exists('acf_add_local_field_group') ){
 					'value' => 'wpbc_template_type:slider',
 				),
 			),
+
+			*/
+
 			array(
 				array(
 					'param' => 'post_type',

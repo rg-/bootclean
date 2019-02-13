@@ -291,7 +291,8 @@ function wpbc_template_custom_column_views( $column_name, $id ){
 	
 	if ( $column_name === 'template-id' ) {   
 		$bc_layout_id = $this_post->post_name; 
-		echo '<span class="wpbc_template_id '.$bc_layout_id.'"><input style="font-size:12px; line-height:12px; width:100%;" onclick="this.focus();this.select()" type="text" name="bc_layout_id" value="[WPBC_get_template id=&quot;'.$id.'&quot;/]" readonly="readonly"></span>'; 
+		$name = get_the_title($id);
+		echo '<span class="wpbc_template_id '.$bc_layout_id.'"><input style="font-size:12px; line-height:12px; width:100%;" onclick="this.focus();this.select()" type="text" name="bc_layout_id" value="[WPBC_get_template id=&quot;'.$id.'&quot; name=&quot;'.$name.'&quot;/]" readonly="readonly"></span>'; 
 	}
 	if ( $column_name === 'template-type' ) { 
 		$template_type = 'default';
@@ -306,3 +307,57 @@ function wpbc_template_custom_column_views( $column_name, $id ){
 		echo '<span class="wpbc_template_type '.$template_type.'">'.$template_type.'</span>'; 
 	} 
 }
+
+
+// ACF
+
+if( function_exists('acf_add_local_field_group') ):
+function d(){
+	if(!empty($_GET['post'])){
+		$id = $_GET['post'];
+		$name = get_the_title($id);
+		return '<span class="wpbc_template_id wpbc_template_'.$id.'"><input style="font-size:12px; line-height:12px; width:100%;" onclick="this.focus();this.select()" type="text" name="bc_layout_id" value="[WPBC_get_template id=&quot;'.$id.'&quot; name=&quot;'.$name.'&quot;/]" readonly="readonly"></span>';
+	} 
+}
+acf_add_local_field_group(array(
+	'key' => 'group_wpbc_template_helper',
+	'title' => 'Helper',
+	'fields' => array(
+		array(
+			'key' => 'field_wpbc_template_helper_shortcode',
+			'label' => 'Shortcode',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => d(),
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'wpbc_template',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;

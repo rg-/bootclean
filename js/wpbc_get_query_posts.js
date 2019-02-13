@@ -1,4 +1,4 @@
-$.fn.selectpicker.Constructor.BootstrapVersion = '4'; 
+jQuery.fn.selectpicker.Constructor.BootstrapVersion = '4'; 
 
 +function ($) {
     'use strict';
@@ -464,7 +464,9 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
 	function wpbc_do_slider_range(range){
 		var rangeSliderJQ = range.find('.slider-range');
+		
 	  	var rangeSlider = rangeSliderJQ.get(0); 
+	  	if(!rangeSlider) return;
 
 	  	var deffaults_moneyFormat = {
 		    decimals: 0,

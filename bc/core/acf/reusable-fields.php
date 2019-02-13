@@ -16,6 +16,77 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					> col
 		*/ 
 
+		// key__r_wpbc__advanced_group
+
+		array(
+			'key' => 'key__r_wpbc__advanced_group_inview',
+			'label' => __('Inview Effect','bootclean'),
+			'name' => 'r_wpbc__advanced_group_inview',
+			'type' => 'group',
+			'value' => NULL,
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'layout' => 'block',
+			'sub_fields' => array (
+
+				array (
+					'key' => 'field_advanced_group_inview__type',
+					'label' => __('Type','bootclean'),
+					'name' => 'advanced_group_inview__type',
+					'type' => 'select',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '20',
+						'class' => '',
+						'id' => '',
+					),
+					'choices' => array (
+						0 => _('None'),
+						'ajax-load' => _('Ajax Load'),
+					),
+					'default_value' => array (
+						0 => _('None'),
+					),
+					'allow_null' => 0,
+					'multiple' => 0,
+					'ui' => 0,
+					'ajax' => 0,
+					'return_format' => 'value',
+					'placeholder' => '',
+				),
+
+			),
+		),
+
+		// Global content_visible
+		array (
+			'key' => 'key__global_content_visible',
+			'label' => 'Visible Global',
+			'name' => 'global_content_visible',
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '25%',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => '',
+			'default_value' => 1,
+			'ui' => 1,
+			'ui_on_text' => '',
+			'ui_off_text' => '',
+		), 
+
 		// r_builder_classes_group
 		array (
 			'key' => 'key__r_builder_classes_group',
@@ -68,7 +139,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 						'id' => '',
 					),
 					'message' => '',
-					'default_value' => 1,
+					'default_value' => 0,
 					'ui' => 1,
 					'ui_on_text' => '',
 					'ui_off_text' => '',
@@ -329,7 +400,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 			'multiple' => 0,
 			'return_format' => 'id',
 			'ui' => 1,
-		),
+		), 
 		
 		// key__r_background_image
 		array (
@@ -792,7 +863,37 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 		),
 	);
 
-	
+	$fields[] = array (
+		'key' => 'key__r_color_picker_background',
+		'label' => __('Background Color','myfunnel'),
+		'name' => 'r_color_picker_background',
+		'type' => 'color_picker',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '20%',
+			'class' => '',
+			'id' => '',
+		),
+		'default_value' => '',
+	);
+	$fields[] = array (
+		'key' => 'key__r_color_picker_text',
+		'label' => __('Text Color','myfunnel'),
+		'name' => 'r_color_picker_text',
+		'type' => 'color_picker',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '20%',
+			'class' => '',
+			'id' => '',
+		),
+		'default_value' => '',
+	);
+ 	
 	return $fields;
 }, 10, 1);
  
