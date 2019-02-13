@@ -154,7 +154,7 @@ function WPBC_codemirror_enqueue_scripts(){
 	
 	
 	}
-}
+} 
 add_action( 'admin_enqueue_scripts', 'WPBC_codemirror_enqueue_scripts', 10 ); 
 add_action( 'wp_enqueue_scripts', 'WPBC_codemirror_enqueue_scripts', 10 ); 
 
