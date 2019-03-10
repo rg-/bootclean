@@ -23,7 +23,7 @@
 
 */
 global $WPBC_VERSION;
-$WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.4');
+$WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.5');
 function WPBC_version(){
 	global $WPBC_VERSION;
 	return $WPBC_VERSION;
@@ -44,3 +44,13 @@ require BC_WP_DIR . 'core.php';
 /*
 	That´s all here.
 */
+	
+add_filter('BC_enqueue_scripts__fonts', function($fonts){
+
+	$fonts['fontawesome-all'] = array( 
+		'src'=>'css/fontawesome/all.min.css'
+	);
+
+	return $fonts;
+
+});

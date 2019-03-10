@@ -27,6 +27,7 @@
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/addons/bootstrap-scroll-affix.js"  
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/addons/bootstrap-nav-affix.js"  
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/addons/bootstrap-better-nav.js" 
+// @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/addons/bootstrap-bootclean.js"
 
 // BC Core scripts 
 

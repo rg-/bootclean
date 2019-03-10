@@ -1,6 +1,12 @@
+/*!
+ * Bootstrap v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 The Bootstrap Authors
+ * Copyright 2011-2019 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
 // main (basicly is same as bootstrap.scss from root except "customs/variables" )
-// Required
-// BC Builder !!!!
+// Required 
 @import "customs/variables";
 
 // Required
@@ -40,9 +46,11 @@ $colors: map-remove($colors, "blue", "indigo", "purple", "pink", "red", "orange"
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/media";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/list-group";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/close";
+@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/toasts";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/modal";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/tooltip";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/popover";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/carousel";
+@import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/spinners";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/utilities";
 @import "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootstrap/sass/print";

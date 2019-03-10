@@ -226,7 +226,11 @@ function WPBC_get_edit_template_builder($id, $layout='', $layout_id='', $class='
 		
 		$edit_link = get_edit_post_link( $id );
 		
-		$edit_icon = WPBC_get_svg_img('md-settings', array(
+		$edit_icon_svg = 'md-settings';
+		if($class=='edit-image'){
+			$edit_icon_svg = 'md-image';
+		}
+		$edit_icon = WPBC_get_svg_img($edit_icon_svg, array(
 			'width'=>'30px',
 			'height'=>'30px',
 			'color'=>'white'

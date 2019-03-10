@@ -29,6 +29,14 @@ require "addons/bc_duplicate_posts.php";
 
 /*
 
+	Contact Form 7 things
+
+*/
+
+require "addons/bc-wpcf7.php";
+
+/*
+
 	The "comming soon" redirect for non logged users.
 
 */

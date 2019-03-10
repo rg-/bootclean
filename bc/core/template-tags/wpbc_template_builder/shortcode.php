@@ -173,6 +173,8 @@ function WPBC_get_attachment_image_FX($atts, $content = null){
 		}else{
 			$url = wp_get_attachment_image( $id, $size, $icon, $attr ); 
 		}
+ 		$edit_this = WPBC_get_edit_template_builder($id, '', '', $class='edit-image');
+		$url = $url.$edit_this;
 		//print_r($image_meta);
 		
 		return $url;
