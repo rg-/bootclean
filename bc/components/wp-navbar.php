@@ -78,6 +78,8 @@
 			'menu_class'      => 'navbar-nav',
 			'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
 			'walker'          => new WP_Bootstrap_Navwalker(), 
+			'before_menu'			=> '',
+			'after_menu'			=> '',
 		)
 	);
 	

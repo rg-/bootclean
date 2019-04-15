@@ -233,6 +233,8 @@ function WPBC_codemirror_admin_footer_by_class(){
 
 }
 
+// For ACF Fields
+
 add_action( 'acf/input/admin_footer', 'WPBC_codemirror_admin_footer', 10 );
 function WPBC_codemirror_admin_footer(){ 
 	global $WPBC_codemirror_args; 
@@ -325,8 +327,9 @@ function WPBC_codemirror_admin_footer(){
 			} );
 			editor.refresh();
 			editor.on("change", function(cm, change) { 
+				$textarea.val(editor.getValue()); // New since Gutemberg
 				//console.log(change);
-			});
+			}); 
 		}
 
 		if ( typeof acf.add_action !== 'undefined' ) {
@@ -394,10 +397,6 @@ function WPBC_codemirror_admin_footer(){
 		}
 		//initialize_code_buttons(false);
 		
-		
-		
-		
-
 	})( jQuery );
 	
 	</script>
@@ -405,7 +404,7 @@ function WPBC_codemirror_admin_footer(){
 	
 };
 
-
+// Save codemirror size used
 
 add_action( 'init', 'WPBC_codemirror_cookies' );
 

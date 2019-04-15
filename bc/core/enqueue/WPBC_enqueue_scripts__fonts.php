@@ -20,7 +20,7 @@
 */
 	
 
-$fonts = apply_filters('BC_enqueue_scripts__fonts', ''); 
+$fonts = apply_filters('BC_enqueue_scripts__fonts', array()); 
 $fonts_uri = apply_filters('BC_enqueue_scripts__fonts_uri', get_template_directory_uri() ); 
  
 if(!empty($fonts)){ 

@@ -13,7 +13,7 @@ if(!empty($theme_customs)){
 	$theme_root = array_replace_recursive ( $theme_root, $theme_customs );
 }
 // $theme array will hold optinal/custom template settings, ej. replace <title> on some page.
-if(!empty($theme)){
+if(!empty($theme) && is_array($theme)){
 	$theme_root = array_replace_recursive  ( $theme_root , $theme);
 }
 

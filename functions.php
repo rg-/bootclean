@@ -44,7 +44,9 @@ require BC_WP_DIR . 'core.php';
 /*
 	That´s all here.
 */
-	
+
+
+/*
 add_filter('BC_enqueue_scripts__fonts', function($fonts){
 
 	$fonts['fontawesome-all'] = array( 
@@ -54,3 +56,4 @@ add_filter('BC_enqueue_scripts__fonts', function($fonts){
 	return $fonts;
 
 });
+*/

@@ -155,6 +155,7 @@ function WPBC_get_attachment_image_FX($atts, $content = null){
 		"size" => 'thumbnail', 
 		"icon" => false,
 		"attr" => '',
+		"class" => '',
 		"retina" => false,
 	), $atts));
 
@@ -169,7 +170,7 @@ function WPBC_get_attachment_image_FX($atts, $content = null){
 			$alt = trim( strip_tags( get_post_meta( $id, '_wp_attachment_image_alt', true ) ) );
 			$src = wp_get_attachment_image_src( $id, $size, $icon ); 
 			$hwstring = image_hwstring($width, $height);
-			$url = '<img src="'.$src[0].'" '.$hwstring.' alt="'.$alt.'" />';
+			$url = '<img src="'.$src[0].'" '.$hwstring.' alt="'.$alt.'" class="'.$class.'" />';
 		}else{
 			$url = wp_get_attachment_image( $id, $size, $icon, $attr ); 
 		}
