@@ -9,8 +9,8 @@
 // Function that outputs the contents of the dashboard widget
 function wpbc_property_dashboard_widget_FX( $post, $callback_args ) {
 
-	$new_post_url = admin_url('edit.php?post_type=property'); 
-	$edit_post_url = admin_url('post-new.php?post_type=property'); 
+	$edit_post_url = admin_url('edit.php?post_type=property'); 
+	$new_post_url = admin_url('post-new.php?post_type=property'); 
 	$count_property_posts = wp_count_posts('property'); 
 		$publish = $count_property_posts->publish;
 		$draft = $count_property_posts->draft; 

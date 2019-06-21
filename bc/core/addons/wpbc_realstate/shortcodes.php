@@ -12,6 +12,15 @@ function WPBC_ajax_get_property(){
 add_action('wp_ajax_get_property', 'WPBC_ajax_get_property');
 add_action('wp_ajax_nopriv_get_property', 'WPBC_ajax_get_property');
 
+/*
+
+	@shortcode WPBC_get_property
+
+	@template-parts/
+
+			$part => post_property (def)
+
+*/
 function WPBC_get_property_FX($atts, $content = null){
 	
 	$out = '';
@@ -38,3 +47,30 @@ function WPBC_get_property_FX($atts, $content = null){
 	return apply_filters('wpbc/filter/WPBC_get_property/out', $out); 
 }
 add_shortcode('WPBC_get_property', 'WPBC_get_property_FX');
+
+/*
+
+	@shortcode WPBC_get_slider_properties
+
+	@template-parts/
+
+			$part => slick_slider (def)
+
+*/
+function WPBC_get_slider_properties_FX($atts, $content = null){
+	extract(shortcode_atts(array(
+		'query_string' => '',
+	), $atts));  
+	$temp = ''; 
+	ob_start(); 
+	$inc = WPBC_include_template_part('wpbc_realstate/slider_properties'); 
+	if(!empty($inc)){  
+		include ($inc);  
+	} 
+	$temp = ob_get_contents();
+	ob_end_clean();
+	$out = $temp;
+	return apply_filters('wpbc/filter/WPBC_get_slider_properties/out', $out); 
+}
+add_shortcode('WPBC_get_slider_properties', 'WPBC_get_slider_properties_FX');
+

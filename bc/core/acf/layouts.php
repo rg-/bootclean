@@ -16,7 +16,9 @@ include('layouts/html_row.php');
 include('layouts/template_row.php'); 
 include('layouts/slider_row.php');
 include('layouts/widgets_row.php');
-//include('layouts/navbar_row.php'); // TODO, doing... see acf/layouts/navbar_row and same in template-parts/layouts/navbar_row.php
+
+// TODO, doing... see acf/layouts/navbar_row and same in template-parts/layouts/navbar_row.php
+include('layouts/navbar_row.php'); 
 
 
 function WPBC_acf_builder_layouts(){

@@ -15,15 +15,14 @@ function WPBC_acf_post_object_as_nav_menu( $field ) {
 } 
 add_filter( 'acf/load_field/type=select', 'WPBC_acf_post_object_as_nav_menu', 10, 4 );
 
- 
+/*
 
-add_filter('WPBC_acf_reusables_fields', function($fields){ 
+	Adding the reusables fields
 
-	/* 
-	UNIQUE key please!! 
-	*/
+*/
 
-	$field_r__navbar_sub_fields = array(
+function _get_field_r__navbar_sub_fields(){
+	$f = array(
 		  
 		array(
 			'key' => 'field_field_r__navbar__nav_menu',
@@ -50,6 +49,16 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 			'as_nav_menu' => 1 // Custom not ACF part
 		) 
 	); 
+	
+	return $f;
+}
+
+add_filter('WPBC_acf_reusables_fields', function($fields){ 
+
+	/* 
+	UNIQUE key please!! 
+	*/
+	$field_r__navbar_sub_fields = _get_field_r__navbar_sub_fields(); 
 
 	$fields[] = array(
 		'key' => 'field_r__navbar',
@@ -67,40 +76,18 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 		),
 		'layout' => 'block',
 		'sub_fields' => $field_r__navbar_sub_fields,
-	);
-
-
-	$field_r__navbar_settings = array(
-		array(
-
-		),
-	);
-
-		// key__r_builder_navbar_classes_group
-	$fields[] = array(
-
-		'key' => 'field_r__navbar_settings',
-		'label' => 'Settings',
-		'name' => 'settings',
-		'type' => 'group',
-		'value' => NULL,
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array (
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'layout' => 'block',
-		'sub_fields' => $field_r__navbar_settings,
-
-	);
+	); 
 
 	return $fields;
 
 }, 10, 1);
 
+
+/*
+
+	Adding the flexible layout
+
+*/
 add_filter('WPBC_acf_builder_layouts', function($layouts){
 
 	// navbar_row > row > ...
@@ -125,10 +112,10 @@ add_filter('WPBC_acf_builder_layouts', function($layouts){
 					'id' => '',
 				),
 				'clone' => array( 
-					0 => 'key__r_tab__content',
+					//0 => 'key__r_tab__content',
 					1 => 'field_r__navbar',
-					2 => 'key__r_tab__settings',
-					3 => 'field_r__navbar_settings',
+					//2 => 'key__r_tab__settings',
+					// 3 => 'field_r__navbar_settings',
 				),
 				'display' => 'seamless',
 				'layout' => 'block',

@@ -67,7 +67,7 @@ if( !$query_posts->is_singular ){
 		$post_count = $w + $post_count;
 		$found_posts = sprintf($template_args['pagination_showing'], $post_count, $found_posts);
 		?>
-		<ul class="nav"><li class="nav-item"><?php echo $found_posts; ?></li></ul>
+		<ul class="nav"><li class="nav-item"><small><?php echo $found_posts; ?></small></li></ul>
 	</nav>
 </div>
 <?php } ?>

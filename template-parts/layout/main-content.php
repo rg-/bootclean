@@ -3,7 +3,8 @@
 		do_action('wpbc/layout/inner/content/before');
 	?>
 	<?php 
-	$template = WPBC_get_template(); // home, blog, post, page, etc....   
+	$template = WPBC_get_template(); // home, blog, post, page, etc....  
+	
 	if ( have_posts() && $template != 'search' ) { 
 		
 		do_action('wpbc/layout/inner/content/loop/before'); 
@@ -31,8 +32,16 @@
 			$post_pagination = apply_filters('wpbc/filter/layout/post_pagination', 'post_pagination' );  
 			get_template_part( 'template-parts/'.$post_pagination ); 
 		} 
-	} else {  
-		get_template_part( 'template-parts/content', $template ); 
+	} else {
+		if($template == 'search')  {
+			$t = 'search';
+		}else{
+			$t = 'no-posts';
+		}
+		if(is_404()){
+			$t = '404';
+		}
+		get_template_part( 'template-parts/content', $t ); 
 	} 
 	wp_reset_query(); 
 	?>
