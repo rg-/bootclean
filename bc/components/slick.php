@@ -1,9 +1,45 @@
 <?php
 	
+/*
+ * @pack Bootclean
+ * @subpack Slick Slider
+ * 
+ * @version v 10.0
+ *
+ *
+ */
+
+	/*
+	Gerenate custom unique id if needed.
+	*/
 	$_slider_uid = uniqid();
 	
 	$slick_attrs = isset($params['slick']) ? $params['slick'] : '{ }'; 
 	
+	/* Defatuls arguments passed */
+	$slick_args = isset($params['slick_args']) ? $params['slick_args'] : array(); 
+	$slider_acf_object = isset($params['slider_acf_object']) ? $params['slider_acf_object'] : array(); 
+	/*
+	Since defaults "$slick_args" are also de plugin js params
+	there´s no need to pass the entire json to the data- tag
+	So, here i filter them, if something is diferent than defaut value, 
+	then it´s passed to the array, then as a json, and then as the data-slick="" tag on the element.
+	*/
+	$slick_args_temp = array();
+	foreach($slick_args as $k=>$v){  
+		if($slider_acf_object['value']['r_slider_settings_args'][$k] != $v){ 
+			$slick_args_temp[str_replace('slider_args__', '', $k)] = $v;
+		}else{ 
+		} 
+	} 
+	// As above said, if there are custom arguments, pass them, if not {} empty json !important, do not leave empty.
+	if(!empty($slick_args_temp)){
+		$slick_attrs = json_encode($slick_args_temp);
+	}else{
+		$slick_attrs = '{ }'; 
+	} 
+
+
 	$slider_ID = !empty($params['id']) ? $params['id'] : 'wp-slick-slider-'.$_slider_uid;  
 	
 	$slick_data = '';
@@ -12,7 +48,7 @@
 		$data = json_encode($bk);
 		$slick_data = "data-breakpoint-height='".$data."'";
 	}else{
-		$def = '{ "defaults":{"default":"100%"} }';
+		$def = '{ "defaults":{"default":"100vh"} }';
 		$data = json_encode($def);
 		$slick_data = "data-breakpoint-height='".$def."'";
 	}
@@ -59,16 +95,25 @@
 		$use_lazyload = true; 
 	}
 	
+	$slick_attrs = apply_filters('wpbc/slick/slick_attrs', $slick_attrs, $params);
+	$slick_data = apply_filters('wpbc/slick/slick_data', $slick_data, $params);
+	$slick_class = 'theme-slick-slider';
+	$slick_class = apply_filters('wpbc/slick/slick_class', $slick_class, $params);
 ?>
 <?php if($slick_wrapper){?><div class="<?php echo isset($params['container_class']) ? 'slick-slider-container '.$params['container_class'] : 'slick-slider-container container';?>"><?php } ?>
-	<div id="<?php echo $slider_ID; ?>" class="theme-slick-slider" data-slick='<?php echo $slick_attrs; ?>' <?php echo $slick_data; ?> <?php echo $slick_data_callbacks; ?>>
+	<?php do_action('wpbc/slick/before', $params); ?>
+	<div id="<?php echo $slider_ID; ?>" class="<?php echo $slick_class; ?>" data-slick='<?php echo $slick_attrs; ?>' <?php echo $slick_data; ?> <?php echo $slick_data_callbacks; ?>>
 		<?php
 		if(isset($params['items'])){
 		
 			$items = $params['items']; 
 			
 			foreach( $items as $k=>$v ){  
-			
+				
+				$content_slide = $v['content'];
+
+				$content_slide = apply_filters('wpbc/slick/content_slide', $content_slide, $params);
+
 			?>
 				
 				<?php do_action('wpbc/slick/item/before', $v, $params); ?>
@@ -83,7 +128,7 @@
 									<div class="<?php
 									$content_class = isset($v['content_class']) ? $v['content_class'] : ( isset($params['container_item_content_class']) ? $params['container_item_content_class'] : '' );
 									echo $content_class; ?>">
-										<?php echo $v['content']; ?>
+										<?php echo $content_slide; ?>
 									</div>
 								</div>
 							<?php } ?>
@@ -99,7 +144,7 @@
 									<div class="<?php
 									$content_class = isset($v['content_class']) ? $v['content_class'] : ( isset($params['container_item_content_class']) ? $params['container_item_content_class'] : '' );
 									echo $content_class; ?>">
-										<?php echo $v['content']; ?>
+										<?php echo $content_slide; ?>
 									</div>
 								</div>
 							<?php } ?>
@@ -110,58 +155,14 @@
 					/*
 						@params passed for each item ($v) over $items
 					*/
-					$type = ( !empty($v['type']) && !is_array($v['type']) ) ? $v['type'] : 'inline'; 
-					 
-					$content = $v['content']; 
-					$image_object = !empty($v['image_object']) ? $v['image_object'] : ''; 
-					$content_class = !empty($v['content_class']) ? $v['content_class'] : ( !empty($params['container_item_class']) ? $params['container_item_class'] : '' ); 
 					
-					$content_type = 'item-just-content';
-					$item_class = '';
-					$attrs = '';
+					/* END ITEM */
+					WPBC_get_template_part('components/slick/item', array(
+						'item' => $v,
+						'params' => $params, 
+					));
 					
-					if($type == 'inline'){ 
-						$content_type = 'item-image-content'; 
-					}
-					
-					if($type == 'cover' && !empty($image_object) ){ 
-						$content_type = 'item-cover-content';
-						$item_class = 'image-cover';						
-						$attrs = 'style="background-image:url('. $image_object['url'] .');" ';
-
-						if($use_lazyload){
-							$slick_item_class .= ' loading'; 
-							$img_id = $image_object['id'];
-							$img_low = wp_get_attachment_image_src($img_id, 'medium');
-							$attrs = 'data-lazyload-src="'.$image_object['url'].'" style="background-image:url('. $img_low[0] .');" ';
-						}
-					} 
-					if( !empty($content) || !empty($image_object)) {
-					?><div class="<?php echo $slick_item_class; ?>">
-						<?php if($use_lazyload){ ?>
-							<span class="lazyload-loading"></span>
-						<?php } ?>
-						<div class="item-container <?php echo $item_class; ?>" <?php echo $attrs; ?>>
-
-						<?php do_action('wpbc/slick/item/container/before', $v, $params); ?>
-						
-						<?php if( $type == 'inline' && !empty($image_object) ) { ?>
-							<?php do_action('wpbc/slick/item/container/content/before', $v, $params); ?>
-							<img src="<?php echo $image_object['url']; ?>" class="item-image full-w" alt="<?php echo $image_object['title']; ?>"/>
-							<?php do_action('wpbc/slick/item/container/content/after', $v, $params); ?>
-						<?php } ?>
-						
-						<?php if( !empty($content) ) { ?>
-						<div class="<?php echo $content_type; ?> <?php echo $content_class; ?>">
-							<?php do_action('wpbc/slick/item/container/content/before', $v, $params); ?>
-							<?php echo $content; ?>
-							<?php do_action('wpbc/slick/item/container/content/after', $v, $params); ?>
-						</div>
-						<?php } ?>
-
-						<?php do_action('wpbc/slick/item/container/after', $v, $params); ?>
-
-					</div></div><?php } ?>
+					?>
 					
 				<?php } ?>
 			
@@ -173,9 +174,11 @@
 				echo $params['items_html'];
 			}
 
-		?>	
+		?>
 	</div><!-- theme-slick-slider END -->
+<?php do_action('wpbc/slick/after', $params); ?>
 <?php if($slick_wrapper){?></div><!-- slick-slider-container END --><?php } ?>
+
 <?php
 /*
 	

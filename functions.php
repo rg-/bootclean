@@ -19,11 +19,11 @@
 	mostly on template builder and layout sctructure new way implemented on 9.0.1
 	
 	New sites showld forget about this, on future versions, let´s say 10.0.0
-	i will remove old stuff (TODO_10)
+	i will remove old stuff (DOING...)
 
 */
 global $WPBC_VERSION;
-$WPBC_VERSION = apply_filters('wpbc/filter/version','9.0.5');
+$WPBC_VERSION = apply_filters('wpbc/filter/version','10.0.0');
 function WPBC_version(){
 	global $WPBC_VERSION;
 	return $WPBC_VERSION;
@@ -43,17 +43,4 @@ require BC_WP_DIR . 'core.php';
 
 /*
 	That´s all here.
-*/
-
-
-/*
-add_filter('BC_enqueue_scripts__fonts', function($fonts){
-
-	$fonts['fontawesome-all'] = array( 
-		'src'=>'css/fontawesome/all.min.css'
-	);
-
-	return $fonts;
-
-});
-*/
+*/ 

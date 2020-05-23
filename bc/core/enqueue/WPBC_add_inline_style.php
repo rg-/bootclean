@@ -23,6 +23,8 @@ add_filter('WPBC_add_inline_style',function($css){
 	$BC_get_root_breakpoint = BC_get_root_breakpoint();
 	$post_id = WPBC_layout__get_id();
 	$layout_code_styles = WPBC_get_field('code_styles', $post_id);
+
+	$css = "/* wpbc-inline-styles for post layout__get_id: ".$post_id." */";
 	if(!empty($layout_code_styles)){ 
 	
 		if(!empty($layout_code_styles['code_styles_all'])){ 

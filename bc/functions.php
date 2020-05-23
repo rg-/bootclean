@@ -13,6 +13,18 @@
 */
 
 //////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////	
+
+function WPBC_version_compare($v){
+	// $v like '9.0.0'
+	global $WPBC_VERSION; 
+	if ( version_compare( $WPBC_VERSION, $v, '>' ) ) {
+		return true;		
+	}else{
+		return false;
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
 function WPBC_get_template_part($template, $args=''){
 	
@@ -267,21 +279,24 @@ function BC_get_body_class(){
 		$body_class_output .= $currentFile.' '; 
 	} 
 	$body_class_output .= isset($theme_root['body']['class']) ? $theme_root['body']['class'].' ' : '';
-	
+	$body_class_output = apply_filters('wpbc/body/class', $body_class_output);
 	return $body_class_output;
 }
 
 function BC_get_body_data(){
 	global $theme_root;
+	$out = '';
 	if(isset($theme_root['body']['data'])){
 		$out = '';
 		$data = $theme_root['body']['data'];
 		foreach($data as $k=>$v){
 			$out .= ' data-'.$k.'="'.$v.'"';
 		}
-		echo $out;
+
 	}
-		
+	
+	$out = apply_filters('wpbc/body/data', $out);
+	echo $out;
 	
 }
 

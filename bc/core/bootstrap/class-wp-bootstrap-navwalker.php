@@ -21,12 +21,24 @@
 
 /* Check if Class Exists. */
 if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
+
+	
+
 	/**
 	 * WP_Bootstrap_Navwalker class.
 	 *
 	 * @extends Walker_Nav_Menu
 	 */
 	class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
+
+		/*
+
+		Use or not dropdown, dropdown-menu, dropdown-link etc...
+
+		*/
+		public function use_dropdown(){
+			return apply_filters('nav_menu_use_dropdown',1);
+		}
 
 		/**
 		 * Starts the list before the elements are added.
@@ -49,7 +61,14 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			}
 			$indent = str_repeat( $t, $depth );
 			// Default class to add to the file.
-			$classes = array( 'dropdown-menu' );
+			$classes = array(); 
+			$use_dropdown = self::use_dropdown();
+			if($use_dropdown){
+				$classes[] = 'dropdown-menu';
+			}else{
+				$classes[] = 'sub-menu';
+			}
+			
 			/**
 			 * Filters the CSS class(es) applied to a menu list element.
 			 *
@@ -64,7 +83,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 
 
 			// Allow filtering of the $atts array before using it.
-			$submenu_attrs = '';
+			$submenu_attrs = array();
 			$submenu_attrs = apply_filters( 'nav_menu_submenu_attrs', $submenu_attrs, $args, $depth );
 
 			// Build a string of html containing all the atts for the item.
@@ -149,8 +168,10 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 */
 			$args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
 
+			$use_dropdown = self::use_dropdown();
+
 			// Add .dropdown or .active classes where they are needed.
-			if ( isset( $args->has_children ) && $args->has_children ) {
+			if ( $use_dropdown && isset( $args->has_children ) && $args->has_children ) {
 				$classes[] = 'dropdown';
 			}
 			if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-parent', $classes, true ) ) {
@@ -200,7 +221,8 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 
 			
 			// If item has_children add atts to <a>.
-			if ( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) {
+			
+			if ( $use_dropdown && isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) {
 				$atts['href']          = ! empty( $item->url ) ? $item->url : '#';
 				$atts['data-toggle']   = 'dropdown';
 				$atts['aria-haspopup'] = 'true';
@@ -211,7 +233,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			} else {
 				$atts['href'] = ! empty( $item->url ) ? $item->url : '#';
 				// Items in dropdowns use .dropdown-item instead of .nav-link.
-				if ( $depth > 0 ) {
+				if ( $depth > 0 && $use_dropdown) {
 					$atts['class'] = 'dropdown-item';
 				} else {
 					$atts['class'] = 'nav-link';

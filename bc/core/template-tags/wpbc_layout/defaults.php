@@ -114,15 +114,14 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 
 	$layout_header_template_type = WPBC_get_field('layout_header_template_type', $post_id);
 	$layout_header_template = WPBC_get_field('layout_header_template', $post_id);
-	
-	if(!empty($layout_header_template)){
-		if($layout_header_template_type == 'template'){
+	$custom_class = WPBC_get_field('layout_header_template_class', $post_id);
+
+	if($layout_header_template_type == 'template'){
+		if(!empty($layout_header_template)){
 			$template_ID = WPBC_get_field('layout_header_template', $post_id);
 		}else{
 			$template_ID = false;
-		}
-		
-		
+		} 
 	}else{
 		if($layout_header_template_type == 'html'){
 			$template_ID = false;
@@ -154,6 +153,8 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 		'use_template' => $main_page_header_template, 
 		'use_custom_template' => $template_ID,
 		'use_custom_html' => $custom_html,
+		'custom_attrs' => '',
+		'custom_class' => $custom_class,
 	); 
 
 	$template_in_use_ID = WPBC_get_layout_customize_use($params, $params['id']);
@@ -229,109 +230,4 @@ function WPBC_layout__main_footer_defaults($post_id=''){
 	// OLD WPBC_layout__main_footer_defaults
 	$params = apply_filters('wpbc/filter/layout/main-footer/defaults',$params);
 	return $params;
-}   
-
- 
-
-// NOT USED
-function WPBC_get_layout_main_contentXXX(){
-	$layout = '';
-	$layout_main_content_custom = BC_get_option('bc-options--layout--main-content-custom');
-	
-	$post_id = WPBC_layout__get_id(); 
-	$main_content_template = WPBC_get_field('main_content_template', $post_id);
-
-	if( empty($main_content_template) && (  WPBC_is_options_page_enabled() && $layout_main_content_custom )){  
-		$layout_main_content = BC_get_option('bc-options--layout--main-content'); 
-	}else{ 
-		$layout_main_content = $main_content_template;
-	}
-
-	$layout = $layout_main_content ? $layout_main_content : 'default'; // just default one;
-	return $layout;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function custom_WPBC_layout__container_class($type){
-	// NOT USED
-	$_t = $type; 
-	
-	if($type == 'default' ){
-		$args = array( 
-			'container' => array( 
-				'class' => '',
-				'row' => '',
-				'col_content' => '',
-				'col_sidebar' => '', 
-			) 
-		);
-	}
-
-	if($type == '1col-fixed' ){
-		$args = array( 
-			'container' => array( 
-				'class' => 'container gpt-2',
-				'row' => 'row',
-				'col_content' => 'col-12',
-				'col_sidebar' => 'col-12', 
-			) 
-		);
-	}
-	
-	if($type == '1colwt-fixed' ){
-		$args = array( 
-			'container' => array( 
-				'class' => 'container gpt-2',
-				'row' => 'row',
-				'col_content' => 'col-12 order-1',
-				'col_sidebar' => 'col-12 order-0', 
-			) 
-		);
-	}
-	
-	if($type == '2c-l-fixed' ){
-		$args = array( 
-			'container' => array( 
-				'class' => 'container gpt-2',
-				'row' => 'row flex-xl-nowrap',
-				'col_content' => 'col-12 col-sm-8 order-sm-1',
-				'col_sidebar' => 'col-12 col-sm-4 order-sm-0', 
-			) 
-		);
-	}
-	
-	if($type == '2c-r-fixed' ){
-		$args = array( 
-			'container' => array( 
-				'class' => 'container gpt-2',
-				'row' => 'row flex-xl-nowrap',
-				'col_content' => 'col-12 col-sm-8',
-				'col_sidebar' => 'col-12 col-sm-4', 
-			) 
-		);
-	}
-	//$args['container']['class'] = 'container-fluid gpt-2'; 
-	$args = apply_filters('wpbc/filter/layout/start/container/class', $args, 10, 1 ); 
-	return $args;  
-}
-
-// add_action( 'wp_loaded', 'WPBC_layout__builder'); 
-function WPBC_layout__builder(){
-	// NOT USED
-	$layout = WPBC_get_layout_main_content(); 
-	custom_WPBC_layout__container_class($layout); 
-} 

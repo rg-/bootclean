@@ -18,7 +18,14 @@ $slider_classes = get_sub_field( $field_base.'_'.'key__slider__classes', $post_i
 $slider_settings = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_settings'.'_'.'key__r_slider_settings', $post_id);
 $slider_breakpoint_heights = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_breakpoint_heights'.'_'.'key__r_slider_breakpoint_heights', $post_id);
 $slider_breakpoint_enable = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_breakpoint_heights'.'_'.'key__r_slider_breakpoint_enable', $post_id); 
- 
+
+
+$slider_settings_args = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_settings'.'_'.'key__r_slider_settings_args', $post_id); 
+
+
+$slider_acf_object = get_field_object($field_base, $post_id);  
+
+
 if(!empty($slider_items)){ 
 
 	$slider_id = '';
@@ -60,6 +67,8 @@ if(!empty($slider_items)){
 		'container_class'=>			$slider__classes_item_container,
 		'container_item_class'=>	$slider__classes_item_content, 
 		'slick'=>					$slider_settings, 
+		'slick_args'=>					$slider_settings_args, 
+		'slider_acf_object'=> 	$slider_acf_object,
 		'items' => $items, 
 		'breakpoint-height' => $slider_breakpoint_heights,
 		'enable-at' => $slider_breakpoint_enable,

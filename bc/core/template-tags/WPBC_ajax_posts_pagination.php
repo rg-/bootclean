@@ -3,11 +3,15 @@
 function WPBC_ajax_get_template() {  
 	$id = !empty($_GET['id']) ? $_GET['id'] : 0;
 	$name = !empty($_GET['name']) ? $_GET['name'] : 0;
+	$post_id = !empty($_GET['post_id']) ? $_GET['post_id'] : 0; 
+	$template_id = !empty($_GET['template_id']) ? $_GET['template_id'] : 0;
+	$from = !empty($_GET['from']) ? $_GET['from'] : '';
+	$layout_count = !empty($_GET['layout_count']) ? $_GET['layout_count'] : 0;
 	if($id && !$name){
-		echo do_shortcode('[WPBC_get_template id="'.$id.'"/]');
+		echo do_shortcode('[WPBC_get_template post_id="'.$post_id.'" id="'.$id.'" template_id="'.$template_id.'" from="'.$from.'" is_ajax="true" layout_count="'.$layout_count.'"/]');
 	}
 	if($name && !$id){
-		echo do_shortcode('[WPBC_get_template name="'.$name.'"/]');
+		echo do_shortcode('[WPBC_get_template post_id="'.$post_id.'" name="'.$name.'" template_id="'.$template_id.'"from="'.$from.'" is_ajax="true" layout_count="'.$layout_count.'"/]');
 	} 
 
 	if( !empty($_GET['preview']) ) {

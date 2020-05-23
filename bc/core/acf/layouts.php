@@ -14,6 +14,7 @@
 
 include('layouts/html_row.php');
 include('layouts/template_row.php'); 
+include('layouts/template_part_row.php'); 
 include('layouts/slider_row.php');
 include('layouts/widgets_row.php');
 
@@ -117,5 +118,7 @@ function WPBC_acf_builder_layouts(){
 	);
 	$layouts['layout_flexible_row'] = $flexible_rows['layout_flexible_row'];
 	
+	$layouts = apply_filters('wpbc/filter/acf/builder/flexible_content/layouts', $layouts);
+
 	return $layouts;
 }

@@ -55,7 +55,7 @@ $widgets_areas = array(
 
 	array( 
 		'name' => '', 
-		'desc' => __( '<b>Take care</b> when removing/renaming, idealy don´t do it unless you re-edit the windgets areas and it´s contents too. If you accidentaly delete a widget area, you can create it again with the same name, that way you wiget area will appear again with all the widgets inside.', 'bootclean' ),
+		'desc' => __( '<b>Take care</b> when removing/renaming, idealy don´t do it unless you re-edit the widgets areas and it´s contents too. If you accidentaly delete a widget area, you can create it again with the same name, that way you wiget area will appear again with all the widgets inside.', 'bootclean' ),
 		'type' => 'info',
 		'width' => '100%'
 	),

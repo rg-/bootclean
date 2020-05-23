@@ -33,6 +33,28 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 		} 
 		add_filter('acf/fields/post_object/result', 'qT_bc__post_object_result', 10, 4);
 	}
+
+	add_action( 'admin_footer', function(){
+		?><script type="text/javascript">
+			if (window.jQuery) { 
+				jQuery(function($) {
+					$(window).on( 'load', function(){
+						var current = $('.qtranxs-lang-switch-wrap .qtranxs-lang-switch.active').attr('lang');
+						$('body').attr('current-language',current);
+
+						$('input.qtranxs-translatable, textarea.qtranxs-translatable, div.qtranxs-translatable').addClass('current-language').attr('data-language',current);
+
+						$('.qtranxs-lang-switch-wrap .qtranxs-lang-switch').on('click', function(){
+							var me_lang = $(this).attr('lang');
+							$('body').attr('current-language',me_lang);
+							$('input.qtranxs-translatable, textarea.qtranxs-translatable, div.qtranxs-translatable').addClass('current-language').attr('data-language',me_lang);
+						});
+					});
+				});
+			}
+		</script>
+		<?php
+	}, 998 ); // admin_enqueue_scripts is 10
 	
 	// Admin head scripts and stypes
 	add_action('admin_head', 'wpbc_qtranslate_admin_styles');
@@ -42,10 +64,10 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 
 		.wp-admin:not(.nav-menus-php) #post-body-content .qtranxs-lang-switch-wrap.widefat{
 			display:none!important;
-		}
+		} 
 
-		#qtranxs-meta-box-lsb{
-			
+		#wpbody-content .qtranxs-lang-switch-wrap,
+		#qtranxs-meta-box-lsb{ 
 			position: fixed;
 			text-align: right;
 			display: block;
@@ -58,7 +80,20 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 			width: auto;
 			min-width: inherit;
 			cursor:default!important;
+		} 
+
+		#wpbody-content .qtranxs-lang-switch-wrap{
+			margin: 8px 0 4px!important;
+			background-color:#fff;
+			padding:10px;
+			border: 1px solid #e5e5e5;
+   		box-shadow: 0 1px 1px rgba(0,0,0,.04);
 		}
+
+		#qtranxs-meta-box-lsb .qtranxs-lang-switch-wrap{
+			margin: 0!important;
+		}
+
 		#qtranxs-meta-box-lsb .hndle {
 			cursor: default;
 		}
@@ -70,8 +105,36 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 		}
 
 		.acf-input-wrap.multi-language-field{
-			border-left: 3px solid #0073aa !important;
+			// border-left: 3px solid #0073aa !important;
 		}
+
+		.qtranxs-lang-switch button{
+			box-shadow: none!important;
+		}
+		.qtranxs-lang-switch button.active{
+			color:#fff!important;
+		}
+			.qtranxs-lang-switch[lang="en"] button.active{
+				background-color: blue !important;
+			}
+			.qtranxs-lang-switch[lang="es"] button.active{
+				background-color: orange !important;
+			}
+			.qtranxs-lang-switch[lang="pt"] button.active,
+			.qtranxs-lang-switch[lang="pb"] button.active{
+				background-color: green !important;
+			}
+
+			.current-language[data-language="en"]{
+				border-left: 3px solid blue !important;
+			}
+			.current-language[data-language="es"]{
+				border-left: 3px solid orange !important;
+			}
+			.current-language[data-language="pt"],
+			.current-language[data-language="pb"]{
+				border-left: 3px solid green !important;
+			}
 
 		</style>';
 	}
@@ -122,13 +185,7 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 			.multi-language-field .acf_input input,
 			.multi-language-field .acf_input textarea,
 			.multi-language-field .current-language{border-left:3px solid #000;}
-			
-			[name="qts_en_slug"],
-			[data-language="en"]{border-color:blue!important;}
-			[name="qts_es_slug"],
-			[data-language="es"]{border-color:orange!important;}
-			[name="qts_pb_slug"],
-			[data-language="pb"]{border-color:green!important;}
+			 
 				
 			</style>'; 
 	}

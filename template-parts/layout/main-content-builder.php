@@ -16,7 +16,7 @@ if ( have_posts() ) {
 		do_action('wpbc/layout/builder/rows/after'); 
 	}  // If posts END
 	do_action('wpbc/layout/builder/loop/after'); 
-	do_action('wpbc/layout/inner/content/loop/after');
+	do_action('wpbc/layout/inner/content/loop/after', $post_id);
 	wp_reset_query();   
 }
 do_action('wpbc/layout/builder/content/before');

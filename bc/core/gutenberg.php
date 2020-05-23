@@ -11,7 +11,7 @@
 // see: https://wisdomplugin.com/build-gutenberg-block-plugin/
 // see https://github.com/WordPress/gutenberg-examples/
 
-define('BC_GUTENBERG_URI', THEME_URI.'/bc/core/gutenberg');
+define('BC_GUTENBERG_URI', THEME_URI.'/bc/core/gutenberg'); 
 
 require 'gutenberg/test/index.php'; 
 //require 'gutenberg/simple-block/index.php'; 
@@ -102,3 +102,48 @@ if( apply_filters('WPBC_gutenberg', '__return_true') ){
 	WPBC_gutenberg_init(); 
 }
 //add_action( 'init', 'BC_gutenberg_init', 20 );
+
+
+/**
+ * Disable Gutenberg by template
+ *
+ */
+/**
+ * Templates and Page IDs without editor
+ *
+ */
+function WPBC_gutenberg_disable_editor( $id = false ) {
+
+	$excluded_templates = array(
+		'_template_builder.php',
+	);
+
+	$excluded_templates = apply_filters('wpbc/filter/gutenberg/excluded_templates', $excluded_templates);
+
+	$excluded_ids = array(
+		// get_option( 'page_on_front' )
+	);
+
+	$excluded_ids = apply_filters('wpbc/filter/gutenberg/excluded_ids', $excluded_ids);
+
+	if( empty( $id ) )
+		return false;
+
+	$id = intval( $id );
+	$template = get_page_template_slug( $id );
+
+	return in_array( $id, $excluded_ids ) || in_array( $template, $excluded_templates );
+}
+function WPBC_gutenberg_disable( $can_edit, $post_type ) {
+
+	if( ! ( is_admin() && !empty( $_GET['post'] ) ) )
+		return $can_edit;
+
+	if( WPBC_gutenberg_disable_editor( $_GET['post'] ) )
+		$can_edit = false;
+
+	return $can_edit;
+
+}
+add_filter( 'gutenberg_can_edit_post_type', 'WPBC_gutenberg_disable', 10, 2 );
+add_filter( 'use_block_editor_for_post_type', 'WPBC_gutenberg_disable', 10, 2 );

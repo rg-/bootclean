@@ -1,6 +1,5 @@
 <?php
 
-
 add_action('wpbc/layout/start', function(){
 	
 	/* Here behind some usefull for dev things */ 

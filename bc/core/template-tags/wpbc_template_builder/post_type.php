@@ -116,7 +116,11 @@ function WPBC_template_builder(){
 		)
 	);
 
-	/* Taxonomies as "Formats", that will be in this case "Template Types" */
+	/*
+
+	OBSOLETE, see wpbc_template default/slider
+
+	Taxonomies as "Formats", that will be in this case "Template Types" */
 	
 	// Add new taxonomy, make it hierarchical (like categories)
 	$labels = array(
@@ -159,11 +163,16 @@ function WPBC_template_builder(){
 	// Run this things just once and never leave uncommented 
 	//wp_delete_term( 7, WPBC_template_builder__taxonomy_type_name() );
 	//wp_delete_term( 5, WPBC_template_builder__taxonomy_type_name() );
-	 
+	//wp_delete_term( 11, WPBC_template_builder__taxonomy_type_name() );
 	
 	$default_template_types = WPBC_template_builder__taxonomy_type_terms();
 	if(!empty($default_template_types)){
 		foreach($default_template_types as $k=>$v){
+
+			// Do not insert term if allready there... just in case.
+			$term = term_exists( $v['name'], WPBC_template_builder__taxonomy_type_name() );
+			if ( $term !== 0 && $term !== null ) return;
+
 			wp_insert_term(
 				$v['name'],
 				WPBC_template_builder__taxonomy_type_name(),
@@ -211,8 +220,8 @@ function WPBC_template_wp_terms_checklist_args( $args ) {
         if ( empty( $args['walker'] ) || is_a( $args['walker'], 'Walker' ) ) { // Don't override 3rd party walkers.
             if ( ! class_exists( 'WPSE_139269_Walker_Category_Radio_Checklist' ) ) {
                 class WPSE_139269_Walker_Category_Radio_Checklist extends Walker_Category_Checklist {
-                    function walk( $elements, $max_depth, $args = array() ) {
-                        $output = parent::walk( $elements, $max_depth, $args );
+                    function walk( $elements, $max_depth, ...$args ) {
+                        $output = parent::walk( $elements, $max_depth, ...$args );
                         $output = str_replace(
                             array( 'type="checkbox"', "type='checkbox'" ),
                             array( 'type="radio"', "type='radio'" ),

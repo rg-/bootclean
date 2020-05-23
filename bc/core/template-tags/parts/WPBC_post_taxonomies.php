@@ -67,7 +67,11 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 			"before" => '',
 			"sep" => ', ',
 			"after" => '',
+			"before_name" => '',
+			"after_name" => '',
+			"term_class" => '',
 			"use_icons" => false,
+			"icon_class_prefix" => 'icon-',
 			"use_links" => true,
 		), $args));
 		$out = '';
@@ -83,12 +87,12 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 					$term_link = apply_filters('wpbc/filter/get_the_terms/link', $term_link, $term_id, $taxonomy, $post_type);
 
 					if($use_icons){
-						$item = '<i data-id="'.$term->term_id.'" class="icon-'.$term->slug.'"></i> '.$term->name;
+						$item = '<i data-id="'.$term->term_id.'" class="'.$icon_class_prefix.'-'.$term->slug.'"></i> '.$before_name.$term->name.$after_name;
 					}else{
-						$item = $term->name;
+						$item = $before_name.$term->name.$after_name;
 					}
 
-					$a = '<a href="'.$term_link.'">';
+					$a = '<a href="'.$term_link.'" class="'.$term_class.'">';
 					$aa = '</a>';
 
 					if($use_links){

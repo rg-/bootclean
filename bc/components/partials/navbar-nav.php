@@ -1,5 +1,17 @@
 <?php 
-// TODO, classes and so on for $item['dropdown']['expanded'] 
+/*
+
+	deprecated partial component
+
+	@bootclean
+	@components
+	@navbar-nav
+
+	$params passed 
+
+	
+
+*/
 if( isset($params) ){
 	if( isset($params['items']) && !isset($params['items_html']) ){
 		$items = $params['items'];

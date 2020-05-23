@@ -292,7 +292,7 @@ function __BC_get_root_colors_X(){
 }
 
 
-function WPBC_get_svg_icons($icon='', $color='black'){
+function WPBC_get_svg_icons($icon='', $color='black', $icon_path=false){
 	/*
 	$icons = array();
 	$svg_assets = get_template_directory().'/bc/core/assets/svg';
@@ -304,7 +304,12 @@ function WPBC_get_svg_icons($icon='', $color='black'){
 	}
 	*/
 	if($icon){
-		$svg_assets = get_template_directory().'/bc/core/assets/svg';
+		if($icon_path){
+			$svg_assets = $icon_path;
+		}else{
+			$svg_assets = get_template_directory().'/bc/core/assets/svg';
+		}
+		
 		$icon_file = WPBC_get_ob_contents( $svg_assets . '/' . $icon . '.svg');
 		$i = str_replace('path','path fill="'.$color.'"',$icon_file); 
 		return $i;
@@ -322,13 +327,14 @@ function WPBC_get_svg_img($icon='', $atts=array()){
 		'class' => '',
 		//'data_src_type' => 'data:image/svg+xml;utf8,'
 		'data_src_type' => 'base64',
-		'return' => 'img'
+		'return' => 'img',
+		'icon_path' => false,
 	), $atts)); 
 	
 	$attrs = "alt='{$alt}'";
 	$attrs .= $width ? " width='{$width}' height='{$height}'" : ''; 
 	if(!$icon) return;  
-	$data_svg = WPBC_get_svg_icons($icon, $color);
+	$data_svg = WPBC_get_svg_icons($icon, $color, $icon_path);
 	
 	if($data_src_type == 'base64'){
 		$url = 'data:image/svg+xml;base64,' . base64_encode($data_svg);

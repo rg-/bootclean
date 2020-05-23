@@ -37,6 +37,8 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 	}else{
 		$key_prefix = '';
 	}
+
+
 	
 	$out = '';
 	$layout_count = 0;
@@ -65,14 +67,17 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 				} 
 				$temp = '';
 				ob_start();
-				if(!empty($inc)){  
+				if(!empty($inc)){
 					include ($inc);  
 				} 
-				$temp = ob_get_contents();
+				$temp = ob_get_contents(); 
+
 				ob_end_clean();  
-				if( !empty($temp) ){ 
-						
-					$special_types = array('navbar_row'); 
+				if( !empty($temp) ){  
+
+					$temp = apply_filters('wpbc/template/builder/rows/temp', $temp, $post_id, $row, $key_prefix, $layout);
+
+					$special_types = array('navbar_row');  
 
 					if( !in_array($layout, $special_types) ){
  
@@ -144,8 +149,18 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 						}
 						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$layout_id.'-'.$name.'-'.$layout.'-'.$layout_count );
 						
+						$layout_start_args = array(
+							'post_id'=> $post_id,
+							'layout_id'=> $layout_id,
+							'layout_class'=> $content_row,
+							'layout_name'=> $layout,
+							'layout_count'=> $layout_count,
+						);
+						
 						$layout_start = '<div id="'. $layout_id .'" class="flexible_content_row '.$content_row.'" data-layout="'.$layout.'" data-layout-index="'.$layout_count.'">';
-							
+						
+						$layout_start = apply_filters('wpbc/template/builder/rows/layout_start', $layout_start, $layout_start_args);
+
 							if(!$content_use_row){
 								$content_row__container = 'no-container';
 							}
@@ -168,6 +183,8 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 							
 						$layout_end .= '</div>'; // flexible_content_row
 						
+						$temp = apply_filters('wpbc/template/builder/rows/pre', $temp, $post_id, $row, $key_prefix, $layout, $edit_id, $classes_group);
+
 						if($content_visible){
 							if($content_use_divs){
 								$out .= $layout_start.$layout_row_start. $temp .$layout_row_end.$layout_end;
@@ -192,6 +209,7 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 		}  
 		
 		// The final result!!
+		$out = apply_filters('wpbc/template/builder/rows/out', $out, $post_id, $row, $key_prefix, $layout);
 		$out = do_shortcode($out);
 		echo $out;
 		

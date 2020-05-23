@@ -22,6 +22,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 		'ul_class' => 'pagination justify-content-center',
 		'li_class' => 'page-item',
 		'li_a_class' => 'page-link',
+		'li_a_current_class' => 'current',
 		'aria-label' => '',
 		'prev_arrow' => '<i class="fa fa-chevron-left"></i>',
 		'next_arrow' => '<i class="fa fa-chevron-right"></i>',
@@ -35,16 +36,21 @@ function WPBC_advanced_posts_pagination($args=array()){
 		'more_text' => __( 'Load more', 'bootclean' ), 
 		'more_class' => 'btn btn-primary', 
 		'more_text_last' => __( 'No more post to load', 'bootclean' ), 
+
+		'use_pagination_first' => false,
+		'use_pagination_last' => false,
+		'use_pagination_arrows' => true,
+		'use_pagination_paged' => false,
 	);
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args );
 
 	
-	$use_pagination_first = false;
-	$use_pagination_last = false;
-	$use_pagination_arrows = true;
+	//$use_pagination_first = false;
+	//$use_pagination_last = false;
+	//$use_pagination_arrows = true;
 	
-	$use_pagination_paged = false;
+	// $use_pagination_paged = false;
 	$use_pagination_results = $out_info; 
 	
 	$out_info_msg = "";
@@ -137,7 +143,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 					$out .= "<li class='".$this_class."'><a href='" . htmlentities2(get_pagenum_link($i)) ."' ";
 					if($i>$paged){$out .= "rel='next' ";}
 					if($i<$paged){$out .= "rel='prev' ";}
-					if($i==$paged){$out .= "class='n current ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
+					if($i==$paged){$out .= "class='n ".$li_a_current_class." ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
 					//if($i<10){$i = "0".$i;}
 					$out .= ">$i</a></li>";
 				}  
@@ -154,7 +160,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 			  $out .= "<li class='".$this_class."'><a href='" . htmlentities2(get_pagenum_link($i)) ."' ";
 			  if($i>$paged){$out .= "rel='next' ";}
 			  if($i<$paged){$out .= "rel='prev' ";}
-			  if($i==$paged){$out .= "class='n current ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
+			  if($i==$paged){$out .= "class='n ".$li_a_current_class." ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
 			  //if($i<10){$i = "0".$i;}
 			  $out .= ">$i</a></li>"; 
 			}  
@@ -171,7 +177,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 			  $out .= "<li class='".$this_class."'><a href='" . htmlentities2(get_pagenum_link($i)) ."' "; 
 			  if($i>$paged){$out .= "rel='next' ";}
 			  if($i<$paged){$out .= "rel='prev' ";}
-			  if($i==$paged){$out .= "class='n current ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
+			  if($i==$paged){$out .= "class='n ".$li_a_current_class." ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
 			  //if($i<10){$i = "0".$i;}
 			  $out .= ">$i</a></li>";
 			}  
@@ -187,7 +193,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 				$out .= "<li class='".$this_class."'><a href='" . htmlentities2(get_pagenum_link($i)) ."' ";  
 				if($i>$paged){$out .= "rel='next' ";}
 				if($i<$paged){$out .= "rel='prev' ";}
-				if($i==$paged){$out .= "class='n current ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
+				if($i==$paged){$out .= "class='n ".$li_a_current_class." ".$li_a_class."'";}else{$out .= "class='n ".$li_a_class."'";}; 
 				//if($i<10){$i = "0".$i;}
 				$out .= ">$i</a></li>";
 				}  

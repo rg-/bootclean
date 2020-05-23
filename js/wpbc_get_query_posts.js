@@ -130,9 +130,9 @@ jQuery.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
 
 	    	// dropdown-selects ....  
-	    	$(".dropdown-select .dropdown-menu .dropdown-item").on('click', function(){
+	  $(".dropdown-select[data-input-target] .dropdown-menu .dropdown-item").on('click', function(){
 		  
-			var selText = $(this).text();
+			var selText = $(this).html();
 			var valueText = $(this).data('value'); 
 			var me = $(this).closest('.dropdown-select'); 
 			var inputTarget = me.data('input-target'); 

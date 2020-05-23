@@ -14,7 +14,7 @@
 		'container_row_class' => 'row',
 		'container_col_class' => 'col-12',
 		
-		'default_content' => '<p><small>&copy; 2018 - BootClean by <a href="https://rgdesign.org" target="rgdesign">rgdesign</a> - Bootstrap framework - v '.WPBC_version().'</small></p>'
+		'default_content' => '<p><small>&copy; 2020 - BootClean by <a href="https://rgdesign.org" target="rgdesign">rgdesign</a> - Bootstrap framework - v '.WPBC_version().'</small></p>'
 		
 	);
 	

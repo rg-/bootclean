@@ -102,7 +102,7 @@
 		 
 		var min_height = target.data('min-height') ? target.data('min-height') : '';
 		if(min_height=='100%'){
-			min_height = windowSize('y');
+			min_height = get_window_sizes('h');
 		}
 		var ajax_load = $('<div class="ajax-load"></div>'); 
 

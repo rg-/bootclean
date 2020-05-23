@@ -4,6 +4,26 @@ $WPBC_is_acf = WPBC_is_acf();
 
 /*
 
+	parallax addon (if installed)	
+
+*/
+require "addons/wpbc-parallax.php";
+/*
+
+	swup addon (if installed)	
+
+*/
+require "addons/wpbc-swup.php";
+
+/*
+
+	pjax addon (if installed)	
+
+*/
+require "addons/wpbc-pjax.php";
+
+/*
+
 	qtranslate addon (if installed)	
 
 */

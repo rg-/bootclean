@@ -11,6 +11,12 @@
   
  
 function WPBC_widgets_init__defaults($defatuls_widgets=array()){
+
+	/*
+	 * Filter default arguments used, version pre10 added / dic/2019
+	 */
+	$before_title = apply_filters('wpbc/filter/widgets/before_title', '<h4 class="section-title">');
+	$after_title = apply_filters('wpbc/filter/widgets/after_title', '</h4>');
 	
 	$defatuls_widgets[] = array(
 		'name'          => 'Reusable Widget Area',
@@ -19,8 +25,8 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 		'class'         => 'wpbc-widget', // ?? This one is a myst?
 		'before_widget' => '<div class="widget-box">',
 		'after_widget'  => '</div>',
-		'before_title'  => '<h4 class="section-title">',
-		'after_title'   => '</h4>',
+		'before_title'  => $before_title,
+		'after_title'   => $after_title,
 	
 	); 
 
@@ -36,8 +42,8 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 					'class'         => 'wpbc-widget', // ?? This one is a myst?
 					'before_widget' => '<div class="widget-box">',
 					'after_widget'  => '</div>',
-					'before_title'  => '<h4 class="section-title">',
-					'after_title'   => '</h4>',
+					'before_title'  => $before_title,
+					'after_title'   => $after_title,
 			); 
 		}
 	}else{
@@ -49,8 +55,8 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 				'class'         => 'wpbc-widget', // ?? This one is a myst?
 				'before_widget' => '<div class="widget-box">',
 				'after_widget'  => '</div>',
-				'before_title'  => '<h4 class="section-title">',
-				'after_title'   => '</h4>',
+				'before_title'  => $before_title,
+				'after_title'   => $after_title,
 		); 
 	}
 	$defatuls_widgets = apply_filters('WPBC_widgets_init__defaults', $defatuls_widgets);
@@ -89,6 +95,12 @@ function WPBC_get_widget_custom_data($widget_id, $opt_name, $params){
 function WPBC_widget_custom_fields(){
 	// Nothing to do with ACF... for now
 	
+	$before_title = apply_filters('wpbc/filter/widgets/custom_fields/before_title', '<h4 class="section-title [VAL]">');
+	$after_title = apply_filters('wpbc/filter/widgets/custom_fields/after_title', '</h4>');
+
+	$before_widget = apply_filters('wpbc/filter/widgets/custom_fields/before_widget', '<div class="widget-box [VAL]">');
+	$after_widget = apply_filters('wpbc/filter/widgets/custom_fields/after_widget', '</div>');
+	
 	$fields = array(
 		
 		/* Custom Widget Title Class*/
@@ -98,7 +110,7 @@ function WPBC_widget_custom_fields(){
 			'type' => 'text',
 			'callback' => array(
 				'params' => array( 
-					'before_title' => '<h4 class="section-title [VAL]">',// [VAL] will be replaced with value saved for this field :)
+					'before_title' => $before_title,// [VAL] will be replaced with value saved for this field :)
 				),
 				'output' => array()
 			),
@@ -116,7 +128,7 @@ function WPBC_widget_custom_fields(){
 			'type' => 'text',
 			'callback' => array(
 				'params' => array( 
-					'before_widget' => '<div class="widget-box [VAL]">',// [VAL] will be replaced with value saved for this field :)
+					'before_widget' => $before_widget,// [VAL] will be replaced with value saved for this field :)
 				),
 				'output' => array()
 			),

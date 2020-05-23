@@ -1,6 +1,6 @@
 <?php
  
-if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_ajax() ){
+if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_ajax() && function_exists('acf_form_head') ){
 	acf_form_head();
 } 
 
@@ -8,7 +8,9 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 	<head>
-	
+		
+		<?php do_action('wpbc/head/start'); ?>
+		
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
@@ -18,6 +20,8 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 		<?php do_action('wpbc/head/scripts'); ?>
 		
 		<?php wp_head(); ?>
+
+		<?php do_action('wpbc/head/end'); ?>
 		
 	</head>
 	<?php

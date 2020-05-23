@@ -36,9 +36,13 @@ function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
 		//$class = apply_filters('wpbc/filter/layout/main_container/area-name/'.$value['area-name'].'/class', $class);
 		$class = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/area-name/'.$value['area-name'].'/class', $class);
 	} 
+	// ej: 'wpbc/filter/layout/class/?id=main-container-areas'
+	$class = apply_filters('wpbc/filter/layout/class/?id='.$value['id'], $class, $structure_id, $key);
 	$class = ' class="'.$structure_id.' '.$class.'" ';
 	
 	$attrs = !empty($value['attrs']) ? ' '.$value['attrs'].' ' : '';
+	// ej: 'wpbc/filter/layout/attrs/id/main-container-areas'
+	$attrs = apply_filters('wpbc/filter/layout/attrs/?id='.$value['id'], $attrs, $structure_id, $key);
 	
 	$type = !empty($value['type']) ? ' data-type="'.$value['type'].'" ' : '';
 
@@ -136,7 +140,7 @@ function WPBC_layout_struture__build($section=''){
 function WPBC_filter_layout_structure_build($args, $section=''){
 	// This one in resume will apply right before font-end output
 	// Here i will decide if use custom settings, options settings or default ones (same default option ones)
-	$sections = WPBC_layout_sections();
+	$sections = WPBC_layout_sections(); 
 	foreach ($sections as $key => $value) { 
 	 	$args[$key] = apply_filters('wpbc/filter/layout/struture/?section='.$key, $args[$key]);
 	} 
@@ -146,7 +150,7 @@ function WPBC_filter_layout_structure_build($args, $section=''){
 		return $args[$section]; 
 	} else{
 		return $args; 
-	}
+	} 
 	
 } 
 

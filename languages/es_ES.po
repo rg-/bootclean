@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bootclean\n"
-"POT-Creation-Date: 2019-04-26 10:49-0300\n"
-"PO-Revision-Date: 2019-04-26 11:15-0300\n"
+"POT-Creation-Date: 2020-02-11 19:32-0300\n"
+"PO-Revision-Date: 2020-02-11 19:33-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -100,7 +100,7 @@ msgstr "Clase de columna de contenido principal"
 msgid "Secondary content column class"
 msgstr "Clase de columna de contenido secundario"
 
-#: ../bc/core/acf/groups.php:175
+#: ../bc/core/acf/groups.php:178
 msgid "Add Layout Row"
 msgstr "Agregar fila de diseño"
 
@@ -120,20 +120,28 @@ msgstr "Tipo"
 msgid "Ajax Load"
 msgstr "Carga Ajax"
 
-#: ../bc/core/acf/reusable-fields.php:686
+#: ../bc/core/acf/reusable-fields.php:708
 msgid ""
 "Insert css code only. Use XS, SM... for particular bootstrap breakpoint."
 msgstr ""
 "Insertar código css solamente. Utilice XS, SM ... para un punto de "
 "interrupción de arranque específico."
 
-#: ../bc/core/acf/reusable-fields.php:868
+#: ../bc/core/acf/reusable-fields.php:890
 msgid "Background Color"
 msgstr "Color de fondo"
 
-#: ../bc/core/acf/reusable-fields.php:883
+#: ../bc/core/acf/reusable-fields.php:905
 msgid "Text Color"
 msgstr "Color texto"
+
+#: ../bc/core/acf/layouts/template_part_row.php:16
+msgid "Files under \"template-parts/theme/\" folder. (php only)"
+msgstr ""
+
+#: ../bc/core/acf/layouts/template_part_row.php:53
+msgid "Add Argument"
+msgstr "Agregar Argumento"
 
 #: ../bc/core/addons/bc-template_redirect_conditionals.php:108
 msgid "Custom Bootclean settings"
@@ -177,7 +185,7 @@ msgstr "Etiquetas"
 
 #: ../bc/core/addons/wpbc_get_query_posts/defaults.php:263
 #: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:35
-#: ../bc/core/template-tags/wpbc_template_builder/shortcode.php:96
+#: ../bc/core/template-tags/wpbc_template_builder/shortcode.php:98
 msgid "Load more"
 msgstr "Cargar más"
 
@@ -484,7 +492,6 @@ msgid "Add Resource Category"
 msgstr "Agregar Catergoría Recurso "
 
 #: ../bc/core/addons/wpbc_resource/wpbc_resource.php:239
-#: ../template-parts/entry_meta.php:5
 msgid "Category: "
 msgstr "Categoría:"
 
@@ -587,11 +594,11 @@ msgstr "Plantilla usada"
 msgid "Layout"
 msgstr "Diseño"
 
-#: ../bc/core/setup/register_nav_menus.php:10
+#: ../bc/core/setup/register_nav_menus.php:9
 msgid "Primary Menu"
 msgstr "Menú Primario"
 
-#: ../bc/core/setup/widgets_init.php:333
+#: ../bc/core/setup/widgets_init.php:345
 #, php-format
 msgid ""
 "%s: Widget class not found. Make sure this widget exists and the class name "
@@ -623,15 +630,18 @@ msgstr "publicaciones bajo este término."
 
 #: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:33
 #: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:9
+#: ../template-parts/wpbc_realstate/slider_properties.php:78
 msgid "Previous"
 msgstr "Anterior"
 
 #: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:34
 #: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:10
+#: ../template-parts/wpbc_realstate/slider_properties.php:79
 msgid "Next"
 msgstr "Siguiente"
 
 #: ../bc/core/template-tags/parts/WPBC_excerpt.php:27
+#: ../template-parts/wpbc_realstate/slider_properties.php:66
 msgid "Read more"
 msgstr "Leer más"
 
@@ -671,9 +681,13 @@ msgstr "Publicado en"
 msgid "Share this publication"
 msgstr "Compartir publicación"
 
-#: ../bc/core/template-tags/parts/WPBC_post_share.php:90
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:97
 msgid "Share this on"
 msgstr "Compartir en"
+
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:115
+msgid "Copy & Paste URL"
+msgstr ""
 
 #: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:19
 msgid ", "
@@ -1300,9 +1314,10 @@ msgstr ""
 "Apariencia -> Widgets para su uso."
 
 #: ../bc/core/theme-options-defaults/widgets.php:58
+#, fuzzy
 msgid ""
 "<b>Take care</b> when removing/renaming, idealy don´t do it unless you re-"
-"edit the windgets areas and it´s contents too. If you accidentaly delete a "
+"edit the widgets areas and it´s contents too. If you accidentaly delete a "
 "widget area, you can create it again with the same name, that way you wiget "
 "area will appear again with all the widgets inside."
 msgstr ""
@@ -1487,6 +1502,10 @@ msgstr ""
 "Lamentamos que la página que estás viendo no exista o haya ocurrido un "
 "error. Inténtalo de nuevo más tarde o contáctanos si el problema persiste."
 
+#: ../template-parts/content-no-posts.php:7
+msgid "There are no publications yet."
+msgstr "No hay publicaciones aún."
+
 #: ../template-parts/content-search-404.php:9
 msgid "Sorry what you are looking at does not exist or an error occurred."
 msgstr ""
@@ -1503,9 +1522,13 @@ msgstr ""
 msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Editar<span class=\"screen-reader-text\"> \"%s\"</span>"
 
+#: ../template-parts/entry_meta.php:5
+msgid "Category:"
+msgstr "Categoría:"
+
 #: ../template-parts/entry_meta.php:12
-msgid "Tag: "
-msgstr "Etiquetaa:"
+msgid "Tag:"
+msgstr "Etiqueta:"
 
 #: ../template-parts/post_advanced_pagination.php:6
 msgid "Load more posts"

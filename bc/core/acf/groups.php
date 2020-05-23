@@ -81,6 +81,19 @@ if( function_exists('acf_add_local_field_group') ){
 				), 
 			),
 	); 
+	$WPBC_group_builder__layout_locations = apply_filters('wpbc/filter/acf/builder/layout_locations',$WPBC_group_builder__layout_locations);
+
+	$WPBC_group_builder__secondary_layout_locations = array( 
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'page',
+				), 
+			),
+	); 
+	$WPBC_group_builder__secondary_layout_locations = apply_filters('wpbc/filter/acf/builder/secondary_layout_locations',$WPBC_group_builder__secondary_layout_locations);
+
 	acf_add_local_field_group(array(
 		'key' => 'group_builder__layout',
 		'title' => 'Page Settings',
@@ -103,9 +116,14 @@ if( function_exists('acf_add_local_field_group') ){
 // -------------------------------------------------------------------------- // 
 
 // -------------------------------------------------------------------------- //
+
+include('groups/builder_slider.php');
+
 if( function_exists('acf_add_local_field_group') ){ 
 	/*
 		#Slider Group
+
+		OBSOLETE, see wpbc_template
 	*/ 
 	$WPBC_group_builder__slider = WPBC_group_builder__slider(); 
 	$WPBC_group_builder__slider_locations = array(
@@ -153,6 +171,40 @@ if( function_exists('acf_add_local_field_group') ){
 	*/
 
 	// Main Content Builder
+
+	$WPBC_group_builder__flexible_content_locations = array( 
+			array(
+				array(
+					'param' => 'page_template',
+					'operator' => '==',
+					'value' => '_template_builder.php',
+				)
+			),  
+			/*
+
+			OBSOLETE, see wpbc_template default/slider
+
+			*/ 
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'wpbc_template',
+				),
+				array(
+					'param' => 'post_taxonomy',
+					'operator' => '==',
+					'value' => 'wpbc_template_type:default',
+				), 
+				array(
+					'param' => 'post_taxonomy',
+					'operator' => '!=',
+					'value' => 'wpbc_template_type:slider',
+				), 
+			),
+	); 
+	$WPBC_group_builder__flexible_content_locations = apply_filters('wpbc/filter/acf/builder/flexible_content_locations',$WPBC_group_builder__flexible_content_locations);
+
 	$layouts_main_content = WPBC_acf_builder_layouts();
 	acf_add_local_field_group(array(
 		'key' => 'group_builder__flexible',
@@ -177,49 +229,7 @@ if( function_exists('acf_add_local_field_group') ){
 				'max' => '',
 			),
 		),
-		'location' => array(
-
-			array(
-				array(
-					'param' => 'page_template',
-					'operator' => '==',
-					'value' => '_template_builder.php',
-				)
-			), 
-			/*
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'wpbc_template',
-				),
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '!=',
-					'value' => 'wpbc_template_type:slider',
-				),
-			),
-
-			*/
-
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'wpbc_template',
-				),
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '==',
-					'value' => 'wpbc_template_type:default',
-				), 
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '!=',
-					'value' => 'wpbc_template_type:slider',
-				), 
-			),
-		),
+		'location' => $WPBC_group_builder__flexible_content_locations,
 		'menu_order' => 3,
 		'position' => 'normal',
 		'style' => 'default',
@@ -320,7 +330,7 @@ if( function_exists('acf_add_local_field_group') ){
 		'key' => 'group_builder__flexible_secondary',
 		'title' => 'Secondary Content Builder',
 		'fields' => $group_builder__flexible_secondary__fields,
-		'location' => $WPBC_group_builder__layout_locations,
+		'location' => $WPBC_group_builder__secondary_layout_locations,
 		'menu_order' => 4,
 		'position' => 'normal',
 		'style' => 'default',
@@ -360,27 +370,7 @@ if( function_exists('acf_add_local_field_group') ){
 				'esc_html' => 0,
 			),
 		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'page_template',
-					'operator' => '==',
-					'value' => '_template_builder.php',
-				)
-			), 
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'wpbc_template',
-				),
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '==',
-					'value' => 'wpbc_template_type:default',
-				),
-			),
-		),
+		'location' => $WPBC_group_builder__flexible_content_locations,
 		'menu_order' => 0,
 		'position' => 'aside', 
 		'style' => 'default',

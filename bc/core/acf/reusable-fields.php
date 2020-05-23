@@ -2,11 +2,15 @@
 
 function WPBC_acf_reusables_fields($fields = array()){ 
 	return apply_filters('WPBC_acf_reusables_fields', $fields);
-}
+} 
+ 
+ 
 
 add_filter('WPBC_acf_reusables_fields', function($fields){  
 
-	$default_or_options_classes = WPBC_get_layout_main_content_default_or_options_classes('reusables');
+	$default_or_options_classes = WPBC_get_layout_main_content_default_or_options_classes('reusables'); 
+
+
 
 	$fields = array( 
 		/*
@@ -16,55 +20,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					> col
 		*/ 
 
-		// key__r_wpbc__advanced_group
-
-		array(
-			'key' => 'key__r_wpbc__advanced_group_inview',
-			'label' => __('Inview Effect','bootclean'),
-			'name' => 'r_wpbc__advanced_group_inview',
-			'type' => 'group',
-			'value' => NULL,
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'layout' => 'block',
-			'sub_fields' => array (
-
-				array (
-					'key' => 'field_advanced_group_inview__type',
-					'label' => __('Type','bootclean'),
-					'name' => 'advanced_group_inview__type',
-					'type' => 'select',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '20',
-						'class' => '',
-						'id' => '',
-					),
-					'choices' => array (
-						0 => _('None'),
-						'ajax-load' => _('Ajax Load'),
-					),
-					'default_value' => array (
-						0 => _('None'),
-					),
-					'allow_null' => 0,
-					'multiple' => 0,
-					'ui' => 0,
-					'ajax' => 0,
-					'return_format' => 'value',
-					'placeholder' => '',
-				),
-
-			),
-		),
+		
 
 		// Global content_visible
 		array (
@@ -169,7 +125,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 				
 				array (
 					'key' => 'key__classes__content_use_row',
-					'label' => 'row>col',
+					'label' => 'Bootstrap Container',
 					'name' => 'content_use_row',
 					'type' => 'true_false',
 					'instructions' => '',
@@ -448,6 +404,26 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 			'rows' => '',
 			'new_lines' => '',
 		),
+		// r_slider_html_code
+		array(
+			'key' => 'key__r_slider_html_code',
+			//'label' => 'Html',
+			'name' => 'r_html_code',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => ' codemirror-custom-field md',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => '',
+		),
 		
 		// r_slider_item
 		
@@ -504,7 +480,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 						'id' => '',
 					),
 					'clone' => array(
-						0 => 'key__r_html_code',
+						0 => 'key__r_slider_html_code',
 					),
 					'display' => 'group',
 					'layout' => 'block',
@@ -602,6 +578,8 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 			'rows' => '',
 			'new_lines' => '',
 		),
+		// r_slider_settings_args
+		
 		
 		// r_slider_breakpoint_heights
 		array(
@@ -896,4 +874,453 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
  	
 	return $fields;
 }, 10, 1);
+
+
+/*
+ * builder__slider_settings_args
+*/  
+
+
  
+function WPBC_group_builder__slider_settings_args($fields = array()){  
+	return apply_filters('WPBC_group_builder__slider_settings_args', $fields);
+}
+add_filter('WPBC_group_builder__slider_settings_args', function($fields){
+
+	// http://kenwheeler.github.io/slick/
+
+	$default_args = array(
+
+		array(
+			'key'=> 'accessibility',
+			'type'=> 'true_false',
+			'default'=> 1
+		),
+
+		array(
+			'key'=> 'adaptiveHeight',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'autoplay',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'autoplaySpeed',
+			'type'=> 'number',
+			'default'=> '3000'	
+		),
+
+		array(
+			'key'=> 'arrows',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'asNavFor',
+			'type'=> 'text',
+			'default'=> ''	
+		),
+
+		array(
+			'key'=> 'appendArrows',
+			'type'=> 'text',
+			'default'=> '$(element)'	
+		),
+
+		array(
+			'key'=> 'appendDots',
+			'type'=> 'text',
+			'default'=> '$(element)'	
+		),
+
+		array(
+			'key'=> 'prevArrow',
+			'type'=> 'text',
+			'default'=> '<button type="button" class="slick-prev">Previous</button>'	
+		),
+
+		array(
+			'key'=> 'nextArrow',
+			'type'=> 'text',
+			'default'=> '<button type="button" class="slick-next">Previous</button>'	
+		),
+
+		array(
+			'key'=> 'centerMode',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'centerPadding',
+			'type'=> 'text',
+			'default'=> '50px'	
+		),
+
+		array(
+			'key'=> 'cssEase',
+			'type'=> 'text',
+			'default'=> 'ease'	
+		),
+
+		array(
+			'key'=> 'customPaging',
+			'type'=> 'text',
+			'default'=> 'n/a'	
+		),
+
+		array(
+			'key'=> 'dots',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'dotsClass',
+			'type'=> 'text',
+			'default'=> 'slick-dots'	
+		),
+
+		array(
+			'key'=> 'draggable',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'fade',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'focusOnSelect',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'easing',
+			'type'=> 'text',
+			'default'=> 'linear'	
+		),
+
+		array(
+			'key'=> 'edgeFriction',
+			'type'=> 'number',
+			'default'=> '0.15',
+			'step'=> '0.01'	
+		),
+
+		array(
+			'key'=> 'infinite',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'initialSlide',
+			'type'=> 'number',
+			'default'=> '0', 
+		),
+
+		array(
+			'key'=> 'lazyLoad',
+			'type'=> 'select',
+			'default'=> 'ondemand',
+			'choices' => array (
+				'ondemand' => 'ondemand',
+				'progressive' => 'progressive',
+			),
+		),
+
+		array(
+			'key'=> 'mobileFirst',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'pauseOnFocus',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'pauseOnHover',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'pauseOnDotsHover',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'respondTo',
+			'type'=> 'text',
+			'default'=> 'window'	
+		),
+
+		array(
+			'key'=> 'rows',
+			'type'=> 'number',
+			'default'=> '1', 
+		),
+
+		array(
+			'key'=> 'slide',
+			'type'=> 'text',
+			'default'=> "''"	
+		),
+
+		array(
+			'key'=> 'slidesPerRow',
+			'type'=> 'number',
+			'default'=> '1', 
+		),
+
+		array(
+			'key'=> 'slidesToShow',
+			'type'=> 'number',
+			'default'=> '1', 
+		),
+
+		array(
+			'key'=> 'slidesToScroll',
+			'type'=> 'number',
+			'default'=> '1', 
+		),
+
+		array(
+			'key'=> 'speed',
+			'type'=> 'number',
+			'default'=> '300', 
+		),
+
+		array(
+			'key'=> 'swipe',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'swipeToSlide',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'touchMove',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'touchThreshold',
+			'type'=> 'number',
+			'default'=> '5', 
+		),
+
+		array(
+			'key'=> 'useCSS',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'useTransform',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'variableWidth',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'vertical',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'verticalSwiping',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'rtl',
+			'type'=> 'true_false',
+			'default'=> 0	
+		),
+
+		array(
+			'key'=> 'waitForAnimate',
+			'type'=> 'true_false',
+			'default'=> 1	
+		),
+
+		array(
+			'key'=> 'zIndex',
+			'type'=> 'number',
+			'default'=> '1000', 
+		),
+
+	);
+	
+	foreach ($default_args as $arg) {
+		if( $arg['type'] == 'true_false' ){
+			$fields[] = array (
+				'key' => 'field_slider_args__'.$arg['key'], 
+				'name' => 'slider_args__'.$arg['key'],
+				'type' => 'true_false', 
+				'wrapper' => array (
+					'width' => '25',
+					'class' => 'wpbc-true_false-ui ui-primary', 
+				),
+				'message' => $arg['key'],
+				'default_value' => $arg['default'],
+				'ui' => 1, 
+			);
+		}
+	}
+	foreach ($default_args as $arg) {
+		if( $arg['type'] == 'number' ){
+			$fields[] = array (
+				'key' => 'field_slider_args__'.$arg['key'], 
+				'name' => 'slider_args__'.$arg['key'],
+				'type' => 'number', 
+				'wrapper' => array (
+					'width' => '25',
+					'class' => '', 
+				),
+				'prepend' => $arg['key'],
+				'default_value' => $arg['default'], 
+				'step' => !empty($arg['step']) ? $arg['step'] : '',
+			);
+		}
+	}
+	foreach ($default_args as $arg) {
+		if( $arg['type'] == 'text' ){
+			$fields[] = array (
+				'key' => 'field_slider_args__'.$arg['key'], 
+				'name' => 'slider_args__'.$arg['key'],
+				'type' => 'text', 
+				'wrapper' => array (
+					'width' => '25',
+					'class' => '', 
+				),
+				'prepend' => $arg['key'],
+				'default_value' => $arg['default'], 
+			);
+		}
+	}
+	foreach ($default_args as $arg) {
+		if( $arg['type'] == 'select' ){
+			$fields[] = array (
+				'key' => 'field_slider_args__'.$arg['key'], 
+				'name' => 'slider_args__'.$arg['key'],
+				'type' => 'select', 
+				'wrapper' => array (
+					'width' => '25',
+					'class' => '', 
+				),
+				'instructions' => $arg['key'],
+				'default_value' => $arg['default'], 
+				'choices' => !empty($arg['choices']) ? $arg['choices'] : '',
+			);
+		}
+	}
+ 
+	return $fields;
+},10,1);
+
+add_filter('WPBC_acf_reusables_fields', function($fields){
+	$fields[] = array(
+			'key' => 'key__r_slider_settings_args',
+			'label' => 'Slider settings Args',
+			'name' => 'r_slider_settings_args',
+			'type' => 'group',
+			'sub_fields' => WPBC_group_builder__slider_settings_args(),
+		);
+	return $fields;
+},10,1);
+
+
+// key__r_wpbc__advanced_group 
+
+function WPBC_group_builder__advanced_group_inview_sub_fields($fields = array()){  
+	return apply_filters('WPBC_group_builder__advanced_group_inview_sub_fields', $fields);
+}
+add_filter('WPBC_group_builder__advanced_group_inview_sub_fields', function($fields){
+
+	// http://kenwheeler.github.io/slick/
+
+	$fields = array(
+
+		array (
+			'key' => 'field_advanced_group_inview__type',
+			'label' => __('Type','bootclean'),
+			'name' => 'advanced_group_inview__type',
+			'type' => 'select',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '20',
+				'class' => '',
+				'id' => '',
+			),
+			'choices' => array (
+				0 => _('None'),
+				'detect' => _('Normal Inview'),
+				'ajax-load' => _('Ajax Load'),
+			),
+			'default_value' => array (
+				0 => _('None'),
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'ui' => 0,
+			'ajax' => 0,
+			'return_format' => 'value',
+			'placeholder' => '',
+		),
+
+	);
+
+	return $fields;
+},10,1);
+
+add_filter('WPBC_acf_reusables_fields', function($fields){
+	$fields[] = array(
+			'key' => 'key__r_wpbc__advanced_group_inview',
+			'label' => __('Inview Effect','bootclean'),
+			'name' => 'r_wpbc__advanced_group_inview',
+			'type' => 'group',
+			'value' => NULL,
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'layout' => 'block',
+			'sub_fields' => WPBC_group_builder__advanced_group_inview_sub_fields(),
+		);
+	return $fields;
+},10,1);

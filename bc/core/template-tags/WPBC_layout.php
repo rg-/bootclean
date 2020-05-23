@@ -96,7 +96,7 @@ add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__page_heade
 add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__main_content_wrap_start', 40); 
 	function action__wpbc_layout_body_start__main_content_wrap_start(){ 
 		?>
-		<div id="main-content-wrap" class="layout__main_content_wrap aside-expand-content <?php WPBC_class_main_content_wrap(); ?>">
+ 		<div id="main-content-wrap" class="layout__main_content_wrap aside-expand-content <?php WPBC_class_main_content_wrap(); ?>">
 		<?php
 	}
 /*  

@@ -1,7 +1,20 @@
 <?php 
+function WPBC_get_layout_locations_for_acf(){
+		$layout_defaults = WPBC_layout_struture__defaults();
+		$main_container = $layout_defaults['main_container'];
+		$test_array = array(); 
+		foreach ($main_container as $key => $value) {
+			if($key!='defaults'){ 
+				//$icon = WPBC_get_option('custom_layout_preview__'.$key);
+				$img_path = get_template_directory_uri();
+				$icon = $img_path.'/template-parts/layout/structure/'.$key.'.png';
+				$test_array[$key] = '<img src="'.$icon.'" width="50" class=""/>';
+			}
+		}
+		return $test_array;
+	}
 
-
-add_filter('WPBC_group_builder__layout', function($fields){
+function WPBC_group_builder__layout__custom_layout($fields){
 
 	$fields[] = array (
 		'key' => 'field_custom_layout__tab',
@@ -40,20 +53,7 @@ add_filter('WPBC_group_builder__layout', function($fields){
 		'ui_off_text' => '',
 	);  
 
- 	function WPBC_get_layout_locations_for_acf(){
-		$layout_defaults = WPBC_layout_struture__defaults();
-		$main_container = $layout_defaults['main_container'];
-		$test_array = array(); 
-		foreach ($main_container as $key => $value) {
-			if($key!='defaults'){ 
-				//$icon = WPBC_get_option('custom_layout_preview__'.$key);
-				$img_path = get_template_directory_uri();
-				$icon = $img_path.'/template-parts/layout/structure/'.$key.'.png';
-				$test_array[$key] = '<img src="'.$icon.'" width="50" class=""/>';
-			}
-		}
-		return $test_array;
-	}
+ 	
 	$custom_layout__custom_location_choices = WPBC_get_layout_locations_for_acf();  
 
 	$img_path = get_template_directory_uri();
@@ -128,5 +128,5 @@ add_filter('WPBC_group_builder__layout', function($fields){
 	);
 
 	return $fields;
-
-}, 40, 1);
+}
+add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__custom_layout', 40, 1);

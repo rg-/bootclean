@@ -6,11 +6,18 @@ function WPBC_post_share( $args=array() ){
 		'switch_icon' => '<i class="icon-share"></i>',
 		'social_defaults' => array(),
 		'item_class' => 'btn btn-primary',
+		'item_input_class' => 'form-control',
 		'switch_class' => '',
 		'share_buttons_class' => '',
 		'social_buttons_class' => '',
 		'type' => 'default', // default || modal
 		'modal_title' => '',
+		'modal_class' => 'modal fade', 
+		'modal_dialog_class' => 'modal-dialog modal-dialog-centered',
+		'modal_body_class' => 'modal-body',
+		'share_buttons_before' => '',
+		'share_buttons_after' => '',
+
 	); 
 	$this_args = wp_parse_args( $args, $defaults ); 
 	extract( $this_args ); 
@@ -22,7 +29,7 @@ function WPBC_post_share( $args=array() ){
 			<div class="social_buttons <?php echo $social_buttons_class; ?>">
 				<?php 
 				foreach($social_defaults as $item){
-					build_share_button($item, $item_class);
+					build_share_button($item, $item_class, $item_input_class);
 				}
 				?>
 			</div>	
@@ -36,14 +43,14 @@ function WPBC_post_share( $args=array() ){
 			<a href="#" data-toggle="modal" data-target="#post-share" class="share_switch <?php echo $switch_class; ?>"><?php echo $switch_label; ?> <?php echo $switch_icon; ?></a>
 			
 			<!-- Modal #post-share -->
-			<div class="modal fade" id="post-share" tabindex="-1" role="dialog" aria-labelledby="post-share" aria-hidden="true">
+			<div class="<?php echo $modal_class; ?>" id="post-share" tabindex="-1" role="dialog" aria-labelledby="post-share" aria-hidden="true">
 
-			  <div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="<?php echo $modal_dialog_class; ?>" role="document">
 			    
 			    <div class="modal-content">
 
 			      <div class="modal-header">
-			      	<?php if(!empty($modal_title)){ ?>
+			      	<?php if(!empty($modal_title)){ ?>aca
 			        <h5 class="modal-title" id="post-share"><?php echo $modal_title; ?></h5>
 			        <?php } ?>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -51,18 +58,18 @@ function WPBC_post_share( $args=array() ){
 			        </button>
 			      </div>
 
-			      <div class="modal-body">
-			      	
+			      <div class="<?php echo $modal_body_class; ?>">
+			      	<?php echo $share_buttons_before; ?>
 			      	<div class="share_buttons <?php echo $share_buttons_class; ?>">
-						<div class="social_buttons <?php echo $social_buttons_class; ?>">
-							<?php 
-							foreach($social_defaults as $item){
-								build_share_button($item, $item_class);
-							}
-							?>
-						</div>	
-					</div>
-
+								<div class="social_buttons <?php echo $social_buttons_class; ?>">
+									<?php 
+									foreach($social_defaults as $item){
+										build_share_button($item, $item_class, $item_input_class);
+									}
+									?>
+								</div>	
+							</div>
+							<?php echo $share_buttons_after; ?>
 			      </div>
 
 			    </div>
@@ -76,7 +83,7 @@ function WPBC_post_share( $args=array() ){
 		<?php
 	}
 } 
-function build_share_button($item, $item_class){ 
+function build_share_button($item, $item_class, $item_input_class){ 
 	$id = $item['id'];
 	$icon = '';
 	
@@ -94,9 +101,23 @@ function build_share_button($item, $item_class){
 	$data = '';
 	$data = apply_filters('wpbc/filter/post/share/button/data', $data, $id);
 
+	$before = '';
+	$after = '';
+
+	echo apply_filters('wpbc/filter/post/share/button/before', $before, $id);
+
+	if($id!='email'){  
 	?>
 	<a href="<?php echo $url; ?>" <?php echo $data; ?> class="<?php echo $item_class;?> btn-<?php echo $id; ?>" title="<?php echo $title; ?>" target="_blank"><?php echo $label; ?></a>
 	<?php
+	}else{
+		?>
+		<label for="share-email"><?php echo __('Copy & Paste URL', 'bootclean'); ?></label>
+		<textarea name="share-email" class="<?php echo $item_input_class;?>" readonly><?php echo $url; ?></textarea>
+		
+		<?php  
+	}
+	echo apply_filters('wpbc/filter/post/share/button/after', $after, $id);
 }
 add_filter('wpbc/filter/post/share/button/data', function($data, $id){  
 	return $data; 
@@ -109,6 +130,9 @@ add_filter('wpbc/filter/post/share/button/url', function($url, $id){
 		$the_title = apply_filters('wpbc/filter/post/share/title',$the_title, $id);
 	$the_title_urlencode = urlencode($the_title);
 	$the_title_rawurlencode = rawurlencode($the_title);
+	if($id=='email'){  
+		$url = $the_permalink;
+	}
 	if($id=='facebook'){  
 		$url = 'http://facebook.com/share.php?u='.$the_permalink.'&amp;t='.$the_title_urlencode.'';
 	}

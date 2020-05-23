@@ -37,9 +37,12 @@ function WPBC_after_setup_theme__customs(){
 
 add_action( 'after_setup_theme', 'WPBC_after_setup_theme__posts'); 
 function WPBC_after_setup_theme__posts(){
+	
 	add_theme_support( 'title-tag' );
+	
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'post-formats', array(
+
+	$formats = array(
 		'aside',
 		'image',
 		'video',
@@ -49,7 +52,12 @@ function WPBC_after_setup_theme__posts(){
 		'status',
 		'audio',
 		'chat',
-	) );
+	);
+	$formats = apply_filters('wpbc/filter/theme_support/post-formats', $formats);
+	if(!empty($formats)){
+		add_theme_support( 'post-formats', $formats );
+	}
+	
 	
 	add_theme_support( 'html5', array(
 		'search-form',

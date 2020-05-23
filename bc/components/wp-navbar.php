@@ -14,11 +14,23 @@ $params are passed when using this via:
 // reduce names:
 $_p = $params; 
 
+/*
+
+	Change things when using ontemplate expand aside way
+
+*/
+ 
+if(preg_match_all('/expand-aside-ontemplate/', $_p['class'], $output_array)){
+	$_p['wp_nav_menu'] = '';
+	$_p['navbar_toggler']['attrs'] .= ' data-toggle-slidemenu="open"  ';
+	$_p['navbar_toggler']['data_toggle'] = ''; 
+}  
+
 // Check if "is_main" component
 
 $is_main = isset($_p['is_main']) ? true : false;
 
-// TODO, a way to sanitize all posible wrong passed values ?? This should be passed not by idiots but....
+// TODO, a way to sanitize all posible wrong passed values 
 	
 /*
 
@@ -27,16 +39,29 @@ $is_main = isset($_p['is_main']) ? true : false;
 */ 
 	
 	// unique id generator if no id passed
-	$_uid = uniqid();
+	if(!empty($_p['id'])){
+		$_uid = $_p['id'];
+	}else{
+		$_uid = uniqid();
+	}
+
+	if(!empty($_p['collapse_id'])){
+		$collapse_id = $_p['collapse_id'];
+	}else{
+		$collapse_id = $_uid;
+	}
 
 	// defaults params used if not passed
 	$defauls = array( 
+
+		'collapse_id' => $collapse_id,
 		
 		'is_main' => $is_main,
 		
 		'id' => 'wp-navbar-'.$_uid,
 		'class' => 'navbar navbar-dark bg-primary',
 		'container_class' => 'container',
+		'container_attrs' => '', // NEW V10
 		
 		'nav_attrs' => '', // NEW V10
 		
@@ -48,6 +73,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		'affix_defaults' => array(
 			'position' => 'top', /* top / bottom */
 			'simulate' => true, /* top / bottom / false ((default))  */
+			'simulate_target' => '',
 			'scrollify' => false, /* true / false */
 			'breakpoint' => 'sm' /* xs / sm / md / lg / xl */
 		),
@@ -77,11 +103,13 @@ $is_main = isset($_p['is_main']) ? true : false;
 
 		'navbar_toggler' => array(
 			'class' => '',
-			'target' => 'navbar-collapse-'.$_uid,
+			'target' => 'navbar-collapse-'.$collapse_id,
 			'expanded' => false,
 			'label' => __('Toggle navigation', 'bootclean'), 
 			'type' => 'default', /* default | animate */
-			'effect' => '' /* rotate | collapsable | cross | asdot */ 
+			'effect' => '', /* rotate | collapsable | cross | asdot */ 
+			'attrs' => '',
+			'data_toggle' => 'data-toggle="collapse"',
 		),
 		
 		// wp_nav_menu things, aka navbar-collapse
@@ -91,13 +119,15 @@ $is_main = isset($_p['is_main']) ? true : false;
 			'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.
 			'container'       => 'div',
 			'container_class' => 'collapse navbar-collapse flex-row-reverse',
-			'container_id'    => 'navbar-collapse-'.$_uid,
+			'container_id'    => 'navbar-collapse-'.$collapse_id,
 			'menu_class'      => 'navbar-nav',
 			'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
 			'walker'          => new WP_Bootstrap_Navwalker(), 
 			'before_menu'			=> '',
 			'after_menu'			=> '',
-		)
+		),
+
+		'wp_nav_menu_custom' => false,
 	);
 	
 	$_p = array_replace_recursive($defauls, $_p);  
@@ -135,7 +165,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 	
 	<?php echo $_p['before_nav']; ?>
 	
-	<div class="<?php echo $_p['container_class']; ?> aside-expand-content">
+	<div class="<?php echo $_p['container_class']; ?> aside-expand-content" <?php echo $_p['container_attrs']; ?>>
 	
 		<?php
 		if(isset($_p['navbar_brand'])) {
@@ -151,10 +181,14 @@ $is_main = isset($_p['is_main']) ? true : false;
 
 		<?php
 		// TODO, or not? what happend with "data-nav-target" ??
-		if(isset($_p['wp_nav_menu'])) { 
+		if(!empty($_p['wp_nav_menu'])) { 
 			echo $_p['wp_nav_menu']['before_menu'];
 			wp_nav_menu( $_p['wp_nav_menu'] ); 
 			echo $_p['wp_nav_menu']['after_menu'];
+		}else{
+			if(isset($_p['wp_nav_menu_custom'])) {
+				echo $_p['wp_nav_menu_custom'];
+			}
 		}
 		?>
 	
@@ -163,4 +197,4 @@ $is_main = isset($_p['is_main']) ? true : false;
 	<?php echo $_p['after_nav']; ?>
 	
 </nav>
-<!-- end navbar header --> 
+<!-- end navbar header -->

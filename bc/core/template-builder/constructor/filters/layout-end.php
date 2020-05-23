@@ -26,7 +26,7 @@ add_action('wpbc/layout/end', function($out){
 		} 
 		do_action('wpbc/layout/acf_form', $post_id); 
 	}
-
+	 
 	$show_wpbc_layout_debug = apply_filters('WPBC_layout_debug', 1);
 
 	if( is_user_logged_in() && current_user_can( 'manage_options' ) && !empty($show_wpbc_layout_debug) ){

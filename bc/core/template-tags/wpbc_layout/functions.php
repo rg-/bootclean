@@ -24,6 +24,7 @@ function WPBC_get_navbar_affix_attrs($params=array()){
 		}
 		$attrs .= ' data-affix-position="'. $data['position'] .'" '; 
 		$attrs .= ' data-affix-simulate="'. ( $data['simulate'] ? 'true' : 'false' ) .'" '; 
+		$attrs .= ' data-affix-simulate-target="'. ( $data['simulate_target'] ? $data['simulate_target'] : '' ) .'" '; 
 		$attrs .= ' data-affix-scrollify="'. ( $data['scrollify'] ? 'true' : 'false' ) .'" '; 
 		$attrs .= ' data-affix-breakpoint="'. $data['breakpoint'] .'" '; 
 		

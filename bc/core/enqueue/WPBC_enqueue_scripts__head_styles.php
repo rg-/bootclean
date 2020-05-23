@@ -35,6 +35,8 @@ $styles = array(
 
 );
 
+$styles = apply_filters('WPBC_enqueue_scripts__head_styles', $styles);
+
 if(!is_child_theme()){ 
 	$styles_uri = THEME_URI;
 }else{

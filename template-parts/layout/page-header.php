@@ -1,15 +1,16 @@
 <?php
 
-$params = WPBC_layout__main_page_header_defaults();
-
+$params = WPBC_layout__main_page_header_defaults(); 
 $use_from_options = $params['use_from_options'];
 $use_template = $params['use_template']; 
 $use_custom_template = $params['use_custom_template']; 
 $use_custom_html = $params['use_custom_html'];    
 $template_id = $params['template_id'];  
+$custom_attrs = $params['custom_attrs'];  
+$custom_class = $params['custom_class'];  
 if( !empty($template_id) || !empty($use_custom_html) ){
 ?>
-<div class="page-header">
+<div id="main-page-header" class="page-header <?php echo $custom_class; ?>" <?php echo $custom_attrs; ?>>
 	<?php do_action('wpbc/layout/page-header/before'); ?>
 	<?php 
 	if($use_custom_html){ 

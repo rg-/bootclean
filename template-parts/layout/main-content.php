@@ -19,8 +19,13 @@
 			$post_type = get_post_type();
 
 			$template_path = apply_filters('wpbc/filter/layout/template-path', 'template-parts/content', $post_type);
-			$part = apply_filters('wpbc/filter/layout/template-part', $part, $post_type); 
 			
+			$part = $post_type;
+			if(is_singular()){
+				$template_path .= '-single';
+			}
+			$part = apply_filters('wpbc/filter/layout/template-part', $part, $post_type); 
+			echo "<!-- TEMPLATE TO USE: ".$template_path.'-'.$part." -->";
 			get_template_part( $template_path, $part ); 
 			
 			do_action('wpbc/layout/inner/content/post/after');
