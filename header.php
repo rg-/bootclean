@@ -43,4 +43,3 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 	 
 		do_action('wpbc/layout/body/start');  
 	?>
-		

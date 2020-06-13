@@ -6,8 +6,16 @@
 	 *	wpbc/layout/start action
 	 *	
 	 *		@hooked layout__container_block_start - 1 
-	 *		@hooked layout__container_start - 10 
-	 *		@hooked layout__container_row_start - 20 
+	 *		@hooked layout__container_start - 10 REMOVED
+	 *		@hooked layout__container_row_start - 20 REMOVED
+
+				WPBC_layout_struture__main_navbar - 10
+				WPBC_layout_struture__main_pageheader - 20
+				WPBC_layout_struture__main_content_wrap - 30
+				WPBC_layout_struture__main_container - 40
+				WPBC_layout_struture__main_footer - 50
+				WPBC_layout_struture__main_content_wrap_end - 60
+
 	 *
 	 */  
 	
