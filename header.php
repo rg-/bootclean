@@ -13,8 +13,8 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 		
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-		
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 		<?php do_action('wpbc/head/favicons'); ?>
 
 		<?php do_action('wpbc/head/scripts'); ?>
@@ -35,9 +35,13 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 
 		@hooked action__wpbc_layout_body_start__loader - 10
 		@hooked action__wpbc_layout_body_start__main_content_start - 20
-		@hooked action__wpbc_layout_body_start__main_navbar - 20
+
+		@hooked action__wpbc_layout_body_start__main_navbar - 30
+			@deprecated since 9.0.1 see /template-builder/...
  		@hooked action__wpbc_layout_body_start__page_header - 35
+ 			@deprecated since 9.0.1 see /template-builder/...
  		@hooked action__wpbc_layout_body_start__main_content_wrap_start - 40
+ 			@deprecated since 9.0.1 see /template-builder/...
 
 	*/
 	 

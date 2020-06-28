@@ -42,5 +42,6 @@ $args = array(
 	// 'switch_icon' => '<i class="icon-share"></i>', 
 	'social_defaults' => $social_defaults, 
 ); 
-WPBC_post_share( $args ); 
+$share_show = apply_filters('wpbc/filter/post/share/show', 0);
+if($share_show) WPBC_post_share( $args ); 
 ?>

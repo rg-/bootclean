@@ -67,6 +67,9 @@ $is_main = isset($_p['is_main']) ? true : false;
 		
 		'before_nav' => '',
 		'after_nav' => '',
+
+		'before_nav_container' => '',
+		'after_nav_container' => '',
 		
 		// affix things
 		'affix' => false,
@@ -166,15 +169,17 @@ $is_main = isset($_p['is_main']) ? true : false;
 	<?php echo $_p['before_nav']; ?>
 	
 	<div class="<?php echo $_p['container_class']; ?> aside-expand-content" <?php echo $_p['container_attrs']; ?>>
-	
+		
+		<?php echo $_p['before_nav_container']; ?>
+
 		<?php
 		if(isset($_p['navbar_brand'])) {
 			WPBC_get_partial('navbar-brand', $_p['navbar_brand']);
 		}
 		?> 
 		
-		<?php
-		if(isset($_p['navbar_toggler'])) { 
+		<?php 
+		if(!empty($_p['navbar_toggler'])) { 
 			WPBC_get_partial('navbar-toggler', $_p['navbar_toggler']);
 		}
 		?> 
@@ -191,6 +196,8 @@ $is_main = isset($_p['is_main']) ? true : false;
 			}
 		}
 		?>
+
+		<?php echo $_p['after_nav_container']; ?>
 	
 	</div>
 	

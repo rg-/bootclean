@@ -17,14 +17,17 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 	 */
 	$before_title = apply_filters('wpbc/filter/widgets/before_title', '<h4 class="section-title">');
 	$after_title = apply_filters('wpbc/filter/widgets/after_title', '</h4>');
+
+	$before_widget = apply_filters('wpbc/filter/widgets/before_widget', '<div class="widget-box">');
+	$after_widget = apply_filters('wpbc/filter/widgets/after_widget', '</div>');
 	
 	$defatuls_widgets[] = array(
 		'name'          => 'Reusable Widget Area',
 		'id'            => 'default_widget_area',
 		'description'   => 'Drop and configure into this area all the widgets you need, they will be not visible unless using a filter/hook on theme, or using shortcode "[WPBC_get_widget id=\'your-widget-id\'] anywhere, here on admin fields and textareas, post and pages content, or theme templates. Magic right?!"',
 		'class'         => 'wpbc-widget', // ?? This one is a myst?
-		'before_widget' => '<div class="widget-box">',
-		'after_widget'  => '</div>',
+		'before_widget' => $before_widget,
+		'after_widget'  => $after_widget,
 		'before_title'  => $before_title,
 		'after_title'   => $after_title,
 	
@@ -40,8 +43,8 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 					'id'            => 'widget_area_'.$i,
 					'description'   => '',
 					'class'         => 'wpbc-widget', // ?? This one is a myst?
-					'before_widget' => '<div class="widget-box">',
-					'after_widget'  => '</div>',
+					'before_widget' => $before_widget,
+					'after_widget'  => $after_widget,
 					'before_title'  => $before_title,
 					'after_title'   => $after_title,
 			); 
@@ -53,8 +56,8 @@ function WPBC_widgets_init__defaults($defatuls_widgets=array()){
 				'id'            => 'primary_widget_area',
 				'description'   => 'Just a default primary widget area."',
 				'class'         => 'wpbc-widget', // ?? This one is a myst?
-				'before_widget' => '<div class="widget-box">',
-				'after_widget'  => '</div>',
+				'before_widget' => $before_widget,
+				'after_widget'  => $after_widget,
 				'before_title'  => $before_title,
 				'after_title'   => $after_title,
 		); 

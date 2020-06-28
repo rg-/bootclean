@@ -87,7 +87,10 @@ require BC_WP_DIR . 'core/bootstrap.php';
 	ACF Things
 */
 require BC_WP_DIR . 'core/acf.php'; 
-
+/* 
+	Woocommerce Things
+*/
+require BC_WP_DIR . 'core/woocommerce.php'; 
 
 /* ############################################################ */
 /* ############################################################ */

@@ -1,6 +1,6 @@
 <?php
 
-add_action('wpbc/layout/end', function($out){
+add_action('wpbc/layout/end', function($out){  
 
 	global $post;
 	if(isset($_GET['post'])){

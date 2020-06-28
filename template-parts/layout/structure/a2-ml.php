@@ -16,7 +16,7 @@ $args['main_container']['a2-ml'] = array(
 		'icon' => get_template_directory_uri().'/template-parts/layout/structure/a2-ml.png',
   	),
 
-  	'content' => array( // First level
+  'content' => array( // First level
 
 		// First row
 		'main-container-row' => array(

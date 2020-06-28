@@ -1,13 +1,13 @@
 <?php 
 function WPBC_post_share( $args=array() ){ 
 	$defaults = array(
-		'class' => '',
+		'class' => 'gpy-1',
 		'switch_label' => __('Share this publication', 'bootclean'), 
 		'switch_icon' => '<i class="icon-share"></i>',
 		'social_defaults' => array(),
 		'item_class' => 'btn btn-primary',
 		'item_input_class' => 'form-control',
-		'switch_class' => '',
+		'switch_class' => 'h5 d-block',
 		'share_buttons_class' => '',
 		'social_buttons_class' => '',
 		'type' => 'default', // default || modal
@@ -20,6 +20,7 @@ function WPBC_post_share( $args=array() ){
 
 	); 
 	$this_args = wp_parse_args( $args, $defaults ); 
+	$this_args = apply_filters('wpbc/filter/post/share/args', $this_args);
 	extract( $this_args ); 
 	if($type=='default'){
 	?>

@@ -26,19 +26,128 @@
 	Child themes can filter these defatul settings as well, and then use a custom template-part/shortcode for that.
 	
 	
+*/  
+
+add_filter("WPBC_shortcode_list__XX", function ($shortcode_list) {
+    
+	$shortcode_list["alert"] = array(
+        "tag" => 'div',
+		"class" => 'alert-link',   
+		"role" => 'alert', 
+		"extra_attrs" => '', 
+    ); 
+	
+	$shortcode_list["btn"] = array(
+        "tag" => 'a',
+		"class" => 'btn-link',
+		"label" => 'Button',
+		"href" => '#',
+		"target" => '', 
+		"value" => '',
+		"type" => 'submit',
+		"role" => 'button', 
+		"extra_attrs" => '',
+    ); 
+	
+	$shortcode_list["btn_social"] = array(
+       "label" => '',
+		"title" => '',
+		"tag" => 'a',
+		"href"=> '#',
+		"class" => 'btn-social',
+		"type" => '',
+		"extra_attrs" => '',
+    ); 
+	
+	$temp = array();
+	foreach ($shortcode_list as $k=>$v) {
+		$temp[$k] = apply_filters( 'WPBC_shortcode_list__'.$k.'' , $v);
+	}
+	$shortcode_list = $temp;
+	
+    return $shortcode_list;
+});  
+
+/* Below the rest of functions/filters so that filter WPBC_shortcode_list, do the magic job of adding a "virtual" shortcode linked with a "no-virtual" template part and also passing the arguments */
+
+/*
+
+	TODO, this function should be "MAIN GENERAL" one, right?
+
 */
+function WPBC_get_template_parts($part, $args=''){
+	$out = '';
+
+	$folder_part = !empty($args['folder_part']) ? $args['folder_part'] : 'template-parts';
+	
+	$file_uri = get_template_directory_uri().'/'.$folder_part;
+	$file_path = get_template_directory().'/'.$folder_part;
+	
+	$child_file_uri = get_stylesheet_directory_uri().'/'.$folder_part;
+	$child_file_path = get_stylesheet_directory().'/'.$folder_part;
+	
+	$inc = false;
+	
+	if( file_exists( $child_file_path.'/'.$part.'.php' ) ){
+		$inc = $child_file_path.'/'.$part.'.php'; 
+	}else{
+		if( file_exists( $file_path.'/'.$part.'.php' ) ){
+			$inc = $file_path.'/'.$part.'.php'; 
+		}
+	}
+	$out = '';
+	if($inc){
+		
+		ob_start();
+		$args = !empty($args) ? $args : '0'; 
+		if(!empty($inc)){
+			include ($inc); 
+		} 
+		$out = ob_get_contents();
+		ob_end_clean(); 
+		return $out; 
+	} 
+} 
+
+function WPBC_get_template_parts_shortcodes($part){
+	$out = '';
+	
+	$file_uri = get_template_directory_uri().'/template-parts/shortcodes';
+	$file_path = get_template_directory().'/template-parts/shortcodes';
+	
+	$child_file_uri = get_stylesheet_directory_uri().'/template-parts/shortcodes';
+	$child_file_path = get_stylesheet_directory().'/template-parts/shortcodes';
+	
+	$inc = false;
+	
+	if( file_exists( $child_file_path.'/'.$part.'.php' ) ){
+		$inc = $child_file_path.'/'.$part.'.php'; 
+	}else{
+		if( file_exists( $file_path.'/'.$part.'.php' ) ){
+			$inc = $file_path.'/'.$part.'.php'; 
+		}
+	}
+	if($inc) return $inc; 
+} 
+
+// shortcodes declaration
 
 /*
 
 	The nomeclature will be this: 
 	
-	WPBC_bs__[component-name] ej: WPBC_bs__alert
+	WPBC_bs__[component-name] ej: WPBC_bs__alert WPBC_bs__loremipsum
 
 */
 
 function WPBC_get_shortcode_list(){
 	
+	/*
+	 
+		and: template-parts\shortcodes\loremipsum.php
 	
+	*/
+	$shortcode_list["loremipsum"] = array();
 	/*
 	
 		See: bc\components\slick.php
@@ -102,108 +211,6 @@ function WPBC_get_shortcode_list(){
 	
 } 
 
-
-add_filter("WPBC_shortcode_list__XX", function ($shortcode_list) {
-    
-	$shortcode_list["alert"] = array(
-        "tag" => 'div',
-		"class" => 'alert-link',   
-		"role" => 'alert', 
-		"extra_attrs" => '', 
-    ); 
-	
-	$shortcode_list["btn"] = array(
-        "tag" => 'a',
-		"class" => 'btn-link',
-		"label" => 'Button',
-		"href" => '#',
-		"target" => '', 
-		"value" => '',
-		"type" => 'submit',
-		"role" => 'button', 
-		"extra_attrs" => '',
-    ); 
-	
-	$shortcode_list["btn_social"] = array(
-       "label" => '',
-		"title" => '',
-		"tag" => 'a',
-		"href"=> '#',
-		"class" => 'btn-social',
-		"type" => '',
-		"extra_attrs" => '',
-    ); 
-	
-	$temp = array();
-	foreach ($shortcode_list as $k=>$v) {
-		$temp[$k] = apply_filters( 'WPBC_shortcode_list__'.$k.'' , $v);
-	}
-	$shortcode_list = $temp;
-	
-    return $shortcode_list;
-});  
-
-/* Below the rest of functions/filters so that filter WPBC_shortcode_list, do the magic job of adding a "virtual" shortcode linked with a "no-virtual" template part and also passing the arguments */
-
-function WPBC_get_template_parts($part, $args=''){
-	$out = '';
-
-	$folder_part = !empty($args['folder_part']) ? $args['folder_part'] : 'template-parts';
-	
-	$file_uri = get_template_directory_uri().'/'.$folder_part;
-	$file_path = get_template_directory().'/'.$folder_part;
-	
-	$child_file_uri = get_stylesheet_directory_uri().'/'.$folder_part;
-	$child_file_path = get_stylesheet_directory().'/'.$folder_part;
-	
-	$inc = false;
-	
-	if( file_exists( $child_file_path.'/'.$part.'.php' ) ){
-		$inc = $child_file_path.'/'.$part.'.php'; 
-	}else{
-		if( file_exists( $file_path.'/'.$part.'.php' ) ){
-			$inc = $file_path.'/'.$part.'.php'; 
-		}
-	}
-	$out = '';
-	if($inc){
-		
-		ob_start();
-		$args = !empty($args) ? $args : '0'; 
-		if(!empty($inc)){
-			include ($inc); 
-		} 
-		$out = ob_get_contents();
-		ob_end_clean(); 
-		return $out; 
-	} 
-} 
-
-function WPBC_get_template_parts_shortcodes($part){
-	$out = '';
-	
-	$file_uri = get_template_directory_uri().'/template-parts/shortcodes';
-	$file_path = get_template_directory().'/template-parts/shortcodes';
-	
-	$child_file_uri = get_stylesheet_directory_uri().'/template-parts/shortcodes';
-	$child_file_path = get_stylesheet_directory().'/template-parts/shortcodes';
-	
-	$inc = false;
-	
-	if( file_exists( $child_file_path.'/'.$part.'.php' ) ){
-		$inc = $child_file_path.'/'.$part.'.php'; 
-	}else{
-		if( file_exists( $file_path.'/'.$part.'.php' ) ){
-			$inc = $file_path.'/'.$part.'.php'; 
-		}
-	}
-	if($inc) return $inc; 
-} 
-
-// shortcodes declaration
-
-
-
 add_action("init", function () {   
     $shortcodes = WPBC_get_shortcode_list();  
     foreach (array_keys($shortcodes) as $shortcode_slug) {
@@ -213,10 +220,12 @@ add_action("init", function () {
 function WPBC_shortcode_callback($atts, $content = "", $this_name) {
 
 	// shortcode data
-    $shortcodes = WPBC_get_shortcode_list(); 
+  $shortcodes = WPBC_get_shortcode_list(); 
 	
 	$this_name = str_replace('WPBC_bs__','',$this_name);
-    $shortcode = $shortcodes[$this_name];
+  
+  $shortcode = (!empty($shortcodes[$this_name])) ? $shortcodes[$this_name] : array();
+	
 	extract(shortcode_atts($shortcode, $atts));  
     $out  = "";
     if(!empty($class)){

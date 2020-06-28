@@ -440,5 +440,21 @@ function _get_views($src,$params=array()){
 		echo $content; 
 	} 
 } 
+
+function _get_views_all($params=array()){
+	$out = '';
+	$component_path = BC_ABSPATH.'/_views/_php/';
+  $component_files = glob($component_path."*.php");
+  if(!empty($component_files)){
+  	//print_r($component_files);
+
+  	foreach($component_files as $file){
+  		$basename = str_replace('.php', '', basename($file));
+  		$out .= _get_views($basename,$params);
+  	}
+
+  	return $out;
+  }
+}
  
 ?>

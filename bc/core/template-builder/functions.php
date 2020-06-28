@@ -90,6 +90,13 @@ function WPBC_make_div_inner($key='', $value='', $count='', $main_key){
 function WPBC_layout_struture__build($section=''){ 
 	$layout_defaults = WPBC_layout_struture__defaults();
 	$args = WPBC_filter_layout_structure_build($layout_defaults, $section);
+
+	if('main_container'==$section){
+		//echo "section: ".$section."<br>"; 
+		//echo "<pre>";
+		//print_r( $args );
+		//echo "</pre>";  
+	}
 	$out = '';
 	$count = 0;
 	foreach ($args as $key => $value) { 
@@ -171,6 +178,11 @@ function WPBC_layout_struture__defaults(){
 	return $args;
 }
 
+function WPBC_get_layout_structure_main_container($key='a1'){
+	$sections = WPBC_layout_sections(); 
+	$e = apply_filters('wpbc/filter/layout/struture/defaults', $sections);
+  return $e['main_container'][$key];
+}
 
 function WPBC_searchByKey($array, $needle, &$results) {
 	if (is_array($array)) {
