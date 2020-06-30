@@ -115,23 +115,16 @@ add_action( 'widgets_init', 'WPBC_woocommerce_widgets_init',99 );
 	Make Bootclean template compatible
 
 */
-function WPBC_if_woocommerce_use_cols(){
 
-	// https://docs.woocommerce.com/document/conditional-tags/
-
-	if(is_shop() || is_product_category() ){
-		return true;
-	}else{
-		return false;
-	}
-}
 function WPBC_layout_struture__woocommerce_shop_start(){
 ?>
 <div id="main-container-areas" class="a2-ml container">
 	<div id="main-container-row" class="a2-ml row">
 		<?php if(WPBC_if_woocommerce_use_cols()){ ?>
 		<div id="main-content-area" class="a2-ml col-md-8">
-		<?php }  // WPBC_if_woocommerce_use_cols() END ?>
+		<?php } else { // WPBC_if_woocommerce_use_cols() END ?>
+		<div id="main-content-area" class="a2-ml col-12">
+		<?php } ?>
 <?php
 }
 function WPBC_layout_struture__woocommerce_shop_end(){
@@ -143,9 +136,39 @@ function WPBC_layout_struture__woocommerce_shop_end(){
 			?>
 		</div>
 		<?php } // WPBC_if_woocommerce_use_cols() END ?>
+		</div>
 	</div>
 </div>
 <?php
+}
+
+function WPBC_if_woocommerce_use_cols(){ 
+	// https://docs.woocommerce.com/document/conditional-tags/ 
+	if(is_shop() || is_product_category() ){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function WPBC_if_woocommerce_wrap_template(){ 
+	// https://docs.woocommerce.com/document/conditional-tags/
+	$post_type = get_post_type();
+	if( is_shop() || $post_type == 'product' || is_product_category() ){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function WPBC_if_woocommerce_secondary_content(){ 
+	// https://docs.woocommerce.com/document/conditional-tags/
+	$post_type = get_post_type();
+	if( is_shop() || $post_type == 'product' || is_product_category() ){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 add_action('init', function(){ 
@@ -162,9 +185,8 @@ add_action('init', function(){
 
 	*/
 
-	add_action('wpbc/layout/body/start', function(){  
-		$post_type = get_post_type();
-		if( is_shop() || $post_type == 'product' ){ // SHOULD BE is_woocommerce directly ? 
+	add_action('wpbc/layout/body/start', function(){   
+		if( WPBC_if_woocommerce_wrap_template() ){ // SHOULD BE is_woocommerce directly ? 
 			add_action('wpbc/layout/body/start', 'action__wpbc_layout_start__container_block_start',30);
 			WPBC_layout_struture__main_navbar();
 			WPBC_layout_struture__main_pageheader();
@@ -214,10 +236,9 @@ if(!empty($main_container_args)){
 		}
 	},50);
 
-	add_action('wpbc/layout/body/end', function(){ 
-		$post_type = get_post_type();
-		if( is_shop() || $post_type == 'product' ){ 
-			
+	add_action('wpbc/layout/body/end', function(){  
+		if( WPBC_if_woocommerce_wrap_template() ){
+
 			// This one is the woo part
 			WPBC_layout_struture__woocommerce_shop_end();
 
@@ -241,9 +262,8 @@ add_filter('wpbc/filter/layout/locations', function($locations){
 	return $locations;  
 }, 20, 1 );
 
-add_filter('wpbc/filter/layout/secondary-content/post_id',function($post_id){
-	$post_type = get_post_type();
-	if( is_shop() || $post_type == 'product' ){
+add_filter('wpbc/filter/layout/secondary-content/post_id',function($post_id){ 
+	if( WPBC_if_woocommerce_secondary_content() ){
 		$post_id = get_option( 'woocommerce_shop_page_id' ); 
 	}
 	return $post_id;
@@ -273,3 +293,18 @@ add_action( 'woocommerce_account_content',function(){
 	<h2 class="section-title"><?php echo $text; ?></h2>
 	<?php
 },0 );
+
+
+add_filter('wpbc/body/class', 'woocommerce_body_class',10,1 ); 
+function woocommerce_body_class($class){
+	if( is_account_page() && !is_user_logged_in() ){
+		$class .= ' woocommerce-not_logged ';
+	}
+	if(is_cart()){
+		$class .= ' woocommerce-is_cart ';
+	}
+	if(is_checkout()){
+		$class .= ' woocommerce-is_checkout ';
+	}
+	return $class;
+}

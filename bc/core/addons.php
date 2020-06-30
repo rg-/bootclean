@@ -2,6 +2,13 @@
 
 $WPBC_is_acf = WPBC_is_acf(); 
 
+
+/*
+
+	private areas addon (if installed)	
+
+*/
+require "addons/wpbc-private-areas.php";
 /*
 
 	parallax addon (if installed)	

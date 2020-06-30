@@ -24,50 +24,11 @@ add_filter( 'woocommerce_loop_add_to_cart_link', function($link, $product, $args
 
 	Add WooCommerce Cart Icon to Menu with Cart Item Count
 
-*/
-/**
-* Create Shortcode for WooCommerce Cart Menu Item
-*/
-add_shortcode ('WPBC_woo_cart_btn', 'WPBC_woo_cart_btn_FX' ); 
-function WPBC_woo_cart_btn_FX() {
-	ob_start(); 
-        $cart_count = WC()->cart->cart_contents_count; // Set variable for cart item count
-        $cart_url = wc_get_cart_url();  // Set Cart URL 
-        ?>
-        <li><a class="cart-contents nav-link" href="<?php echo $cart_url; ?>" title="<?php _e( 'View your shopping cart', 'bootclean' ); ?>"><?php _e( 'Cart', 'bootclean' ); ?> 
-	    	<?php if ( $cart_count > 0 ) { ?>
-            <span class="cart-contents-count badge badge-primary"><?php echo $cart_count; ?></span>
-        <?php }else{ ?>
-		    <span class="cart-contents-count badge badge-primary empty"><?php echo $cart_count; ?></span>
-		    <?php } ?>
-        </a></li>
-        <?php 
-    return ob_get_clean(); 
-}
-
-/**
- * Add AJAX Shortcode when cart contents update
- */
-add_filter( 'woocommerce_add_to_cart_fragments', 'WPBC_woo_cart_btn__ajax' ); 
-function WPBC_woo_cart_btn__ajax( $fragments ) { 
-    ob_start(); 
-    $cart_count = WC()->cart->cart_contents_count;
-    $cart_url = wc_get_cart_url(); 
-    ?>
-    <a class="cart-contents nav-link" href="<?php echo $cart_url; ?>" title="<?php _e( 'View your shopping cart', 'bootclean' ); ?>"><?php _e( 'Cart', 'bootclean' ); ?> 
-		<?php if ( $cart_count > 0 ) { ?>
-    <span class="cart-contents-count badge badge-primary"><?php echo $cart_count; ?></span>
-    <?php }else{ ?>
-    <span class="cart-contents-count badge badge-primary empty"><?php echo $cart_count; ?></span>
-    <?php } ?>
-  	</a>
-    <?php 
-    $fragments['a.cart-contents'] = ob_get_clean(); 	
-    return $fragments;
-}
+*/ 
 
 /**
  * Add WooCommerce Cart Menu Item Shortcode to particular menu
+ * See [WPBC_woo_cart_btn] shorcode
  */  
 add_filter('wp_nav_menu_items', 'WPBC_woo_cart_btn__nav', 10, 2);
 function WPBC_woo_cart_btn__nav($items, $args){
@@ -75,4 +36,23 @@ function WPBC_woo_cart_btn__nav($items, $args){
         $items .=  '[WPBC_woo_cart_btn]';
     }
     return $items;
+}
+
+
+
+
+/* content-product.php */
+
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+add_action('woocommerce_before_shop_loop_item_title', 'WPBC_woo_product_thumbnail',10);
+function WPBC_woo_product_thumbnail(){
+	global $product;
+	$post_thumbnail_id = $product->get_image_id();
+	$full_size = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
+	$full_src = wp_get_attachment_image_src( $post_thumbnail_id, $full_size ); 
+	?>
+<span class="embed-responsive embed-responsive-1by1">
+<span class="embed-responsive-item image-cover" style="background-image: url(<?php echo $full_src[0]; ?>);"></span>
+</span>
+	<?php
 }
