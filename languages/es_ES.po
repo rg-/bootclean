@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bootclean\n"
-"POT-Creation-Date: 2020-02-11 19:32-0300\n"
-"PO-Revision-Date: 2020-02-11 19:33-0300\n"
+"POT-Creation-Date: 2020-07-04 14:43-0300\n"
+"PO-Revision-Date: 2020-07-04 14:43-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,8 @@ msgstr ""
 "<b>Bootclean </b> utiliza ACF para una mejor experiencia de personalización, "
 "sin él perderá muchas características adicionales."
 
-#: ../bc/components/wp-navbar.php:82
+#: ../bc/components/wp-navbar.php:111
+#: ../template-parts/components/collapse-custom/collapse.php:28
 msgid "Toggle navigation"
 msgstr "Navegación de palanca"
 
@@ -65,8 +66,8 @@ msgstr "Varios ajustes relacionados con el diseño."
 msgid "Choose Type"
 msgstr "Elegir Tipo"
 
-#: ../bc/core/acf/group-fields.php:281 ../bc/core/acf/reusable-fields.php:52
-#: ../bc/core/acf/reusable-fields.php:56
+#: ../bc/core/acf/group-fields.php:281 ../bc/core/acf/reusable-fields.php:723
+#: ../bc/core/acf/reusable-fields.php:728
 msgid "None"
 msgstr "Ninguno"
 
@@ -80,66 +81,79 @@ msgstr "Template"
 msgid "HTML"
 msgstr "HTML"
 
-#: ../bc/core/acf/group-fields.php:438
+#: ../bc/core/acf/group-fields.php:463
 #: ../bc/core/theme-options-defaults/layout/main_content.php:75
 msgid "Container class"
 msgstr "Clase de Container"
 
-#: ../bc/core/acf/group-fields.php:466
+#: ../bc/core/acf/group-fields.php:491
 #: ../bc/core/theme-options-defaults/layout/main_content.php:83
 msgid "Container > Row class"
 msgstr "Container > Clase de fila"
 
-#: ../bc/core/acf/group-fields.php:494
+#: ../bc/core/acf/group-fields.php:519
 #: ../bc/core/theme-options-defaults/layout/main_content.php:91
 msgid "Main content column class"
 msgstr "Clase de columna de contenido principal"
 
-#: ../bc/core/acf/group-fields.php:522
+#: ../bc/core/acf/group-fields.php:547
 #: ../bc/core/theme-options-defaults/layout/main_content.php:99
 msgid "Secondary content column class"
 msgstr "Clase de columna de contenido secundario"
 
-#: ../bc/core/acf/groups.php:178
+#: ../bc/core/acf/groups.php:189
 msgid "Add Layout Row"
 msgstr "Agregar fila de diseño"
 
-#: ../bc/core/acf/reusable-fields.php:23
-msgid "Inview Effect"
-msgstr "Efecto Inview"
-
-#: ../bc/core/acf/reusable-fields.php:40
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:124
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:133
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:285
-#: ../template-parts/wpbc_realstate/post_property_single.php:104
-msgid "Type"
-msgstr "Tipo"
-
-#: ../bc/core/acf/reusable-fields.php:53
-msgid "Ajax Load"
-msgstr "Carga Ajax"
-
-#: ../bc/core/acf/reusable-fields.php:708
+#: ../bc/core/acf/reusable-fields.php:483
 msgid ""
 "Insert css code only. Use XS, SM... for particular bootstrap breakpoint."
 msgstr ""
 "Insertar código css solamente. Utilice XS, SM ... para un punto de "
 "interrupción de arranque específico."
 
-#: ../bc/core/acf/reusable-fields.php:890
+#: ../bc/core/acf/reusable-fields.php:665
 msgid "Background Color"
 msgstr "Color de fondo"
 
-#: ../bc/core/acf/reusable-fields.php:905
+#: ../bc/core/acf/reusable-fields.php:680
 msgid "Text Color"
 msgstr "Color texto"
 
-#: ../bc/core/acf/layouts/template_part_row.php:16
+#: ../bc/core/acf/reusable-fields.php:711
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:128
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:137
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:294
+#: ../template-parts/wpbc_realstate/post_property_single.php:104
+msgid "Type"
+msgstr "Tipo"
+
+#: ../bc/core/acf/reusable-fields.php:724
+msgid "Normal Inview"
+msgstr "Inview Normal"
+
+#: ../bc/core/acf/reusable-fields.php:725
+msgid "Ajax Load"
+msgstr "Carga Ajax"
+
+#: ../bc/core/acf/reusable-fields.php:746
+msgid "Inview Effect"
+msgstr "Efecto Inview"
+
+#: ../bc/core/acf/layouts/template_part_row.php:21
 msgid "Files under \"template-parts/theme/\" folder. (php only)"
 msgstr ""
 
-#: ../bc/core/acf/layouts/template_part_row.php:53
+#: ../bc/core/acf/layouts/template_part_row.php:44
+#: ../bc/core/acf/layouts/template_part_row.php:63
+msgid "Template Content"
+msgstr "Contenido de Plantilla"
+
+#: ../bc/core/acf/layouts/template_part_row.php:93
+msgid "Dynamic Template Arguments"
+msgstr ""
+
+#: ../bc/core/acf/layouts/template_part_row.php:108
 msgid "Add Argument"
 msgstr "Agregar Argumento"
 
@@ -184,13 +198,13 @@ msgid "Tags"
 msgstr "Etiquetas"
 
 #: ../bc/core/addons/wpbc_get_query_posts/defaults.php:263
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:35
-#: ../bc/core/template-tags/wpbc_template_builder/shortcode.php:98
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:36
+#: ../bc/core/template-tags/wpbc_template_builder/shortcode.php:123
 msgid "Load more"
 msgstr "Cargar más"
 
 #: ../bc/core/addons/wpbc_get_query_posts/defaults.php:264
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:37
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:38
 msgid "No more post to load"
 msgstr "No hay más para cargar"
 
@@ -231,6 +245,18 @@ msgstr "Resetear"
 #: ../bc/core/addons/wpbc_get_query_posts/shortcodes/actions_form.php:156
 msgid "Reload"
 msgstr "Recargar"
+
+#: ../bc/core/addons/wpbc_private_areas/init.php:114
+msgid "You're not authorized to access this site."
+msgstr ""
+
+#: ../bc/core/addons/wpbc_private_areas/init.php:114
+msgid "Error"
+msgstr "Error"
+
+#: ../bc/core/addons/wpbc_private_areas/init.php:130
+msgid "Only authenticated users can access the REST API."
+msgstr ""
 
 #: ../bc/core/addons/wpbc_realstate/acf.php:107
 msgid "Property Record"
@@ -298,6 +324,7 @@ msgstr "Ej: Primer semana de Enero"
 #: ../bc/core/addons/wpbc_realstate/functions.php:462
 #: ../bc/core/addons/wpbc_realstate/functions.php:630
 #: ../bc/core/addons/wpbc_resource/wpbc_resource.php:265
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:354
 msgid "Description"
 msgstr "Descripción"
 
@@ -361,8 +388,8 @@ msgid "Price"
 msgstr "Precio"
 
 #: ../bc/core/addons/wpbc_realstate/posts_columns.php:8
-#: ../bc/core/post_types/manage_columns.php:93
-#: ../bc/core/post_types/manage_columns.php:155
+#: ../bc/core/post_types/manage_columns.php:146
+#: ../bc/core/post_types/manage_columns.php:211
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
@@ -375,7 +402,7 @@ msgid "NO PRICE"
 msgstr "SIN PRECIO"
 
 #: ../bc/core/addons/wpbc_realstate/posts_columns.php:61
-#: ../template-parts/header-post_title.php:14
+#: ../template-parts/header-post_title.php:18
 #: ../template-parts/wpbc_realstate/post_property.php:18
 msgid "Featured"
 msgstr "Destacada"
@@ -418,7 +445,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 #: ../bc/core/addons/wpbc_realstate/wp-dashboard.php:22
-#: ../bc/core/template-tags/WPBC_template_builder.php:241
+#: ../bc/core/template-tags/WPBC_template_builder.php:259
 #: ../template-parts/wpbc_realstate/post_property.php:51
 msgid "Edit"
 msgstr "Editar"
@@ -507,7 +534,7 @@ msgstr "Código"
 msgid "Resource Metadata"
 msgstr "Metadatos de Recursos"
 
-#: ../bc/core/bootstrap/class-wp-bootstrap-navwalker.php:386
+#: ../bc/core/bootstrap/class-wp-bootstrap-navwalker.php:407
 msgid "Add a menu"
 msgstr "Agregar menú"
 
@@ -586,11 +613,11 @@ msgstr "Editar bloque de contenido"
 msgid "Fixed Content Block"
 msgstr "Bloque de contenido fijo"
 
-#: ../bc/core/post_types/manage_columns.php:91
+#: ../bc/core/post_types/manage_columns.php:144
 msgid "Template used"
 msgstr "Plantilla usada"
 
-#: ../bc/core/post_types/manage_columns.php:92
+#: ../bc/core/post_types/manage_columns.php:145
 msgid "Layout"
 msgstr "Diseño"
 
@@ -598,7 +625,7 @@ msgstr "Diseño"
 msgid "Primary Menu"
 msgstr "Menú Primario"
 
-#: ../bc/core/setup/widgets_init.php:345
+#: ../bc/core/setup/widgets_init.php:348
 #, php-format
 msgid ""
 "%s: Widget class not found. Make sure this widget exists and the class name "
@@ -607,34 +634,34 @@ msgstr ""
 "%s: Widget class no encontrada. Asegúrate este widget existe y el nombre de "
 "class es correcto."
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:28
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:29
 msgid "First"
 msgstr "Primera"
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:29
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:30
 msgid "Last"
 msgstr "Última"
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:30
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:31
 #: ../bc/core/template-tags/parts/WPBC_post_breadcrumb.php:17
 msgid "Page"
 msgstr "Página"
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:31
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:32
 msgid "of"
 msgstr "de"
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:32
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:33
 msgid "posts under this term."
 msgstr "publicaciones bajo este término."
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:33
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:34
 #: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:9
 #: ../template-parts/wpbc_realstate/slider_properties.php:78
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:34
+#: ../bc/core/template-tags/parts/WPBC_advanced_posts_pagination.php:35
 #: ../bc/core/template-tags/parts/WPBC_posts_pagination.php:10
 #: ../template-parts/wpbc_realstate/slider_properties.php:79
 msgid "Next"
@@ -673,7 +700,7 @@ msgstr "Artículo"
 msgid "Error 404"
 msgstr "Error 404"
 
-#: ../bc/core/template-tags/parts/WPBC_post_date.php:28
+#: ../bc/core/template-tags/parts/WPBC_post_date.php:38
 msgid "Posted on"
 msgstr "Publicado en"
 
@@ -681,11 +708,11 @@ msgstr "Publicado en"
 msgid "Share this publication"
 msgstr "Compartir publicación"
 
-#: ../bc/core/template-tags/parts/WPBC_post_share.php:97
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:98
 msgid "Share this on"
 msgstr "Compartir en"
 
-#: ../bc/core/template-tags/parts/WPBC_post_share.php:115
+#: ../bc/core/template-tags/parts/WPBC_post_share.php:116
 msgid "Copy & Paste URL"
 msgstr ""
 
@@ -693,7 +720,7 @@ msgstr ""
 msgid ", "
 msgstr ", "
 
-#: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:113
+#: ../bc/core/template-tags/parts/WPBC_post_taxonomies.php:117
 msgid "Categories"
 msgstr "Categorias"
 
@@ -746,45 +773,53 @@ msgstr "No hay Plantillas en la Papelera"
 msgid "Bootclean Template Builder, or BTB!!."
 msgstr "Bootclean Template Builder, o BTB!!."
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:123
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:127
 msgid "Template Types"
 msgstr "Typo de Plantillas"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:125
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:129
 msgid "Search Types"
 msgstr "Buscar Typos"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:126
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:130
 msgid "All Types"
 msgstr "Todos los Typos"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:127
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:131
 msgid "Parent Type"
 msgstr "Typo ancestro"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:128
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:132
 msgid "Parent Type:"
 msgstr "Typo ancestro:"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:129
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:133
 msgid "Edit Type"
 msgstr "Editar Typo"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:130
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:134
 msgid "Update Type"
 msgstr "Actualizar Typo"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:131
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:135
 msgid "Add New Type"
 msgstr "Agregar Tipo"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:132
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:136
 msgid "New Type"
 msgstr "Agregar Tipo"
 
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:284
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:293
 msgid "Template ID / Shortcode"
 msgstr "Template ID / Shortcode"
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:337
+msgid "Shortcode use"
+msgstr ""
+
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:357
+msgid "Internal use only."
+msgstr ""
 
 #: ../bc/core/theme-options/_test_default-options.php:6
 msgid "One"
@@ -1004,11 +1039,11 @@ msgstr ""
 
 #: ../bc/core/theme-options/_test_default-options.php:293
 msgid "Text Editor"
-msgstr ""
+msgstr "Editor de texto"
 
 #: ../bc/core/theme-options/_test_default-options.php:312
 msgid "Default Text Editor"
-msgstr ""
+msgstr "Editor de texto por defecto"
 
 #: ../bc/core/theme-options/_test_default-options.php:313
 #, php-format
@@ -1314,7 +1349,6 @@ msgstr ""
 "Apariencia -> Widgets para su uso."
 
 #: ../bc/core/theme-options-defaults/widgets.php:58
-#, fuzzy
 msgid ""
 "<b>Take care</b> when removing/renaming, idealy don´t do it unless you re-"
 "edit the widgets areas and it´s contents too. If you accidentaly delete a "
@@ -1494,6 +1528,54 @@ msgstr "Barra de navegación principal"
 msgid "Main Page Header"
 msgstr "Encabezado de la página principal"
 
+#: ../bc/core/woocommerce/acf.php:10 ../bc/core/woocommerce/acf.php:27
+msgid "Product Header"
+msgstr "Cabezal del Producto"
+
+#: ../bc/core/woocommerce/acf.php:38
+msgid ""
+"You can choose just one image or many, will be converted into a single "
+"header or a sliler one."
+msgstr ""
+"Puede elegir una o varias imágenes, se convertirá en un header simple o "
+"slider automáticamente."
+
+#: ../bc/core/woocommerce/acf.php:44
+msgid "Header Type"
+msgstr "Tipo Cabezal"
+
+#: ../bc/core/woocommerce/acf.php:57
+msgid "Use Featured Image"
+msgstr "Usar Imagen destacada"
+
+#: ../bc/core/woocommerce/acf.php:58
+msgid "Use Featured Image & Gallery"
+msgstr "Usar Imagen destacada & Galería"
+
+#: ../bc/core/woocommerce/acf.php:59
+msgid "Use Custom Image/Slider"
+msgstr "Usar Imagen personalizada/Slider"
+
+#: ../bc/core/woocommerce/acf.php:73
+msgid "Custom Image/Slider"
+msgstr "Imagen personalizada/Slider"
+
+#: ../bc/core/woocommerce/acf.php:111
+msgid "Product Preview"
+msgstr "Vista previa del producto"
+
+#: ../bc/core/woocommerce/acf.php:137
+msgid "Advaced Product Settings"
+msgstr "Configuración Avanzada de Productos"
+
+#: ../bc/core/woocommerce/functions.php:23
+msgid "Cart"
+msgstr "Carrito"
+
+#: ../bc/core/woocommerce/functions.php:25
+msgid "View your shopping cart"
+msgstr "Ver tú carrito de compras"
+
 #: ../template-parts/content-404.php:7
 msgid ""
 "Sorry the page you are looking at does not exist or an error occurred. Try "
@@ -1547,6 +1629,72 @@ msgstr "Leer más<span class=\"screen-reader-text\"> \"%s\"</span>"
 #, php-format
 msgid "Search Results for: %s"
 msgstr "Resutados de Búsqueda para: %s"
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:8
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:38
+msgid "You are trying to access a private content"
+msgstr "Estás intentando acceder a un contenido privado"
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:9
+msgid "<u>Log in</u> or <u>Register</u> to gain access."
+msgstr "<u>Inicie sesión</u> o <u>Registrarse</u> para obtener acceso."
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:10
+msgid ""
+"Private content is allowed only for users with a <u>subscription</u> plan "
+"actived."
+msgstr ""
+"El contenido privado está permitido solo para usuarios con un plan de "
+"<u>suscripción</u> activo."
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:19
+msgid ""
+"This page has private content and you are allowed to access it. Your "
+"subscription is active."
+msgstr ""
+"Esta página tiene contenido privado y se le permite acceder a ella. Tu "
+"suscripción está activa."
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:27
+msgid ""
+"This a private content and you are allowed to access it. Your subscription "
+"is active."
+msgstr ""
+"Este es un contenido privado y se le permite acceder a él. Tu suscripción "
+"está activa."
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:39
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:47
+msgid ""
+"An active subscription is required to access, purchase one or renew if "
+"expired."
+msgstr ""
+"Se requiere una suscripción activa para verla, comprar una o renovar si ya "
+"ha expirado una."
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:46
+msgid "You don´t have an active subscription!"
+msgstr "¡No tienes una suscripción activa!"
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:57
+msgid "This page contains some private content"
+msgstr "Esta página contiene contenido privado"
+
+#: ../template-parts/addons/wpbc_private_areas/alerts.php:58
+msgid ""
+"An active subscription is required to view it, purchase one or renew if "
+"allready have one expired."
+msgstr ""
+"Se requiere una suscripción activa para verla, comprar una o renovar si ya "
+"ha expirado una."
+
+#: ../template-parts/layout/secondary-content.php:70
+msgid "There are no widgets used for:"
+msgstr "No hay widgets usados para:"
+
+#: ../template-parts/layout/secondary-content.php:72
+msgid "Manage your Widgets"
+msgstr "Administrar Widgets"
 
 #: ../template-parts/layout/structure/a1.php:17
 msgid "One Content Area"
@@ -1649,6 +1797,19 @@ msgstr ""
 "Contenedor con 3 áreas de contenido, principal a la izquierda, 2 áreas "
 "secundarias a la derecha."
 
+#: ../template-parts/shortcodes/loremipsum.php:6
+msgid "This file is under: template-parts/shortcodes/loremipsum.php"
+msgstr "Este archivo está en: template-parts/shortcodes/loremipsum.php"
+
+#: ../template-parts/shortcodes/woocommerce/WPBC_woo_myaccount_btn.php:3
+msgid "Login"
+msgstr "Ingresar"
+
+#: ../template-parts/shortcodes/woocommerce/WPBC_woo_products.php:27
+#: ../template-parts/shortcodes/woocommerce/WPBC_woo_products_slider.php:56
+msgid "No products found"
+msgstr "No se encontraron productos"
+
 #: ../template-parts/wpbc_realstate/post_property_single.php:18
 msgid "Slide Gallery"
 msgstr "Galería Slider"
@@ -1688,6 +1849,13 @@ msgstr "Adicionales"
 #: ../template-parts/wpbc_realstate/post_property_single.php:133
 msgid "Related Properties"
 msgstr "Propiedades relacionadas"
+
+#, fuzzy
+#~ msgid "posix_access(file) a private content"
+#~ msgstr "Estás intentando acceder a un contenido privado"
+
+#~ msgid "Template Content _T"
+#~ msgstr "Contenido de Plantilla"
 
 #~ msgid "Uruguay"
 #~ msgstr "Uruguay"
@@ -2035,10 +2203,6 @@ msgstr "Propiedades relacionadas"
 
 #~ msgid "Parent Project:"
 #~ msgstr "Proyecto Padre"
-
-#, fuzzy
-#~ msgid "No Projects found."
-#~ msgstr "No hay Novedades"
 
 #, fuzzy
 #~ msgid "No Projects found in Trash."

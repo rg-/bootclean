@@ -52,23 +52,23 @@ $item_class = apply_filters('wpbc/slick/item/container/class', $item_class, $ite
 if( !empty($content) || !empty($image_object)) {   
 
 ?>
-<div class="<?php echo $slick_item_class; ?>">
-	<?php if($use_lazyload && !empty($image_object)){ ?>
-		<span class="lazyload-loading"></span>
-	<?php } ?>
-	<div class="item-container <?php echo $item_class; ?>" <?php echo $attrs; ?>>
-		<?php do_action('wpbc/slick/item/container/before', $item, $params); ?>
-			<?php do_action('wpbc/slick/item/container/content/before', $item, $params); ?>
-				<?php if( $type == 'inline' && !empty($image_object) ) { ?>
-					<img src="<?php echo $image_object['url']; ?>" class="item-image full-w" alt="<?php echo $image_object['title']; ?>"/>
-				<?php } ?>
-				<?php if( !empty($content) ) { ?>
-					<div class="<?php echo $content_type.' '.$content_class; ?>">
-						<?php echo $content; ?>
-					</div>
-				<?php } ?>
-			<?php do_action('wpbc/slick/item/container/content/after', $item, $params); ?>
-		<?php do_action('wpbc/slick/item/container/after', $item, $params); ?>
-	</div>
+<div class="item <?php echo $slick_item_class; ?>">
+<?php if($use_lazyload && !empty($image_object)){ ?>
+<span class="lazyload-loading"></span>
+<?php } ?>
+<div class="item-container <?php echo $item_class; ?>" <?php echo $attrs; ?>>
+<?php do_action('wpbc/slick/item/container/before', $item, $params); ?>
+<?php do_action('wpbc/slick/item/container/content/before', $item, $params); ?>
+<?php if( $type == 'inline' && !empty($image_object) ) { ?>
+<img src="<?php echo $image_object['url']; ?>" class="item-image full-w" alt="<?php echo $image_object['title']; ?>"/>
+<?php } ?>
+<?php if( !empty($content) ) { ?>
+<div class="<?php echo $content_type.' '.$content_class; ?>">
+<?php echo $content; ?>
+</div>
+<?php } ?>
+<?php do_action('wpbc/slick/item/container/content/after', $item, $params); ?>
+<?php do_action('wpbc/slick/item/container/after', $item, $params); ?>
+</div>
 </div>
 <?php } ?>

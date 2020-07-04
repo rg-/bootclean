@@ -41,7 +41,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 
 	$fields[] = array(
 		'key' => 'key__r_wpbc_template_part_args_T',
-		'label' => __('Template Content _T', 'bootclean'),
+		'label' => __('Template Content', 'bootclean'),
 		'name' => 'template_part_args_T',
 		'type' => 'group',
 		'value' => NULL,

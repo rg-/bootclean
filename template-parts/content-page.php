@@ -3,9 +3,7 @@
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?>>
 	
-	<header class="entry-header">
-		<?php get_template_part('template-parts/header-post_title'); ?>
-	</header>
+	<?php get_template_part('template-parts/header-post_title'); ?>
 	
 	<div class="entry-thumbnail">
 		<?php get_template_part( 'template-parts/post_thumbnail' );  ?>

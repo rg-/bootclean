@@ -211,7 +211,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_navba
 function WPBC_group_builder__layout__main_navbar($fields){
 	$fields[] = array (
 		'key' => 'field_layout_main_navbar_template__tab',
-		'label' => 'Main Navbar',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg> Main Navbar',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',
@@ -249,7 +249,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_heade
 function WPBC_group_builder__layout__main_header($fields){
 	$fields[] = array (
 		'key' => 'field_layout_header__tab',
-		'label' => 'Page Header',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/></svg> Page Header',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',
@@ -295,7 +295,7 @@ function WPBC_group_builder__layout__main_header($fields){
 
 	$fields[] = array (
 		'key' => 'field_layout_header_template',
-		'label' => 'Page Header Template',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z"/></svg> Page Header Template',
 		'name' => 'layout_header_template',
 		'type' => 'select',
 		'instructions' => '', 
@@ -581,7 +581,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_foote
 function WPBC_group_builder__layout__main_footer($fields){
 	$fields[] = array (
 		'key' => 'field_layout_footer__tab',
-		'label' => 'Main Footer',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v3H5z"/></svg> Main Footer',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',
@@ -620,7 +620,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__code', 99,
 function WPBC_group_builder__layout__code($fields){
 	$fields[] = array (
 		'key' => 'field_layout_code__tab',
-		'label' => 'Custom Styles',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Custom Styles',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',
@@ -687,226 +687,4 @@ function WPBC_group_builder__layout__code($fields){
 	);
 
 	return $fields;
-} 
-
-
-/*
-
-	WPBC_group_builder__slider
-
-*/
-
-function WPBC_group_builder__slider($fields = array()){  
-	return apply_filters('WPBC_group_builder__slider', $fields);
-}
-
-add_filter('WPBC_group_builder__slider', function($fields){
-	  
-	$fields[] = array(
-		'key' => 'key__slider__slider_items',
-		'label' => 'Items',
-		'name' => 'slider_items',
-		'type' => 'repeater',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array(
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'collapsed' => '',
-		'min' => 0,
-		'max' => 0,
-		'layout' => 'block',
-		'button_label' => 'Add item',
-		'sub_fields' => array(
-			array(
-				'key' => 'key__slider__slider_items__item',
-				'label' => 'Item',
-				'name' => 'item',
-				'type' => 'clone',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'clone' => array(
-					//0 => 'key__r_html_code',
-					0 => 'key__r_slider_item',
-				),
-				'display' => 'seamless',
-				'layout' => 'block',
-				'prefix_label' => 0,
-				'prefix_name' => 0,
-			),
-		),
-	);
-
-	return $fields;
-}, 10, 1); 
-
-add_filter('WPBC_group_builder__slider', function($fields){
-
-	$fields[] = array(
-		'key' => 'key__slider__slider_settings_tab',
-		'label' => 'Slider Settings',
-		'name' => 'slider_settings_tab',
-		'type' => 'tab'
-	);
-
-	$fields[] = array (
-		'key' => 'key__slider__classes',
-		'label' => 'Slider Classes',
-		'name' => 'slider__classes',
-		'type' => 'group',
-		'value' => NULL,
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array (
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'layout' => 'block',
-		'sub_fields' => array (
-		
-			array (
-				'key' => 'key__slider__classes_item_container',
-				'label' => 'Slider Class',
-				'name' => 'slider__classes_item_container',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '50%',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '> +',
-				'append' => '',
-				'maxlength' => '',
-			),
-			
-			array (
-				'key' => 'key__slider__classes_item_content',
-				'label' => 'Item > Container > Caption class',
-				'name' => 'slider__classes_item_content',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '50%',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => 'd-flex justify-content-center align-items-center',
-				'placeholder' => '',
-				'prepend' => '> +',
-				'append' => '',
-				'maxlength' => '',
-			),
-		
-		),
-	);
-
-	return $fields;
-}, 20, 1); 
-
-add_filter('WPBC_group_builder__slider', function($fields){
-
-	global $WPBC_VERSION; 
-	if ( version_compare( $WPBC_VERSION, '10.0.0', '>' ) ) {
-		$cloned = array( 
-			0 => 'key__r_slider_settings',
-			1 => 'key__r_slider_settings_args',
-		);
-	}else{
-		$cloned = array(
-			
-			1 => 'key__r_slider_settings_args',
-		);
-	}
-
-	$fields[] = array(
-		'key' => 'key__slider__slider_items__slider_settings',
-		'label' => 'Settings',
-		'name' => 'slider_settings',
-		'type' => 'clone',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array(
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'clone' => $cloned,
-		'display' => 'seamless',
-		'layout' => 'block',
-		'prefix_label' => 0,
-		'prefix_name' => 0,
-	);
-
-	return $fields;
-}, 30, 1); 
-
-add_filter('WPBC_group_builder__slider', function($fields){
-	
-	$fields[] = array(
-		'key' => 'key__slider__slider_items__slider_breakpoint_heights',
-		'label' => 'Breakpoint Sizes',
-		'name' => 'slider_breakpoint_heights',
-		'type' => 'clone',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array(
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'clone' => array(
-			0 => 'key__r_slider_breakpoint_heights',
-		),
-		'display' => 'seamless',
-		'layout' => 'block',
-		'prefix_label' => 0,
-		'prefix_name' => 0,
-	);
-	return $fields;
-}, 40, 1); 
-
-add_filter('WPBC_group_builder__slider', function($fields){
-
-	$fields[] = array(
-		'key' => 'key__slider__slider_items__slider_breakpoint_enable',
-		'label' => 'Breakpoint Enable',
-		'name' => 'slider_breakpoint_enable',
-		'type' => 'clone',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array(
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'clone' => array(
-			0 => 'key__r_slider_breakpoint_enable',
-		),
-		'display' => 'seamless',
-		'layout' => 'block',
-		'prefix_label' => 0,
-		'prefix_name' => 0,
-	);
-	return $fields;
-}, 50, 1); 
+}  

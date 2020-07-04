@@ -22,6 +22,7 @@
 	}
 	
 	$div_class = isset($params['class']) ? 'navbar '.$params['class'] : 'navbar';
+	
 ?>
 <nav <?php echo $div_attrs; ?> class="<?php echo $div_class; ?>">
 	

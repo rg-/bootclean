@@ -5,9 +5,7 @@
 
 	<?php do_action('wpbc/template/content/search/result/before'); ?>
 
-	<header class="entry-header">
-		<?php get_template_part('template-parts/header-post_title'); ?>
-	</header>
+	<?php get_template_part('template-parts/header-post_title'); ?>
 	
 	<div class="entry-content">
 		<?php get_template_part( 'template-parts/post_excerpt' );  ?>

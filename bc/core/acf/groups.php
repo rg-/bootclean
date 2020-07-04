@@ -1,4 +1,7 @@
 <?php 
+
+include('groups/builder_slider.php');
+
 // -------------------------------------------------------------------------- //
 if( function_exists('acf_add_local_field_group') ){ 
 	/* 
@@ -117,48 +120,7 @@ if( function_exists('acf_add_local_field_group') ){
 
 // -------------------------------------------------------------------------- //
 
-include('groups/builder_slider.php');
-
-if( function_exists('acf_add_local_field_group') ){ 
-	/*
-		#Slider Group
-
-		OBSOLETE, see wpbc_template
-	*/ 
-	$WPBC_group_builder__slider = WPBC_group_builder__slider(); 
-	$WPBC_group_builder__slider_locations = array(
-		array(
-			array(
-				'param' => 'post_type',
-				'operator' => '==',
-				'value' => 'wpbc_template',
-			),
-			array(
-				'param' => 'post_taxonomy',
-				'operator' => '==',
-				'value' => 'wpbc_template_type:slider',
-			),
-		),
-	); 
-	acf_add_local_field_group(array(
-		'key' => 'group_builder__slider',
-		'title' => 'Slider Items',
-		'fields' => $WPBC_group_builder__slider, 
-		'location' => $WPBC_group_builder__slider_locations,
-		'menu_order' => 3,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => array(
-			0 => 'the_content',
-		),
-		'active' => 1,
-		'description' => '',
-	));
-	
-	// #Slider Group <<<
-}
+ 
 // -------------------------------------------------------------------------- // 
 
 // -------------------------------------------------------------------------- //

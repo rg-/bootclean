@@ -203,4 +203,7 @@ a > .wp-menu-name .hide-top {
   .acf-group-seamless .acf-fields.-border {
     border: 0; }
 
+.acf-tab-button svg {
+  vertical-align: -6px; }
+
 /*# sourceMappingURL=wp-admin.css.map */

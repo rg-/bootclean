@@ -18,7 +18,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 
 	$fields[] = array (
 		'key' => 'field_custom_layout__tab',
-		'label' => 'Custom Layout',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 5v14h19V5H3zm2 2h15v4H5V7zm0 10v-4h4v4H5zm6 0v-4h9v4h-9z"/></svg> Custom Layout',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',

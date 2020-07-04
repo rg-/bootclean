@@ -2,6 +2,9 @@
 
 /**
  * Change number or products per row to 3
+
+	TODO, make as theme option
+
  */
 add_filter('loop_shop_columns', 'loop_columns', 999);
 if (!function_exists('loop_columns')) {
@@ -15,33 +18,18 @@ if (!function_exists('loop_columns')) {
  */
 add_filter( 'woocommerce_loop_add_to_cart_link', function($link, $product, $args){ 
 	return $link;
-},10, 3);
-
-
-
-
-/*
-
-	Add WooCommerce Cart Icon to Menu with Cart Item Count
-
-*/ 
-
-/**
- * Add WooCommerce Cart Menu Item Shortcode to particular menu
- * See [WPBC_woo_cart_btn] shorcode
- */  
-add_filter('wp_nav_menu_items', 'WPBC_woo_cart_btn__nav', 10, 2);
-function WPBC_woo_cart_btn__nav($items, $args){
-    if( $args->theme_location == 'primary' ){
-        $items .=  '[WPBC_woo_cart_btn]';
-    }
-    return $items;
-}
-
-
+},10, 3);  
 
 
 /* content-product.php */
+
+/*
+	TODO, make as theme option
+	Create a template, and some types /template-parts/shortcodes/woocommerce maybe?
+	create a filter to define default used
+	or even use diferents for diferents types of products, or categories...
+
+*/
 
 remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
 add_action('woocommerce_before_shop_loop_item_title', 'WPBC_woo_product_thumbnail',10);
@@ -56,3 +44,6 @@ function WPBC_woo_product_thumbnail(){
 </span>
 	<?php
 }
+
+
+

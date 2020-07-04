@@ -347,33 +347,41 @@ function _BC_template( $src, $params=array() ){
 
 
 /* MIMIC WP function names ?¡?¡ I think is better to keep separate, use: WPBC_get_component() instead :(*/
-function get_component_part($src,$params=array()){
-	BC_get_component($src,$params);
+function get_component_part($src,$params=array(), $echo=true){
+	BC_get_component($src,$params, $echo);
 }
-function WPBC_get_component($src,$params=array()){
-	BC_get_component($src,$params);
+function WPBC_get_component($src,$params=array(), $echo=true){
+	BC_get_component($src,$params, $echo);
 }
-function BC_get_component($src,$params=array()){ 
+function BC_get_component($src,$params=array(), $echo=true){ 
 	global $theme_root; 
 	 if( file_exists(stream_resolve_include_path(BC_ABSPATH.'/components/'.$src.'.php')) ){
 		ob_start(); 
 		include(BC_ABSPATH.'/components/'.$src.'.php');
 		$content = ob_get_contents();
 		ob_end_clean();
-		echo $content; 
+		if($echo){
+			echo $content; 
+		}else{
+			return $content; 
+		} 
 	} 
 }
-function WPBC_get_partial($src,$params=array()){
-	BC_get_partial($src,$params);
+function WPBC_get_partial($src,$params=array(), $echo=true){
+	BC_get_partial($src,$params, $echo);
 }
-function BC_get_partial($src,$params=array()){ 
+function BC_get_partial($src,$params=array(), $echo=true){ 
 	global $theme_root; 
 	 if( file_exists(stream_resolve_include_path(BC_ABSPATH.'/components/partials/'.$src.'.php')) ){
 		ob_start(); 
 		include(BC_ABSPATH.'/components/partials/'.$src.'.php');
 		$content = ob_get_contents();
 		ob_end_clean();
-		echo $content; 
+		if($echo){
+			echo $content; 
+		}else{
+			return $content; 
+		}  
 	} 
 }
 

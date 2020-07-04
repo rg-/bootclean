@@ -334,7 +334,7 @@ acf_add_local_field_group(array(
 	'fields' => array(
 		array(
 			'key' => 'field_wpbc_template_helper_shortcode',
-			'label' => 'Shortcode',
+			'label' => __('Shortcode use','bootclean'),
 			'name' => '',
 			'type' => 'message',
 			'instructions' => '',
@@ -349,7 +349,26 @@ acf_add_local_field_group(array(
 			'new_lines' => 'wpautop',
 			'esc_html' => 0,
 		),
-	),
+		array (
+			'key' => 'field_wpbc_template_helper_comments',
+			'label' => __('Description','bootclean'),
+			'name' => 'wpbc_template_helper_comments',
+			'type' => 'textarea',
+			'instructions' => __('Internal use only.','bootclean'),
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => 'wpautop',
+		),
+	), 
 	'location' => array(
 		array(
 			array(
@@ -359,7 +378,7 @@ acf_add_local_field_group(array(
 			),
 		),
 	),
-	'menu_order' => 0,
+	'menu_order' => 10,
 	'position' => 'normal',
 	'style' => 'default',
 	'label_placement' => 'top',
@@ -370,3 +389,97 @@ acf_add_local_field_group(array(
 ));
 
 endif;
+
+
+/*
+
+	AJAX Create New Page Builder
+
+	This is for:
+
+		- Add _template_builder.php as page_template used.
+		- The post is created by wp_insert_post
+		- Then the _wp_page_template post meta value is updated
+		- Then the ajax return the edit url
+		- User is redirected
+
+		- Needs to parts
+
+			- the button to trigger the action
+			- the code for the action itself
+
+
+*/
+
+//Insertar Javascript js y enviar ruta admin-ajax.php
+add_action('admin_enqueue_scripts', 'WPBC_insert_page_builder__scripts');
+
+function WPBC_insert_page_builder__scripts(){
+
+	wp_enqueue_script( 'jquery-ui-dialog' ); // jquery and jquery-ui should be dependencies, didn't check though...
+	wp_enqueue_style( 'wp-jquery-ui-dialog' );
+
+	$js_path = get_template_directory_uri() . '/js/wpbc_insert_page_builder.js';
+
+	wp_register_script('wpbc-insert_page_builder',$js_path, array(), '1', true );
+	wp_enqueue_script('wpbc-insert_page_builder');
+
+	wp_localize_script('wpbc-insert_page_builder','dcms_vars',['ajaxurl'=>admin_url('admin-ajax.php')]);
+} 
+
+add_action('admin_footer','WPBC_insert_page_builder__admin_footer',999);
+function WPBC_insert_page_builder__admin_footer(){
+
+	$post_edit_link = 'edit.php?post_type=page&page=wpbc-edit-new-page-builder';
+	
+?>
+<!-- The modal / dialog box, hidden somewhere near the footer -->
+<div id="page-builder-dialog" class="hidden" style="max-width:100%; width:600px; text-align:center;">
+  <h3>New page using <br>Page Template</h3>
+  <p><a href="<?php echo admin_url( $post_edit_link ); ?>" class="button button-primary button-large add-new-page-builder">New Page Builder</a></p>
+  <p>- or -</p>
+  <p><a href="<?php echo admin_url('/post-new.php?post_type=page'); ?>" class="button button-primary button-large add-new-page-builder">New Page (*)</a></p>
+
+  <p><small>(*) This is just the default Wordpress page.</small></p>
+</div>
+<?php
+}
+
+add_action('admin_menu', 'WPBC_insert_page_builder__admin_menu');
+
+function WPBC_insert_page_builder__admin_menu() {   
+  add_submenu_page(
+      'edit.php?post_type=page',
+      'New Page Builder',
+      'New Page Builder',
+      'edit_posts',
+      'wpbc-edit-new-page-builder',
+      'WPBC_insert_page_builder_function_output' );
+
+  add_submenu_page(
+      'edit.php?post_type=page',
+      'Page Builder +',
+      'Page Builder +',
+      'edit_posts',
+      'wpbc-edit-new-page-builder-plus',
+      'WPBC_insert_page_builder_plus_function_output' ); 
+} 
+
+function WPBC_insert_page_builder_function_output() { 
+	$my_post = array( 
+		//'post_title' => 'AAA Testing',
+	  'post_type' => 'page', 
+	); 
+	$post_id = wp_insert_post( $my_post ); 
+	$post_edit_link = '';
+	if( !is_wp_error($post_id) ) {
+		update_post_meta( $post_id, '_wp_page_template', '_template_builder.php' );  
+		$post_edit_link = '/post.php?post='.$post_id.'&action=edit'; 
+		wp_redirect( admin_url( $post_edit_link ) ); 
+	} 
+  exit;
+} 
+
+function WPBC_insert_page_builder_plus_function_output(){
+
+}

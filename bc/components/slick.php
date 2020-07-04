@@ -36,19 +36,20 @@
 	if(!empty($slick_args_temp)){
 		$slick_attrs = json_encode($slick_args_temp);
 	}else{
-		$slick_attrs = '{ }'; 
-	} 
-
+		$slick_attrs = $slick_attrs; 
+	}  
 
 	$slider_ID = !empty($params['id']) ? $params['id'] : 'wp-slick-slider-'.$_slider_uid;  
 	
 	$slick_data = '';
 	if( !empty( $params['breakpoint-height'] ) ){
 		$bk = $params['breakpoint-height'];
-		$data = json_encode($bk);
-		$slick_data = "data-breakpoint-height='".$data."'";
+		if(is_array($bk)){
+			$bk = json_encode($bk);
+		} 
+		$slick_data = "data-breakpoint-height='".$bk."'";
 	}else{
-		$def = '{ "defaults":{"default":"100vh"} }';
+		$def = '{ "defaults":{"default":"100wh"} }';
 		$data = json_encode($def);
 		$slick_data = "data-breakpoint-height='".$def."'";
 	}
@@ -96,6 +97,7 @@
 	}
 	
 	$slick_attrs = apply_filters('wpbc/slick/slick_attrs', $slick_attrs, $params);
+
 	$slick_data = apply_filters('wpbc/slick/slick_data', $slick_data, $params);
 	$slick_class = 'theme-slick-slider';
 	$slick_class = apply_filters('wpbc/slick/slick_class', $slick_class, $params);
@@ -113,7 +115,7 @@
 				$content_slide = $v['content'];
 
 				$content_slide = apply_filters('wpbc/slick/content_slide', $content_slide, $params);
-
+ 
 			?>
 				
 				<?php do_action('wpbc/slick/item/before', $v, $params); ?>
