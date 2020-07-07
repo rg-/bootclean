@@ -224,7 +224,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__private_ar
 function WPBC_group_builder__layout__private_areas($fields){ 
 	$fields[] = array (
 		'key' => 'field_layout_private_area__tab',
-		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> Private Areas',
+		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
 		'name' => '',
 		'type' => 'tab',
 		'instructions' => '',
@@ -245,7 +245,7 @@ function WPBC_group_builder__layout__private_areas($fields){
 
 		$fields[] = array (
 			'key' => 'field_layout_private_area__allow_message',
-			'label' => '',
+			'label' => 'Private Areas Settings',
 			'name' => '',
 			'type' => 'message',
 			'instructions' => '',
@@ -256,14 +256,14 @@ function WPBC_group_builder__layout__private_areas($fields){
 				'class' => '',
 				'id' => '',
 			),
-			'message' => 'You are using Private Areas. This page is only visible for allowed logged users.',
+			'message' => 'You are using Private Areas addon. This page is only visible for allowed logged users.',
 			'new_lines' => 'wpautop',
 			'esc_html' => 0,
 		);
 
 		$fields[] = array (
 			'key' => 'field_layout_private_area__allow_page',
-			'label' => 'Allow visibility anyway?',
+			'label' => 'Make page visible anyway?',
 			'name' => 'private_area__allow_page',
 			'type' => 'true_false',
 			'instructions' => '',
@@ -271,7 +271,7 @@ function WPBC_group_builder__layout__private_areas($fields){
 			'conditional_logic' => 0,
 			'wrapper' => array (
 				'width' => '',
-				'class' => '',
+				'class' => 'wpbc-true_false-ui',
 				'id' => '',
 			),
 			'message' => '',

@@ -61,6 +61,7 @@ if( !isset($_GET['redirect_to']) && isset($_GET['private']) && !WPBC_private_are
 		); 
 	}
 ?>
+<?php if(!empty($alert_args)){ ?>
 <div class="alert <?php echo $alert_args['class'];?>" role="alert">
   <div class="container position-relative">
 		<?php if(!empty($alert_args['heading'])) { ?><h4 class="alert-heading"><?php echo $alert_args['heading'];?></h4><?php } ?>
@@ -74,3 +75,4 @@ if( !isset($_GET['redirect_to']) && isset($_GET['private']) && !WPBC_private_are
 		<?php } ?>
 	</div>
 </div>
+<?php } ?>

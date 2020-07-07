@@ -253,7 +253,7 @@ function _WPBC_get_view_FX($atts, $content = null){
 	$out = _get_views($name,$params);
 	return $out; 
 }
-add_shortcode('_WPBC_get_view', '_WPBC_get_view_FX');
+add_shortcode('_WPBC_get_view', '_WPBC_get_view_FX'); 
 /* THE END HERE */
 
 /*

@@ -1,3 +1,42 @@
+.wpbc-badge {
+  display: inline-block;
+  background-color: #e97f02;
+  color: #fff;
+  padding: 3px 5px;
+  font-size: 10px;
+  text-transform: uppercase; }
+
+.acf-accordion .wpbc-badge {
+  background-color: #777; }
+.acf-accordion.-open .wpbc-badge {
+  background-color: #e97f02; }
+
+.wpbc-acf-accordion-layout .acf-accordion-title > p.description {
+  padding-top: 9px;
+  font-style: normal;
+  font-weight: bold; }
+.wpbc-acf-accordion-layout .acf-accordion-title > label {
+  display: flex !important; }
+  .wpbc-acf-accordion-layout .acf-accordion-title > label > img.icon {
+    margin-left: auto; }
+.wpbc-acf-accordion-layout .acf-accordion-title img.icon {
+  vertical-align: -7px;
+  border: 1px solid #ddd;
+  padding: 1px; }
+.wpbc-acf-accordion-layout.-open {
+  border-left: 6px solid #e97f02 !important;
+  margin-left: 1px; }
+
+.wpbc-acf-group-no-border .acf-fields {
+  border: 0 !important; }
+  .wpbc-acf-group-no-border .acf-fields .acf-field {
+    padding: 0 0 5px 0; }
+
+.wpbc-acf-no-label > .acf-label {
+  display: none !important; }
+.wpbc-acf-no-label.acf-field-message .acf-input p {
+  margin: 0; }
+
 .radio-as-thumb label img,
 .radio-with-thumb label img {
   filter: gray;
@@ -18,20 +57,41 @@
   -webkit-filter: grayscale(0);
   filter: none; }
 
-.radio-with-thumb .acf-radio-list {
+.radio-as-thumb .radio-as-thumb-img-label {
+  position: absolute;
+  z-index: 1;
+  font-size: 9px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
   display: flex;
-  flex-flow: row;
-  flex-wrap: wrap; }
-  .radio-with-thumb .acf-radio-list li {
+  align-items: center;
+  cursor: pointer; }
+  .radio-as-thumb .radio-as-thumb-img-label i {
+    font-style: normal;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2px;
+    display: inline-block;
+    line-height: 9px; }
+
+.radio-with-thumb {
+  position: relative; }
+  .radio-with-thumb .acf-radio-list {
     display: flex;
     flex-flow: row;
-    align-items: flex-start;
-    margin: 0 !important; }
-    .radio-with-thumb .acf-radio-list li label {
-      margin-right: 5px; }
-      .radio-with-thumb .acf-radio-list li label input[type="radio"] {
-        position: relative;
-        top: -4px; }
+    flex-wrap: wrap; }
+    .radio-with-thumb .acf-radio-list li {
+      display: flex;
+      flex-flow: row;
+      align-items: flex-start;
+      margin: 0 !important; }
+      .radio-with-thumb .acf-radio-list li label {
+        margin-right: 5px; }
+        .radio-with-thumb .acf-radio-list li label input[type="radio"] {
+          position: relative;
+          top: -4px; }
 
 .radio-as-thumb .of-input-flex {
   flex-wrap: wrap; }

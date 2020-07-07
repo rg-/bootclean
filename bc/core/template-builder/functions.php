@@ -264,8 +264,19 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	// custom_layout__custom_locations__builder
 	if(!empty($custom_layout_locations__enable)){
 		$layout = WPBC_get_option('custom_layout__custom_locations__'.$template ); // ?? 
-	}
+	} 
+
+	/* NEW v 11.00 */
+	$using_theme_settings = false;
+	$theme_settings_location = get_field('layout_location__'.$template,'options');
+	if($theme_settings_location['layout_location__'.$template]){
+		$using_theme_settings = true;
+		$layout = $theme_settings_location['layout_location__'.$template]; 
+	} 
+	/* NEW v 11.00 */
+
 	/* ACF PART */
+	$using_page_settings = false;
 	if(!empty($id)){
 		$custom_layout__enable = WPBC_get_field('custom_layout__enable', $id);
 		$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location', $id);
@@ -276,6 +287,7 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	 
 	if(!empty($custom_layout__enable)){ 
 		if(!empty($custom_layout__custom_location)){ 
+			$using_page_settings = true;
 			$layout = $custom_layout__custom_location; 
 		} 
 	}
@@ -283,6 +295,7 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	if(''==$layout){
 		$layout = 'defaults'; // Yes again, if anything fails, use defaults.
 	}
+	$layout = apply_filters('wpbc/filter/layout/location', $layout, $template, $using_theme_settings, $using_page_settings);
 
 	return $layout;
 }

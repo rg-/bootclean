@@ -12,8 +12,7 @@ function WPBC_get_field($field, $id=''){
 	} 
 } 
 
-
-include('acf/group-fields.php');  
+include('acf/functions.php'); 
 include('acf/reusable-fields.php');
 include('acf/layouts.php');
 include('acf/groups.php');

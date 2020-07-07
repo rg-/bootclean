@@ -203,7 +203,25 @@ a > .wp-menu-name .hide-top {
   .acf-group-seamless .acf-fields.-border {
     border: 0; }
 
+/*
+	Replicate on front-end
+	shortcode available like:
+	
+	[m-icon-svg icon="md-flag"]
+
+*/
+.m-icon-svg {
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 24px;
+  height: 24px;
+  display: inline-block; }
+
 .acf-tab-button svg {
   vertical-align: -6px; }
+.acf-tab-button .m-icon-svg {
+  vertical-align: -6px;
+  margin-right: 5px; }
 
 /*# sourceMappingURL=wp-admin.css.map */

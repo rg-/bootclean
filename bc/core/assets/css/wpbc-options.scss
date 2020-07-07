@@ -7,6 +7,74 @@ $gray-200: #eee;
 $gray-300: #ddd;
 $gray-700: #777;
 
+
+.wpbc-badge{
+	display: inline-block;
+	background-color: $primary;
+	color:#fff;
+	padding:3px 5px;
+	font-size: 10px;
+	text-transform: uppercase;
+}
+.acf-accordion{
+	.wpbc-badge{
+		background-color: $gray-700;
+	}
+	&.-open{
+		.wpbc-badge{
+			background-color: $primary;
+		}
+	}
+}
+
+.wpbc-acf-accordion-layout{
+	.acf-accordion-title{
+		> p.description{
+			padding-top: 9px;
+			font-style: normal;
+			font-weight: bold;
+		}
+		> label {
+			display: flex!important;
+			> img.icon{
+				margin-left:auto;
+			}
+		}
+		img.icon{ 
+			vertical-align: -7px;
+			border: 1px solid $gray-300;
+			padding: 1px;
+		}
+	}
+
+	
+
+	&.-open{
+		border-left: 6px solid $primary!important;
+		margin-left: 1px;
+	}
+}
+.wpbc-acf-group-no-border{
+	.acf-fields{
+		border: 0!important;
+		.acf-field{
+			padding:0 0 5px 0;
+		}
+	}
+}
+.wpbc-acf-no-label{
+	> .acf-label{
+		display: none!important;
+	}
+	&.acf-field-message{
+		.acf-input{
+			p{
+				margin: 0;
+			}
+		}
+	}
+}
+
 .radio-as-thumb label img,
 .radio-with-thumb label img{
 	filter: gray; /* IE6-9 */
@@ -25,10 +93,29 @@ $gray-700: #777;
 	filter: none;
 }
 
-
+.radio-as-thumb .radio-as-thumb-img-label{
+	position: absolute;
+	z-index: 1;
+	font-size: 9px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	i{
+		font-style: normal;
+		background-color:rgba(255,255,255,.6);
+		padding:2px;
+		display: inline-block;
+		    line-height: 9px;
+	}
+}
 
 .radio-with-thumb{
-
+	position: relative;
 	.acf-radio-list{
 
 		display: flex;

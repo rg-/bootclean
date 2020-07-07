@@ -21,12 +21,25 @@ add_filter('wpbc/filter/layout/struture', function($args){
 	/* Default PART */
 		$temp = $args['main_container'][$layout]; // save before next
 		$args['main_container'] = ''; // Unset first 
-		$new_args['main_container'][$layout] = $temp; 
+		$new_args['main_container'][$layout] = $temp;  
+
+
+	/* NEW v 11.00 */
+	$using_theme_settings = false;
+	$theme_settings_location = get_field('layout_location__'.$template,'options'); 
+	if($theme_settings_location['layout_container_type__'.$template]){ 
+		$using_settings = 'from_theme_settings_v11';
+		$using_theme_settings = true;
+		$custom_layout_container_type = $theme_settings_location['layout_container_type__'.$template];
+	} 
+	/* NEW v 11.00 */
 
 	/* ACF PART */
+		$using_page_settings = false;
 		$custom_layout__enable = WPBC_get_field('custom_layout__enable');  // TODO all the subfields
 		if(!empty($custom_layout__enable)){ 
 			$using_settings = 'from_acf_options'; 
+			$using_page_settings = false;
 			$custom_layout_container_type = WPBC_get_field('custom_layout__container_type');
 		}
 
@@ -37,7 +50,8 @@ add_filter('wpbc/filter/layout/struture', function($args){
 		$using_settings = 'from_theme_options'; 
 		$custom_layout_container_type = WPBC_get_option('custom_layout__container_type__'.$template);
 		 
-	}
+	} 
+ 
  
 	if( is_page_template('_template_builder.php') ){ 
 		$template = '_template_builder';
@@ -51,11 +65,15 @@ add_filter('wpbc/filter/layout/struture', function($args){
 		$container_type = $custom_layout_container_type;
 	}
 
+	$container_type = apply_filters('wpbc/filter/layout/container_type', $container_type, $template, $using_theme_settings, $using_page_settings);
+	 
+
 	$new_args['main_container'][$layout]['using_settings'] = $using_settings;
 	$new_args['main_container'][$layout]['container_type'] = $container_type;
 
 	/* MIX THEM ALL */
 	$args = wp_parse_args( $new_args, $args );
+
 	return $args;
 
 },10,1); 

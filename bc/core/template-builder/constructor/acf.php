@@ -84,7 +84,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 			), 
 		),
 		'wrapper' => array (
-			'width' => '80%',
+			'width' => '100%',
 			'class' => 'radio-as-thumb',
 			'id' => '',
 		),
@@ -114,7 +114,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 			), 
 		),
 		'wrapper' => array (
-			'width' => '20%',
+			'width' => '100%',
 			'class' => 'radio-with-thumb',
 			'id' => '',
 		),
@@ -123,7 +123,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 		'allow_null' => 0,
 		'other_choice' => 0,
 		'save_other_choice' => 0, 
-		'layout' => 'vertical',
+		'layout' => 'horizontal',
 		'return_format' => 'value',
 	);
 
