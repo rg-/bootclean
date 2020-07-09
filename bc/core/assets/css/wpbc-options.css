@@ -1,3 +1,9 @@
+body.wpbc_theme_settings .acf-postbox.seamless {
+  padding: 0 1.2rem;
+  border: 1px solid #ccd0d4 !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04) !important;
+  background-color: #fff !important; }
+
 .wpbc-badge {
   display: inline-block;
   background-color: #e97f02;

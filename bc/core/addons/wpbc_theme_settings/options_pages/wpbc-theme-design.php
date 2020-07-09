@@ -1,23 +1,25 @@
-<?php
-/*
+<?php 
 
-	Layout 
+$args = WPBC_get_theme_settings_args();
 
-	This settings involves how layout it´s made for every template in use.
+if( function_exists('acf_add_options_page') ) { 
+ 
+		$child_page = acf_add_options_sub_page(array(
 
-	See on bc/core/template-builder 
+			'page_title'  => __('Design Settings','bootclean'),
+      'menu_title'  => __('Design','bootclean'), 
+      'menu_slug' => 'wpbc-theme-settings-design',
+      'parent_slug' => $args['options_page']['menu_slug'],
+      'capability' => 'edit_theme_options',
 
-		- /constructor/filters/layout-structure.php
-		- /functions.php > WPBC_get_layout_structure_build_layout
+		));  
 
-*/
+}  
 
-$use_settings_layout = apply_filters('wpbc/filter/theme-settings/enable/layout','__return_true');
-if($use_settings_layout){
-	add_filter('wpbc/filter/theme-settings/fields', 'wpbc_theme_settings__layout_tab', 30, 1); 
-	add_filter('wpbc/filter/theme-settings/fields', 'wpbc_theme_settings__layout_locations_header', 35, 1);
-	add_filter('wpbc/filter/theme-settings/fields', 'wpbc_theme_settings__layout_locations', 36, 1); 
-} 
+add_filter('wpbc/filter/theme_settings/design_fields', 'wpbc_theme_settings__layout_tab', 30, 1); 
+add_filter('wpbc/filter/theme_settings/design_fields', 'wpbc_theme_settings__layout_locations_header', 35, 1);
+add_filter('wpbc/filter/theme_settings/design_fields', 'wpbc_theme_settings__layout_locations', 36, 1);
+
 function wpbc_theme_settings__layout_tab($fields){  
 	$icon = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 5v14h19V5H3zm2 2h15v4H5V7zm0 10v-4h4v4H5zm6 0v-4h9v4h-9z"/></svg>';
 	$fields[] = WPBC_acf_make_tab_field(
@@ -123,4 +125,35 @@ function wpbc_theme_settings__layout_locations($fields){
 
 	return $fields;
 }
- 
+
+
+
+if( function_exists('acf_add_local_field_group') ){   
+
+	$fields = WPBC_get_theme_settings_design_fields(); 
+	$menu_slug = $child_page['menu_slug'];
+
+	acf_add_local_field_group(array(
+		'key' => 'group_wpbc_theme_settings_design',
+		'title' => __('Design Settings','bootclean'),
+		'fields' => $fields,
+		'location' => array(
+			array(
+				array(
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'wpbc-theme-settings-design',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+	));
+
+}

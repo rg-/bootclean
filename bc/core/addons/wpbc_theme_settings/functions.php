@@ -1,5 +1,39 @@
 <?php
 
+/*
+ *
+ * @function WPBC_get_theme_settings_args
+ *
+ * @filter
+ *
+*/
+function WPBC_get_theme_settings_args($key=''){
+
+	$args = array();
+	
+	$args['options_page'] = array(
+		'page_title' => __('Site Settings','bootclean'),
+		'menu_title'  => __('Site Settings','bootclean'), 
+		'menu_slug' => 'wpbc-theme-settings',
+		'capability' => 'edit_theme_options',
+		'position' => '2.2',
+		'icon_url' => get_template_directory_uri().'/images/theme/bootclean-iso-color-@2.png',
+		'redirect'    => false,  
+	);   
+	
+	$args = apply_filters('wpbc/filter/theme_settings/args',$args);
+
+	if(!empty($key)){
+		$return = !empty($args[$key]) ? $args[$key] : '';
+	}else{
+		$return = $args;
+	}
+
+	return $return;
+
+} 
+
+
 // $key = "defaults", "_template_builer", "page", "post", "category", etc..
 function WPBC_acf_get_layout_location_default_value($key){ 
 	$locations = WPBC_get_layout_locations(); 
@@ -131,40 +165,15 @@ function WPBC_acf_make_tab_field($args){
 
 function WPBC_get_theme_settings_fields(){ 
 	$fields = array();  
-	$fields = apply_filters('wpbc/filter/theme-settings/fields',$fields); 
+	$fields = apply_filters('wpbc/filter/theme_settings/fields',$fields); 
 	return $fields; 
-}
+}  
 
-
-
-/*
- *
- * @function WPBC_get_theme_settings_args
- *
- * @filter
- *
-*/
-function WPBC_get_theme_settings_args($key=''){
-
-	$args = array(
-		'page_title' => __('Theme Settings','bootclean-child'),
-		'menu_slug' => 'wpbc-theme-settings',
-		'capability' => 'edit_theme_options',
-		'position' => '2.2',
-		'icon_url' => get_template_directory_uri().'/images/theme/bootclean-iso-color-@2.png',
-	);
-	$args = apply_filters('wpbc/filter/theme-settings/options_page',$args);
-
-	if(!empty($key)){
-		$return = !empty($args[$key]) ? $args[$key] : '';
-	}else{
-		$return = $args;
-	}
-
-	return $return;
-
-} 
- 
+function WPBC_get_theme_settings_design_fields(){ 
+	$fields = array();  
+	$fields = apply_filters('wpbc/filter/theme_settings/design_fields',$fields); 
+	return $fields; 
+}  
 
 $locations = WPBC_get_layout_locations(); 
 foreach ($locations as $key => $value) { 

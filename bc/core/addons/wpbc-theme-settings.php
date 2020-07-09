@@ -16,9 +16,7 @@ define( 'WPBC_THEME_SETTINGS_ACTIVE', $use_wpbc_theme_settings );
 if($use_wpbc_theme_settings){
  
 	include('wpbc_theme_settings/functions.php');
-	include('wpbc_theme_settings/enqueue.php'); 
-	include('wpbc_theme_settings/fields.php'); 
-	include('wpbc_theme_settings/options_page.php');
-	include('wpbc_theme_settings/groups.php'); 
+	include('wpbc_theme_settings/enqueue.php');   
+	include('wpbc_theme_settings/options_pages.php');
 
 }

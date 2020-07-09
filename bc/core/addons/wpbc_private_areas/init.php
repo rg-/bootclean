@@ -133,29 +133,44 @@ function WPBC_private_areas__rest_authentication_errors( $result ) {
 }
 // add_filter( 'rest_authentication_errors', 'WPBC_private_areas__rest_authentication_errors', 99 );
 
-
-
-function WPBC_private_areas_allowed_roles(){
-	$allowed_roles = array(
+function WPBC_private_areas_default_allowed_roles(){
+	$default_allowed_roles = array(
 		'administrator',
 		'subscriber'
 	);
+	// If Woocommerce, add the shop manager role to defaults.
+	if( WPBC_is_woocommerce_active() ){
+		$default_allowed_roles[] = 'shop_manager';
+	}
+	$default_allowed_roles = apply_filters( 'WPBC/filter/private_areas/default_allowed_roles', $default_allowed_roles );
+	return $default_allowed_roles;
+}
+
+function WPBC_private_areas_allowed_roles(){
+	$allowed_roles = WPBC_private_areas_default_allowed_roles();
 	$allowed_roles = apply_filters( 'WPBC/filter/private_areas/allowed_roles', $allowed_roles );
 	return $allowed_roles;
 } 
 
 function WPBC_private_areas_if_allowed_user(){ 
 	$allowed_roles = WPBC_private_areas_allowed_roles(); 
-	$user = get_userdata( get_current_user_id() );
-	if( ! $allowed_roles || ! $user->roles ){
-	    return false;
+	$current_user_id = get_current_user_id();
+	$return = false;
+	if($current_user_id){
+		$user = get_userdata( $current_user_id );
+		if($user){
+			if( ! $allowed_roles || ! $user->roles ){
+	    	$return = false;
+			} 
+			if( is_array( $allowed_roles ) ){
+			    $return = array_intersect( $allowed_roles, (array) $user->roles ) ? true : false;
+			} 
+			$return = in_array( $allowed_roles, (array) $user->roles );
+		}
 	} 
-	if( is_array( $allowed_roles ) ){
-	    return array_intersect( $allowed_roles, (array) $user->roles ) ? true : false;
-	} 
-	return in_array( $allowed_roles, (array) $user->roles );
+	return $return;
 } 
-
+ 
 
 /*
 	

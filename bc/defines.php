@@ -37,3 +37,14 @@ define('BLOG_URI', esc_url( home_url() ) );
 define('IMG_URI', THEME_URI.'/images' ); // ??
 
 
+// WPBC_WOOCOMMERCE_ACTIVE
+// Add new constant that returns true if WooCommerce is active
+define( 'WPBC_WOOCOMMERCE_ACTIVE', class_exists( 'WooCommerce' ) ); 
+
+function WPBC_is_woocommerce_active(){
+	if ( 'WPBC_WOOCOMMERCE_ACTIVE' ) {
+		return true;
+	}else{
+		return false;
+	}
+}

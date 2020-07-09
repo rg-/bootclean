@@ -11,7 +11,7 @@ if( !isset($_GET['redirect_to']) && isset($_GET['private']) && !WPBC_private_are
 			'dismiss' => false,
 		); 
 	}
-	if( !WPBC_child_bypass_private() && WPBC_private_areas_if_allowed_user()  ){
+	if( !WPBC_private_areas_if_bypass() && WPBC_private_areas_if_allowed_user()  ){
 		if(WPBC_private_areas__if_allowed_page($post->ID)){
 	 		$alert_args = array(
 				'class' => 'alert-success',

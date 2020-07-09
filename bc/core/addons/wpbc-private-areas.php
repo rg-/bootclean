@@ -21,8 +21,6 @@ if($use_wpbc_private_areas){
 
 	include('wpbc_private_areas/init.php'); 
 
-	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){
-		 //include('wpbc_private_areas/theme-settings.php');
-	} 
+	include('wpbc_private_areas/options_page.php'); 
 	
 }

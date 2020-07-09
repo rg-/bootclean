@@ -6,22 +6,11 @@
 
 	added jun 2020 
 
-*/
-
-// Add new constant that returns true if WooCommerce is active
-define( 'WPBC_WOOCOMMERCE_ACTIVE', class_exists( 'WooCommerce' ) ); 
-
-function WPBC_is_woocommerce_active(){
-	if ( WPBC_WOOCOMMERCE_ACTIVE ) {
-		return true;
-	}else{
-		return false;
-	}
-} 
+*/  
 
 /* Safe use Woo conditionals */ 
 
-if ( WPBC_WOOCOMMERCE_ACTIVE ) {
+if ( WPBC_is_woocommerce_active() ) {
 		
 		// Make theme compatible with Woocomerce
 		add_action( 'after_setup_theme', function() {

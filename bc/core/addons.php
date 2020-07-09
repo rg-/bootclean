@@ -7,7 +7,7 @@ $WPBC_is_acf = WPBC_is_acf();
 	theme settingss addon (if installed)	
 
 */
-require "addons/wpbc-theme-settingss.php";
+require "addons/wpbc-theme-settings.php";
 /*
 
 	private areas addon (if installed)	
