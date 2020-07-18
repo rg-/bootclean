@@ -16,7 +16,7 @@ include('acf/functions.php');
 include('acf/reusable-fields.php');
 include('acf/layouts.php');
 include('acf/groups.php');
-
+include('acf/extends.php');
 
 
 if( !function_exists('WPBC_ACF_FORM') ){

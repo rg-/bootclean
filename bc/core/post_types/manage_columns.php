@@ -80,8 +80,9 @@ function wpbc_get_template_settings_for_columns($layout, $id){
   if(!empty($title)){
   	$out = "<p><small><b>".$title.": </b><br><span style='display:inline-block; padding-left:5px;'>".$t_out."</span></small></p>";
   }
+  $out = '';
   if($layout=='ajax_navigation'){ 
- 
+ 		
   	if(function_exists('WPBC_ajax_navigation_pjax__is_enabled')){
   		$out = '<p style="margin-top:10px; padding-top:5px;"><small><b>Page Navigation: </b></small></p>';	
   		if(WPBC_ajax_navigation_pjax__is_enabled($id)){

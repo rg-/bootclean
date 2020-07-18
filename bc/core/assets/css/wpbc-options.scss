@@ -5,16 +5,7 @@ $secondary: #8A9B0F ;
 $gray-100: #dcdcdc;
 $gray-200: #eee;
 $gray-300: #ddd;
-$gray-700: #777;
-
-body.wpbc_theme_settings .acf-postbox {
-	&.seamless{
-		padding:0 1.2rem;
-		border: 1px solid #ccd0d4!important;
-    box-shadow: 0 1px 1px rgba(0,0,0,.04)!important;
-    background-color: #fff!important;
-	}
-}
+$gray-700: #777; 
 
 .wpbc-badge{
 	display: inline-block;
@@ -23,6 +14,9 @@ body.wpbc_theme_settings .acf-postbox {
 	padding:3px 5px;
 	font-size: 10px;
 	text-transform: uppercase;
+	&.secondary{
+		background-color: $secondary;
+	}
 }
 .acf-accordion{
 	.wpbc-badge{
@@ -253,3 +247,14 @@ body.wpbc_theme_settings .acf-postbox {
 
 } 
    
+.radio-as-thumb{
+
+	.radio-as-thumb-svg{
+		padding: 10px 8px 5px 8px;
+		svg{
+			width: 38px;
+			height: auto;
+		}
+	}
+
+}

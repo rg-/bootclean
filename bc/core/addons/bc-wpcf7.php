@@ -69,3 +69,29 @@ function WPBC_wpcf7_default_template($template, $prop){
 	}
 	return $template; 
 }  
+
+
+
+add_action('wp_footer', 'WPBC_wpcf7_wp_footer_scripts', 99);
+
+function WPBC_wpcf7_wp_footer_scripts(){
+	?>
+<script id="WPBC_wpcf7_wp_footer_scripts">
++function(t){  
+	$(document).on('focus', '.wpcf7-form .m-form-control-animated', function(e){
+		  $(this).closest('.m-form-group').addClass('focused');
+	});
+	$(document).on('blur', '.wpcf7-form .m-form-control-animated', function(e){
+		if(this.value == ""){
+		  $(this).closest('.m-form-group').removeClass('focused');
+		}
+	});
+	$(document).on('input', '.wpcf7-form .m-form-control-animated', function(e){
+		if(this.value == ""){
+		  $(this).closest('.m-form-group').removeClass('focused');
+		}
+	});
+	}(jQuery); 
+</script>
+	<?php
+}

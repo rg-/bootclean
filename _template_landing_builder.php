@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Content Builder
+ * Template Name: Landing Builder Page
  *
  */
 ?>

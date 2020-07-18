@@ -28,6 +28,8 @@ function WPBC_get_navbar_affix_attrs($params=array()){
 		$attrs .= ' data-affix-scrollify="'. ( $data['scrollify'] ? 'true' : 'false' ) .'" '; 
 		$attrs .= ' data-affix-breakpoint="'. $data['breakpoint'] .'" '; 
 		
+		$attrs .= ' data-affix-target="'. ( $data['target'] ? $data['target'] : '' ) .'" '; 
+
 		return $attrs;
 	}
 }

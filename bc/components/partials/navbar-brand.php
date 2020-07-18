@@ -1,7 +1,9 @@
 <?php 
 $image = $params['image'];
 if($image){
-	$brand = '<img class="' . $params['image_class'] . '" src="' . $params['image'] . '" alt="'. $params['image_alt'] .'"/> <span class="navbar-brand-title align-self-center p-2">'. $params['title'] .'</span>';
+	$width = !empty($params['image_width']) ? 'width="'.$params['image_width'].'"' : '';
+	$height = !empty($params['image_height']) ? 'width="'.$params['image_height'].'"' : '';
+	$brand = '<img '.$width.' '.$height.' class="' . $params['image_class'] . '" src="' . $params['image'] . '" alt="'. $params['image_alt'] .'"/> <span class="navbar-brand-title align-self-center p-2">'. $params['title'] .'</span>';
 }else{
 	$brand = $params['title'];
 }

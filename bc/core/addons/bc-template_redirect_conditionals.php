@@ -20,6 +20,22 @@
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  
 
+
+$use_wpbc_mainteneance_mode = apply_filters('wpbc/filter/mainteneance_mode/installed', 1);
+
+if(!$use_wpbc_mainteneance_mode) return; 
+
+add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
+
+		$addon[] = array(
+			'name' => 'mainteneance_mode',
+			'title' => __('Mainteneance Mode','bootclean'), 
+		);
+
+		return $addon;
+	},10,1);
+
+
 add_shortcode('get__bc_admin_mainteneance_html','get__bc_admin_mainteneance_html_fx');
 function get__bc_admin_mainteneance_html_fx($atts, $content=null){ 
 	extract(shortcode_atts(array(

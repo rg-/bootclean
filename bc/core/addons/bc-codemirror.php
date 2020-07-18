@@ -22,6 +22,21 @@
   
 */
 
+$use_wpbc_code_mirror = apply_filters('wpbc/filter/code_mirror/installed', 1);
+
+if(!$use_wpbc_code_mirror) return;
+
+
+add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
+
+		$addon[] = array(
+			'name' => 'code_mirror',
+			'title' => __('Code Mirror for fields','bootclean'), 
+		);
+
+		return $addon;
+	},10,1);
+
 $code_mirror_fields_apply = array(
 	'bc_default_code_header' => 'md',
 	'bc_default_code_footer' => 'md',

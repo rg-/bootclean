@@ -14,10 +14,13 @@
 */
 require BC_WP_DIR . 'core/functions.php'; 
 
+require BC_WP_DIR . 'core/theme-settings.php'; 
+
 require BC_WP_DIR . 'core/theme-helpers.php'; 
 
 require BC_WP_DIR . 'core/admin.php';
 
+require BC_WP_DIR . 'core/template-landing-builder.php';
 require BC_WP_DIR . 'core/template-builder.php';
 require BC_WP_DIR . 'core/template-tags-init.php';
 

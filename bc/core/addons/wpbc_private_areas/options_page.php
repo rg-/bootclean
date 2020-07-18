@@ -1,5 +1,13 @@
 <?php
 
+add_filter('acf/load_field', 'WPBC_acf_read_only');
+function WPBC_acf_read_only($field) {
+	if(!empty($field['readonly'])){
+		// $field['disabled'] = 'disabled';
+	}
+	return $field;
+}
+
 function WPBC_private_areas_get_woo_conditions(){
 	$woo_conditions = array(
 
@@ -13,29 +21,23 @@ function WPBC_private_areas_get_woo_conditions(){
 
 	);
 	return apply_filters('wpbc/filter/private_areas/woo_conditions',$woo_conditions);
-}
+} 
 
-function WPBC_private_areas_get_svg_icon($fill='#000000'){
-	return '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill='.$fill.' d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>';
-}
-function WPBC_private_areas_get_svg_icon_open($fill='#000000'){
-	return '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill='.$fill.' d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/></svg>';
-}
-
+$private_areas_options_page = apply_filters('wpbc/filter/private_area/args', array());
 
 if( function_exists('acf_add_options_page') ) {
 
 	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){
 	
-		$args = WPBC_get_theme_settings_args();
+		$args = WPBC_get_theme_settings_args(); 
 
 		$child_page = acf_add_options_sub_page(array(
 
-			'page_title'  => WPBC_private_areas_get_svg_icon().__('Private Areas','bootclean'),
-      'menu_title'  => WPBC_private_areas_get_svg_icon('white').__('Private Areas','bootclean'), 
-      'menu_slug' => 'wpbc-private-areas-settings',
+			'page_title'  => $args['options_page']['page_title'] .' > '. $private_areas_options_page['page_title'],
+      'menu_title'  => $private_areas_options_page['menu_title'], 
+      'menu_slug' => $private_areas_options_page['menu_slug'],
       'parent_slug' => $args['options_page']['menu_slug'],
-      'capability' => 'edit_theme_options',
+      'capability' => $private_areas_options_page['capability'],
 
 		)); 
 
@@ -44,13 +46,13 @@ if( function_exists('acf_add_options_page') ) {
 			return $in_pages;
 		},10,1);
 
-	} else{
+	} else {
 
 		$args = array(
-			'page_title'  => WPBC_private_areas_get_svg_icon().__('Private Areas','bootclean'),
-      'menu_title'  => WPBC_private_areas_get_svg_icon().__('Private Areas','bootclean'), 
-      'menu_slug' => 'wpbc-private-areas-settings',
-			'capability' => 'edit_theme_options',
+			'page_title'  => $args['options_page']['page_title'] .' > '. $private_areas_options_page['page_title'],
+      'menu_title'  => $private_areas_options_page['menu_title'], 
+      'menu_slug' => $private_areas_options_page['menu_slug'],
+			'capability' => $private_areas_options_page['capability'],
 		);
 		
 		acf_add_options_page($args);
@@ -73,8 +75,26 @@ function WPBC_private_areas_settings_fields(){
 	$fields = array();
 
 	$fields[] = array (
+		'key' => 'field_wpbc_private_areas__allowed_roles_group_title',
+		'label' => '<h2>'.WPBC_get_svg_icon('lock').' Private Areas <u>Bootclean</u> Addon</h2>',
+		'name' => '', 
+		'type' => 'message',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'wpbc-group_title',
+			'id' => '',
+		),
+		'message' => 'Make your site a "members" only accessible content.',
+		'new_lines' => 'wpautop',
+		'esc_html' => 0,
+	);   
+
+	$fields[] = array (
 		'key' => 'field_wpbc_private_areas__allowed_roles_headline',
-		'label' => '<h3>Allowed Roles</h3>',
+		'label' => '<h3>'.WPBC_get_svg_icon('how_to_reg').' Allowed Roles</h3>',
 		'name' => '', 
 		'type' => 'message',
 		'instructions' => '',
@@ -98,23 +118,51 @@ function WPBC_private_areas_settings_fields(){
 		$default_value = 0;
 		if(in_array($key, $default_allowed_roles)){
 			$default_value = 1;
+ 		
+ 			/*
 			$fields[] = array (
 				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
 				'label' => $value,
 				'name' => 'wpbc_private_areas__allowed_roles__'.$key,
-				'type' => 'message',
+				'type' => 'text',
+				'instructions' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#0cad0a" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg> Allowed *',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '20%',
+					'class' => 'wpbc-hidden-input',
+					'id' => '',
+				), 
+				'readonly' => true,
+				'default_value' => $default_value,
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			);
+			*/
+
+			$fields[] = array (
+				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
+				'label' => $value.' *',
+				'name' => 'wpbc_private_areas__allowed_roles__'.$key,
+				'type' => 'true_false_advanced',
 				'instructions' => '',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
 					'width' => '20%',
-					'class' => '',
-					'id' => '',
-				),
-				'message' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#0cad0a" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg> Allowed *',
-				'new_lines' => 'wpautop',
-				'esc_html' => 0,
+					'class' => 'wpbc-true_false-ui ui-success',
+					'id' => '', 
+				), 
+				'disabled' => true,
+				'message' => '',
+				'default_value' => $default_value,
+				'ui' => 1,
+				'ui_on_text' => '',
+				'ui_off_text' => '',
 			);
+
 		}else{
 			$fields[] = array (
 				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
@@ -152,7 +200,7 @@ function WPBC_private_areas_settings_fields(){
 			'class' => 'wpbc-acf-no-label',
 			'id' => '',
 		),
-		'message' => '<small>(*) This users roles can´t be changed from here.</small>',
+		'message' => '<small>(*) This users roles can´t be changed from here. </small>',
 		'new_lines' => 'wpautop',
 		'esc_html' => 0,
 	);
@@ -160,7 +208,7 @@ function WPBC_private_areas_settings_fields(){
 
 	$fields[] = array (
 		'key' => 'field_wpbc_private_areas__redirect_url_headline',
-		'label' => '<h3>Redirects</h3>',
+		'label' => '<h3>'.WPBC_get_svg_icon('login').' Redirects</h3>',
 		'name' => '', 
 		'type' => 'message',
 		'instructions' => '',
@@ -412,7 +460,7 @@ function WPBC_private_areas_settings_fields(){
 
 	$fields[] = array (
 		'key' => 'field_wpbc_private_areas__bypass_headline',
-		'label' => '<h3>'.WPBC_private_areas_get_svg_icon_open().' Allowed <u>not-private</u> pages/urls</h3>',
+		'label' => '<h3>'.WPBC_get_svg_icon('lock_open').' Allowed <u>not-private</u> pages/urls</h3>',
 		'name' => '', 
 		'type' => 'message',
 		'instructions' => '',
@@ -430,10 +478,10 @@ function WPBC_private_areas_settings_fields(){
 
 	$fields[] = array(
 		'key' => 'field_wpbc_private_areas__bypass_post_object',
-		'label' => 'Bypass this Pages',
+		'label' => 'Allow this Pages',
 		'name' => 'wpbc_private_areas__bypass_post_object',
 		'type' => 'post_object',
-		'instructions' => 'Remember that every page (edit) has also it´s own selector '.WPBC_private_areas_get_svg_icon().' to choose to be or not to be a private page.',
+		'instructions' => 'Remember that every page (edit) has also it´s own selector to choose to be or not to be a private page.',
 		'required' => 0,
 		'conditional_logic' => 0,
 		'wrapper' => array(
@@ -454,10 +502,10 @@ function WPBC_private_areas_settings_fields(){
 
 	$fields[] = array (
 		'key' => 'field_wpbc_private_areas__bypass_repeater_field',
-		'label' => 'Bypass this Urls',
+		'label' => 'Allow this Urls',
 		'name' => 'wpbc_private_areas__bypass_repeater_field',
 		'type' => 'repeater',
-		'instructions' => 'If for some reason the bypass url you need is not part of WP core posts objects, then, use this fields. Take care.',
+		'instructions' => 'If for some reason the allowed url you need is not part of WP core posts objects, then, use this fields. Take care.',
 		'required' => 0,
 		'conditional_logic' => 0,
 		'wrapper' => array (
@@ -495,7 +543,7 @@ function WPBC_private_areas_settings_fields(){
 
 		$fields[] = array (
 			'key' => 'field_wpbc_private_areas__bypass_headline_woo',
-			'label' => '<hr>Bypass extended <br><br><span class="wpbc-badge">Woocommerce detected</span>',
+			'label' => '<hr><br>Allowed extended <br><br><span class="wpbc-badge">Woocommerce detected</span>',
 			'name' => '', 
 			'type' => 'message',
 			'instructions' => '',

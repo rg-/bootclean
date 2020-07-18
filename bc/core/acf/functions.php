@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 
 function WPBC_group_builder__layout($fields = array()){  
 	return apply_filters('WPBC_group_builder__layout', $fields);

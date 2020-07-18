@@ -455,7 +455,13 @@ function WPBC_insert_page_builder__admin_menu() {
       'edit_posts',
       'wpbc-edit-new-page-builder',
       'WPBC_insert_page_builder_function_output' );
-
+  add_submenu_page(
+      'edit.php?post_type=page',
+      'New Landing Page',
+      'New Landing Page',
+      'edit_posts',
+      'wpbc-edit-new-landing-page',
+      'WPBC_insert_landing_function_output' );
   add_submenu_page(
       'edit.php?post_type=page',
       'Page Builder +',
@@ -467,15 +473,39 @@ function WPBC_insert_page_builder__admin_menu() {
 
 function WPBC_insert_page_builder_function_output() { 
 	$my_post = array( 
-		//'post_title' => 'AAA Testing',
+		'post_title' => 'New Page Builder',
 	  'post_type' => 'page', 
 	); 
 	$post_id = wp_insert_post( $my_post ); 
 	$post_edit_link = '';
 	if( !is_wp_error($post_id) ) {
 		update_post_meta( $post_id, '_wp_page_template', '_template_builder.php' );  
-		$post_edit_link = '/post.php?post='.$post_id.'&action=edit'; 
-		wp_redirect( admin_url( $post_edit_link ) ); 
+		$post_edit_link = 'post.php?post='.$post_id.'&action=edit'; 
+		echo "Redirecting: ".get_admin_url().$post_edit_link;  
+		?>
+		<script type="text/javascript">
+		window.location = '<?php echo get_admin_url().$post_edit_link; ?>';
+		</script>
+		<?php
+	} 
+  exit;
+} 
+function WPBC_insert_landing_function_output() { 
+	$my_post = array( 
+		'post_title' => 'New Landing Page',
+	  'post_type' => 'page', 
+	); 
+	$post_id = wp_insert_post( $my_post ); 
+	$post_edit_link = '';
+	if( !is_wp_error($post_id) ) {
+		update_post_meta( $post_id, '_wp_page_template', '_template_landing_builder.php' );  
+		$post_edit_link = 'post.php?post='.$post_id.'&action=edit'; 
+		echo "Redirecting: ".get_admin_url().$post_edit_link;  
+		?>
+		<script type="text/javascript">
+		window.location = '<?php echo get_admin_url().$post_edit_link; ?>';
+		</script>
+		<?php
 	} 
   exit;
 } 

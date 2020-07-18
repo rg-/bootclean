@@ -76,8 +76,7 @@ add_filter("WPBC_shortcode_list__XX", function ($shortcode_list) {
 
 */
 function WPBC_get_template_parts($part, $args=''){
-	$out = '';
-
+	$out = ''; 
 	$folder_part = !empty($args['folder_part']) ? $args['folder_part'] : 'template-parts';
 	
 	$file_uri = get_template_directory_uri().'/'.$folder_part;

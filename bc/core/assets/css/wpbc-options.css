@@ -1,9 +1,3 @@
-body.wpbc_theme_settings .acf-postbox.seamless {
-  padding: 0 1.2rem;
-  border: 1px solid #ccd0d4 !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04) !important;
-  background-color: #fff !important; }
-
 .wpbc-badge {
   display: inline-block;
   background-color: #e97f02;
@@ -11,6 +5,8 @@ body.wpbc_theme_settings .acf-postbox.seamless {
   padding: 3px 5px;
   font-size: 10px;
   text-transform: uppercase; }
+  .wpbc-badge.secondary {
+    background-color: #8A9B0F; }
 
 .acf-accordion .wpbc-badge {
   background-color: #777; }
@@ -161,5 +157,11 @@ body.wpbc_theme_settings .acf-postbox.seamless {
 .radio-as-thumb .acf-radio-list .wpbc-input-as-thumb--description {
   font-size: 10px;
   line-height: 13px; }
+
+.radio-as-thumb .radio-as-thumb-svg {
+  padding: 10px 8px 5px 8px; }
+  .radio-as-thumb .radio-as-thumb-svg svg {
+    width: 38px;
+    height: auto; }
 
 /*# sourceMappingURL=wpbc-options.css.map */

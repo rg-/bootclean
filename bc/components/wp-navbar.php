@@ -14,6 +14,8 @@ $params are passed when using this via:
 // reduce names:
 $_p = $params; 
 
+// _print_code($_p);
+
 /*
 
 	Change things when using ontemplate expand aside way
@@ -92,6 +94,8 @@ $is_main = isset($_p['is_main']) ? true : false;
 			'image' => '',
 			'image_class' => 'navbar-brand-img',
 			'image_alt' => '',
+			'image_width' => '',
+			'image_height' => '',
 			'class' => 'd-flex navbar-brand',
 			'title' => get_bloginfo('name'),
 			'href' => get_bloginfo('url'),
@@ -146,6 +150,8 @@ $is_main = isset($_p['is_main']) ? true : false;
 	*/
 	$_p = apply_filters('WPBC_component_defaults__navbar_'.$_p['id'], $_p);
 	 
+	// _print_code($_p);
+
 	// ID // TODO, see how to deal when no id on the toggle collapse target
 	$div_attrs = ' id="'.$_p['id'].'"'; 
 	

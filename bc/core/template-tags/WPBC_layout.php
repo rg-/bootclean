@@ -73,7 +73,7 @@ add_action('wpbc/head/scripts', 'action__wpbc_head_scripts_config', 10);
 add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__loader', 10); 
 	
 	function action__wpbc_layout_body_start__loader(){
-		get_template_part( 'template-parts/layout/body-loader' ); 
+		get_template_part( 'template-parts/layout/body-loader' );  
 	}
 
 add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__main_content_start', 20); 

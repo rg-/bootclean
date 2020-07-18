@@ -17,8 +17,22 @@
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  
+ 
+$use_wpbc_duplicate_post = apply_filters('wpbc/filter/duplicate_post/installed', 1);   
 
-if( ! class_exists('bc_duplicate_posts') ) :
+if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
+
+	add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
+
+		$addon[] = array(
+			'name' => 'duplicate_post',
+			'title' => __('Duplicate Post','bootclean'),
+			// 'url' => menu_page_url('wpbc-theme-settings',false),
+		);
+
+		return $addon;
+	},10,1);
+
 	class bc_duplicate_posts {  
 		public function __construct() {  
 			

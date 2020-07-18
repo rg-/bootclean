@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bootclean\n"
-"POT-Creation-Date: 2020-07-04 14:43-0300\n"
-"PO-Revision-Date: 2020-07-04 14:43-0300\n"
+"POT-Creation-Date: 2020-07-13 01:28-0300\n"
+"PO-Revision-Date: 2020-07-13 01:32-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 "<b>Bootclean </b> utiliza ACF para una mejor experiencia de personalización, "
 "sin él perderá muchas características adicionales."
 
-#: ../bc/components/wp-navbar.php:111
+#: ../bc/components/wp-navbar.php:115
 #: ../template-parts/components/collapse-custom/collapse.php:28
 msgid "Toggle navigation"
 msgstr "Navegación de palanca"
@@ -62,48 +62,13 @@ msgstr "Diseño del tema"
 msgid "Several settings pertaining to layout."
 msgstr "Varios ajustes relacionados con el diseño."
 
-#: ../bc/core/acf/group-fields.php:269
-msgid "Choose Type"
-msgstr "Elegir Tipo"
+#: ../bc/core/template-landing-builder.php:8
+msgid "Page Header"
+msgstr "Cabezal de la página"
 
-#: ../bc/core/acf/group-fields.php:281 ../bc/core/acf/reusable-fields.php:723
-#: ../bc/core/acf/reusable-fields.php:728
-msgid "None"
-msgstr "Ninguno"
-
-#: ../bc/core/acf/group-fields.php:282
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:79
-#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:81
-msgid "Template"
-msgstr "Template"
-
-#: ../bc/core/acf/group-fields.php:283
-msgid "HTML"
-msgstr "HTML"
-
-#: ../bc/core/acf/group-fields.php:463
-#: ../bc/core/theme-options-defaults/layout/main_content.php:75
-msgid "Container class"
-msgstr "Clase de Container"
-
-#: ../bc/core/acf/group-fields.php:491
-#: ../bc/core/theme-options-defaults/layout/main_content.php:83
-msgid "Container > Row class"
-msgstr "Container > Clase de fila"
-
-#: ../bc/core/acf/group-fields.php:519
-#: ../bc/core/theme-options-defaults/layout/main_content.php:91
-msgid "Main content column class"
-msgstr "Clase de columna de contenido principal"
-
-#: ../bc/core/acf/group-fields.php:547
-#: ../bc/core/theme-options-defaults/layout/main_content.php:99
-msgid "Secondary content column class"
-msgstr "Clase de columna de contenido secundario"
-
-#: ../bc/core/acf/groups.php:189
-msgid "Add Layout Row"
-msgstr "Agregar fila de diseño"
+#: ../bc/core/template-landing-builder.php:14
+msgid "Content"
+msgstr "Contenido"
 
 #: ../bc/core/acf/reusable-fields.php:483
 msgid ""
@@ -128,6 +93,12 @@ msgstr "Color texto"
 msgid "Type"
 msgstr "Tipo"
 
+#: ../bc/core/acf/reusable-fields.php:723
+#: ../bc/core/acf/reusable-fields.php:728
+#: ../bc/core/acf/groups/builder__layout_main_header.php:37
+msgid "None"
+msgstr "Ninguno"
+
 #: ../bc/core/acf/reusable-fields.php:724
 msgid "Normal Inview"
 msgstr "Inview Normal"
@@ -139,6 +110,90 @@ msgstr "Carga Ajax"
 #: ../bc/core/acf/reusable-fields.php:746
 msgid "Inview Effect"
 msgstr "Efecto Inview"
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:34
+msgid "True / False Advanced"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:93
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:173
+msgid "Yes"
+msgstr "Si"
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:94
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:188
+msgid "No"
+msgstr "No"
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:140
+msgid "Message"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:141
+msgid "Displays text alongside the checkbox"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:149
+msgid "Default Value"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:158
+msgid "Stylised UI"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:169
+msgid "On Text"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:170
+msgid "Text shown when active"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:184
+msgid "Off Text"
+msgstr ""
+
+#: ../bc/core/acf/extends/class-acf-field-true_false_advanced.php:185
+msgid "Text shown when inactive"
+msgstr ""
+
+#: ../bc/core/acf/groups/builder__flexible.php:66
+msgid "Add Layout Row"
+msgstr "Agregar fila de diseño"
+
+#: ../bc/core/acf/groups/builder__layout_main_content.php:81
+#: ../bc/core/theme-options-defaults/layout/main_content.php:75
+msgid "Container class"
+msgstr "Clase de Container"
+
+#: ../bc/core/acf/groups/builder__layout_main_content.php:109
+#: ../bc/core/theme-options-defaults/layout/main_content.php:83
+msgid "Container > Row class"
+msgstr "Container > Clase de fila"
+
+#: ../bc/core/acf/groups/builder__layout_main_content.php:137
+#: ../bc/core/theme-options-defaults/layout/main_content.php:91
+msgid "Main content column class"
+msgstr "Clase de columna de contenido principal"
+
+#: ../bc/core/acf/groups/builder__layout_main_content.php:165
+#: ../bc/core/theme-options-defaults/layout/main_content.php:99
+msgid "Secondary content column class"
+msgstr "Clase de columna de contenido secundario"
+
+#: ../bc/core/acf/groups/builder__layout_main_header.php:25
+msgid "Choose Type"
+msgstr "Elegir Tipo"
+
+#: ../bc/core/acf/groups/builder__layout_main_header.php:38
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:79
+#: ../bc/core/template-tags/wpbc_template_builder/post_type.php:81
+msgid "Template"
+msgstr "Template"
+
+#: ../bc/core/acf/groups/builder__layout_main_header.php:39
+msgid "HTML"
+msgstr "HTML"
 
 #: ../bc/core/acf/layouts/template_part_row.php:21
 msgid "Files under \"template-parts/theme/\" folder. (php only)"
@@ -157,29 +212,54 @@ msgstr ""
 msgid "Add Argument"
 msgstr "Agregar Argumento"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:108
+#: ../bc/core/addons/bc-codemirror.php:34
+msgid "Code Mirror for fields"
+msgstr ""
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:32
+msgid "Mainteneance Mode"
+msgstr "Modo Mantenimiento"
+
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:124
 msgid "Custom Bootclean settings"
 msgstr "Bootclean seteos customizados"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:116
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:132
 msgid "Website Visibility"
 msgstr "Visibilidad del sitio web"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:138
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:154
 msgid "Customize this feature under"
 msgstr "Personaliza esta característica bajo"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:139
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:155
 msgid "Options"
 msgstr "Opciones"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:139
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:155
 msgid "BC Mainteneance"
 msgstr "Mantenimiento BC"
 
-#: ../bc/core/addons/bc-template_redirect_conditionals.php:143
+#: ../bc/core/addons/bc-template_redirect_conditionals.php:159
 msgid "Only logged users can view this site."
 msgstr "Solo usuarios logeados pueden ver este sitio."
+
+#: ../bc/core/addons/bc_duplicate_posts.php:29
+msgid "Duplicate Post"
+msgstr ""
+
+#: ../bc/core/addons/wpbc-private-areas.php:24
+#: ../bc/core/addons/wpbc-private-areas.php:25
+#: ../bc/core/addons/wpbc-private-areas.php:36
+msgid "Private Areas"
+msgstr "Áreas Privadas"
+
+#: ../bc/core/addons/wpbc-theme-settings.php:20
+#: ../bc/core/addons/wpbc-theme-settings.php:21
+#: ../bc/core/addons/wpbc-theme-settings.php:43
+#: ../option-pages/site-settings.php:36
+msgid "Site Settings"
+msgstr "Configuración del Sitio"
 
 #: ../bc/core/addons/wpbc_get_query_posts/defaults.php:140
 #: ../bc/core/addons/wpbc_get_query_posts/defaults.php:141
@@ -246,15 +326,15 @@ msgstr "Resetear"
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../bc/core/addons/wpbc_private_areas/init.php:114
+#: ../bc/core/addons/wpbc_private_areas/init.php:117
 msgid "You're not authorized to access this site."
 msgstr ""
 
-#: ../bc/core/addons/wpbc_private_areas/init.php:114
+#: ../bc/core/addons/wpbc_private_areas/init.php:117
 msgid "Error"
 msgstr "Error"
 
-#: ../bc/core/addons/wpbc_private_areas/init.php:130
+#: ../bc/core/addons/wpbc_private_areas/init.php:133
 msgid "Only authenticated users can access the REST API."
 msgstr ""
 
@@ -388,8 +468,8 @@ msgid "Price"
 msgstr "Precio"
 
 #: ../bc/core/addons/wpbc_realstate/posts_columns.php:8
-#: ../bc/core/post_types/manage_columns.php:146
-#: ../bc/core/post_types/manage_columns.php:211
+#: ../bc/core/post_types/manage_columns.php:147
+#: ../bc/core/post_types/manage_columns.php:212
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
@@ -534,6 +614,20 @@ msgstr "Código"
 msgid "Resource Metadata"
 msgstr "Metadatos de Recursos"
 
+#: ../bc/core/addons/wpbc_theme_settings/options_pages/design-settings.php:9
+#: ../bc/core/addons/wpbc_theme_settings/options_pages/design-settings.php:138
+msgid "Design Settings"
+msgstr "Configuración de diseño"
+
+#: ../bc/core/addons/wpbc_theme_settings/options_pages/design-settings.php:10
+msgid "Design"
+msgstr "Diseño"
+
+#: ../bc/core/addons/wpbc_theme_settings/options_pages/design-settings.php:28
+#: ../bc/core/post_types/manage_columns.php:146
+msgid "Layout"
+msgstr "Diseño"
+
 #: ../bc/core/bootstrap/class-wp-bootstrap-navwalker.php:407
 msgid "Add a menu"
 msgstr "Agregar menú"
@@ -585,21 +679,25 @@ msgstr "Bienvenido"
 msgid "Hi, site is using <b>%1$s</b> theme."
 msgstr "Hola, estás usando el theme <b>%1$s</b>."
 
-#: ../bc/core/cleaner/dashboard.php:120
+#: ../bc/core/cleaner/dashboard.php:140
 msgid "cURL is installed."
 msgstr "cURL instalado"
 
-#: ../bc/core/cleaner/dashboard.php:122
+#: ../bc/core/cleaner/dashboard.php:142
 msgid "cURL is not installed."
 msgstr "cURL no instalado"
 
-#: ../bc/core/cleaner/dashboard.php:130
+#: ../bc/core/cleaner/dashboard.php:150
 msgid "allow_url_fopen is installed."
 msgstr "allow_url_fopen instalado"
 
-#: ../bc/core/cleaner/dashboard.php:132
+#: ../bc/core/cleaner/dashboard.php:152
 msgid "allow_url_fopen is not installed."
 msgstr "allow_url_fopen no instalado"
+
+#: ../bc/core/cleaner/dashboard.php:174
+msgid "No actived adddons used."
+msgstr ""
 
 #: ../bc/core/cleaner/login.php:202
 msgid "Back to"
@@ -613,13 +711,9 @@ msgstr "Editar bloque de contenido"
 msgid "Fixed Content Block"
 msgstr "Bloque de contenido fijo"
 
-#: ../bc/core/post_types/manage_columns.php:144
+#: ../bc/core/post_types/manage_columns.php:145
 msgid "Template used"
 msgstr "Plantilla usada"
-
-#: ../bc/core/post_types/manage_columns.php:145
-msgid "Layout"
-msgstr "Diseño"
 
 #: ../bc/core/setup/register_nav_menus.php:9
 msgid "Primary Menu"
@@ -1022,6 +1116,7 @@ msgid "No color selected by default."
 msgstr ""
 
 #: ../bc/core/theme-options/_test_default-options.php:276
+#: ../option-pages/site_settings/fields-typography.php:9
 msgid "Typography"
 msgstr ""
 
@@ -1528,46 +1623,6 @@ msgstr "Barra de navegación principal"
 msgid "Main Page Header"
 msgstr "Encabezado de la página principal"
 
-#: ../bc/core/woocommerce/acf.php:10 ../bc/core/woocommerce/acf.php:27
-msgid "Product Header"
-msgstr "Cabezal del Producto"
-
-#: ../bc/core/woocommerce/acf.php:38
-msgid ""
-"You can choose just one image or many, will be converted into a single "
-"header or a sliler one."
-msgstr ""
-"Puede elegir una o varias imágenes, se convertirá en un header simple o "
-"slider automáticamente."
-
-#: ../bc/core/woocommerce/acf.php:44
-msgid "Header Type"
-msgstr "Tipo Cabezal"
-
-#: ../bc/core/woocommerce/acf.php:57
-msgid "Use Featured Image"
-msgstr "Usar Imagen destacada"
-
-#: ../bc/core/woocommerce/acf.php:58
-msgid "Use Featured Image & Gallery"
-msgstr "Usar Imagen destacada & Galería"
-
-#: ../bc/core/woocommerce/acf.php:59
-msgid "Use Custom Image/Slider"
-msgstr "Usar Imagen personalizada/Slider"
-
-#: ../bc/core/woocommerce/acf.php:73
-msgid "Custom Image/Slider"
-msgstr "Imagen personalizada/Slider"
-
-#: ../bc/core/woocommerce/acf.php:111
-msgid "Product Preview"
-msgstr "Vista previa del producto"
-
-#: ../bc/core/woocommerce/acf.php:137
-msgid "Advaced Product Settings"
-msgstr "Configuración Avanzada de Productos"
-
 #: ../bc/core/woocommerce/functions.php:23
 msgid "Cart"
 msgstr "Carrito"
@@ -1575,6 +1630,80 @@ msgstr "Carrito"
 #: ../bc/core/woocommerce/functions.php:25
 msgid "View your shopping cart"
 msgstr "Ver tú carrito de compras"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:14
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:31
+msgid "Product Header"
+msgstr "Cabezal del Producto"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:42
+msgid ""
+"You can choose just one image or many, will be converted into a single "
+"header or a sliler one."
+msgstr ""
+"Puede elegir una o varias imágenes, se convertirá en un header simple o "
+"slider automáticamente."
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:48
+#: ../option-pages/site_settings/fields-header.php:33
+msgid "Header Type"
+msgstr "Tipo Cabezal"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:61
+msgid "Use Featured Image"
+msgstr "Usar Imagen destacada"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:62
+msgid "Use Featured Image & Gallery"
+msgstr "Usar Imagen destacada & Galería"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:63
+msgid "Use Custom Image/Slider"
+msgstr "Usar Imagen personalizada/Slider"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:77
+msgid "Custom Image/Slider"
+msgstr "Imagen personalizada/Slider"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:115
+msgid "Product Preview"
+msgstr "Vista previa del producto"
+
+#: ../bc/core/woocommerce/acf/woo_product_advanced.php:141
+msgid "Advaced Product Settings"
+msgstr "Configuración Avanzada de Productos"
+
+#: ../option-pages/site_settings/fields-custom-code.php:9
+msgid "Custom code"
+msgstr "Código customizado"
+
+#: ../option-pages/site_settings/fields-footer.php:9
+msgid "Footer"
+msgstr "Footer"
+
+#: ../option-pages/site_settings/fields-general.php:33
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: ../option-pages/site_settings/fields-general.php:54
+msgid "Page Preload Settings"
+msgstr "Configuración del Preloader de Página"
+
+#: ../option-pages/site_settings/fields-general.php:61
+msgid "Preloader"
+msgstr "Preloader"
+
+#: ../option-pages/site_settings/fields-general.php:69
+msgid "Preload image"
+msgstr "Imágen del preload"
+
+#: ../option-pages/site_settings/fields-header.php:9
+msgid "Header"
+msgstr "Cabezal"
+
+#: ../option-pages/site_settings/fields-header.php:26
+msgid "Header settings"
+msgstr "Configuración del Cabezal"
 
 #: ../template-parts/content-404.php:7
 msgid ""
@@ -1981,15 +2110,6 @@ msgstr "Propiedades relacionadas"
 #~ msgid "All News"
 #~ msgstr "Todas las Novedades"
 
-#~ msgid "Design"
-#~ msgstr "Diseño"
-
-#~ msgid "Yes"
-#~ msgstr "Si"
-
-#~ msgid "No"
-#~ msgstr "No"
-
 #, fuzzy
 #~ msgid "Architecture"
 #~ msgstr "Archivo"
@@ -2104,9 +2224,6 @@ msgstr "Propiedades relacionadas"
 #, fuzzy
 #~ msgid "Add New Offer Feature"
 #~ msgstr "Agregar Operación"
-
-#~ msgid "Footer"
-#~ msgstr "Footer"
 
 #, fuzzy
 #~ msgid "New Footer"
@@ -2313,9 +2430,6 @@ msgstr "Propiedades relacionadas"
 
 #~ msgid "Sidebar Posts"
 #~ msgstr "Sidebar para Novedades"
-
-#~ msgid "Sidebar Listings"
-#~ msgstr "Propiedades Sidebar"
 
 #~ msgid "Listing Zones"
 #~ msgstr "Zonas"

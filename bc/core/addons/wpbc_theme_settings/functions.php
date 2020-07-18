@@ -1,5 +1,46 @@
 <?php
 
+
+function WPBC_get_theme_settings_option($option){ 
+	return WPBC_get_field('field_wpbc_theme_settings__'.$option, 'options');
+}
+function WPBC_get_theme_settings_options_by($option_prefix=''){ 
+	global $wpdb;  
+	$option_like = 'options_wpbc_theme_settings__'.$option_prefix.'%';
+	$options_select_merge = array();
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}options WHERE option_name like '$option_like'", OBJECT );
+	if(!empty($results)){
+		foreach ($results as $key => $value) {  
+			$options_select_merge[$value->option_name] = $value->option_value;
+		}
+	}
+	return $options_select_merge;
+}
+
+
+function WPBC_include_option_page($template){
+	
+	$inc = false; 
+
+	$file_uri = get_template_directory_uri().'/option-pages/'.$template;
+	$file_path = get_template_directory().'/option-pages/'.$template;
+	
+	$child_file_uri = get_stylesheet_directory_uri().'/option-pages/'.$template;
+	$child_file_path = get_stylesheet_directory().'/option-pages/'.$template; 
+	
+	if( file_exists( $child_file_path.'.php' ) ){
+		$inc = $child_file_path.'.php'; 
+	}else{
+		if( file_exists( $file_path.'.php' ) ){
+			$inc = $file_path.'.php'; 
+		}
+	}
+	if($inc){
+
+		include($inc);
+	}
+}
+
 /*
  *
  * @function WPBC_get_theme_settings_args
@@ -9,17 +50,7 @@
 */
 function WPBC_get_theme_settings_args($key=''){
 
-	$args = array();
-	
-	$args['options_page'] = array(
-		'page_title' => __('Site Settings','bootclean'),
-		'menu_title'  => __('Site Settings','bootclean'), 
-		'menu_slug' => 'wpbc-theme-settings',
-		'capability' => 'edit_theme_options',
-		'position' => '2.2',
-		'icon_url' => get_template_directory_uri().'/images/theme/bootclean-iso-color-@2.png',
-		'redirect'    => false,  
-	);   
+	$args = array();   
 	
 	$args = apply_filters('wpbc/filter/theme_settings/args',$args);
 
@@ -135,32 +166,7 @@ function WPBC_acf_make_layout_location_group($args){
 	);
 
 	return $fields;
-}
-
-function WPBC_acf_make_tab_field($args){
-	
-	if(empty($args['key'])) return;
-
-	$defaults = array(
-		'key' => 'field_key',
-		'label' => 'Tab Label',
-		'name' => '',
-		'type' => 'tab',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array(
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'placement' => 'left',
-		'endpoint' => 0,
-	);
-	$field = array_merge($defaults, $args); 
-
-	return $field;
-}
+} 
 
 
 function WPBC_get_theme_settings_fields(){ 

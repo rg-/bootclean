@@ -2,10 +2,7 @@
 
 /*
 	
-*/ 
-
-
- 
+*/  
 
 add_shortcode ('WPBC_embed_responsive_image', 'WPBC_embed_responsive_image_FX' ); 
 function WPBC_embed_responsive_image_FX( $atts, $content = null ) {  

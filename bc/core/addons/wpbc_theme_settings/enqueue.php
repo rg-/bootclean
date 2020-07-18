@@ -36,10 +36,11 @@ function WPBC_theme_settings_admin_footer(){
 </script>
 	<?php
 }
-
-
  
 /*
+
+	Maybe something like this should be used to the entire core.
+
 	Add styles, notice the menu_slug as part of the class element.
 */
 add_filter( 'admin_body_class', 'WPBC_theme_settings_admin_body_class' ); 
@@ -48,13 +49,13 @@ function WPBC_theme_settings_admin_body_class( $classes ) {
 		$get_current_screen = get_current_screen();
 
 		$in_pages = array(
-			'toplevel_page_wpbc-theme-settings',
+			'toplevel_page_wpbc-site-settings',
 			'toplevel_page_wpbc-theme-design',
 		);
 		$in_pages = apply_filters('wpbc/filter/theme_settings/admin_body_class',$in_pages);
 
 		if( in_array($get_current_screen->id, $in_pages) ){
-			$classes = "$classes wpbc_theme_settings wpbc_loading";
+			$classes = "$classes wpbc_site_settings wpbc_loading";
 		}
 
     return $classes;
@@ -67,7 +68,7 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 
 		$get_current_screen = get_current_screen();
 		// toplevel_page_wpbc-theme-settings
-		echo $get_current_screen->id;
+		// echo $get_current_screen->id;
 
 	?>
 	<style>
@@ -91,16 +92,30 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 		body.wpbc_loading #acf-group_wpbc_theme_settings > .acf-fields{
 			display: none!important;
 		}
-		#adminmenu .toplevel_page_wpbc-theme-settings .wp-menu-image img {
+		#adminmenu .toplevel_page_wpbc-site-settings .wp-menu-image img {
 	    width: 18px;
 	    height: auto;
 	    top: -2px;
 	    position: relative;
 		}
-		#adminmenu .toplevel_page_wpbc-theme-settings li a svg{
+		#adminmenu .toplevel_page_wpbc-site-settings li a svg{
 			vertical-align: -6px; width: 16px;
 			margin-right: 5px;
 		}
+
+		body.wpbc_site_settings .acf-fields .acf-label label h2{
+			font-size: 1.6em!important;
+	    margin: 1em 0!important;
+	    padding: 0!important;
+	    font-weight: 600!important;
+		}
+		body.wpbc_site_settings .acf-postbox.seamless{
+			padding:0 1.2rem;
+			border: 1px solid #ccd0d4!important;
+	    box-shadow: 0 1px 1px rgba(0,0,0,.04)!important;
+	    background-color: #fff!important;
+		} 
+		
 	}
 	</style>
 	<?php

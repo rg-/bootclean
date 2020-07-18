@@ -15,9 +15,12 @@ function WPBC_private_areas__type(){
 
 function WPBC_private_areas__if_allowed_page($post_id=''){
 
-	global $post;
 	if(!$post_id){
-		$post_id = $post->ID;
+		global $post;
+		if(!empty($post)){
+			$post_id = $post->ID;
+		}
+		
 	}
 	$allowed_page = WPBC_get_field('private_area__allow_page', $post_id);
 	$private_type = WPBC_private_areas__type();
@@ -156,18 +159,21 @@ function WPBC_private_areas_if_allowed_user(){
 	$allowed_roles = WPBC_private_areas_allowed_roles(); 
 	$current_user_id = get_current_user_id();
 	$return = false;
+	$msg = 'nada';
 	if($current_user_id){
 		$user = get_userdata( $current_user_id );
 		if($user){
 			if( ! $allowed_roles || ! $user->roles ){
+				$msg = 'nada 2';
 	    	$return = false;
 			} 
 			if( is_array( $allowed_roles ) ){
-			    $return = array_intersect( $allowed_roles, (array) $user->roles ) ? true : false;
+				$msg = 'is_array';
+			  $return = array_intersect( $allowed_roles, (array) $user->roles ) ? true : false;
 			} 
-			$return = in_array( $allowed_roles, (array) $user->roles );
-		}
-	} 
+			// $return = in_array( $allowed_roles, (array) $user->roles );
+		} 
+	}  
 	return $return;
 } 
  

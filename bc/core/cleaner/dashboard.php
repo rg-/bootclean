@@ -86,32 +86,52 @@ function wpbc_dashboard_welcome(){
 			__('Hi, site is using <b>%1$s</b> theme.', 'bootclean'),
 			$current_theme->get( 'Name' )
 			); ?></p>
-		<ul>
+		<ul class="wpbc-dashboard-list">
 			<li><b>Version</b>: <?php echo esc_html( $current_theme->get( 'Version' ) ); ?></li>
 			<li><b>Parent Theme</b>: <?php echo $current_theme->get( 'Template' ) ? esc_html( $current_theme->get( 'Template' ) ) : 'None, using parent directly (not recomended).'; ?></li>
 		</ul>
 		
 		<div class="dashboar-status">
 		
-			<h3><b>Server Status</b></h3> 
+			<h3 class="wpbc-dashboard-title"><b>Server Status</b></h3> 
 			
+			<ul class="wpbc-dashboard-list">
 			<?php
 
 			$icon_yes = '<span class="dashicons dashicons-yes text-success"></span>';
 			$icon_no = '<span class="dashicons dashicons-no-alt text-danger"></span>'; 
+			$icon_warning = '<span class="dashicons dashicons-warning text-danger"></span>'; 
 
 			if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '>=' ) ) { 
-				echo '<p>'.$icon_yes.' WP version '.$GLOBALS['wp_version'].'</p>';
+				echo '<li>'.$icon_yes.' Wordpress version '.$GLOBALS['wp_version'].'</li>';
 			}
 
 			if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) { 
-				echo '<p>'.$icon_yes.' PHP_VERSION '.PHP_VERSION.'</p>';
+				
 			}
 
+			$response = wp_check_php_version(); 
+			echo '<li>';
+	    if ( ! $response ) {
+	      echo $icon_yes.' PHP_VERSION '.PHP_VERSION;
+	    }else{ 
+	    	echo $icon_warning.' PHP_VERSION '.PHP_VERSION.'<br>';
+	    	if ( isset( $response['is_secure'] ) && ! $response['is_secure'] ) {
+		    	echo '<br>Your site is running on an insecure version of PHP.'; 
+		    } else {
+		    	echo '<br>Your site is running on an outdated version of PHP.'; 
+		    }
+		    echo "<br>Recomended version: ".$response['recommended_version']." | Minimum version: ".$response['minimum_version']."";
+	    } 
+	    echo '</li>';
+	    
+ 
+			echo '<li>'.$icon_yes.' db_version '.get_option('db_version').'</li>';
+
 			if(is_ssl()){
-				echo '<p>'.$icon_yes.' SSL is used</p>';
+				echo '<li>'.$icon_yes.' SSL is used</li>';
 			}else{
-				echo '<p>'.$icon_no.' SSL not used</p>';
+				echo '<li>'.$icon_no.' SSL not used</li>';
 			} 
 
 			// Check cURL.
@@ -120,7 +140,7 @@ function wpbc_dashboard_welcome(){
 					__( 'cURL is installed.', 'bootclean' ) :
 					$icon_no . ' ' .
 					__( 'cURL is not installed.', 'bootclean' );
-					echo '<p>'.$curl_message.'</p>';
+					echo '<li>'.$curl_message.'</li>';
 			?>
 			
 			<?php
@@ -130,10 +150,34 @@ function wpbc_dashboard_welcome(){
 					__( 'allow_url_fopen is installed.', 'bootclean' ) :
 					$icon_no . ' ' .
 					__( 'allow_url_fopen is not installed.', 'bootclean' );
-					echo '<p>'.$allow_url_fopen_message.'</p>';
+					echo '<li>'.$allow_url_fopen_message.'</li>';
 			?>
+
+			</ul>
+
+			<br>
+			<h3 class="wpbc-dashboard-title"><?php echo WPBC_get_svg_icon('touch_app'); ?> <b>Actived Bootclean Addons</b></h3>
+			<ul class="wpbc-dashboard-list">
+				<?php 
+				$actived_addons = apply_filters('wpbc/filter/dashboard/actived_addons',array());
+				if( !empty($actived_addons) ){
+					foreach ($actived_addons as $key => $value) {
+						$addon_name = $value['title']; 
+						if(!empty($value['url'])){
+							$manage = ' &nbsp;&nbsp;<a class="wpbc-btn-small button" href="'.$value['url'].'"><small>MANAGE</small></a>';
+						}else{
+							$manage = '';
+						}
+						echo '<li>'. $icon_yes .' <b>'.$addon_name.'</b>'.$manage.'</li>';
+					}
+				}else{
+					echo '<li>'.__( 'No actived adddons used.', 'bootclean' ).'</li>';
+				} 
+				?>
+			</ul>
 			
-			<h3><b>Actived Plugins</b></h3>
+			<br>
+			<h3 class="wpbc-dashboard-title"><span class="dashicons dashicons-admin-plugins"></span> <b>Actived Plugins</b></h3>
 			<?php
 			
 			$plugins = apply_filters('active_plugins', get_option('active_plugins')); 
@@ -146,11 +190,12 @@ function wpbc_dashboard_welcome(){
 				}
 			}
 			if(!empty($plugins)){
-				echo '<ul>';
+				echo '<ul class="wpbc-dashboard-list">';
 				foreach($plugins as $plugin){ 
 					$plugin_data = get_plugin_data( WP_PLUGIN_DIR.'/'.$plugin );
 					$plugin_name = $plugin_data['Name'];
-					echo '<li>'. $icon_yes .' '.$plugin_name.'</li>';
+					$plugin_version = $plugin_data['Version']; 
+					echo '<li>'. $icon_yes .' '.$plugin_name.' | '.$plugin_version.'</li>';
 				}
 				echo '</ul>';
 			}else{
