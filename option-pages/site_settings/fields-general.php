@@ -39,12 +39,12 @@ function wpbc_theme_settings__general_tab($fields){
 
 
 /*
-
+	Ex
 	Preloading
 
 */
 
-add_filter('wpbc/filter/theme_settings/fields/general', 'wpbc_theme_settings__general__preloading', 10, 1); 
+// add_filter('wpbc/filter/theme_settings/fields/general', 'wpbc_theme_settings__general__preloading', 10, 1); 
 
 function wpbc_theme_settings__general__preloading($fields){
 	

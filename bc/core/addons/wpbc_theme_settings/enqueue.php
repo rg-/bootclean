@@ -115,6 +115,15 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 	    box-shadow: 0 1px 1px rgba(0,0,0,.04)!important;
 	    background-color: #fff!important;
 		} 
+
+		body.wpbc_site_settings .toplevel_page_wpbc-site-settings a{
+			background:#e97f02!important;
+		}
+
+		body.wpbc_site_settings .acf-tab-group li.active a{
+			background-color:#e97f02!important;
+			color:#fff!important;
+		}
 		
 	}
 	</style>

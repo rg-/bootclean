@@ -168,11 +168,56 @@ function WPBC_acf_make_layout_location_group($args){
 	return $fields;
 } 
 
+function WPBC_get_theme_settings_prefilter($fields){
+	$temp = array(); 
+	foreach ($fields as $field) { 
+		/*
+		Check if field name has or not the "wpbc_theme_settings__", prefixed
+		This is crucial for some functions/shortcodes to get data into front-end
+		*/
+		if (strpos($field['name'], 'wpbc_theme_settings__') !== false) { 
+		}else{
+			if($field['name']!='') {
+				$field['is_option'] = true;
+				$field['name'] = 'wpbc_theme_settings__'.$field['name'];
+				$field['instructions'] .= '<span class="wpbc-badge secondary" style="text-transform:none;">'.$field['name'].'</span>'; 
+			}
+		} 
+		
+		$temp[] = $field;
+	}
+	return $temp; 
+}
+
+function WPBC_get_theme_settings($option=''){
+	$settings_fields = WPBC_get_theme_settings_fields();
+	if($option){
+		$temp = get_field( 'wpbc_theme_settings__'.$option, 'option' );
+	}else{
+		$temp = array();
+		foreach ($settings_fields as $field) {
+			if(!empty($field['is_option'])){ 
+				$temp[] = $field;
+			}
+		}
+	}
+
+	return $temp;
+}
+function WPBC_get_theme_settings_FX($atts, $content = null){
+	extract(shortcode_atts(array( 
+		'name'=> ''
+	), $atts)); 
+	if(!empty($name)){
+		return WPBC_get_theme_settings($name);
+	} 
+}
+add_shortcode('WPBC_get_theme_settings','WPBC_get_theme_settings_FX');
 
 function WPBC_get_theme_settings_fields(){ 
 	$fields = array();  
-	$fields = apply_filters('wpbc/filter/theme_settings/fields',$fields); 
-	return $fields; 
+	$fields = apply_filters('wpbc/filter/theme_settings/fields',$fields);  
+	return WPBC_get_theme_settings_prefilter($fields); 
 }  
 
 function WPBC_get_theme_settings_design_fields(){ 

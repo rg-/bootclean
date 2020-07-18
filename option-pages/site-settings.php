@@ -13,14 +13,15 @@ if( function_exists('acf_add_options_page') ) {
 $site_settings_tabs_fields = array(
 	'fields-general',
 	'fields-header',
-	//'fields-footer',
-	//'fields-typography',
-	//'fields-custom-code',
+	'fields-footer',
+	'fields-typography',
+	'fields-custom-code',
 );
 if(!empty($site_settings_tabs_fields)){
 	foreach ($site_settings_tabs_fields as $key) {
 		$file_path = 'site_settings/'.$key.'.php';
-		include($file_path);
+		$file_path = apply_filters('wpbc/filter/theme_settings/file_path', $file_path, $key);
+		if(!empty($file_path)) include($file_path);
 	}
 } 
 
@@ -33,7 +34,7 @@ if( function_exists('acf_add_local_field_group') ){
 
 	acf_add_local_field_group(array(
 		'key' => 'group_wpbc_theme_settings',
-		'title' => __('Site Settings','bootclean'),
+		'title' => $args['options_page']['page_title'],
 		'fields' => $fields,
 		'location' => array(
 			array(
@@ -46,7 +47,7 @@ if( function_exists('acf_add_local_field_group') ){
 		),
 		'menu_order' => 0,
 		'position' => 'normal',
-		'style' => 'block',
+		'style' => $args['options_page']['field_group']['style'], // 'block',
 		'label_placement' => 'top',
 		'instruction_placement' => 'label',
 		'hide_on_screen' => '',
@@ -161,6 +162,6 @@ function WPBC_settings_main_navbar_defaults($args){
 add_action('wpbc/layout/start', function(){
  
  	$settings_general = WPBC_get_theme_settings_options_by('header');
-	_print_code($settings_general);
+	// _print_code($settings_general);
 
 }, 20 );

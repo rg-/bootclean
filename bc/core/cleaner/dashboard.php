@@ -81,7 +81,7 @@ function wpbc_dashboard_welcome(){
 	$current_theme = wp_get_theme();  
 	?>
 	<div class="main">
-	
+
 		<p><?php printf( 
 			__('Hi, site is using <b>%1$s</b> theme.', 'bootclean'),
 			$current_theme->get( 'Name' )
@@ -193,9 +193,11 @@ function wpbc_dashboard_welcome(){
 				echo '<ul class="wpbc-dashboard-list">';
 				foreach($plugins as $plugin){ 
 					$plugin_data = get_plugin_data( WP_PLUGIN_DIR.'/'.$plugin );
-					$plugin_name = $plugin_data['Name'];
-					$plugin_version = $plugin_data['Version']; 
-					echo '<li>'. $icon_yes .' '.$plugin_name.' | '.$plugin_version.'</li>';
+					if(!empty($plugin_data)){ 
+						$plugin_name = $plugin_data['Name'];
+						$plugin_version = $plugin_data['Version'];  
+						echo '<li>'. $icon_yes .' '.$plugin_name.' | '.$plugin_version.'</li>';
+					}
 				}
 				echo '</ul>';
 			}else{

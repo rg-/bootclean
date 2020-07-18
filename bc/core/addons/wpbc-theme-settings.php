@@ -24,6 +24,10 @@ if($use_wpbc_theme_settings){
 			'position' => '2.2',
 			'icon_url' => get_template_directory_uri().'/images/theme/bootclean-iso-color-@2.png',
 			'redirect'    => false,  
+
+			'field_group' => array(
+				'style' => 'seamless',
+			),
 		); 
 		return $args;
 	},10,1);

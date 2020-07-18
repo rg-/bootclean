@@ -216,6 +216,22 @@ a > .wp-menu-name .hide-top {
   .acf-group-seamless .acf-fields.-border {
     border: 0; }
 
+body.wpbc_site_settings .acf-postbox.seamless {
+  padding: 0 !important; }
+  body.wpbc_site_settings .acf-postbox.seamless > .inside {
+    margin-right: 0 !important; }
+    body.wpbc_site_settings .acf-postbox.seamless > .inside > .acf-tab-wrap .acf-tab-group {
+      border: 0 !important;
+      padding-bottom: 1px !important; }
+      body.wpbc_site_settings .acf-postbox.seamless > .inside > .acf-tab-wrap .acf-tab-group li a {
+        border: 0 !important;
+        background-color: #ffffff;
+        padding: 20px; }
+  body.wpbc_site_settings .acf-postbox.seamless > .acf-fields > .acf-field {
+    padding: 15px; }
+  body.wpbc_site_settings .acf-postbox.seamless > .acf-fields > .acf-tab-wrap {
+    margin: 0 !important; }
+
 /*
 	Replicate on front-end
 	shortcode available like:
