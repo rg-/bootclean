@@ -77,6 +77,29 @@ function WPBC_wp_dashboard_setup(){
 
 }
 
+function wpbc_dashboard_get_github_theme_info($repro){
+	if(in_array( 'curl', get_loaded_extensions() )){
+		$url = 'https://api.github.com/repos/rg-/'.$repro;
+		$ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		// curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
+		curl_setopt($ch, CURLOPT_USERAGENT,'YOUR_INVENTED_APP_NAME');
+		$content = curl_exec($ch);
+		curl_close($ch); 
+		if(!empty($content)){
+			$api = json_decode($content); 
+			return $api; 
+		}
+		/*
+		html_url
+		description
+		updated_at 
+		*/
+	}
+} 
+
 function wpbc_dashboard_welcome(){
 	$current_theme = wp_get_theme();  
 	?>
@@ -87,9 +110,42 @@ function wpbc_dashboard_welcome(){
 			$current_theme->get( 'Name' )
 			); ?></p>
 		<ul class="wpbc-dashboard-list">
-			<li><b>Version</b>: <?php echo esc_html( $current_theme->get( 'Version' ) ); ?></li>
-			<li><b>Parent Theme</b>: <?php echo $current_theme->get( 'Template' ) ? esc_html( $current_theme->get( 'Template' ) ) : 'None, using parent directly (not recomended).'; ?></li>
-		</ul>
+			<li><b>Version</b>: <?php echo esc_html( $current_theme->get( 'Version' ) ); ?> | <b>Parent Theme</b>: <?php echo $current_theme->get( 'Template' ) ? esc_html( $current_theme->get( 'Template' ) ) : 'None, using parent directly (not recomended).'; ?></li>
+		</ul> 
+
+		<h3 class="wpbc-dashboard-title"><b>Github Info</b></h3>
+		<div class="" style="padding:10px;">
+
+			<h4><span class="dashicons dashicons-yes text-success"></span> <b><?php echo $current_theme->get( 'Name' ); ?> Bootclean</b></h4>
+			<ul class="wpbc-dashboard-list">
+				<?php  
+					$github_theme_info = wpbc_dashboard_get_github_theme_info('bootclean');
+					if(!empty($github_theme_info)){
+
+						?>
+						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
+							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?></li>
+						<?php 
+					}
+				?>
+			</ul>
+			<?php if( get_stylesheet() != 'bootclean' ) {?>
+			<h4><span class="dashicons dashicons-yes text-success"></span> <b><?php echo $current_theme->get( 'Name' ); ?></b></h4>
+			<ul class="wpbc-dashboard-list">
+				<?php  
+					$github_theme_info = wpbc_dashboard_get_github_theme_info(get_stylesheet());
+					if(!empty($github_theme_info)){
+
+						?>
+						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
+							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?></li>
+						<?php 
+					}
+				?>
+			</ul>
+			<?php } ?>
+
+		</div>
 		
 		<div class="dashboar-status">
 		
