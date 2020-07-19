@@ -98,7 +98,25 @@ function wpbc_dashboard_get_github_theme_info($repro){
 		updated_at 
 		*/
 	}
-} 
+} 	
+
+add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
+add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
+
+function WPBC_update_github_theme_info_option(){
+	
+	$bootclean_info = wpbc_dashboard_get_github_theme_info('bootclean');
+	if(!empty($bootclean_info)){
+		update_option('wpbc_github_theme_bootclean_updated_at', $bootclean_info->updated_at);
+	}
+	if( get_stylesheet() != 'bootclean' ) { 
+		$bootclean_info = wpbc_dashboard_get_github_theme_info(get_stylesheet());
+		if(!empty($bootclean_info)){
+			update_option('wpbc_github_theme_'.get_stylesheet().'_updated_at', $bootclean_info->updated_at);
+		}
+	}
+	
+}
 
 function wpbc_dashboard_welcome(){
 	$current_theme = wp_get_theme();  
@@ -129,7 +147,7 @@ function wpbc_dashboard_welcome(){
 					}
 				?>
 			</ul>
-			<?php if( get_stylesheet() != 'bootclean' ) {?>
+			<?php if( get_stylesheet() != 'bootclean' ) { ?>
 			<h4><span class="dashicons dashicons-yes text-success"></span> <b><?php echo $current_theme->get( 'Name' ); ?></b></h4>
 			<ul class="wpbc-dashboard-list">
 				<?php  
