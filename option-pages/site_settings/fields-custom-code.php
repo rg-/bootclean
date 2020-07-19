@@ -31,7 +31,7 @@ function wpbc_theme_settings__custom_code__fields($fields){
 		array( 
 			'name' => 'custom_code__head_start',
 			'label' => _x('HEAD head/start','bootclean'), 
-			'instructions' => _x('Right before HEAD tag.','bootclean'), 
+			'instructions' => _x('Right before &lt;HEAD&gt; open tag.','bootclean'), 
 		)
 	); 
 
@@ -40,7 +40,7 @@ function wpbc_theme_settings__custom_code__fields($fields){
 		array( 
 			'name' => 'custom_code__head_end',
 			'label' => _x('HEAD head/end','bootclean'), 
-			'instructions' => _x('Right after close HEAD tag.','bootclean'), 
+			'instructions' => _x('Right after &lt;HEAD/&gt; close tag.','bootclean'), 
 		)
 	); 
 
@@ -49,7 +49,7 @@ function wpbc_theme_settings__custom_code__fields($fields){
 		array( 
 			'name' => 'custom_code__body_start',
 			'label' => _x('BODY body/start','bootclean'), 
-			'instructions' => _x('Right before BODY tag.','bootclean'), 
+			'instructions' => _x('Right before &lt;BODY&gt; open tag.','bootclean'), 
 		)
 	); 
 
@@ -57,8 +57,8 @@ function wpbc_theme_settings__custom_code__fields($fields){
 	$fields[] =  WPBC_acf_make_codemirror_field(
 		array( 
 			'name' => 'custom_code__before_wp_footer',
-			'label' => _x('WP_FOOTER before/wp_footer','bootclean'), 
-			'instructions' => _x('Right before wp_footer.','bootclean'), 
+			'label' => _x('WP_FOOTER/before','bootclean'), 
+			'instructions' => _x('Right before wp_footer.','bootclean').' <br><br><b>Tip:</b> '. _x('The code in this place, will render BEFORE any javascript enqueued on the wp_footer action.','bootclean'), 
 		)
 	); 
 
@@ -66,8 +66,8 @@ function wpbc_theme_settings__custom_code__fields($fields){
 	$fields[] =  WPBC_acf_make_codemirror_field(
 		array( 
 			'name' => 'custom_code__after_wp_footer',
-			'label' => _x('WP_FOOTER after/wp_footer','bootclean'), 
-			'instructions' => _x('After wp_footer.','bootclean'), 
+			'label' => _x('BODY/end','bootclean'), 
+			'instructions' => _x('After wp_footer, right before &lt;BODY/&gt; close tag.','bootclean').' <br><br><b>Tip:</b> '. _x('The code in this place, will render AFTER any javascript enqueued on the wp_footer action.','bootclean'), 
 		)
 	); 
 

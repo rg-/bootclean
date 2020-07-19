@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Add custom settings if WP Pusher in use
+ *
+ * @package Bootclean
+ * @subpackage WP Pusher extra addons
+ * @since 11.0.00
+ * 
+ */ 
+
+$use_wpbc_wppusher_extra = apply_filters('wpbc/filter/wppusher/extra', 0);
+
+
 function wpbc_dashboard_get_github_theme_info($repro){
 	/* */
 	if(in_array( 'curl', get_loaded_extensions() )){
@@ -20,7 +32,7 @@ function wpbc_dashboard_get_github_theme_info($repro){
 
 } 
 
-if ( function_exists('pusher')) { 
+if ( function_exists('pusher') && $use_wpbc_wppusher_extra ) { 
 
 	/* OPTIONS */
 
