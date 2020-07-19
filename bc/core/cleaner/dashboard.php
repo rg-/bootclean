@@ -52,11 +52,15 @@ if( true === apply_filters('BC_cleaner__dashboard__remove_menu', '__return_false
 
 */
 
+
+
 add_action('wp_dashboard_setup', 'WPBC_wp_dashboard_setup');
 
 function WPBC_wp_dashboard_setup(){
 
-	wp_add_dashboard_widget('wpbc_dashboard_welcome_widget', __('Welcome','bootclean'), 'wpbc_dashboard_welcome');
+	$icon = WPBC_get_admin_icon();
+
+	wp_add_dashboard_widget('wpbc_dashboard_welcome_widget', $icon.' Bootclean > '.__('Welcome','bootclean'), 'wpbc_dashboard_welcome'); 
 
 
 	global $wp_meta_boxes; 
@@ -75,45 +79,8 @@ function WPBC_wp_dashboard_setup(){
  	// Save the sorted array back into the original metaboxes  
  	$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;
 
-}
+} 
 
-function wpbc_dashboard_get_github_theme_info($repro){
-	/* */
-	if(in_array( 'curl', get_loaded_extensions() )){
-		$url = 'https://api.github.com/repos/rg-/'.$repro;
-		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_URL,$url);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		// curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
-		curl_setopt($ch, CURLOPT_USERAGENT,'YOUR_INVENTED_APP_NAME');
-		$content = curl_exec($ch);
-		curl_close($ch); 
-		if(!empty($content)){
-			$api = json_decode($content); 
-			return $api; 
-		} 
-	}
-
-} 	
-
-add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
-add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
-
-function WPBC_update_github_theme_info_option(){
-	
-	$bootclean_info = wpbc_dashboard_get_github_theme_info('bootclean');
-	if(!empty($bootclean_info)){
-		update_option('wpbc_github_theme_bootclean_updated_at', $bootclean_info->updated_at);
-	}
-	if( get_stylesheet() != 'bootclean' ) { 
-		$bootclean_info = wpbc_dashboard_get_github_theme_info(get_stylesheet());
-		if(!empty($bootclean_info)){
-			update_option('wpbc_github_theme_'.get_stylesheet().'_updated_at', $bootclean_info->updated_at);
-		}
-	}
-	
-}
 
 function wpbc_dashboard_welcome(){
 	$current_theme = wp_get_theme();  
@@ -126,46 +93,7 @@ function wpbc_dashboard_welcome(){
 			); ?></p>
 		<ul class="wpbc-dashboard-list">
 			<li><b>Version</b>: <?php echo esc_html( $current_theme->get( 'Version' ) ); ?> | <b>Parent Theme</b>: <?php echo $current_theme->get( 'Template' ) ? esc_html( $current_theme->get( 'Template' ) ) : 'None, using parent directly (not recomended).'; ?></li>
-		</ul> 
-
-		<h3 class="wpbc-dashboard-title"><b>Github Info</b></h3>
-		<div class="" style="padding:10px;">
-
-			<h4><span class="dashicons dashicons-yes text-success"></span> <b>Bootclean</b></h4>
-			<ul class="wpbc-dashboard-list">
-				<?php  
-					$github_theme_info = wpbc_dashboard_get_github_theme_info('bootclean');
-					if(!empty($github_theme_info)){
-
-						?>
-						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
-							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?>
-							<br><?php echo $github_theme_info->updated_at; ?>
-							<br>
-							Instaled updated_at: <?php echo date("F jS, Y, h:m:s", strtotime( get_option('wpbc_github_theme_bootclean_updated_at') ));?>
-							<br><?php echo get_option('wpbc_github_theme_bootclean_updated_at'); ?>
-						</li>
-						<?php 
-					}
-				?>
-			</ul>
-			<?php if( get_stylesheet() != 'bootclean' ) { ?>
-			<h4><span class="dashicons dashicons-yes text-success"></span> <b><?php echo $current_theme->get( 'Name' ); ?></b></h4>
-			<ul class="wpbc-dashboard-list">
-				<?php  
-					$github_theme_info = wpbc_dashboard_get_github_theme_info(get_stylesheet());
-					if(!empty($github_theme_info)){
-
-						?>
-						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
-							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?></li>
-						<?php 
-					}
-				?>
-			</ul>
-			<?php } ?>
-
-		</div>
+		</ul>
 		
 		<div class="dashboar-status">
 		

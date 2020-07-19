@@ -677,5 +677,10 @@ function WPBC_get_svg_icon($name='gear',$fill='#000000'){
 }
 
 
+function WPBC_get_admin_icon($type='grayscale'){
+	$icon = '<img width="16" style="vertical-align:middle; display:inline-block;" src="'.get_template_directory_uri().'/bc/core/assets/images/bootclean-iso-'.$type.'-@2.png'.'"/>';
+	return $icon;
+}
+
 
 include ('functions/WPBC_acf_make__fields.php');

@@ -95,6 +95,11 @@ require BC_WP_DIR . 'core/acf.php';
 */
 require BC_WP_DIR . 'core/woocommerce.php'; 
 
+/* 
+	WP Pusher Things
+*/
+require BC_WP_DIR . 'core/wppusher.php'; 
+
 /* ############################################################ */
 /* ############################################################ */
 
