@@ -180,7 +180,7 @@ function WPBC_get_theme_settings_prefilter($fields){
 			if($field['name']!='') {
 				$field['is_option'] = true;
 				$field['name'] = 'wpbc_theme_settings__'.$field['name'];
-				$field['instructions'] .= '<span class="wpbc-badge secondary" style="text-transform:none;">'.$field['name'].'</span>'; 
+				$field['instructions'] .= '<br><small class="wpbc-badge" style="margin-top:5px; background:#dcdcdc; color:#222; text-transform:none;">'.$field['name'].'</small>'; 
 			}
 		} 
 		

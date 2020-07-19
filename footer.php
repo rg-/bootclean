@@ -17,6 +17,9 @@
 		do_action('wpbc/layout/body/end');
 
 	?>
-	<?php wp_footer(); ?>	
+	<?php wp_footer();
+
+	do_action('wpbc/layout/wp_footer/after');
+	?>	
 	</body>
 </html>
