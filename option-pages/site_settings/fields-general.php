@@ -37,7 +37,16 @@ function wpbc_theme_settings__general_tab($fields){
 	return $fields;
 }  
 
-
+add_filter('wpbc/filter/theme_settings/fields/general', 'wpbc_theme_settings__general__subtitle', 0, 1);
+function wpbc_theme_settings__general__subtitle($fields){
+	$fields[] =  WPBC_acf_make_subtitle_field(
+		array( 
+			'key' => 'field_wpbc_theme_settings__general_subtitle',
+			'label' => _x('General Options','bootclean'),  
+		)
+	); 
+	return $fields;
+}
 /*
 	Ex
 	Preloading

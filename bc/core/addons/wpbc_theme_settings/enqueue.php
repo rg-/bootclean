@@ -116,7 +116,7 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 	    background-color: #fff!important;
 		} 
 
-		body.wpbc_site_settings .toplevel_page_wpbc-site-settings a{
+		body.wpbc_site_settings .toplevel_page_wpbc-site-settings > a{
 			background:#e97f02!important;
 		}
 

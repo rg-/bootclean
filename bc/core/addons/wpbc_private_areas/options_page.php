@@ -634,6 +634,13 @@ if( function_exists('acf_add_local_field_group') ):
 		'description' => '',
 	));
 
+	// #acf-group_private_areas_settings
+	add_action('admin_head', function(){
+		?>
+<style>#acf-group_private_areas_settings{padding: 0 1.2rem!important;}</style>
+		<?php
+	},999); 
+
 	endif;
 
 /* Filter allowed roles if options saved values */
