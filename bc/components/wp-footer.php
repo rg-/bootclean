@@ -24,7 +24,10 @@
 	$_p = apply_filters('WPBC_component_defaults__footer', $_p);
 	// Also filter by id, so you can take control by id :)
 	$_p = apply_filters('WPBC_component_defaults__footer_'.$_p['id'], $_p);
-	 
+
+
+	$_p = apply_filters('wpbc/filter/component/wp-footer/args', $_p);
+	
 	// ID // TODO, see how to deal when no id on the toggle collapse target
 	$id = !empty($_p['id']) ? $_p['id'] : 'main-footer';
 	$div_attrs = ' id="'. $id .'"';  
