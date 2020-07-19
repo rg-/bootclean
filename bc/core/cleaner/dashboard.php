@@ -97,8 +97,8 @@ function wpbc_dashboard_get_github_theme_info($repro){
 
 } 	
 
-//add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
-//add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
+add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
+add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
 
 function WPBC_update_github_theme_info_option(){
 	
