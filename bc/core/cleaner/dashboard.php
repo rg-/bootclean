@@ -131,7 +131,7 @@ function wpbc_dashboard_welcome(){
 		<h3 class="wpbc-dashboard-title"><b>Github Info</b></h3>
 		<div class="" style="padding:10px;">
 
-			<h4><span class="dashicons dashicons-yes text-success"></span> <b><?php echo $current_theme->get( 'Name' ); ?> Bootclean</b></h4>
+			<h4><span class="dashicons dashicons-yes text-success"></span> <b>Bootclean</b></h4>
 			<ul class="wpbc-dashboard-list">
 				<?php  
 					$github_theme_info = wpbc_dashboard_get_github_theme_info('bootclean');
@@ -139,7 +139,10 @@ function wpbc_dashboard_welcome(){
 
 						?>
 						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
-							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?></li>
+							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?>
+							<br>
+							Instaled updated_at: <?php echo date("F jS, Y, h:m:s", strtotime( get_option('wpbc_github_theme_bootclean_updated_at') ));?>
+						</li>
 						<?php 
 					}
 				?>
