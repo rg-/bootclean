@@ -78,6 +78,7 @@ function WPBC_wp_dashboard_setup(){
 }
 
 function wpbc_dashboard_get_github_theme_info($repro){
+	/* */
 	if(in_array( 'curl', get_loaded_extensions() )){
 		$url = 'https://api.github.com/repos/rg-/'.$repro;
 		$ch = curl_init();
@@ -91,17 +92,13 @@ function wpbc_dashboard_get_github_theme_info($repro){
 		if(!empty($content)){
 			$api = json_decode($content); 
 			return $api; 
-		}
-		/*
-		html_url
-		description
-		updated_at 
-		*/
+		} 
 	}
+
 } 	
 
-add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
-add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
+//add_action('wppusher_theme_was_installed','WPBC_update_github_theme_info_option');
+//add_action('wppusher_theme_was_updated','WPBC_update_github_theme_info_option');
 
 function WPBC_update_github_theme_info_option(){
 	
