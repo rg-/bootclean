@@ -226,7 +226,7 @@ body.wpbc_site_settings .acf-postbox.seamless {
       body.wpbc_site_settings .acf-postbox.seamless > .inside > .acf-tab-wrap .acf-tab-group li a {
         border: 0 !important;
         background-color: #ffffff;
-        padding: 20px; }
+        padding: 16px; }
   body.wpbc_site_settings .acf-postbox.seamless > .acf-fields > .acf-field {
     padding: 15px; }
   body.wpbc_site_settings .acf-postbox.seamless > .acf-fields > .acf-tab-wrap {

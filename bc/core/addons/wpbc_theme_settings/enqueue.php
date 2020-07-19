@@ -119,7 +119,9 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 		body.wpbc_site_settings .toplevel_page_wpbc-site-settings > a{
 			background:#e97f02!important;
 		}
-
+		body.wpbc_site_settings .acf-tab-group li a{
+			color:#222222!important;
+		}
 		body.wpbc_site_settings .acf-tab-group li.active a{
 			background-color:#e97f02!important;
 			color:#fff!important;

@@ -6,7 +6,20 @@ function wpbc_theme_settings__footer_tab($fields){
 	$fields[] = WPBC_acf_make_tab_field(
 		array( 
 			'key' => 'field_wpbc_theme_settings__footer_tab',
-			'label' => _x('Footer','bootclean'), 
+			'label' => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+<path fill="none" d="M0,0h24v24H0V0z"/>
+<g>
+	<path d="M8,11v3H4v-3H8 M9,10H3v5h6V10L9,10z"/>
+</g>
+<g>
+	<path d="M21,11v3H11v-3H21 M22,10H10v5h12V10L22,10z"/>
+</g>
+<g>
+	<path d="M21,6v2H4V6H21 M22,5H3v4h19V5L22,5z"/>
+</g>
+<rect x="3" y="16" width="19" height="3"/>
+</svg> '._x('Footer','bootclean'), 
 		)
 	); 
 	$fields = apply_filters('wpbc/filter/theme_settings/fields/footer',$fields);
@@ -18,7 +31,20 @@ function wpbc_theme_settings__footer__subtitle($fields){
 	$fields[] =  WPBC_acf_make_subtitle_field(
 		array( 
 			'key' => 'field_wpbc_theme_settings__footer_subtitle',
-			'label' => _x('Footer Options','bootclean'),  
+			'label' => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+<path fill="none" d="M0,0h24v24H0V0z"/>
+<g>
+	<path d="M8,11v3H4v-3H8 M9,10H3v5h6V10L9,10z"/>
+</g>
+<g>
+	<path d="M21,11v3H11v-3H21 M22,10H10v5h12V10L22,10z"/>
+</g>
+<g>
+	<path d="M21,6v2H4V6H21 M22,5H3v4h19V5L22,5z"/>
+</g>
+<rect x="3" y="16" width="19" height="3"/>
+</svg> '. _x('Footer Options','bootclean'),  
 		)
 	); 
 	return $fields;
