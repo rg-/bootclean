@@ -140,8 +140,10 @@ function wpbc_dashboard_welcome(){
 						?>
 						<li>html_url: <?php echo $github_theme_info->html_url;?> <br>
 							updated_at: <?php echo date("F jS, Y, h:m:s", strtotime($github_theme_info->updated_at));?>
+							<br><?php echo $github_theme_info->updated_at; ?>
 							<br>
 							Instaled updated_at: <?php echo date("F jS, Y, h:m:s", strtotime( get_option('wpbc_github_theme_bootclean_updated_at') ));?>
+							<br><?php echo get_option('wpbc_github_theme_bootclean_updated_at'); ?>
 						</li>
 						<?php 
 					}
