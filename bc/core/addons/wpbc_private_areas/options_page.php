@@ -1,13 +1,5 @@
 <?php
 
-add_filter('acf/load_field', 'WPBC_acf_read_only');
-function WPBC_acf_read_only($field) {
-	if(!empty($field['readonly'])){
-		// $field['disabled'] = 'disabled';
-	}
-	return $field;
-}
-
 function WPBC_private_areas_get_woo_conditions(){
 	$woo_conditions = array(
 
@@ -27,9 +19,9 @@ $private_areas_options_page = apply_filters('wpbc/filter/private_area/args', arr
 
 if( function_exists('acf_add_options_page') ) {
 
-	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){
-	
-		$args = WPBC_get_theme_settings_args(); 
+	$args = WPBC_get_theme_settings_args();
+
+	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){  
 
 		$child_page = acf_add_options_sub_page(array(
 
@@ -41,9 +33,11 @@ if( function_exists('acf_add_options_page') ) {
 
 		)); 
 
-		add_filter('wpbc/filter/theme_settings/admin_body_class',function($in_pages){
-			$in_pages[] = 'site-settings_page_wpbc-private-areas-settings';
-			return $in_pages;
+		add_filter('admin_body_class',function($classes){  
+			if(!empty($_GET['page'] && 'wpbc-private-areas-settings' == $_GET['page'] )){ 
+				$classes = "$classes wpbc_site_settings wpbc_loading"; 
+			}
+			return $classes;
 		},10,1);
 
 	} else {
@@ -59,8 +53,7 @@ if( function_exists('acf_add_options_page') ) {
 
 	}
 
-}  
-
+} 
 
 function WPBC_private_areas_get_role_names(){
 	global $wp_roles; 

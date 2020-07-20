@@ -6,21 +6,23 @@
 */
 
 /*
-	*
-	* WPBC_acf_make_tab_field
-	* WPBC_acf_make_accordion_field
-	* WPBC_acf_make_text_field
-	* WPBC_acf_make_wysiwyg_field
-	* WPBC_acf_make_radio_field
-	* WPBC_acf_make_image_field 
-	* 
-	* WPBC_acf_make_subtitle_field
-	*
-	* WPBC_acf_make_post_object_wpcf7_field
-	* WPBC_acf_make_preloaders_field
-	* WPBC_acf_make_group_navbar
-	* 
-	* 
+
+	Every time a new function created, add it here so it´s easy to find
+
+	WPBC_acf_make_tab_field
+	WPBC_acf_make_accordion_field
+	WPBC_acf_make_email_field
+	WPBC_acf_make_text_field
+	WPBC_acf_make_post_object_wpcf7_field
+	WPBC_acf_make_wysiwyg_field
+	WPBC_acf_make_true_false_field
+	WPBC_acf_make_textarea_field
+	WPBC_acf_make_codemirror_field
+	WPBC_acf_make_radio_field
+	WPBC_acf_make_image_field
+	WPBC_acf_make_group_navbar 
+	WPBC_acf_make_subtitle_field
+	WPBC_acf_make_preloaders_field
 */
 
 /*
@@ -45,6 +47,9 @@
 function WPBC_acf_make_fields__filter($field, $args){
 	if($args['class'] && !$args['wrapper']['class']){
 		$field['wrapper']['class'] .= ' '.$args['class'];
+	}
+	if($args['width'] && !$args['wrapper']['width']){
+		$field['wrapper']['width'] = $args['width'];
 	}
 	return apply_filters('wpbc/filter/acf_make_fields/field', $field, $field['type']);
 }
@@ -265,6 +270,34 @@ function WPBC_acf_make_wysiwyg_field($args,$is_registered_option=false){
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;
 }
+
+function WPBC_acf_make_true_false_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'True False',
+		'name' => 'true_false_field',
+		'type' => 'true_false',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'wpbc-true_false-ui',
+			'id' => '',
+		),
+		'message' => '',
+		'default_value' => 1,
+		'ui' => 1,
+		'ui_on_text' => '',
+		'ui_off_text' => '',
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
+
+
 function WPBC_acf_make_textarea_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
 	$defaults = array (
@@ -305,7 +338,7 @@ function WPBC_acf_make_codemirror_field($args,$is_registered_option=false){
 		'class' => ' codemirror-custom-field md',
 		'id' => '',
 		),
-		'default_value' => '<!-- ej: <script>alert("here");</script>-->',
+		'default_value' => '',
 		'placeholder' => '',
 		'maxlength' => '',
 		'rows' => '',

@@ -20,8 +20,31 @@ if($use_wpbc_swup){
 		return apply_filters('wpbc/filter/swup/usejs', 1);
 	}
 
+	add_filter('wpbc/filter/wpbc_swup/args',function($args){ 
+		$args = array(
+			'page_title'  => __('Swup','bootclean'),
+		  'menu_title'  => __('WPBC Swup','bootclean'), 
+		  'menu_slug' => 'wpbc-swup-settings',
+			'capability' => 'edit_theme_options',
+		); 
+		return $args;
+	},10,1);
+
+	add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
+
+		$addon[] = array(
+			'name' => 'wpbc_swup',
+			'title' => __('WPBC Swup','bootclean'),
+			'url' => menu_page_url('wpbc-swup-settings',false),
+		);
+
+		return $addon;
+	},10,1);
+
 	include('wpbc_swup/enqueue.php');
 	include('wpbc_swup/filters.php');
 	include('wpbc_swup/layout.php'); 
+
+	include('wpbc_swup/options_page.php'); 
 
 }

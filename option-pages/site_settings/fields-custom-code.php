@@ -40,7 +40,7 @@ function wpbc_theme_settings__custom_code__fields($fields){
 		array( 
 			'name' => 'custom_code__head_end',
 			'label' => _x('HEAD head/end','bootclean'), 
-			'instructions' => _x('Right after &lt;HEAD/&gt; close tag.','bootclean'), 
+			'instructions' => _x('Right after &lt;/HEAD&gt; close tag.','bootclean'), 
 		)
 	); 
 
@@ -67,7 +67,7 @@ function wpbc_theme_settings__custom_code__fields($fields){
 		array( 
 			'name' => 'custom_code__after_wp_footer',
 			'label' => _x('BODY/end','bootclean'), 
-			'instructions' => _x('After wp_footer, right before &lt;BODY/&gt; close tag.','bootclean').' <br><br><b>Tip:</b> '. _x('The code in this place, will render AFTER any javascript enqueued on the wp_footer action.','bootclean'), 
+			'instructions' => _x('After wp_footer, right before &lt;/BODY&gt; close tag.','bootclean').' <br><br><b>Tip:</b> '. _x('The code in this place, will render AFTER any javascript enqueued on the wp_footer action.','bootclean'), 
 		)
 	); 
 

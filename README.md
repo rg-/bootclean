@@ -1,6 +1,6 @@
 # Wordpress "Bootclean" Theme
 
-Version 9.0.5
+Version 11.0.1
 
 ```
 A complete All-in-One Framework Wordpress Theme
@@ -28,6 +28,17 @@ Bootstrap included and custom sass ready to customize and compile for child them
 - Available for translations
 - And many, but many more that will be covered on wiki and demos in the next future.
 
+## Addons included (custom for Bootclean, optionals)
+
+- Site Settings, page options
+- Private Areas, make your site private by users roles
+- Duplicate posts and pages.
+- Swup, javascript page transitions
+- Pjax, javascriptt page transtions
+- Parallax, jquery plugin
+- InviewMe, jquery plugin
+- Woocommerce extended
+
 ## Extra plugins included (some)
 
 - Slick Slider: http://kenwheeler.github.io/slick/
@@ -45,6 +56,7 @@ Bootstrap included and custom sass ready to customize and compile for child them
 - Contact Form 7 MailChimp Extension: https://es.wordpress.org/plugins/contact-form-7-mailchimp-extension/
 - Yoast SEO: https://es.wordpress.org/plugins/wordpress-seo/
 - All in One SEO Pack: https://es.wordpress.org/plugins/all-in-one-seo-pack/
+- Woocommerce
 
 ### Live Demos
 
