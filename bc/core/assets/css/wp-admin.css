@@ -203,6 +203,9 @@ a > .wp-menu-name .hide-top {
   font-size: 1.2rem !important;
   border-width: 2px !important; }
 
+.acf-small-gallery .acf-gallery {
+  height: 200px !important; }
+
 .acf-small-wysiwyg .wp-editor-area {
   height: 200px !important; }
 

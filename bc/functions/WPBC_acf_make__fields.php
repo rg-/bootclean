@@ -23,6 +23,7 @@
 	WPBC_acf_make_group_navbar 
 	WPBC_acf_make_subtitle_field
 	WPBC_acf_make_preloaders_field
+	WPBC_acf_make_repeater_field
 */
 
 /*
@@ -349,6 +350,34 @@ function WPBC_acf_make_codemirror_field($args,$is_registered_option=false){
 	return $field;
 }
 
+function WPBC_acf_make_repeater_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Repeater Field',
+		'name' => 'repeater_field',
+		'type' => 'repeater',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'collapsed' => '',
+		'min' => 0,
+		'max' => 0,
+		'layout' => 'block',
+		'button_label' => '',
+		'sub_fields' => array (
+		),
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
+
 function WPBC_acf_make_radio_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
 	$defaults = array (
@@ -403,6 +432,39 @@ function WPBC_acf_make_image_field($args,$is_registered_option=false){
 		'max_height' => '',
 		'max_size' => '',
 		'mime_types' => '', 
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
+
+function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Gallery Advanced Field',
+		'name' => 'gallery_advanced_field',
+		'type' => 'gallery_advanced',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array(
+			'width' => '',
+			'class' => 'acf-small-gallery',
+			'id' => '',
+		),
+		'min' => '1',
+		'max' => '5',
+		'button_label' => 'Add',
+		'insert' => 'append',
+		'library' => 'all',
+		'min_width' => '',
+		'min_height' => '',
+		'min_size' => '',
+		'max_width' => '',
+		'max_height' => '',
+		'max_size' => '',
+		'mime_types' => '',
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 

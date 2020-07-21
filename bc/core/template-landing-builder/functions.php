@@ -160,7 +160,7 @@ function WPBC_template_landing__make_section($args=array()){
 	if(!empty($template_section)){ 
 		
 		$id = (!empty($id)) ? 'id="'.$id.'"' : 'id="landing-section'.$index.'"';
-		$out = '<div '.$id.' '.$attrs.' test class="'.$class.' landing-section" data-index="'.$index.'">'; 
+		$out = '<div '.$id.' '.$attrs.' class="'.$class.' landing-section" data-index="'.$index.'">'; 
 			$out .= do_shortcode($template_section);
 		$out .= '</div>';
 

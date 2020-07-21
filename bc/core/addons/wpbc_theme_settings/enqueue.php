@@ -68,7 +68,6 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 
 		$get_current_screen = get_current_screen();
 		// toplevel_page_wpbc-theme-settings
-		// echo $get_current_screen->id;
 
 	?>
 	<style>
@@ -92,6 +91,11 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 		body.wpbc_loading #acf-group_wpbc_theme_settings > .acf-fields{
 			display: none!important;
 		}
+
+		#adminmenu .toplevel_page_wpbc-site-settings > a{
+			background:#e97f02!important;
+		}
+		
 		#adminmenu .toplevel_page_wpbc-site-settings .wp-menu-image img {
 	    width: 18px;
 	    height: auto;
@@ -115,10 +119,7 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 	    box-shadow: 0 1px 1px rgba(0,0,0,.04)!important;
 	    background-color: #fff!important;
 		} 
-
-		body.wpbc_site_settings .toplevel_page_wpbc-site-settings > a{
-			background:#e97f02!important;
-		}
+ 
 		body.wpbc_site_settings .acf-tab-group li a{
 			color:#222222!important;
 		}

@@ -65,6 +65,8 @@ function WPBC_after_setup_theme__posts(){
 		'comment-list',
 		'gallery',
 		'caption',
+		'script',
+		'style',
 	) );
 }
 

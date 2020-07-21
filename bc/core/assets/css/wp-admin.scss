@@ -235,6 +235,12 @@ a > .wp-menu-name .hide-top{
 	}
 }
 
+.acf-small-gallery{
+	.acf-gallery{
+		height: 200px!important; 
+	}
+}
+
 .acf-small-wysiwyg{ 
 	.wp-editor-area {
 	    height: 200px !important;

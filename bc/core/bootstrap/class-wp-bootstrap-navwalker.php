@@ -110,7 +110,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			if ( end( $matches[2] ) ) {
 				// build a string to use as aria-labelledby.
 				$labelledby = 'aria-labelledby="' . end( $matches[2] ) . '"';
-
+				$attributes .= ' id="' . end( $matches[2] ) . '"';
 			}
 			$output .= "{$n}{$indent}<ul$class_names $labelledby $attributes role=\"menu\">{$n}";
 		} 
