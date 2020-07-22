@@ -24,6 +24,7 @@
 	WPBC_acf_make_subtitle_field
 	WPBC_acf_make_preloaders_field
 	WPBC_acf_make_repeater_field
+	WPBC_acf_make_select_field
 */
 
 /*
@@ -46,10 +47,10 @@
 */
 
 function WPBC_acf_make_fields__filter($field, $args){
-	if($args['class'] && !$args['wrapper']['class']){
+	if(!empty($args['class']) && !empty($args['wrapper']['class'])){
 		$field['wrapper']['class'] .= ' '.$args['class'];
 	}
-	if($args['width'] && !$args['wrapper']['width']){
+	if(!empty($args['class']) && empty($args['wrapper']['class'])){
 		$field['wrapper']['width'] = $args['width'];
 	}
 	return apply_filters('wpbc/filter/acf_make_fields/field', $field, $field['type']);
@@ -140,6 +141,30 @@ function WPBC_acf_make_preloaders_field($args,$is_registered_option=false){
 	return $field;
 }
 
+function WPBC_acf_make_message_field($args){
+	if(empty($args['key'])) return;
+	$defaults = array (
+		'key' => 'field_key',
+		'label' => 'Message Field',
+		'name' => '',
+		'type' => 'message',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'message' => '',
+		'new_lines' => 'wpautop',
+		'esc_html' => 0,
+	);
+	$field = array_merge($defaults, $args);  
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
+
 function WPBC_acf_make_subtitle_field($args){
 	if(empty($args['key'])) return;
 	$defaults = array (
@@ -210,6 +235,36 @@ function WPBC_acf_make_text_field($args,$is_registered_option=false){
 		'prepend' => '',
 		'append' => '',
 		'maxlength' => '',
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
+
+
+function WPBC_acf_make_select_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Select Field',
+		'name' => 'select_field',
+		'type' => 'select',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+		'width' => '',
+		'class' => '',
+		'id' => '',
+		),
+		'choices' => array (),
+		'default_value' => array (),
+		'allow_null' => 0,
+		'multiple' => 0,
+		'ui' => 0,
+		'ajax' => 0,
+		'return_format' => 'value',
+		'placeholder' => '',
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 
@@ -470,6 +525,10 @@ function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false)
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;
 }
+
+
+
+
 
 function WPBC_acf_make_group_navbar($args,$is_registered_option=false){
 	$label = $args['label'];

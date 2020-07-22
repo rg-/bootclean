@@ -65,11 +65,7 @@ function wpbc_theme_settings__footer_copyright($fields){
 
 
 
-/*
-	
-	Front end filters/actions for this settings
-
-*/
+/* FRONT END FILTERS/ACTIONS FOR THIS SETTINGS */
 
 add_filter('wpbc/filter/component/wp-footer/args', function($args){
 	if(!empty($args['is_main'])){

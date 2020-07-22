@@ -14,7 +14,7 @@ $site_settings_tabs_fields = array(
 	'fields-general',
 	'fields-header',
 	'fields-footer',
-	'fields-typography',
+	//'fields-typography', // TODOING
 	'fields-custom-code',
 );
 if(!empty($site_settings_tabs_fields)){

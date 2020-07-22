@@ -22,7 +22,7 @@ $_p = $params;
 
 */
  
-if(preg_match_all('/expand-aside-ontemplate/', $_p['class'], $output_array)){
+if(!empty($_p['class']) && preg_match_all('/expand-aside-ontemplate/', $_p['class'], $output_array)){
 	$_p['wp_nav_menu'] = '';
 	$_p['navbar_toggler']['attrs'] .= ' data-toggle-slidemenu="open"  ';
 	$_p['navbar_toggler']['data_toggle'] = ''; 
