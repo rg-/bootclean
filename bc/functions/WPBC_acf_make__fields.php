@@ -50,7 +50,7 @@ function WPBC_acf_make_fields__filter($field, $args){
 	if(!empty($args['class']) && !empty($args['wrapper']['class'])){
 		$field['wrapper']['class'] .= ' '.$args['class'];
 	}
-	if(!empty($args['class']) && empty($args['wrapper']['class'])){
+	if( !empty($args['width']) ){
 		$field['wrapper']['width'] = $args['width'];
 	}
 	return apply_filters('wpbc/filter/acf_make_fields/field', $field, $field['type']);
