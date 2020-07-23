@@ -144,10 +144,7 @@ add_action('wpbc/layout/start', function(){
 
 	//echo "y lo OTRO ES USAR EN MENSAJE GENERICO MOSTRANDO SI SE ESTAN USANDO FONTS CUSTOM O NO";
 
-	_print_code($typography_custom_fonts);
-
-
-	// Google Fonts API KEY AIzaSyAOtEFj4CwveJLm-Gaxf4c0pGfVipnSiMo
+	_print_code($typography_custom_fonts); 
 
  
 
