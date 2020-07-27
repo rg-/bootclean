@@ -422,3 +422,29 @@ body.wpbc_site_settings {
 		}
 	}
 }
+
+
+
+.wpbc-template-section-group{
+	padding: 0!important;
+	border: 0!important;
+	margin: 0 -1px!important;
+	> .acf-label{
+			display: none!important;
+			background: $primary;
+			color:#fff;
+			padding: 6px 8px 4px 8px;
+			margin: 0 0 0 13px!important;
+	}
+
+}
+
+
+.acf-inverted-gallery{
+	.acf-gallery-attachments{
+		background-color:#000!important;
+		.margin{
+			background:transparent!important;
+		}
+	}
+}

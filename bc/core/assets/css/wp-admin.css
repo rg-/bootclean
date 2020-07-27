@@ -309,4 +309,20 @@ body.wpbc_site_settings .acf-postbox.seamless {
       font-size: 1.2rem;
       margin: 0 !important; }
 
+.wpbc-template-section-group {
+  padding: 0 !important;
+  border: 0 !important;
+  margin: 0 -1px !important; }
+  .wpbc-template-section-group > .acf-label {
+    display: none !important;
+    background: #007bff;
+    color: #fff;
+    padding: 6px 8px 4px 8px;
+    margin: 0 0 0 13px !important; }
+
+.acf-inverted-gallery .acf-gallery-attachments {
+  background-color: #000 !important; }
+  .acf-inverted-gallery .acf-gallery-attachments .margin {
+    background: transparent !important; }
+
 /*# sourceMappingURL=wp-admin.css.map */

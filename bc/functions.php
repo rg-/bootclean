@@ -402,10 +402,10 @@ function BC_apply_filters($fn, $a){
 
 function _print_code($args){
 	?>
-	<pre class="gp-2" style="border:2px solid var(--primary);">
+	<pre class="gp-1" style="border:2px solid var(--primary);">
 		<code>
 		<?php 
-			print_r($args); 
+			if(!empty($args)){print_r($args);}else{echo "! empty result :(";} 
 		?>
 		</code>
 	</pre>

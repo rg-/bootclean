@@ -47,10 +47,14 @@
 */
 
 function WPBC_acf_make_fields__filter($field, $args){
-	if(!empty($args['class']) && !empty($args['wrapper']['class'])){
-		$field['wrapper']['class'] .= ' '.$args['class'];
-	}
-	if( !empty($args['width']) ){
+	if(!empty($args['class'])){
+		if(empty($args['wrapper']['class'])){
+			$field['wrapper']['class'] = $args['class'];
+		}else{
+			$field['wrapper']['class'] .= ' '.$args['class'];
+		} 
+	} 
+	if(!empty($args['width']) && empty($args['wrapper']['width'])){
 		$field['wrapper']['width'] = $args['width'];
 	}
 	return apply_filters('wpbc/filter/acf_make_fields/field', $field, $field['type']);
@@ -241,6 +245,28 @@ function WPBC_acf_make_text_field($args,$is_registered_option=false){
 	return $field;
 }
 
+function WPBC_acf_make_url_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'url label',
+		'name' => 'url_field_name',
+		'type' => 'url',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array(
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'default_value' => '',
+		'placeholder' => '',
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
 
 function WPBC_acf_make_select_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
@@ -270,6 +296,62 @@ function WPBC_acf_make_select_field($args,$is_registered_option=false){
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;
 }
+
+
+function WPBC_acf_make_relationship_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array(
+		'key' => 'field_'.$args['name'],
+		'label' => '',
+		'name' => 'relation_field',
+		'type' => 'relationship',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array(
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'post_type' => array( ),
+		'taxonomy' => '',
+		'filters' => array( ),
+		'elements' => '',
+		'min' => '',
+		'max' => '',
+		'return_format' => 'object'
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}  
+
+function WPBC_acf_make_post_object_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array(
+		'key' => 'field_'.$args['name'],
+		'label' => '',
+		'name' => '',
+		'type' => 'post_object',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array(
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'post_type' => array( ),
+		'taxonomy' => array( ),
+		'allow_null' => 0,
+		'multiple' => 1,
+		'return_format' => 'id',
+		'ui' => 1,
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}  
 
 function WPBC_acf_make_post_object_wpcf7_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
@@ -505,12 +587,12 @@ function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false)
 		'conditional_logic' => 0,
 		'wrapper' => array(
 			'width' => '',
-			'class' => 'acf-small-gallery',
+			'class' => '', // acf-small-gallery
 			'id' => '',
 		),
-		'min' => '1',
-		'max' => '5',
-		'button_label' => 'Add',
+		'min' => '',
+		'max' => '',
+		
 		'insert' => 'append',
 		'library' => 'all',
 		'min_width' => '',
@@ -520,6 +602,10 @@ function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false)
 		'max_height' => '',
 		'max_size' => '',
 		'mime_types' => '',
+
+		'button_label' => 'Add',
+		'columns' => 4,
+		'preview_size' => 'medium'
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 
@@ -527,8 +613,55 @@ function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false)
 }
 
 
+function WPBC_acf_make_flexible_content($args,$is_registered_option=false){
+	if(empty($args['name'])) return;
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Flexible field',
+		'name' => 'flexible_field',
+		'type' => 'flexible_content',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array(
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'layouts' => array(),
+		'button_label' => _x('Add row','bootclean'),
+		'min' => 1,
+		'max' => 6,
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}
 
 
+function WPBC_acf_make_group($args,$is_registered_option=false){
+	if(empty($args['name'])) return; 
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Group field',
+		'name' => 'group_field',
+		'type' => 'group',
+		'value' => NULL,
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		'layout' => 'block',
+		'sub_fields' => array (),
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field; 
+}
 
 function WPBC_acf_make_group_navbar($args,$is_registered_option=false){
 	$label = $args['label'];

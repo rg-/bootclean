@@ -56,4 +56,4 @@ function WPBC_layout_struture__main_footer(){
 add_action('wpbc/layout/start', 'WPBC_layout_struture__main_content_wrap_end', 60 ); 
 function WPBC_layout_struture__main_content_wrap_end(){
 	?></div><!-- #main-content-wrap END --><?php
-}
+} 

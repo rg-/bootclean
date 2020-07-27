@@ -10,17 +10,19 @@ include('template-landing-builder/functions.php');
 
 if(function_exists('WPBC_template_landing_build_section')){  
 	
-	$build_sections = array(
-		array(
+	$default_section = array(
 			'id' => 'main-page-header',
 			'class' => 'template-landing--page_header',
 			'acf' => array(
 				'group_id' => 'page_header',
 				'label' => __('Page Header','bootclean'),
+				'group_layout' => 'seamless', 
 				'sub_fields' => array(),
 			),
-		)
-	);
+		);
+	$default_section = apply_filters('wpbc/filter/template-landing/default_section', $default_section );
+	$build_sections = array();
+	$build_sections[] = $default_section;
 	$build_sections = apply_filters('wpbc/filter/template-landing/build_sections', $build_sections);
 	foreach ($build_sections as $key => $value) { 
 		$value['acf']['sub_fields'] = apply_filters('wpbc/filter/template-landing/sub_fields/?group='.$value['acf']['group_id'].'', $value['acf']['sub_fields']); 

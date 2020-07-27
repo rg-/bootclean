@@ -193,12 +193,16 @@ function WBBC_get_theme_settings_show_helpers(){
 	return $show_helpers;
 }
 
-add_action('acf/render_field', 'WPBC_acf_theme_settings_render_field',19);
+add_action('acf/render_field', 'WPBC_acf_theme_settings_render_field',29);
 function WPBC_acf_theme_settings_render_field($field){
 	$show_helpers = WBBC_get_theme_settings_show_helpers();
 	if( !empty($field['is_option']) && $show_helpers ){ 
 		$name = str_replace('wpbc_theme_settings__', '', $field['_name']);
-		echo '<p><em>Fx</em> <small class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none;">WPBC_get_theme_settings("'.$name.'")</small></p>';
+		
+		if ( $field['type'] == 'post_object' ) {
+			return;
+		}
+		echo '<p><input class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none; border:0; width:100%;" value="WPBC_get_theme_settings(\''.$name.'\')"></p>';
 	} 
 }
 

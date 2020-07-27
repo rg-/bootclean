@@ -3,11 +3,13 @@
 add_action('wpbc/layout/end', function($out){  
 
 	global $post;
-	if(isset($_GET['post'])){
+	if(isset($_GET['post'])){ 
 		$post = get_post($_GET['post']);
 		$post_id = $post->ID;
 	}
-	$post_id = $post->ID;
+	if(!empty($post)){
+		$post_id = $post->ID;
+	}
 	global $wp_query;
 	if(!empty($wp_query->is_posts_page)){
 		$post_id = get_option('page_for_posts');

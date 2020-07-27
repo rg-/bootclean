@@ -61,7 +61,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		'is_main' => $is_main,
 		
 		'id' => 'wp-navbar-'.$_uid,
-		'class' => 'navbar navbar-dark bg-primary',
+		'class' => 'gmb-1 navbar navbar-expand-aside navbar-dark bg-primary collapse-right navbar-expand-xs',
 		'container_class' => 'container',
 		'container_attrs' => '', // NEW V10
 		
@@ -80,7 +80,9 @@ $is_main = isset($_p['is_main']) ? true : false;
 			'simulate' => true, /* top / bottom / false ((default))  */
 			'simulate_target' => '',
 			'scrollify' => false, /* true / false */
-			'breakpoint' => 'sm' /* xs / sm / md / lg / xl */
+			'breakpoint' => 'sm',  /* xs / sm / md / lg / xl */
+			'offset'=> 0,
+			// 'target'
 		),
 		
 		// if better nav, affix also content page? 
@@ -96,7 +98,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 			'image_alt' => '',
 			'image_width' => '',
 			'image_height' => '',
-			'class' => 'd-flex navbar-brand',
+			'class' => 'd-flex navbar-brand py-3',
 			'title' => get_bloginfo('name'),
 			'href' => get_bloginfo('url'),
 			'attrs' => '',
@@ -109,14 +111,16 @@ $is_main = isset($_p['is_main']) ? true : false;
 		// navbar_toggler things
 
 		'navbar_toggler' => array(
-			'class' => '',
+			'class' => 'toggler-white toggler-open-primary ',
 			'target' => 'navbar-collapse-'.$collapse_id,
 			'expanded' => false,
 			'label' => __('Toggle navigation', 'bootclean'), 
-			'type' => 'default', /* default | animate */
-			'effect' => '', /* rotate | collapsable | cross | asdot */ 
+			'type' => 'animate', /* default | animate */
+			'effect' => 'close-arrow', /* rotate | collapsable | cross | asdot */ 
 			'attrs' => '',
 			'data_toggle' => 'data-toggle="collapse"',
+			'before_toggler' => '',
+			'after_toggler' => '',
 		),
 		
 		// wp_nav_menu things, aka navbar-collapse
@@ -190,10 +194,9 @@ $is_main = isset($_p['is_main']) ? true : false;
 		}
 		?> 
 
-		<?php
-		// TODO, or not? what happend with "data-nav-target" ??
+		<?php 
 		if(!empty($_p['wp_nav_menu'])) { 
-			echo $_p['wp_nav_menu']['before_menu'];
+			echo $_p['wp_nav_menu']['before_menu']; 
 			wp_nav_menu( $_p['wp_nav_menu'] ); 
 			echo $_p['wp_nav_menu']['after_menu'];
 		}else{

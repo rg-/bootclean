@@ -16,7 +16,9 @@ add_action('wpbc/layout/start',function(){
 		remove_action('wpbc/layout/start', 'WPBC_layout_struture__main_pageheader', 20);
 		add_action('wpbc/layout/start', 'WPBC_template_landing__main_pageheader',20);
 		remove_action('wpbc/layout/start', 'WPBC_layout_struture__main_container', 40); 
+
 		add_action('wpbc/layout/start', 'WPBC_template_landing__main_container',40);  
+	
 	}
 
 },1);

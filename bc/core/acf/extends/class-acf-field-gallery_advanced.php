@@ -425,7 +425,7 @@ class acf_field_gallery_advanced extends acf_field {
 			'data-max'			=> $field['max'],
 			'data-mime_types'	=> $field['mime_types'],
 			'data-insert'		=> $field['insert'],
-			'data-columns'		=> 4 
+			'data-columns'		=> $field['columns'] 
 		);
 		
 		// Set gallery height with deafult of 400px and minimum of 200px.
@@ -581,6 +581,15 @@ class acf_field_gallery_advanced extends acf_field {
 			'type'			=> 'select',
 			'name'			=> 'preview_size',
 			'choices'		=> acf_get_image_sizes()
+		));
+
+		// preview_size
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Columns','acf'),
+			'instructions'	=> '',
+			'type'			=> 'number',
+			'name'			=> 'columns',
+			'default_value'		=> '4'
 		));
 		
 		// insert
@@ -1017,6 +1026,7 @@ function acf_field_gallery_advanced_admin_footer() {
 			// max columns = 8
 			columns = Math.min(columns, 8);
 			
+			columns = this.get('columns'); // ADDED, see how this works ??
 			// update data
 			this.$control().attr('data-columns', columns);
 		},

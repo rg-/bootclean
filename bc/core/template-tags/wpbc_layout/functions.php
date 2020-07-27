@@ -28,7 +28,9 @@ function WPBC_get_navbar_affix_attrs($params=array()){
 		$attrs .= ' data-affix-scrollify="'. ( $data['scrollify'] ? 'true' : 'false' ) .'" '; 
 		$attrs .= ' data-affix-breakpoint="'. $data['breakpoint'] .'" '; 
 		
-		$attrs .= ' data-affix-target="'. ( $data['target'] ? $data['target'] : '' ) .'" '; 
+		$attrs .= ' data-affix-target="'. ( !empty($data['target']) ? $data['target'] : '' ) .'" '; 
+
+		$attrs .= ' data-affix-offset="'. ( !empty($data['offset']) ? $data['offset'] : '' ) .'" '; 
 
 		return $attrs;
 	}

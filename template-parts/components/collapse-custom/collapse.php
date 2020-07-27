@@ -30,9 +30,14 @@
 	$collapse_toggler_effect = isset($params['toggler_effect']) ? $params['toggler_effect'] : 'close-arrow';
 	$collapse_toggler_attrs = isset($params['toggler_attrs']) ? $params['toggler_attrs'] : '';
 	$collapse_toggler_data_toggle = isset($params['toggler_data_toggle']) ? $params['toggler_data_toggle'] : 'data-toggle="collapse-custom"';
+
+	$collapse_toggler_before_toggler = isset($params['toggler_before_toggler']) ? $params['toggler_before_toggler'] : '';
+	$collapse_toggler_after_toggler = isset($params['toggler_after_toggler']) ? $params['toggler_after_toggler'] : '';
+
 ?>
 <div id='<?php echo $collapse_ID; ?>' class='collapse-custom <?php echo $collapse_class; ?>' <?php echo $collapse_attrs; ?>>
 	<div class='collapse-custom-wrapper <?php echo $collapse_wrapper_class; ?>'>
+		<?php echo isset($params['before_wrapper']) ? $params['before_wrapper'] : '';?>
 		<div class="collapse-custom-action <?php echo $collapse_action_class; ?>">
 		<?php
 		$navbar_toggler = array(
@@ -44,13 +49,45 @@
 			'effect' => $collapse_toggler_effect, /* rotate | collapsable | cross | asdot */ 
 			'attrs' => $collapse_toggler_attrs,
 			'data_toggle' => $collapse_toggler_data_toggle,
+			'before_toggler' => $collapse_toggler_before_toggler,
+			'after_toggler' => $collapse_toggler_after_toggler,
 		);
 		if( $collapse_use_toggler ) {
 			WPBC_get_partial('navbar-toggler', $navbar_toggler);
 		}
 		?></div>
 		<div class="collapse-custom-animate <?php echo $collapse_content_class; ?>">
-			<?php echo do_shortcode($collapse_content);?>
+			<?php
+
+			echo isset($params['before_content']) ? $params['before_content'] : '';
+
+			if(!empty($collapse_content)){
+				echo do_shortcode($collapse_content);
+			} else {
+
+				$wp_nav_menu = array(
+					'theme_location'  => 'primary',
+					'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.
+					'container'       => 'div',
+					'container_class' => 'flex-row-reverse',
+					'container_id'    => 'navbar-collapse-'.$collapse_ID,
+					'menu_class'      => 'navbar-nav',
+					'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+					'walker'          => new WP_Bootstrap_Navwalker(), 
+					'before_menu'			=> '',
+					'after_menu'			=> '',
+				);
+
+				$passed_wp_nav_menu = isset($params['wp_nav_menu']) ? $params['wp_nav_menu'] : array();
+				$wp_nav_menu = array_merge($passed_wp_nav_menu, $wp_nav_menu);
+
+				wp_nav_menu( $wp_nav_menu );
+			}
+
+			echo isset($params['after_content']) ? $params['after_content'] : '';
+
+			?>
 		</div>
+		<?php echo isset($params['after_wrapper']) ? $params['after_wrapper'] : '';?>
 	</div>
 </div>

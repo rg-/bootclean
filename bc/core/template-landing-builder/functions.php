@@ -27,10 +27,10 @@ function WPBC_template_landing_build_section($args=array()){
 		$post_id = $post->id;
 
 		$sections[] = array(
-			'id' => $args['id'],
-			'class' => $args['class'],
-			'attrs' => $args['attrs'],
-			'acf' => $args['acf'],
+			'id' => !empty($args['id']) ? $args['id'] : '',
+			'class' => !empty($args['class']) ? $args['class'] : '',
+			'attrs' => !empty($args['attrs']) ? $args['attrs'] : '',
+			'acf' => !empty($args['acf']) ? $args['acf'] : '',
 			//'acf_field' => WPBC_get_field($args['acf']['group_id'], $post_id),
 		);
 	 
@@ -39,10 +39,17 @@ function WPBC_template_landing_build_section($args=array()){
 
 	add_filter('wpbc/filter/template-landing/fields', function($fields) use ($args){
 
+		$show_helper = apply_filters('wpbc/filter/template-landing/fields/show_helper',1);
+
+		$msg = '<h3 style="margin-top:0!important; margin-bottom:0!important; ">'.$args['acf']['label'].'</h3>';
+		if($show_helper){
+			$msg .= '<span class="wpbc-badge secondary" style="text-transform:none!important; margin-top:13px;">template_landing__'.$args['acf']['group_id'].'</span>';
+		}
+
 		$fields[] = WPBC_acf_make_accordion_field(
 			array(
 				'key' => 'wpbc_template_landing__'.$args['acf']['group_id'].'_accordion',
-				'label' => '<h3 style="margin-top:0!important; margin-bottom:10px!important;">'.$args['acf']['label'].'</h3>' . '<span class="wpbc-badge secondary" style="text-transform:none!important; margin-top:3px;">template_landing__'.$args['acf']['group_id'].'</span>',
+				'label' => $msg,
 			)
 		); 
 
@@ -50,7 +57,7 @@ function WPBC_template_landing_build_section($args=array()){
 
 		$fields[] = array (
 			'key' => 'wpbc_template_landing__'.$args['acf']['group_id'].'',
-			'label' => _x('Section Content','bootclean'),
+			'label' => !empty($args['acf']['group_label']) ? $args['acf']['group_label'] : _x('Section Content','bootclean'),
 			'name' => 'template_landing__'.$args['acf']['group_id'].'',
 			'type' => 'group',
 			'value' => NULL,
@@ -59,10 +66,10 @@ function WPBC_template_landing_build_section($args=array()){
 			'conditional_logic' => 0,
 			'wrapper' => array (
 				'width' => '',
-				'class' => '',
+				'class' => 'wpbc-template-section-group',
 				'id' => '',
 			),
-			'layout' => 'seamless',
+			'layout' => !empty($args['acf']['group_layout']) ? $args['acf']['group_layout'] : 'seamless',
 			'sub_fields' => $sub_fields,
 		);
 
@@ -81,6 +88,7 @@ function WPBC_template_landing_build_section($args=array()){
 */
 
 function WPBC_template_landing__get_sections(){
+	$sections = array();
 	$sections = apply_filters('wpbc/filter/template-landing/sections', $sections);
 	return $sections;
 }
@@ -104,19 +112,21 @@ function WPBC_template_landing__main_container($get_page_header=false){
 		$count = 0;
 	}
 
-	if($sections[0]['id']=='main-page-header' && $get_page_header){ 
+	if( !empty($sections[0]['id']) && $sections[0]['id']=='main-page-header' && $get_page_header){ 
 		$sections = array($sections[0]); 
 	}
 
 	
 	if(!empty($sections) && $make_sections){ 
- 
+ 		
+ 		do_action('wpbc/layout/sections/start', $sections, $get_page_header);
+
 		foreach ($sections as $k=>$v){
 			$args = array(); 
 			$args['id'] = $v['id'];
 			$args['class'] = $v['class'];
 			$args['attrs'] = $v['attrs'];
-			$args['next'] = (!empty($v['next'])) ? $v['next'] : $sections[$count+1]['id'];
+			$args['next'] = (!empty($v['next'])) ? $v['next'] : ( !empty($sections[$count+1]['id']) ? $sections[$count+1]['id'] : '' );
 
 			if(!empty($v['acf_field'])){ 
 				$args['acf_field'] = $v['acf_field'];  
@@ -142,6 +152,9 @@ function WPBC_template_landing__main_container($get_page_header=false){
 
 			$count++; 
 		} 
+
+		do_action('wpbc/layout/sections/end', $sections, $get_page_header);
+
 	}
 }
 
