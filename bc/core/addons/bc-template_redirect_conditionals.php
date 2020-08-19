@@ -23,6 +23,16 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 $use_wpbc_mainteneance_mode = apply_filters('wpbc/filter/mainteneance_mode/installed', 1);
 
+function WPBC_get_theme_settings_mainteneance_mode_args(){
+	$args = apply_filters('wpbc/filter/mainteneance_mode/args', array(
+		'html' => BC_get_option('bc-options--admin-under-construction-html'),
+		'title' => BC_get_option('bc-options--admin-under-construction-title'),
+		'style' => BC_get_option('bc-options--admin-under-construction-style'),
+		'script' => BC_get_option('bc-options--admin-under-construction-script'),
+	));
+	return $args; 
+}
+
 if(!$use_wpbc_mainteneance_mode) return; 
 
 add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
@@ -42,16 +52,19 @@ function get__bc_admin_mainteneance_html_fx($atts, $content=null){
 		"id" => '',
 		"class" => '',
 	), $atts)); 
-	$out = ''; 
+	$out = '';  
 
-	$bc_admin_mainteneance_html = BC_get_option('bc-options--admin-under-construction-html'); 
+	$args = WPBC_get_theme_settings_mainteneance_mode_args(); 
+	$bc_admin_mainteneance_html = $args['html'];
+
 	$out .= apply_filters('the_content', $bc_admin_mainteneance_html); 
 	return $out; 
 }
 
 add_action('bc_admin_mainteneance_title','bc_admin_mainteneance_title_fx');
-function bc_admin_mainteneance_title_fx(){ 
-	$bc_admin_mainteneance_title = BC_get_option('bc-options--admin-under-construction-title');
+function bc_admin_mainteneance_title_fx(){  
+	$args = WPBC_get_theme_settings_mainteneance_mode_args(); 
+	$bc_admin_mainteneance_title = $args['title'];
 	?>
 	<title>
 		<?php echo $bc_admin_mainteneance_title; ?>
@@ -61,8 +74,9 @@ function bc_admin_mainteneance_title_fx(){
 }
 
 add_action('bc_admin_mainteneance_style','bc_admin_mainteneance_style_fx');
-function bc_admin_mainteneance_style_fx(){ 
-	$bc_admin_mainteneance_style = BC_get_option('bc-options--admin-under-construction-style');
+function bc_admin_mainteneance_style_fx(){  
+	$args = WPBC_get_theme_settings_mainteneance_mode_args(); 
+	$bc_admin_mainteneance_style = $args['style'];
 	?>
 	<style>
 		<?php echo $bc_admin_mainteneance_style; ?>
@@ -73,7 +87,8 @@ function bc_admin_mainteneance_style_fx(){
 
 add_action('bc_admin_mainteneance_script','bc_admin_mainteneance_script_fx');
 function bc_admin_mainteneance_script_fx(){ 
-	$bc_admin_mainteneance_script = BC_get_option('bc-options--admin-under-construction-script');
+	$args = WPBC_get_theme_settings_mainteneance_mode_args(); 
+	$bc_admin_mainteneance_script = $args['script']; 
 	if(!empty($bc_admin_mainteneance_script)){
 	?>
 	<script>

@@ -32,6 +32,7 @@ if ( WPBC_is_woocommerce_active() ) {
 	    include('woocommerce/enqueue.php'); 
 	    include('woocommerce/layout.php'); 
 	    include('woocommerce/layout-templates.php');
+	    include('woocommerce/addons.php');
     } 
 } 
 

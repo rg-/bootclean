@@ -53,11 +53,24 @@ if(!empty( __get_custom_collapse() )){
 		$args['navbar_toggler']['target'] = $collapse_id;
 
 		// you can use this...
-		//$args['wp_nav_menu_custom'] = '[WPBC_get_template name="parts/wp_nav_menu_custom"]';
+		if(!empty($custom_collapse['collapse']['inside_nav'])){
+			// $args['wp_nav_menu_custom'] = '[WPBC_get_template name="parts/wp_nav_menu_custom"]';
+			$collapse_args = !empty($custom_collapse['collapse']) ? $custom_collapse['collapse'] : array(); 
+			  
+			ob_start(); 
+			WPBC_get_template_part('components/collapse-custom/collapse', array( 
+				'params' => $collapse_args, 
+			));
+			$content = ob_get_contents();
+			ob_end_clean();
 
+			$args['wp_nav_menu_custom'] = $content; 
+		}
 		return $args;
+
 	},10,1); 
 
+	
 
 	// Or this, to output the menu itself
 	add_action('wpbc/layout/start', function(){ 
@@ -65,9 +78,10 @@ if(!empty( __get_custom_collapse() )){
 		$custom_collapse = __get_custom_collapse(); 
 		// If arguments passed, use them on the component
 		$collapse_args = !empty($custom_collapse['collapse']) ? $custom_collapse['collapse'] : array();
-		// _print_code($collapse_args);
-		WPBC_get_component('collapse-custom', $collapse_args); 
-	
+		if(empty($custom_collapse['collapse']['inside_nav'])){
+			WPBC_get_component('collapse-custom', $collapse_args); 
+		} 
+
 	}, 11 );
 
 }

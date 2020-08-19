@@ -60,7 +60,7 @@ if( function_exists('acf_add_local_field_group') ){
 		'title' => 'Page Settings',
 		'fields' => $WPBC_group_builder__layout,
 		'location' => $WPBC_group_builder__layout_locations,
-		'menu_order' => 1,
+		'menu_order' => apply_filters('wpbc/filter/page-settings/group/menu_order', 1),
 		'position' => 'normal',
 		'style' => 'default',
 		'label_placement' => 'top',

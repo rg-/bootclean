@@ -41,30 +41,6 @@ function WPBC_include_option_page($template){
 	}
 }
 
-/*
- *
- * @function WPBC_get_theme_settings_args
- *
- * @filter
- *
-*/
-function WPBC_get_theme_settings_args($key=''){
-
-	$args = array();   
-	
-	$args = apply_filters('wpbc/filter/theme_settings/args',$args);
-
-	if(!empty($key)){
-		$return = !empty($args[$key]) ? $args[$key] : '';
-	}else{
-		$return = $args;
-	}
-
-	return $return;
-
-} 
-
-
 // $key = "defaults", "_template_builer", "page", "post", "category", etc..
 function WPBC_acf_get_layout_location_default_value($key){ 
 	$locations = WPBC_get_layout_locations(); 
@@ -202,7 +178,7 @@ function WPBC_acf_theme_settings_render_field($field){
 		if ( $field['type'] == 'post_object' ) {
 			return;
 		}
-		echo '<p><input class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none; border:0; width:100%;" value="WPBC_get_theme_settings(\''.$name.'\')"></p>';
+		echo '<p class="wpbc-helper-tip"><input type="text" readonly class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none; border:0; width:100%; font-size:10px; padding:5px 4px; min-height: auto;" value="WPBC_get_theme_settings(\''.$name.'\')"></p>';
 	} 
 }
 

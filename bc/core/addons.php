@@ -5,13 +5,30 @@ $WPBC_is_acf = WPBC_is_acf();
 /*
 
 	theme settingss addon (if installed)	
-
+	@since v11
 */
 require "addons/wpbc-theme-settings.php";
+
+/*
+
+	wpbc_is_inview addon (if installed)	
+	@since v11
+*/
+require "addons/wpbc-is-inview.php";
+
+/*
+
+	Custom Login addon 
+	@since v11
+	(old cleaner/login)
+
+*/
+require "addons/wpbc-custom-login.php"; 
+
 /*
 
 	private areas addon (if installed)	
-
+	@since v11
 */
 require "addons/wpbc-private-areas.php";
 /*
@@ -79,6 +96,7 @@ require "addons/bc-template_redirect_conditionals.php";
 require "addons/wpbc_google_maps.php"; // Not in use yet
 
 require "addons/wpbc_get_query_posts/wpbc_get_query_posts.php"; 
+
 require "addons/wpbc_realstate/wpbc_realstate.php";
 
 /*

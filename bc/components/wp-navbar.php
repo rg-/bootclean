@@ -79,6 +79,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 			'position' => 'top', /* top / bottom */
 			'simulate' => true, /* top / bottom / false ((default))  */
 			'simulate_target' => '',
+			'simulate_resize' => 'true',
 			'scrollify' => false, /* true / false */
 			'breakpoint' => 'sm',  /* xs / sm / md / lg / xl */
 			'offset'=> 0,
@@ -197,10 +198,17 @@ $is_main = isset($_p['is_main']) ? true : false;
 		<?php 
 		if(!empty($_p['wp_nav_menu'])) { 
 			echo $_p['wp_nav_menu']['before_menu']; 
-			wp_nav_menu( $_p['wp_nav_menu'] ); 
+
+			$nav_menus = array(); 
+			$nav_menus[] = $_p['wp_nav_menu']; 
+			$nav_menus = apply_filters('wpbc/filter/layout/'.$_p['id'].'/nav_menus', $nav_menus); 
+			foreach ($nav_menus as $key => $value) {
+				wp_nav_menu( $value ); 
+			} 
+			
 			echo $_p['wp_nav_menu']['after_menu'];
 		}else{
-			if(isset($_p['wp_nav_menu_custom'])) {
+			if(isset($_p['wp_nav_menu_custom'])) { 
 				echo $_p['wp_nav_menu_custom'];
 			}
 		}

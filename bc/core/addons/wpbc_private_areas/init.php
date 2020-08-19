@@ -25,13 +25,60 @@ function WPBC_private_areas__if_allowed_page($post_id=''){
 	$allowed_page = WPBC_get_field('private_area__allow_page', $post_id);
 	$private_type = WPBC_private_areas__type();
 
-	if($allowed_page && $private_type == 1){
+	$allowed_by_settings = WPBC_private_areas_is_visible_settings($post_id);
+
+	if( ($allowed_by_settings || $allowed_page) && $private_type == 1){
 		return $post_id;
 	}else{
 		return false;
 	}
 
 } 
+
+function WPBC_private_areas_is_visible_settings($post_id=''){ 
+
+	$temps_ids = array();
+
+	$get_woo_conditions = WPBC_private_areas_get_woo_conditions(); 
+	
+	// check wpbc_private_areas__bypass_post_object pages too
+	$wpbc_private_areas__bypass_post_object = WPBC_get_field('wpbc_private_areas__bypass_post_object','options');
+	if( !empty($wpbc_private_areas__bypass_post_object) ){
+		foreach ($wpbc_private_areas__bypass_post_object as $key => $value) {
+			$temps_ids[] = $value->ID; 
+		}
+	}
+
+	// Check woo pages 
+	if( !empty($get_woo_conditions) && WPBC_is_woocommerce_active() ){
+		foreach ($get_woo_conditions as $key => $value) {
+			
+			$option = get_field('wpbc_private_areas__'.$value, 'options');
+
+			if($value=='is_account_page' && $option){
+				$temps_ids[] = wc_get_page_id( 'myaccount' );
+			}
+			if($value=='is_cart' && $option){
+				$temps_ids[] = wc_get_page_id( 'cart' );
+			}
+			if($value=='is_checkout' && $option){
+				$temps_ids[] = wc_get_page_id( 'checkout' );
+			} 
+			if($value=='is_shop' && $option){
+				$temps_ids[] = wc_get_page_id( 'shop' );
+			}
+
+		}
+	}
+
+	if(!empty($post_id) && !empty($temps_ids)){
+		if(in_array($post_id,$temps_ids)){
+			return true;
+		}
+	}
+	
+
+}
  
 function WPBC_private_areas__get_url(){
 	// Get visited URL
@@ -238,55 +285,21 @@ add_shortcode( 'WPBC_if_not_allowed_user', 'WPBC_if_not_allowed_user_FX' );
 */
 
 
-/* ACF part */
-
+/* ACF part */ 
 
 add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__private_areas', 0, 1);
 function WPBC_group_builder__layout__private_areas($fields){ 
-	$fields[] = array (
-		'key' => 'field_layout_private_area__tab',
-		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
-		'name' => '',
-		'type' => 'tab',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array (
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'placement' => 'top',
-		'endpoint' => 0,
-	);
+	 
 
 	// WPBC_private_areas__type()
 
-	if( WPBC_private_areas__type() == 1 ){
+	if( WPBC_private_areas__type() == 1 ){ // future versions could have more types, currenty just 1
 
-		$fields[] = array (
-			'key' => 'field_layout_private_area__allow_message',
-			'label' => 'Private Areas Settings',
-			'name' => '',
-			'type' => 'message',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'message' => 'You are using Private Areas addon. This page is only visible for allowed logged users.',
-			'new_lines' => 'wpautop',
-			'esc_html' => 0,
-		);
-
-		$fields[] = array (
+		$select_field = array (
 			'key' => 'field_layout_private_area__allow_page',
-			'label' => 'Make page visible anyway?',
+			'label' => 'Make page Public anyway?',
 			'name' => 'private_area__allow_page',
-			'type' => 'true_false',
+			'type' => 'true_false', 
 			'instructions' => '',
 			'required' => 0,
 			'conditional_logic' => 0,
@@ -301,7 +314,103 @@ function WPBC_group_builder__layout__private_areas($fields){
 			'ui_on_text' => '',
 			'ui_off_text' => '',
 		);
+
+		$msg = 'You are using Private Areas addon. This page is only visible for allowed logged users.'; 
+		$get_woo_conditions = WPBC_private_areas_get_woo_conditions();  
+		$icon = WPBC_get_svg_icon('lock');
+
+		if(isset($_GET['post'])){
+			$post_id = $_GET['post'];
+			$allowed_by_settings = WPBC_private_areas_is_visible_settings($post_id);
+			if($allowed_by_settings){
+				$icon = WPBC_get_svg_icon('lock_open');
+
+				$msg = '<span class="wpbc-badge">'.__('This page is', 'bootclean') .' <b>'. __('PUBLIC', 'bootclean').'</b></span> <br><br>';
+				$msg .=  __('This page has been configured to bypass the Private Area feature.', 'bootclean');
+
+				$menu_slug = 'wpbc-private-areas-settings';
+				$url = admin_url( 'admin.php?page=' . $menu_slug );
+				$msg .= '<br><br> '.__('Go to settings if you need to change this', 'bootclean').' > <a class="wpbc-btn-small button" href="'.$url.'"><small>'.__('PRIVATE AREAS', 'bootclean').'</small></a>';
+
+				$select_field = array (
+					'key' => 'field_layout_private_area__allow_page',
+					'label' => 'Make page Public anyway?',
+					'name' => 'private_area__allow_page',
+					'type' => 'number',
+					'default_value' => 1,
+					'readonly' => true, 
+					'wrapper' => array (
+						'width' => '',
+						'class' => 'wpbc-hidden-input wpbc-field-no-label',
+						'id' => '', 
+					),
+				);
+			}
+		}  
+
+		$fields[] = array (
+			'key' => 'field_layout_private_area__tab',
+			'label' => $icon,
+			'name' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+		);
+
+		$fields[] = array (
+			'key' => 'field_layout_private_area__allow_message',
+			'label' => 'Private Areas Settings',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => $msg,
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		);
+
+		$fields[] = $select_field;
 	}
 
 	return $fields;
+}
+
+
+/*
+
+	Admin Columns for Page post type
+
+*/
+add_filter( 'manage_pages_columns', 'wpbc_private_areas_manage_pages_columns',10,1 );
+add_action( 'manage_pages_custom_column', 'wpbc_private_areas__manage_pages_custom_column', 10, 2 );
+
+function wpbc_private_areas_manage_pages_columns( $defaults ) { 
+   $defaults['wpbc_private_areas'] = __('Private', 'bootclean');  
+   return $defaults;
+}
+
+function wpbc_private_areas__manage_pages_custom_column( $column_name, $id ){
+
+	if ( $column_name === 'wpbc_private_areas' ) {
+		if(WPBC_private_areas_is_visible_settings($id)){
+			echo WPBC_get_svg_icon('lock_open');
+		} else {
+			echo WPBC_get_svg_icon('lock');
+		}
+		
+	}
 }

@@ -117,9 +117,9 @@ foreach ($locations as $k=>$v ) {
 	);  
 
 	$main_content_builder[] = array(
-		'name' => $v['options']['label'], 
+		'name' => !empty($v['options']['label']) ? $v['options']['label'] : '', 
 		'id' => 'custom_layout__custom_locations__'.$k,
-		'desc' => $v['options']['description'], 
+		'desc' => !empty($v['options']['description']) ? $v['options']['description'] : '', 
 		'std' => $v['id'],
 		'type' => 'images',
 		'class' => '', //mini, tiny, small

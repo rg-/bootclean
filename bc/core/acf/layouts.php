@@ -13,10 +13,11 @@
 
 
 include('layouts/html_row.php');
-include('layouts/template_row.php'); 
-include('layouts/template_part_row.php'); 
+//include('layouts/headin_row.php'); 
 include('layouts/slider_row.php');
 include('layouts/widgets_row.php');
+include('layouts/template_row.php'); 
+include('layouts/template_part_row.php'); 
 
 // TODO, doing... see acf/layouts/navbar_row and same in template-parts/layouts/navbar_row.php
 include('layouts/navbar_row.php'); 
@@ -28,6 +29,7 @@ function WPBC_acf_builder_layouts(){
 	
 	// Filter here, so i can allways "safe" add a flexible_row by filter, and then, and LAST always, the layout_flexible_row, that in fact has the same layouts defined above and that´s why needs to be last one loaded :)
 	$layouts = apply_filters('WPBC_acf_builder_layouts', $layouts);
+	$layouts = apply_filters('wpbc/filter/builder_flexible_content/layouts', $layouts);
 	
 	$flexible_rows = array(
 		'layout_flexible_row' => array(
@@ -116,8 +118,8 @@ function WPBC_acf_builder_layouts(){
 			'max' => '',
 		),
 	);
-	$layouts['layout_flexible_row'] = $flexible_rows['layout_flexible_row'];
-	
+	$layouts['layout_flexible_row'] = $flexible_rows['layout_flexible_row']; 
+
 	$layouts = apply_filters('wpbc/filter/acf/builder/flexible_content/layouts', $layouts);
 
 	return $layouts;

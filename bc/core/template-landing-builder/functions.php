@@ -97,8 +97,13 @@ function WPBC_template_landing__main_pageheader(){
 	WPBC_template_landing__main_container(true);
 }
 
-function WPBC_template_landing__main_container($get_page_header=false){   
-	global $post;  
+function WPBC_template_landing__main_container($get_page_header=false, $post_id=false){   
+
+	global $post;
+
+	if($post_id){
+		$post = get_post($post_id);
+	} 
 
 	/* Fiter this based on page fields used later, use the ID here and also on html id="" value and scroll-to link item */ 
 	$make_sections = true; 
@@ -115,7 +120,7 @@ function WPBC_template_landing__main_container($get_page_header=false){
 	if( !empty($sections[0]['id']) && $sections[0]['id']=='main-page-header' && $get_page_header){ 
 		$sections = array($sections[0]); 
 	}
-
+	//_print_code($sections); 
 	
 	if(!empty($sections) && $make_sections){ 
  		
@@ -132,6 +137,7 @@ function WPBC_template_landing__main_container($get_page_header=false){
 				$args['acf_field'] = $v['acf_field'];  
 			}else{ 
 				$args['acf_field'] = WPBC_get_field('template_landing__'.$v['acf']['group_id'], $post->ID);
+				//_print_code($v['acf']); 
 			}
 			if(!empty($v['acf_field_xtra'])){ 
 				$args['acf_field_xtra'] = $v['acf_field_xtra'];  

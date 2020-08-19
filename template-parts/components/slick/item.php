@@ -1,5 +1,5 @@
 <?php
-
+// _print_code($args);
 /*
 
 	Passed $args
@@ -15,9 +15,21 @@ $use_lazyload = false;
 if( !empty( $params['lazyload'] ) ){
 	$use_lazyload = true; 
 }
+
+$use_lazytype = 'lazybackground';
+global $WPBC_VERSION; 
+if ( version_compare( $WPBC_VERSION, '11.0.0', '>' ) ) {
+	$use_lazytype = 'lazybackground';
+}else{
+	$use_lazytype = 'lazyload';
+}
+
 $type = ( !empty($item['type']) && !is_array($item['type']) ) ? $item['type'] : 'inline'; 
  
-$content = apply_filters('wpbc/slick/content_slide', $item['content'], $params);; 
+$content = apply_filters('wpbc/slick/content_slide', $item['content'], $params);
+
+	//_print_code($args);
+
 $image_object = !empty($item['image_object']) ? $item['image_object'] : ''; 
 $content_class = !empty($item['content_class']) ? $item['content_class'] : ( !empty($params['container_item_class']) ? $params['container_item_class'] : '' ); 
 
@@ -27,7 +39,12 @@ $attrs = '';
 
 if($type == 'inline'){ 
 	$content_type = 'item-image-content'; 
+
+	// TODO HERE, apply same new data-lazyimage-src for <img> inline
+
 }
+
+$slick_item_class = '';
 
 if($type == 'cover'){ 
 	$content_type = 'item-cover-content';
@@ -38,7 +55,9 @@ if($type == 'cover'){
 			$slick_item_class .= ' loading'; 
 			$img_id = $image_object['id'];
 			$img_low = wp_get_attachment_image_src($img_id, 'medium');
-			$attrs = 'data-lazyload-src="'.$image_object['url'].'" style="background-image:url('. $img_low[0] .');" ';
+
+			$attrs = 'data-'.$use_lazytype.'-src="'.$image_object['url'].'" style="background-image:url('. $img_low[0] .');" ';
+
 		}
 	}else{
 		$item_class .= ' no-image';
@@ -53,7 +72,7 @@ if( !empty($content) || !empty($image_object)) {
 
 ?>
 <div class="item <?php echo $slick_item_class; ?>">
-<?php if($use_lazyload && !empty($image_object)){ ?>
+<?php if($use_lazyload && !empty($image_object) && $use_lazytype == 'lazyload'){ ?>
 <span class="lazyload-loading"></span>
 <?php } ?>
 <div class="item-container <?php echo $item_class; ?>" <?php echo $attrs; ?>>
@@ -64,7 +83,9 @@ if( !empty($content) || !empty($image_object)) {
 <?php } ?>
 <?php if( !empty($content) ) { ?>
 <div class="<?php echo $content_type.' '.$content_class; ?>">
-<?php echo $content; ?>
+	<?php do_action('wpbc/slick/item/content/before', $item, $params); ?>
+	<?php echo $content; ?>
+	<?php do_action('wpbc/slick/item/content/after', $item, $params); ?>
 </div>
 <?php } ?>
 <?php do_action('wpbc/slick/item/container/content/after', $item, $params); ?>

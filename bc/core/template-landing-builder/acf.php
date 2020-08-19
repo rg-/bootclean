@@ -10,7 +10,7 @@ if( function_exists('acf_add_local_field_group') ):
 
 	acf_add_local_field_group(array(
 		'key' => 'group_template_landing',
-		'title' => 'Landing Content',
+		'title' => _x('Landing Content','bootclean'),
 		'fields' => WPBC_group_template_landing_fields(),
 		'location' => array(
 			array(
@@ -21,7 +21,7 @@ if( function_exists('acf_add_local_field_group') ):
 				),
 			),
 		),
-		'menu_order' => 0,
+		'menu_order' => apply_filters('wpbc/filter/template-landing/group/menu_order', 5),
 		'position' => 'normal',
 		'style' => 'seamless',
 		'label_placement' => 'top',

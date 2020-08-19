@@ -349,7 +349,7 @@ function _BC_template( $src, $params=array() ){
 function get_component_part($src,$params=array(), $echo=true){
 	BC_get_component($src,$params, $echo);
 }
-function WPBC_get_component($src,$params=array(), $echo=true){
+function WPBC_get_component($src,$params=array(), $echo=true){ 
 	BC_get_component($src,$params, $echo);
 }
 function BC_get_component($src,$params=array(), $echo=true){ 
@@ -361,7 +361,7 @@ function BC_get_component($src,$params=array(), $echo=true){
 		ob_end_clean();
 		if($echo){
 			echo $content; 
-		}else{
+		}else{  
 			return $content; 
 		} 
 	} 
@@ -469,6 +469,64 @@ function WPBC_get_admin_icon($type='grayscale'){
 	$icon = '<img width="16" style="vertical-align:middle; display:inline-block;" src="'.get_template_directory_uri().'/bc/core/assets/images/bootclean-iso-'.$type.'-@2.png'.'"/>';
 	return $icon;
 }
+
+/* Color choices */
+
+function WPBC_get_acf_root_colors_select_choices($field_name=''){
+	$style_choices = array();
+	$root_colors = BC_get_root_colors();
+	$style_choices['transparent'] = 'None';
+	foreach($root_colors as $k=>$v){ 
+		$choice_key = str_replace('--', '', $k); 
+		$style_choices[$choice_key] = '<i class="select_choices-badge" style="background-color:'.$v.'"></i>';
+		 
+	}
+
+	$style_choices = apply_filters('wpbc/filter/acf/root_color_select_choices', $style_choices, $field_name);
+
+	return $style_choices;
+}
+
+function WPBC_get_acf_root_colors_choices($field_name=''){
+	$style_choices = array();
+	$root_colors = BC_get_root_colors();
+	$style_choices['transparent'] = '<span title="Transparent" style="min-width:20px; overflow:hidden; display: inline-block; width: 50%; display: block;"><i style="background-color:#fff;display: block;position: relative; border:1px solid rgba(1,1,1,.2); display:block; height:10px; "></i><i style="display:block; position:absolute; top: 8px; left: 0; right: 0; text-align: center; font-size:8px; color:#999; text-style:normal;">X</i></span>';
+	foreach($root_colors as $k=>$v){ 
+		$choice_key = str_replace('--', '', $k); 
+		$style_choices[$choice_key] = '<span title="'.strtoupper($choice_key).'" style="min-width:20px; overflow:hidden; display: inline-block; width: 50%; display: block;"><i style="background-color:'.$v.';display: block;position: relative; border:1px solid rgba(1,1,1,.2); display:block; height:10px; "></i><i style="display:none;">'.strtoupper($choice_key).'</i></span>';
+		 
+	}
+
+	$style_choices = apply_filters('wpbc/filter/acf/root_color_choices', $style_choices, $field_name);
+
+	return $style_choices;
+}
+
+
+
+/*
+ *
+ * @function WPBC_get_theme_settings_args
+ *
+ * @filter
+ *
+*/
+function WPBC_get_theme_settings_args($key=''){
+
+	$args = array();   
+	
+	$args = apply_filters('wpbc/filter/theme_settings/args',$args);
+
+	if(!empty($key)){
+		$return = !empty($args[$key]) ? $args[$key] : '';
+	}else{
+		$return = $args;
+	}
+
+	return $return;
+
+} 
+
 
 include ('functions/WPBC_get_svg.php');
 include ('functions/WPBC_acf_get__fx.php');

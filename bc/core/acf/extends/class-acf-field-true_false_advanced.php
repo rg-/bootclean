@@ -148,7 +148,7 @@ class acf_field_true_false_advanced extends acf_field {
 		acf_render_field_setting( $field, array(
 			'label'			=> __('Default Value','acf'),
 			'instructions'	=> '',
-			'type'			=> 'true_false_advanced',
+			'type'			=> 'true_false',
 			'name'			=> 'default_value',
 		));
 		
@@ -157,7 +157,7 @@ class acf_field_true_false_advanced extends acf_field {
 		acf_render_field_setting( $field, array(
 			'label'			=> __('Stylised UI','acf'),
 			'instructions'	=> '',
-			'type'			=> 'true_false_advanced',
+			'type'			=> 'true_false',
 			'name'			=> 'ui',
 			'ui'			=> 1,
 			'class'			=> 'acf-field-object-true-false-ui'

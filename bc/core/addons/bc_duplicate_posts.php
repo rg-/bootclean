@@ -108,7 +108,7 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 					if( !jQuery('body').hasClass('toplevel_page_wpcf7') ){ 
 						
 						if( jQuery('body').hasClass('gutenberg-editor-page') ){
-								console.log(jQuery("#editor .edit-post-header .edit-post-header__settings").html());
+								//console.log(jQuery("#editor .edit-post-header .edit-post-header__settings").html());
 							jQuery("#editor .edit-post-header .edit-post-header__settings").append('<div class="components-button editor-post-duplicate is-button is-default is-large"><a class="copy button" href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' + global_post_id + '" title="Duplicate this post" rel="permalink"><span class="dashicons dashicons-admin-page"></span>  Duplicate</a></div>');
 							
 						}else{

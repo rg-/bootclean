@@ -53,9 +53,10 @@ if( true === apply_filters('BC_cleaner__dashboard__remove_menu', '__return_false
 */
 
 
-
-add_action('wp_dashboard_setup', 'WPBC_wp_dashboard_setup');
-
+$use_wpbc_dashboard = apply_filters('wpbc/admin/dashboard', '__return_true');
+if($use_wpbc_dashboard){
+	add_action('wp_dashboard_setup', 'WPBC_wp_dashboard_setup');
+}
 function WPBC_wp_dashboard_setup(){
 
 	$icon = WPBC_get_admin_icon();
@@ -165,12 +166,16 @@ function wpbc_dashboard_welcome(){
 				<?php 
 				$actived_addons = apply_filters('wpbc/filter/dashboard/actived_addons',array());
 				if( !empty($actived_addons) ){
-					foreach ($actived_addons as $key => $value) {
+					foreach ($actived_addons as $key => $value) { 
 						$addon_name = $value['title']; 
 						if(!empty($value['url'])){
 							$manage = ' &nbsp;&nbsp;<a class="wpbc-btn-small button" href="'.$value['url'].'"><small>MANAGE</small></a>';
 						}else{
+							if( !empty($value['has_option_page']) ){
+								$manage = '&nbsp;&nbsp;<small class="wpbc-badge">MANAGED FROM THEME FUNCTIONS</small>';
+							}else{ 
 							$manage = '';
+							}
 						}
 						echo '<li>'. $icon_yes .' <b>'.$addon_name.'</b>'.$manage.'</li>';
 					}

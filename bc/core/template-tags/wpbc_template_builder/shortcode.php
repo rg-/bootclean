@@ -27,7 +27,7 @@ function WPBC_get_template_parts_template_builer($part){
 	if($inc) return $inc; 
 } 
 
-function WPBC_get_template_FX($atts, $content = null) {
+function WPBC_get_template_FX($atts, $content = null) { 
 	extract(shortcode_atts(array(
 		"from"=>'',
 		"id" => 0,
@@ -39,6 +39,7 @@ function WPBC_get_template_FX($atts, $content = null) {
 		"layout_count" => '',
 	), $atts));
 	$out = '';
+	$args_passed = $args;
 	if($id!=0 && get_post_type($id) == WPBC_template_builder__post_type_name() ){ 
 		$post = get_post($id); 
 		//$out = $post->post_content; 
@@ -58,7 +59,7 @@ function WPBC_get_template_FX($atts, $content = null) {
 		} 
 		
 		$file = WPBC_get_template_parts_template_builer($template_type);
-		if(!empty($file)){  
+		if(!empty($file)){ 
 			include ($file); 
 		} 
 		$out = ob_get_contents();

@@ -163,6 +163,138 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 },20, 1);
 
 add_filter('WPBC_acf_reusables_fields', function($fields){
+
+	$sub_fields = array();
+
+
+		$responsive_tabs_groups = array(
+			
+			array(
+				'key_prefix' => 'xs',
+				'label' => 'XS'
+			),
+			array(
+				'key_prefix' => 'sm',
+				'label' => 'SM'
+			),
+			array(
+				'key_prefix' => 'md',
+				'label' => 'MD'
+			),
+			array(
+				'key_prefix' => 'lg',
+				'label' => 'LG'
+			),
+			array(
+				'key_prefix' => 'xl',
+				'label' => 'XL'
+			),
+
+		);
+
+	foreach ($responsive_tabs_groups as $key => $value) {
+		$sub_fields[] = WPBC_acf_make_tab_field(array(
+			'key' => 'r_slider_breakpoint_heights_args_tab_'.$value['key_prefix'], 'placement' => 'top', 'label' => $value['label'],
+		)); 
+
+		$default_value = '';
+		$default_unit = 'px';
+
+		if($value['key_prefix']=='xs'){
+			$default_value = '100';
+			$default_unit = 'wh';
+		}
+
+		$sub_fields[] = WPBC_acf_make_number_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_'.$value['key_prefix'],
+			'label' => $value['label'].' - '._x('Height','bootclean'),
+			'default_value' => $default_value,
+			'min' => '0',
+			'width' => '20%',
+		));
+		$sub_fields[] = WPBC_acf_make_radio_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_'.$value['key_prefix'].'_unit',
+			'label' => _x('Units','bootclean'),
+			'width' => '80%',
+			'choices' => array (
+				'px' => 'px',
+				'%' => '%',
+				'vh' => 'vh',
+				'wh' => 'wh', 
+			),
+			'class' => 'wpbc-radio-as-btn',
+			'default_value' => $default_unit,
+			));
+		
+		$sub_fields[] = WPBC_acf_make_number_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_min_'.$value['key_prefix'],
+			'label' => $value['label'].' - '._x('Min-Height','bootclean'),
+			'default_value' => $default_value,
+			'min' => '0',
+			'width' => '20%',
+		));
+		$sub_fields[] = WPBC_acf_make_radio_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_min_'.$value['key_prefix'].'_unit',
+			'label' => _x('Units','bootclean'),
+			'width' => '80%',
+			'choices' => array (
+				'px' => 'px',
+				'%' => '%',
+				'vh' => 'vh',
+				'wh' => 'wh', 
+			),
+			'class' => 'wpbc-radio-as-btn',
+			'default_value' => $default_unit,
+			));
+
+		$sub_fields[] = WPBC_acf_make_number_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_max_'.$value['key_prefix'],
+			'label' => $value['label'].' - '._x('Max-Height','bootclean'),
+			'default_value' => $default_value,
+			'min' => '0',
+			'width' => '20%',
+		));
+		$sub_fields[] = WPBC_acf_make_radio_field(array(
+			'name' => 'r_slider_breakpoint_heights_args_max_'.$value['key_prefix'].'_unit',
+			'label' => _x('Units','bootclean'),
+			'width' => '80%',
+			'choices' => array (
+				'px' => 'px',
+				'%' => '%',
+				'vh' => 'vh',
+				'wh' => 'wh', 
+			),
+			'class' => 'wpbc-radio-as-btn',
+			'default_value' => $default_unit,
+			));
+
+	}
+
+ 
+		 
+
+	$fields[] = array (
+		'key' => 'key__r_slider_breakpoint_heights_args',
+		'label' => _x('Slider Responsive Heights','bootclean'),
+		'name' => 'r_slider_breakpoint_heights_args',
+		'type' => 'group',
+		'value' => NULL,
+		'instructions' => _x('Use only XS for all breakpoints (Bootstrap) .','bootclean'),
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'wpbc-tabsless-group',
+			'id' => '',
+		),
+		'layout' => 'block',
+		'sub_fields' => $sub_fields,
+	);
+
+	return $fields;
+},20, 1);
+
+add_filter('WPBC_acf_reusables_fields', function($fields){
 	$fields[] = array(
 			'key' => 'key__r_slider_breakpoint_enable',
 			'label' => 'Slider Enable/Disable',
@@ -332,7 +464,7 @@ add_filter('WPBC_group_builder__slider', function($fields){
 	global $WPBC_VERSION; 
 	if ( version_compare( $WPBC_VERSION, '10.0.0', '>' ) ) {
 		$cloned = array( 
-			0 => 'key__r_slider_settings',
+			//0 => 'key__r_slider_settings',
 			1 => 'key__r_slider_settings_args',
 		);
 	}else{
@@ -365,6 +497,18 @@ add_filter('WPBC_group_builder__slider', function($fields){
 }, 30, 1); 
 
 add_filter('WPBC_group_builder__slider', function($fields){
+
+	global $WPBC_VERSION; 
+	if ( version_compare( $WPBC_VERSION, '10.0.0', '>' ) ) {
+		$cloned = array( 
+			//0 => 'key__r_slider_settings',
+			1 => 'key__r_slider_breakpoint_heights_args',
+		);
+	}else{
+		$cloned = array( 
+			1 => 'key__r_slider_breakpoint_heights',
+		);
+	}
 	
 	$fields[] = array(
 		'key' => 'key__slider__slider_items__slider_breakpoint_heights',
@@ -379,9 +523,7 @@ add_filter('WPBC_group_builder__slider', function($fields){
 			'class' => '',
 			'id' => '',
 		),
-		'clone' => array(
-			0 => 'key__r_slider_breakpoint_heights',
-		),
+		'clone' => $cloned,
 		'display' => 'seamless',
 		'layout' => 'block',
 		'prefix_label' => 0,

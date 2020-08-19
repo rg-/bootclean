@@ -6,7 +6,7 @@
 
 $WPBC_is_acf = WPBC_is_acf(); 
 
-require 'cleaner/login.php';
+require 'cleaner/login.php'; // jobsolete from v 11
 require 'cleaner/dashboard.php';
 require 'cleaner/admin-bar.php'; 
 require 'cleaner/admin-footer.php'; 

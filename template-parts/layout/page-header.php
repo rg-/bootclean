@@ -1,6 +1,7 @@
 <?php
 
-$params = WPBC_layout__main_page_header_defaults(); 
+$post_id = apply_filters('wpbc/filter/layout/main-page-header/post_id', '');
+$params = WPBC_layout__main_page_header_defaults($post_id); 
 $use_from_options = $params['use_from_options'];
 $use_template = $params['use_template']; 
 $use_custom_template = $params['use_custom_template']; 
@@ -16,7 +17,11 @@ if( !empty($template_id) || !empty($use_custom_html) ){
 	if($use_custom_html){ 
 		echo do_shortcode( $use_custom_html ); 
 	}else{
-		echo do_shortcode('[WPBC_get_template id="'.$template_id.'"]');
+		add_action('wpbc/slick/item/content/before', 'WPBC_page_header_slick_item_before',0,2);
+		add_action('wpbc/slick/item/content/after', 'WPBC_page_header_slick_item_after',0,2);
+		echo do_shortcode('[WPBC_get_template id="'.$template_id.'"]');		
+		remove_action('wpbc/slick/item/content/before', 'WPBC_page_header_slick_item_before',0,2);
+		remove_action('wpbc/slick/item/content/after', 'WPBC_page_header_slick_item_after',0,2);
 	}
 	?>
 	<?php do_action('wpbc/layout/page-header/after'); ?>

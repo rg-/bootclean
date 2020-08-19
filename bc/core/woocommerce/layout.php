@@ -52,8 +52,20 @@ function WPBC_woocommerce_get_config(){
 				'related_class' => 'w-100',
 			),
 
-			'my-account' => array(
+			'myaccount' => array(
 				'class' => 'col-navigation-md-4 col-content-md-8 col-navigation-order-1 col-content-order-2 col-navigation-order-md-2 col-content-order-md-1',
+			),
+
+			'shop' => array(
+				'class' => '',
+			),
+
+			'cart' => array(
+				'class' => '',
+			),
+
+			'checkout' => array(
+				'class' => '',
 			),
 
 		), 
@@ -153,15 +165,39 @@ if(!function_exists('WPBC_layout_struture__woocommerce_shop_start')){
 		*/
 
 
-		$args = WPBC_woocommerce_get_layout(); 
+		$args = WPBC_woocommerce_get_layout();  
 
+		$args['before_woo-main-container-area'] = !empty($args['before_woo-main-container-area']) ? $args['before_woo-main-container-area'] : '';
+		$args['before_woo-main-container-row'] = !empty($args['before_woo-main-container-row']) ? $args['before_woo-main-container-row'] : '';
+		$args['before_woo-main-content-area'] = !empty($args['before_woo-main-content-area']) ? $args['before_woo-main-content-area'] : '';
+
+		$args['after_woo-main-container-area'] = !empty($args['after_woo-main-container-area']) ? $args['before_woo-main-container-area'] : '';
+		$args['after_woo-main-container-row'] = !empty($args['after_woo-main-container-row']) ? $args['before_woo-main-container-row'] : '';
+		$args['after_woo-main-content-area'] = !empty($args['after_woo-main-content-area']) ? $args['before_woo-main-content-area'] : '';
+
+		
 	?>
-	<div id="main-container-areas" class="<?php echo $args['shop']['main_container_areas_class'];?>">
-		<div id="main-container-row" class="<?php echo $args['shop']['main_container_row_class'];?>">
+
+	<?php echo $args['before_woo-main-container-area']; ?>
+
+	<?php do_action( 'wpbc/woo/layout/before/main-container-areas', $args ); ?>
+
+	<div id="main-container-areas" class="wpbc-woo-container-area <?php echo $args['shop']['main_container_areas_class'];?>">
+
+		<?php echo $args['before_woo-main-container-row']; ?>
+
+		<div id="main-container-row" class="wpbc-woo-container-row <?php echo $args['shop']['main_container_row_class'];?>">
+
+			<?php echo $args['before_woo-main-content-area']; ?>
+
 			<?php if(WPBC_if_woocommerce_use_cols()){ ?>
-			<div id="main-content-area" class="<?php echo $args['shop']['content_areas_cols']['main_class'];?>">
+
+			<div id="main-content-area" class="wpbc-woo-main-content-area <?php echo $args['shop']['content_areas_cols']['main_class'];?>">
+
 			<?php } else { // WPBC_if_woocommerce_use_cols() END ?>
-			<div id="main-content-area" class="<?php echo $args['shop']['content_areas_single']['main_class'];?>">
+
+			<div id="main-content-area" class="wpbc-woo-main-content-area <?php echo $args['shop']['content_areas_single']['main_class'];?>">
+
 			<?php } ?>
 	<?php
 	}
@@ -173,15 +209,25 @@ if(!function_exists('WPBC_layout_struture__woocommerce_shop_end')){
 			$content = $args['shop']['content_areas_cols']['col_content'];
 			?>
 			</div>
-			<div id="area-1" class="<?php echo $args['shop']['content_areas_cols']['col_class'];?>">
+			<div id="area-1" class="wpbc-woo-main-content-area-1 <?php echo $args['shop']['content_areas_cols']['col_class'];?>">
 				<?php
 				echo $content;
 				?>
 			</div>
 			<?php } // WPBC_if_woocommerce_use_cols() END ?>
-			</div>
-		</div>
-	</div>
+			
+			</div><!-- .wpbc-woo-main-content-area end -->
+			
+			<?php echo $args['after_woo-main-content-area']; ?>
+
+		</div><!-- .wpbc-woo-container-row end -->
+
+		<?php echo $args['after_woo-main-container-row']; ?>
+
+	</div><!-- .wpbc-woo-container-area end -->
+
+	<?php echo $args['after_woo-main-container-area']; ?>
+
 	<?php
 	}
 }
@@ -201,6 +247,9 @@ function WPBC_if_woocommerce_wrap_template(){
 	if( is_shop() || $post_type == 'product' || is_product_category() ){
 		$wrap_template = true;
 	}else{
+		$wrap_template = false;
+	}
+	if(is_search()){
 		$wrap_template = false;
 	}
 	return apply_filters('wpbc/filter/woocommerce/layout/wrap_template', $wrap_template);
@@ -237,8 +286,7 @@ add_action('init', function(){
 			add_action('wpbc/layout/body/start', 'action__wpbc_layout_start__container_block_start',30);
 			WPBC_layout_struture__main_navbar();
 			WPBC_layout_struture__main_pageheader();
-			WPBC_layout_struture__main_content_wrap();
-
+			WPBC_layout_struture__main_content_wrap(); 
 			// This one is the woo part
 			WPBC_layout_struture__woocommerce_shop_start(); 
 
@@ -274,21 +322,45 @@ function woocommerce_body_class($class){
 
 	$args = WPBC_woocommerce_get_layout(); 
 
+	// important for styles _source/bootclean/sass/wordpress/_woocommerce.scss
+
+	if(is_woocommerce() || is_cart() || is_checkout() || is_account_page()){
+		$class .= ' wpbc-woo ';
+	}
+
 	if( is_account_page() && !is_user_logged_in() ){
 		$class .= ' woocommerce-not_logged ';
 	}
 	if(is_shop()){
 		$class .= ' woocommerce-is_shop ';  
+		$class .= $args['shop']['class']; 
 	}
 	if(is_cart()){
 		$class .= ' woocommerce-is_cart ';
+		$class .= $args['cart']['class'];
 	}
 	if(is_checkout()){
 		$class .= ' woocommerce-is_checkout ';
+		$class .= $args['checkout']['class'];
 	}
 	if(is_account_page()){ 
 		$class .= ' woocommerce-is_account_page ';  
-		$class .= $args['my-account']['class'];
+		$class .= $args['myaccount']['class'];
+
+		$endpoints = array(
+			'orders', 'edit-address', 'edit-account'
+		);
+		$endpoints = apply_filters('wpbc/filter/woocommerce/myaccount/endpoints', $endpoints);
+		
+		if(!empty($endpoints)){
+			foreach ($endpoints as $endpoint) {
+				if( is_wc_endpoint_url( $endpoint ) ){
+					$class .= ' woocommerce-is_endpoint_'.$endpoint.' ';  
+					$class .= !empty($args['myaccount']['endpoints'][$endpoint]['class']) ? $args['myaccount']['endpoints'][$endpoint]['class'] : '';
+				} 
+			}
+		}  
+
 	}
 	if(is_product()){
 		$class .= ' woocommerce-is_product ';

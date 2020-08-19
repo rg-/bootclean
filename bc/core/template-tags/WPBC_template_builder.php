@@ -48,7 +48,7 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 		while( have_rows($key__flexible_content_rows, $post_id) ){ 
 			the_row($post_id);  
 			$layout = get_row_layout(); 
-
+			 
 			if(!empty($layout)){ 
 
 				$file_uri = get_template_directory_uri().'/template-parts/builder';
@@ -71,7 +71,7 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 					include ($inc);  
 				} 
 				$temp = ob_get_contents(); 
-
+				
 				ob_end_clean();  
 				if( !empty($temp) ){  
 
@@ -95,24 +95,6 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 
 							$global_content_visible = get_sub_field('key__layout_'.$layout.'__content_'.'key__global_content_visible', $post_id);
 						}
-						// key__layout_flexible_row__classes
-						
-						 
-						// $classes_group_flex = get_sub_field('key__layout_'.$layout.'__content', $post_id); 
-	/*	
-	ob_start();
-	 
-		
-		if(empty($classes_group) ){ 
-			print_r($global_content_visible);
-		}
-		
-	  
-	$out .= ob_get_contents();
-	ob_end_clean();  
-	*/
-	
-						//$classes_group = $classes_group_flex[0]['r_builder_classes_group'];
 						
 						/*
 							Removing $key_prefix 
@@ -127,14 +109,14 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 						$classes_group = $classes_group_temp;
 						$key_prefix = '';
 						 
-							$content_row_id = $classes_group[$key_prefix.'content_row_id'];
-							$content_visible = $classes_group[$key_prefix.'content_visible'];
-							$content_use_divs = $classes_group[$key_prefix.'content_use_divs'];
-							$content_use_row = $classes_group[$key_prefix.'content_use_row'];
-							$content_row = $classes_group[$key_prefix.'content_row'];
-							$content_row__container = $classes_group[$key_prefix.'content_row__container'];
-							$content_row__container_row = $classes_group[$key_prefix.'content_row__container_row'];
-							$content_row__container_row_col = $classes_group[$key_prefix.'content_row__container_row_col']; 
+$content_row_id = !empty($classes_group[$key_prefix.'content_row_id']) ? $classes_group[$key_prefix.'content_row_id'] : '';
+$content_visible = !empty($classes_group[$key_prefix.'content_visible']) ? $classes_group[$key_prefix.'content_visible'] : '';
+$content_use_divs = !empty($classes_group[$key_prefix.'content_use_divs']) ? $classes_group[$key_prefix.'content_use_divs'] : '';
+$content_use_row = !empty($classes_group[$key_prefix.'content_use_row']) ? $classes_group[$key_prefix.'content_use_row'] : '';
+$content_row = !empty($classes_group[$key_prefix.'content_row']) ? $classes_group[$key_prefix.'content_row'] : '';
+$content_row__container = !empty($classes_group[$key_prefix.'content_row__container']) ? $classes_group[$key_prefix.'content_row__container'] : '';
+$content_row__container_row = !empty($classes_group[$key_prefix.'content_row__container_row']) ? $classes_group[$key_prefix.'content_row__container_row'] : '';
+$content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row__container_row_col']) ? $classes_group[$key_prefix.'content_row__container_row_col'] : ''; 
 						
 					if( empty($classes_group) ){
 						$content_visible = $global_content_visible;
@@ -192,10 +174,22 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 								$out .= $temp;
 							}
 						}else{
+
+							/*
+							
+							IMPORTANT, seems that what i did here, this little small piece of code
+							is much more easy to use than the rest for ifelse above !!!
+
+							Let´s see what happend once playing with sub sub flexibles.... :()
+
+							*/
+
 							$out .= '<!-- NOT VISIBLE HERE: <div id="'. $layout_id .'" .... -->';
+							$row = get_row();
+							$out .= apply_filters('wpbc/template/builder/row/custom', $temp, $row, $layout);
 						}
 
-					} else { // IF layout not $special_types
+					} else { // IF layout not $special_types flex_2-main-content-html_row-1
 
 						$out .= $temp;
 

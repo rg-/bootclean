@@ -80,15 +80,38 @@ function WPBC_if_has_layout($layout,$id){
 	if($layout=='main_footer'){
 		$temp = WPBC_layout__main_footer_defaults($id);
 	}
+
 	if( !empty($temp['template_id']) ){
+		
+		/* CHANGED 2020 08 19 */
+
+		/*
 		if( !empty($temp['use_custom_template']) && $temp['use_custom_template'] == 'none' ){
 			return 2;
 		}else{
 			return 1;
 		} 
+		*/
+
+		/* into this one, notice also y changed the return to $return so i can return it at the end */
+
+		if( !empty($temp['use_custom_template']) && $temp['use_custom_template'] != 'none' ){
+			$return = 2;
+		}else{
+			$return = 1;
+		}
+		if($temp['use_custom_template'] == 'none'){
+			$return = 0;
+		}
+
+		/* CHANGED 2020 08 19 END */
+	
 	}else{
-		return 0;
+		$return = 0;
 	}
+
+	return $return;
+
 }
 
 function WPBC_if_has_main_navbar($id){
@@ -103,7 +126,14 @@ function WPBC_if_has_main_footer($id){
 	return WPBC_if_has_layout('main_footer',$id); 
 }
 
-function WPBC_layout__main_page_header_defaults($post_id=''){
+function WPBC_page_header_slick_item_before($item, $params){ 
+	echo apply_filters('wpbc/page_header/slick/item/before', '');
+}
+function WPBC_page_header_slick_item_after($item, $params){ 
+	echo apply_filters('wpbc/page_header/slick/item/after', '');
+}
+
+function WPBC_layout__main_page_header_defaults($post_id=''){ 
 
 	$main_page_header = WPBC_get_option('bc-options--layout--main-page-header');
 	$main_page_header_template = WPBC_get_option('bc-options--layout--main-page-header-template');

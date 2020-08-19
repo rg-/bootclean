@@ -23,6 +23,8 @@ $slider_breakpoint_enable = get_sub_field($field_base.'_'.'key__slider__slider_i
 $slider_settings_args = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_settings'.'_'.'key__r_slider_settings_args', $post_id); 
 
 
+$slider_breakpoint_heights_args = get_sub_field($field_base.'_'.'key__slider__slider_items__slider_breakpoint_heights'.'_'.'key__r_slider_breakpoint_heights_args', $post_id); 
+
 $slider_acf_object = get_field_object($field_base, $post_id);  
 
 
@@ -71,6 +73,7 @@ if(!empty($slider_items)){
 		'slider_acf_object'=> 	$slider_acf_object,
 		'items' => $items, 
 		'breakpoint-height' => $slider_breakpoint_heights,
+		'breakpoint-height-args' => $slider_breakpoint_heights_args,
 		'enable-at' => $slider_breakpoint_enable,
 		'lazyload' => true,
 	); 

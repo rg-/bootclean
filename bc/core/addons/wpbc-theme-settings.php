@@ -32,26 +32,33 @@ if($use_wpbc_theme_settings){
 		return $args;
 	},10,1);
 
+	
+ 
+	include('wpbc_theme_settings/functions.php');
+
 	/* Make addon be able to see over dashboard status 
 	I did this so i can controll over each addon init file if it´s actived or not
 	and not the reverse way on doing this on the dashboard code for each addon used.
 
 	Maybe another idea is of course create a class and so on...
 	But classes and filters are another world !!
+	
+	Call this after the existence of WPBC_get_theme_settings_args() so arguemns filtered above are shared like menu title.
 
 	*/
 	add_filter('wpbc/filter/dashboard/actived_addons',function($addon){
 
+		$settings = WPBC_get_theme_settings_args('options_page');
+
 		$addon[] = array(
-			'name' => 'site_settings',
-			'title' => __('Site Settings','bootclean'),
+			'name' => $settings['menu_slug'],
+			'title' => $settings['menu_title'],
 			'url' => menu_page_url('wpbc-site-settings',false),
 		);
 
 		return $addon;
 	},10,1);
- 
-	include('wpbc_theme_settings/functions.php');
+
 	include('wpbc_theme_settings/enqueue.php');
 
 	// include('wpbc_theme_settings/options_pages/site-settings.php'); 

@@ -10,12 +10,17 @@
 
 	Related sass/core/_collapse.scss
 
-	*/
+	*/ 
 
-	$params = $args['params']; 
+
+
+	$params = $args['params'];  
 
 	$collapse_ID = isset($params['id']) ? $params['id'] : 'collapse-custom-'.uniqid();
 	$collapse_class = isset($params['class']) ? $params['class'] : '';
+	if(!empty($params['inside_nav'])){
+		$collapse_class .= ' collapse-inside_nav';
+	}
 	$collapse_attrs = isset($params['attrs']) ? $params['attrs'] : '';
 	$collapse_wrapper_class = isset($params['wrapper_class']) ? $params['wrapper_class'] : 'w-100';
 	$collapse_action_class = isset($params['action_class']) ? $params['action_class'] : 'text-right';
@@ -79,9 +84,17 @@
 				);
 
 				$passed_wp_nav_menu = isset($params['wp_nav_menu']) ? $params['wp_nav_menu'] : array();
-				$wp_nav_menu = array_merge($passed_wp_nav_menu, $wp_nav_menu);
+				$wp_nav_menu = array_merge( $wp_nav_menu, $passed_wp_nav_menu );
+				// _print_code($wp_nav_menu);
+				// wp_nav_menu( $wp_nav_menu );
 
-				wp_nav_menu( $wp_nav_menu );
+				$nav_menus = array(); 
+				$nav_menus[] = $wp_nav_menu; 
+				$nav_menus = apply_filters('wpbc/filter/layout/'.$params['id'].'/nav_menus', $nav_menus); 
+				foreach ($nav_menus as $key => $value) {
+					wp_nav_menu( $value ); 
+				} 
+
 			}
 
 			echo isset($params['after_content']) ? $params['after_content'] : '';

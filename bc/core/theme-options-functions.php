@@ -119,13 +119,13 @@ function WPBC_get_default_options() {
 	$output = array(); 
 	foreach ( (array) $default_options as $group ) {
 		 
-		if ( has_filter( 'of_sanitize_' . $option['type'] ) ) {
+		if ( !empty($v['type']) && has_filter( 'of_sanitize_' . $option['type'] ) ) {
 		//	$output[$option['id']] = apply_filters( 'of_sanitize_' . $option['type'], $option['std'], $option );
 		}
 		$options = $group;
 		if( !empty( $options ) ){
 			foreach($options as $k=>$v){
-				if($v['id'] && $v['std'] && $v['type']){
+				if(!empty($v['id']) && !empty($v['std']) && !empty($v['type'])){
 					// If option has id and std and type values, push into output
 					$output[$v['id']] = $v['std'];
 				}

@@ -74,17 +74,22 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 			$t_out = 'Using template: '.$link;
 		} 
   }else{
- 		$t_out = 'Using default: '.$link;
+ 		$t_out = 'Using default';
+ 		if($link){
+ 			$t_out .= ': '.$link;
+ 		}
   }
+  
+  $out = '';
 
   if(!empty($title)){
   	$out = "<p><small><b>".$title.": </b><br><span style='display:inline-block; padding-left:5px;'>".$t_out."</span></small></p>";
   }
-  $out = '';
+  
   if($layout=='ajax_navigation'){ 
  		
   	if(function_exists('WPBC_ajax_navigation_pjax__is_enabled')){
-  		$out = '<p style="margin-top:10px; padding-top:5px;"><small><b>Page Navigation: </b></small></p>';	
+  		//$out = '<p style="margin-top:10px; padding-top:5px;"><small><b>Page Navigation: </b></small></p>';	
   		if(WPBC_ajax_navigation_pjax__is_enabled($id)){
 	  		$c = 'dashicons dashicons-yes text-success';   
 		  }else{
@@ -152,8 +157,8 @@ function wpbc_manage_pages_custom_column( $column_name, $id ){
 
 	if ( $column_name === 'template-layout' ) {
 
-		   $set_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
-		   if ( $set_template == 'default' ) {
+		   $set_template = get_post_meta( $id, '_wp_page_template', true ); 
+		   if ( empty($set_template) || $set_template == 'default' ) {
 			   echo 'Default';
 		   }
 		   $templates = get_page_templates();
@@ -184,6 +189,7 @@ function wpbc_manage_pages_custom_column( $column_name, $id ){
    } // 'template-layout' END 
 
    if ( $column_name === 'template-settings' ) { 
+
 	    // Main Navbar
 	    wpbc_get_template_settings_for_columns('main_navbar', $id); 
 	    // Page Header

@@ -42,17 +42,60 @@
 	$slider_ID = !empty($params['id']) ? $params['id'] : 'wp-slick-slider-'.$_slider_uid;  
 	
 	$slick_data = '';
-	if( !empty( $params['breakpoint-height'] ) ){
-		$bk = $params['breakpoint-height'];
-		if(is_array($bk)){
-			$bk = json_encode($bk);
-		} 
-		$slick_data = "data-breakpoint-height='".$bk."'";
+
+	
+
+	global $WPBC_VERSION; 
+	
+
+	if( !empty( $params['breakpoint-height'] ) || !empty( $params['breakpoint-height-args'] ) ){
+
+		if ( version_compare( $WPBC_VERSION, '10.0.0', '>' ) ) {
+
+			$brackpoint_params = $params['breakpoint-height-args'];
+			$temp = array();
+			foreach ($brackpoint_params as $key => $value) { 
+				if(!empty($key)){
+					$filter_key = str_replace('r_slider_breakpoint_heights_args_','',$key);
+					$v = ''; 
+					$temp[$filter_key] = $value;  
+				} 
+			} 
+			$temp_2 = array(); 
+			$loop = array('xs','sm','md','lg','xl');
+			foreach ($loop as $key) { 
+				if(!empty($temp[$key])){
+					$temp_2[$key]['default'] = $temp[$key].$temp['xs_unit'];
+				}
+				if(!empty($temp['min_'.$key])){
+					$temp_2[$key]['min'] = $temp['min_'.$key].$temp['min_'.$key.'_unit'];
+				}
+				if(!empty($temp['max_'.$key])){
+					$temp_2[$key]['max'] = $temp['max_'.$key].$temp['max_'.$key.'_unit'];
+				}
+			
+			}
+			if(!empty($temp_2)){ 
+				$new_bk = json_encode($temp_2);
+				$slick_data = "data-breakpoint-height='".$new_bk."'"; 
+			} 
+		} else{
+			// THE OLD WAY prior to v 11
+			$bk = $params['breakpoint-height'];
+			if(is_array($bk)){
+				$bk = json_encode($bk);
+			} 
+			$slick_data = "data-breakpoint-height='".$bk."'";
+		}  
+
+
 	}else{
 		$def = '{ "defaults":{"default":"100wh"} }';
 		$data = json_encode($def);
 		$slick_data = "data-breakpoint-height='".$def."'";
 	}
+
+	// _print_code($slick_data);
 	
 	if( !empty( $params['enable-at'] ) ){
 		$enable_def = $params['enable-at'];

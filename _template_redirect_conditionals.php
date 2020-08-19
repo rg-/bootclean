@@ -15,6 +15,8 @@
 		<?php do_action('bc_admin_mainteneance_style'); ?>
 
 		<?php do_action('bc_admin_mainteneance_head'); ?>
+
+		<?php do_action('wpbc/mainteneance_mode/head'); ?>
 		
 	</head>
 	<!-- head END -->
@@ -22,6 +24,8 @@
  
 	<body <?php body_class('coming-soon'); ?>>
 		
+		<?php do_action('wpbc/mainteneance_mode/body'); ?>
+
 		<?php echo do_shortcode('[get__bc_admin_mainteneance_html]'); ?>
 		
 		<?php do_action('bc_admin_mainteneance_script'); ?>

@@ -19,10 +19,10 @@ $private_areas_options_page = apply_filters('wpbc/filter/private_area/args', arr
 
 if( function_exists('acf_add_options_page') ) {
 
-	$args = WPBC_get_theme_settings_args();
+	
 
 	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){  
-
+		$args = WPBC_get_theme_settings_args();
 		$child_page = acf_add_options_sub_page(array(
 
 			'page_title'  => $args['options_page']['page_title'] .' > '. $private_areas_options_page['page_title'],
@@ -43,7 +43,7 @@ if( function_exists('acf_add_options_page') ) {
 	} else {
 
 		$args = array(
-			'page_title'  => $args['options_page']['page_title'] .' > '. $private_areas_options_page['page_title'],
+			'page_title'  => $private_areas_options_page['page_title'],
       'menu_title'  => $private_areas_options_page['menu_title'], 
       'menu_slug' => $private_areas_options_page['menu_slug'],
 			'capability' => $private_areas_options_page['capability'],
@@ -83,12 +83,12 @@ function WPBC_private_areas_settings_fields(){
 		'message' => 'Make your site a "members" only accessible content.',
 		'new_lines' => 'wpautop',
 		'esc_html' => 0,
-	);   
+	);    
 
 	$fields[] = array (
-		'key' => 'field_wpbc_private_areas__allowed_roles_headline',
+		'key' => 'field_wpbc_private_areas__allowed_roles_tab_message_2',
 		'label' => '<h3>'.WPBC_get_svg_icon('how_to_reg').' Allowed Roles</h3>',
-		'name' => '', 
+		'name' => '',
 		'type' => 'message',
 		'instructions' => '',
 		'required' => 0,
@@ -98,65 +98,58 @@ function WPBC_private_areas_settings_fields(){
 			'class' => '',
 			'id' => '',
 		),
-		'message' => 'Choose the user roles allowed to view private areas. If you need specifyc user, just go to Users and change, the role of that user, to one allowed.',
+		'message' => '<small>(*) This users roles can´t be changed from here. </small>',
 		'new_lines' => 'wpautop',
 		'esc_html' => 0,
-	);   
+	);
 
 	$get_role_names = WPBC_private_areas_get_role_names(); 
 	$default_allowed_roles = WPBC_private_areas_default_allowed_roles();
 
-	foreach ($get_role_names as $key => $value) {
-
+	foreach ($get_role_names as $key => $value) { 
 		$default_value = 0;
 		if(in_array($key, $default_allowed_roles)){
-			$default_value = 1;
- 		
- 			/*
-			$fields[] = array (
-				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
-				'label' => $value,
-				'name' => 'wpbc_private_areas__allowed_roles__'.$key,
-				'type' => 'text',
-				'instructions' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#0cad0a" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg> Allowed *',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '20%',
-					'class' => 'wpbc-hidden-input',
-					'id' => '',
-				), 
-				'readonly' => true,
-				'default_value' => $default_value,
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			);
-			*/
-
+			$default_value = 1;  
 			$fields[] = array (
 				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
 				'label' => $value.' *',
 				'name' => 'wpbc_private_areas__allowed_roles__'.$key,
-				'type' => 'true_false_advanced',
+				'type' => 'message',
 				'instructions' => '',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
 					'width' => '20%',
-					'class' => 'wpbc-true_false-ui ui-success',
-					'id' => '', 
-				), 
-				'disabled' => true,
+					'class' => '',
+					'id' => '',
+				),
 				'message' => '',
-				'default_value' => $default_value,
-				'ui' => 1,
-				'ui_on_text' => '',
-				'ui_off_text' => '',
-			);
+				'new_lines' => 'wpautop',
+				'esc_html' => 0,
+			); 
+		}  
+	}
 
-		}else{
+	$fields[] = array (
+		'key' => 'field_wpbc_private_areas__allowed_roles_headline',
+		'label' => '',
+		'name' => '', 
+		'type' => 'message',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => 'wpbc-acf-no-label',
+			'id' => '',
+		),
+		'message' => 'Choose the user roles allowed to view private areas. If you need specifyc user, just go to Users and change, the role of that user, to one allowed.',
+		'new_lines' => 'wpautop',
+		'esc_html' => 0,
+	);   
+
+	foreach ($get_role_names as $key => $value) { 
+		if(!in_array($key, $default_allowed_roles)){
 			$fields[] = array (
 				'key' => 'field_wpbc_private_areas__allowed_roles__'.$key,
 				'label' => $value,
@@ -171,33 +164,13 @@ function WPBC_private_areas_settings_fields(){
 					'id' => '', 
 				), 
 				'message' => '',
-				'default_value' => $default_value,
+				'default_value' => 0,
 				'ui' => 1,
 				'ui_on_text' => '',
 				'ui_off_text' => '',
 			);
-		} 
-
-	}
-
-	$fields[] = array (
-		'key' => 'field_wpbc_private_areas__allowed_roles_tab_message_2',
-		'label' => '',
-		'name' => '',
-		'type' => 'message',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array (
-			'width' => '',
-			'class' => 'wpbc-acf-no-label',
-			'id' => '',
-		),
-		'message' => '<small>(*) This users roles can´t be changed from here. </small>',
-		'new_lines' => 'wpautop',
-		'esc_html' => 0,
-	);
-
+		}
+	}  
 
 	$fields[] = array (
 		'key' => 'field_wpbc_private_areas__redirect_url_headline',
@@ -603,6 +576,12 @@ function WPBC_private_areas_settings_fields(){
 }
 
 if( function_exists('acf_add_local_field_group') ):
+	
+	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){  
+		$style = 'seamless';
+	}else{
+		$style = 'block';
+	}
 
 	acf_add_local_field_group(array(
 		'key' => 'group_private_areas_settings',
@@ -619,7 +598,7 @@ if( function_exists('acf_add_local_field_group') ):
 		),
 		'menu_order' => 0,
 		'position' => 'normal',
-		'style' => 'seamless',
+		'style' => $style,
 		'label_placement' => 'right',
 		'instruction_placement' => 'label',
 		'hide_on_screen' => '',
@@ -709,6 +688,14 @@ function WPBC_private_areas_if_bypass(){
 
 	}
 
+	// check wpbc_private_areas__bypass_post_object pages too
+	$wpbc_private_areas__bypass_post_object = WPBC_get_field('wpbc_private_areas__bypass_post_object','options');
+	if( !empty($wpbc_private_areas__bypass_post_object) ){
+		foreach ($wpbc_private_areas__bypass_post_object as $key => $value) {
+			$temps_ids[] = $value->ID; 
+		}
+	}
+
 	return $bypass;
 }
 
@@ -763,5 +750,21 @@ add_filter( 'WPBC/filter/private_areas/show_alerts', function($show_alerts){
 add_action('wpbc/layout/body/start', function(){
  
  // just for testings....
+
+	/*
+	'is_account_page',
+	'is_cart',
+	'is_checkout',
+	'is_product',
+	'is_product_category',
+	'is_product_tag',
+	'is_shop',
+	*/
+	
+	
+	global $post; 
+	if(WPBC_private_areas_is_visible_settings($post->ID)){
+		//echo "THIS PAGE IS VISIBLE (NOT PRIVATE BY SETTINGS)";
+	} 
 
 }, 30 );

@@ -48,7 +48,7 @@ function WPBC_woo_cart_btn_link($args=array()){
 add_filter( 'woocommerce_add_to_cart_fragments', 'WPBC_woo_cart_btn__ajax' ); 
 function WPBC_woo_cart_btn__ajax( $fragments ) { 
     ob_start();
-    WPBC_woo_cart_btn_link();
+    WPBC_woo_cart_btn_link(); 
     $fragments['a.cart-contents'] = ob_get_clean(); 	
     return $fragments;
 }
@@ -74,12 +74,15 @@ function WPBC_woo_cart_btn_FX() {
   [WPBC_woo_mini_cart]
 */
 add_shortcode ('WPBC_woo_mini_cart', 'WPBC_woo_mini_cart_FX' ); 
-function WPBC_woo_mini_cart_FX() { 
+function WPBC_woo_mini_cart_FX($atts, $content = null) { 
   $widget = 'WC_Widget_Cart';
   $instance = array(
-    //'title' => '',
+    // 'title' => '',
   );
-  $args = array();
+  if(!empty($atts['title'])){
+    $instance['title'] = $atts['title'];
+  }
+  $args = array(); 
   ob_start(); 
   the_widget($widget, $instance, $args);
   return ob_get_clean(); 

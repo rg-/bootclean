@@ -69,7 +69,7 @@ if( function_exists('acf_add_local_field_group') ){
 			),
 		),
 		'location' => $WPBC_group_builder__flexible_content_locations,
-		'menu_order' => 3,
+		'menu_order' => apply_filters('wpbc/filter/builder/group/menu_order', 3),
 		'position' => 'normal',
 		'style' => 'default',
 		'label_placement' => 'top',

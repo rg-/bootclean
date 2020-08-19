@@ -15,7 +15,7 @@ $site_settings_tabs_fields = array(
 	'fields-header',
 	'fields-footer',
 	//'fields-typography', // TODOING
-	'fields-custom-code',
+	'fields-custom-code', 
 );
 if(!empty($site_settings_tabs_fields)){
 	foreach ($site_settings_tabs_fields as $key) {

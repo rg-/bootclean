@@ -46,7 +46,8 @@ function WPBC_woocommerce_login_redirect( $redirect, $user ) {
     if( $redirect_page_id == $checkout_page_id ) { 
         $login_redirect = $redirect; 
     }else{
-    	$login_redirect = wc_get_page_permalink( 'shop' ); 
+    	//$login_redirect = wc_get_page_permalink( 'shop' ); 
+    	$login_redirect = $redirect;
     }
     return apply_filters('WPBC/filter/woocommerce/login_redirect', $login_redirect);
 } 

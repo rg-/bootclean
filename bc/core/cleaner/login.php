@@ -3,19 +3,12 @@
 global $WPBC_VERSION; 
 if ( version_compare( $WPBC_VERSION, '11.0.0', '>' ) ) {
 
-	$custom_login_enable = apply_filters('wpbc/filter/custom_login/enable',0);
-	if(!empty($custom_login_enable)){
-
-		include('login/login_head.php'); 
-		add_filter( 'login_headerurl', 'BC_custom_login_headerurl' );
-		add_filter( 'login_headertitle', 'BC_custom_login_headertitle');
-
-	}
+	
 }
 
 /*
 
-	OLD WAY prior to v 11
+	OLD WAY prior to v 11 SEE addons/wpbc_custom_login
 
 	Apply the things behind....
 */

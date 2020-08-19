@@ -27,9 +27,12 @@ include('enqueue/WPBC_add_inline_style.php');
 
 		$uri = get_template_directory_uri().'/bc/core/assets/css/wpbc-options.css';
 		$uri = apply_filters('wpbc/filter/enqueue/options/uri',$uri);
-		wp_register_style( 'wpbc-options', $uri, array(), '1');
-		wp_enqueue_style( 'wpbc-options' );  
 
+		if(is_user_logged_in()){
+			wp_register_style( 'wpbc-options', $uri, array(), '1');
+			wp_enqueue_style( 'wpbc-options' );  
+		}
+	
 	}
 
 	add_action( 'wp_enqueue_scripts', 'WPBC_wp_enqueue_scripts_options' );
@@ -79,8 +82,11 @@ function __scripts_version(){
 		 */ 
 		$iconmoon_uri = get_template_directory_uri().'/css/iconmoon.css';
 		$iconmoon_uri = apply_filters('wpbc/filter/enqueue/iconmoon/uri',$iconmoon_uri);
-		wp_register_style( 'iconmoon', $iconmoon_uri, array(), '1');
-		wp_enqueue_style( 'iconmoon' );   
+		if(!empty($iconmoon_uri)){
+			wp_register_style( 'iconmoon', $iconmoon_uri, array(), '1');
+			wp_enqueue_style( 'iconmoon' );   
+		}
+		
 		
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );

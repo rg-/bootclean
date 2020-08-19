@@ -68,6 +68,27 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 
 		$get_current_screen = get_current_screen();
 		// toplevel_page_wpbc-theme-settings
+		$settings_args = WPBC_get_theme_settings_args();
+
+		$menu_background = false;
+		$menu_color = false;
+		
+			if(!empty($settings_args['options_page']['menu_background'])){
+				$menu_background = $settings_args['options_page']['menu_background'];
+			}
+			if(!empty($settings_args['options_page']['menu_color'])){
+				$menu_color = $settings_args['options_page']['menu_color'];
+			} 
+
+		$menu_background_active = false;
+		$menu_color_active = false;
+		
+			if(!empty($settings_args['options_page']['menu_background_active'])){
+				$menu_background_active = $settings_args['options_page']['menu_background_active'];
+			}
+			if(!empty($settings_args['options_page']['menu_color_active'])){
+				$menu_color_active = $settings_args['options_page']['menu_color_active'];
+			} 
 
 	?>
 	<style>
@@ -93,8 +114,21 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 		}
 
 		#adminmenu .toplevel_page_wpbc-site-settings > a{
-			background:#e97f02!important;
+			<?php if( !empty($menu_background) ){ ?>
+				background:<?php echo $menu_background; ?>!important;
+			<?php } ?>
+			<?php if( !empty($menu_color) ){ ?>
+				color:<?php echo $menu_color; ?>!important;
+			<?php } ?> 
 		}
+			#adminmenu .toplevel_page_wpbc-site-settings > a.current{
+				<?php if( !empty($menu_background_active) ){ ?>
+					background:<?php echo $menu_background_active; ?>!important;
+				<?php } ?>
+				<?php if( !empty($menu_color_active) ){ ?>
+					color:<?php echo $menu_color_active; ?>!important;
+				<?php } ?> 
+			}
 		
 		#adminmenu .toplevel_page_wpbc-site-settings .wp-menu-image img {
 	    width: 18px;
@@ -124,8 +158,12 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 			color:#222222!important;
 		}
 		body.wpbc_site_settings .acf-tab-group li.active a{
-			background-color:#e97f02!important;
-			color:#fff!important;
+			<?php if( !empty($menu_background_active) ){ ?>
+				background:<?php echo $menu_background_active; ?>!important;
+			<?php } ?>
+			<?php if( !empty($menu_color_active) ){ ?>
+				color:<?php echo $menu_color_active; ?>!important;
+			<?php } ?> 
 		}
 		
 	}
