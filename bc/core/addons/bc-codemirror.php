@@ -425,7 +425,7 @@ add_action( 'init', 'WPBC_codemirror_cookies' );
 
 function WPBC_codemirror_cookies() {
 	if( !isset($_COOKIE['wpbc_codemirror_size']) ) {
-		setcookie( $rp_cookie, ' ', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true );
+		setcookie( 'wpbc_codemirror_size', 'md', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true );
 	 //	setcookie( 'wpbc_codemirror_size', 'md', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false );
 	 }
 }
