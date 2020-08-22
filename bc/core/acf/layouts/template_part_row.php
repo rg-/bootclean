@@ -308,7 +308,7 @@ add_filter('WPBC_acf_builder_layouts', function($layouts){
 	$layouts['layout_template_part_row'] =  array(
 		'key' => 'layout_template_part_row',
 		'name' => 'template_part_row',
-		'label' => 'File: template-parts/theme',
+		'label' => '<i class="icon-badge"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path class="path" fill="#fff" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></i>'.' template-parts/theme',
 		'display' => 'block',
 		'sub_fields' => array(
 			array(
