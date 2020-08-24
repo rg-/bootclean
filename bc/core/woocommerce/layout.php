@@ -226,6 +226,8 @@ if(!function_exists('WPBC_layout_struture__woocommerce_shop_end')){
 
 	</div><!-- .wpbc-woo-container-area end -->
 
+	<?php do_action( 'wpbc/woo/layout/after/main-container-areas', $args ); ?>
+
 	<?php echo $args['after_woo-main-container-area']; ?>
 
 	<?php
