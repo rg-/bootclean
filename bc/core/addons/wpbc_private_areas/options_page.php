@@ -1,25 +1,8 @@
-<?php
-
-function WPBC_private_areas_get_woo_conditions(){
-	$woo_conditions = array(
-
-		'is_account_page',
-		'is_cart',
-		'is_checkout',
-		'is_product',
-		'is_product_category',
-		'is_product_tag',
-		'is_shop', 
-
-	);
-	return apply_filters('wpbc/filter/private_areas/woo_conditions',$woo_conditions);
-} 
+<?php 
 
 $private_areas_options_page = apply_filters('wpbc/filter/private_area/args', array());
 
-if( function_exists('acf_add_options_page') ) {
-
-	
+if( function_exists('acf_add_options_page') ) { 
 
 	if(defined('WPBC_THEME_SETTINGS_ACTIVE') && WPBC_THEME_SETTINGS_ACTIVE==1){  
 		$args = WPBC_get_theme_settings_args();

@@ -7,6 +7,21 @@
 
 */ 
 
+function WPBC_private_areas_get_woo_conditions(){
+	$woo_conditions = array(
+
+		'is_account_page',
+		'is_cart',
+		'is_checkout',
+		'is_product',
+		'is_product_category',
+		'is_product_tag',
+		'is_shop', 
+
+	);
+	return apply_filters('wpbc/filter/private_areas/woo_conditions',$woo_conditions);
+} 
+
 function WPBC_private_areas__type(){
 	$private_areas_type = 1;
 	$private_areas_type = apply_filters('wpbc/filter/private_areas/type',$private_areas_type);
@@ -42,7 +57,7 @@ function WPBC_private_areas_is_visible_settings($post_id=''){
 	$get_woo_conditions = WPBC_private_areas_get_woo_conditions(); 
 	
 	// check wpbc_private_areas__bypass_post_object pages too
-	$wpbc_private_areas__bypass_post_object = WPBC_get_field('wpbc_private_areas__bypass_post_object','options');
+	$wpbc_private_areas__bypass_post_object = get_field('wpbc_private_areas__bypass_post_object','options');
 	if( !empty($wpbc_private_areas__bypass_post_object) ){
 		foreach ($wpbc_private_areas__bypass_post_object as $key => $value) {
 			$temps_ids[] = $value->ID; 
@@ -72,7 +87,7 @@ function WPBC_private_areas_is_visible_settings($post_id=''){
 	}
 
 	if(!empty($post_id) && !empty($temps_ids)){
-		if(in_array($post_id,$temps_ids)){
+		if( in_array($post_id,$temps_ids) ){
 			return true;
 		}
 	}
@@ -271,146 +286,4 @@ function WPBC_if_not_allowed_user_FX( $atts, $content = null ) {
 	} 
 	return $out;
 }
-add_shortcode( 'WPBC_if_not_allowed_user', 'WPBC_if_not_allowed_user_FX' );
-
-
-
-
-/*
-	
-	TODOING....
-
-	- meta on pages, cats, so on to make some private or not depending on... 
-
-*/
-
-
-/* ACF part */ 
-
-add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__private_areas', 0, 1);
-function WPBC_group_builder__layout__private_areas($fields){ 
-	 
-
-	// WPBC_private_areas__type()
-
-	if( WPBC_private_areas__type() == 1 ){ // future versions could have more types, currenty just 1
-
-		$select_field = array (
-			'key' => 'field_layout_private_area__allow_page',
-			'label' => 'Make page Public anyway?',
-			'name' => 'private_area__allow_page',
-			'type' => 'true_false', 
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => 'wpbc-true_false-ui',
-				'id' => '',
-			),
-			'message' => '',
-			'default_value' => 0,
-			'ui' => 1,
-			'ui_on_text' => '',
-			'ui_off_text' => '',
-		);
-
-		$msg = 'You are using Private Areas addon. This page is only visible for allowed logged users.'; 
-		$get_woo_conditions = WPBC_private_areas_get_woo_conditions();  
-		$icon = WPBC_get_svg_icon('lock');
-
-		if(isset($_GET['post'])){
-			$post_id = $_GET['post'];
-			$allowed_by_settings = WPBC_private_areas_is_visible_settings($post_id);
-			if($allowed_by_settings){
-				$icon = WPBC_get_svg_icon('lock_open');
-
-				$msg = '<span class="wpbc-badge">'.__('This page is', 'bootclean') .' <b>'. __('PUBLIC', 'bootclean').'</b></span> <br><br>';
-				$msg .=  __('This page has been configured to bypass the Private Area feature.', 'bootclean');
-
-				$menu_slug = 'wpbc-private-areas-settings';
-				$url = admin_url( 'admin.php?page=' . $menu_slug );
-				$msg .= '<br><br> '.__('Go to settings if you need to change this', 'bootclean').' > <a class="wpbc-btn-small button" href="'.$url.'"><small>'.__('PRIVATE AREAS', 'bootclean').'</small></a>';
-
-				$select_field = array (
-					'key' => 'field_layout_private_area__allow_page',
-					'label' => 'Make page Public anyway?',
-					'name' => 'private_area__allow_page',
-					'type' => 'number',
-					'default_value' => 1,
-					'readonly' => true, 
-					'wrapper' => array (
-						'width' => '',
-						'class' => 'wpbc-hidden-input wpbc-field-no-label',
-						'id' => '', 
-					),
-				);
-			}
-		}  
-
-		$fields[] = array (
-			'key' => 'field_layout_private_area__tab',
-			'label' => $icon,
-			'name' => '',
-			'type' => 'tab',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'placement' => 'top',
-			'endpoint' => 0,
-		);
-
-		$fields[] = array (
-			'key' => 'field_layout_private_area__allow_message',
-			'label' => 'Private Areas Settings',
-			'name' => '',
-			'type' => 'message',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'message' => $msg,
-			'new_lines' => 'wpautop',
-			'esc_html' => 0,
-		);
-
-		$fields[] = $select_field;
-	}
-
-	return $fields;
-}
-
-
-/*
-
-	Admin Columns for Page post type
-
-*/
-add_filter( 'manage_pages_columns', 'wpbc_private_areas_manage_pages_columns',10,1 );
-add_action( 'manage_pages_custom_column', 'wpbc_private_areas__manage_pages_custom_column', 10, 2 );
-
-function wpbc_private_areas_manage_pages_columns( $defaults ) { 
-   $defaults['wpbc_private_areas'] = __('Private', 'bootclean');  
-   return $defaults;
-}
-
-function wpbc_private_areas__manage_pages_custom_column( $column_name, $id ){
-
-	if ( $column_name === 'wpbc_private_areas' ) {
-		if(WPBC_private_areas_is_visible_settings($id)){
-			echo WPBC_get_svg_icon('lock_open');
-		} else {
-			echo WPBC_get_svg_icon('lock');
-		}
-		
-	}
-}
+add_shortcode( 'WPBC_if_not_allowed_user', 'WPBC_if_not_allowed_user_FX' ); 

@@ -40,8 +40,19 @@ if($use_wpbc_private_areas){
 		return $addon;
 	},10,1);
 
-	include('wpbc_private_areas/init.php'); 
 
-	include('wpbc_private_areas/options_page.php'); 
-	
+	add_filter('wpbc/filter/private_areas/location_post_types', function($location_post_types){
+		$location_post_types = array('page','post'); 
+		return $location_post_types;
+	},10,1);
+
+
+	add_action( 'init', function(){
+
+		include('wpbc_private_areas/init.php'); 
+		include('wpbc_private_areas/post_types.php');
+		include('wpbc_private_areas/options_page.php'); 
+
+	} );
+ 
 }

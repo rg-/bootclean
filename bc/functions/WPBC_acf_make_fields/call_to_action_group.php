@@ -43,7 +43,7 @@ function WPBC_get_acf_call_to_action_group($field, $prefix='', $echo=true){
 				$permalink = $url;
 			}
 			if(!empty($permalink) && !empty($label)){ 
-			$out = '<a href="'.$permalink.'" class="'.$class.'" '.$attrs.'>'.$label.'</a>';
+			$out = '<a href="'.$permalink.'" class="btn-call-to-action '.$class.'" '.$attrs.'>'.$label.'</a>';
 			}
 		}
 		if($call_to_action_type=='html'){ 
