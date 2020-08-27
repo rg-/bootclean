@@ -184,7 +184,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		<?php echo $_p['before_nav_container']; ?>
 
 		<?php
-		if(isset($_p['navbar_brand'])) {
+		if(!empty($_p['navbar_brand'])) {
 			WPBC_get_partial('navbar-brand', $_p['navbar_brand']);
 		}
 		?> 

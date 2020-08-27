@@ -100,12 +100,14 @@ function WPBC_group_builder__layout__private_areas($fields){
 // add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__private_areas', 0, 1);
 
 /* Adding a meta box group into pages */
-
+function WPBC_private_areas_location_post_types(){
+	return apply_filters('wpbc/filter/private_areas/location_post_types',array());
+}
 function WPBC_private_areas_group_location(){
 	
 	$location = array(); 
 	
-	$location_post_types = apply_filters('wpbc/filter/private_areas/location_post_types',array());
+	$location_post_types = WPBC_private_areas_location_post_types();
 
 	if(!empty($location_post_types)){
 		foreach ($location_post_types as $type) {
@@ -159,16 +161,33 @@ add_action('after_setup_theme', function() use ($location){
 	Admin Columns for Page post type
 
 */
-add_filter( 'manage_pages_columns', 'wpbc_private_areas_manage_pages_columns',10,1 );
-add_action( 'manage_pages_custom_column', 'wpbc_private_areas__manage_pages_custom_column', 10, 2 );
+
+$location_post_types = WPBC_private_areas_location_post_types();
+if(!empty($location_post_types)){
+	foreach ($location_post_types as $type) {
+		add_filter( 'manage_'.$type.'_posts_columns', 'wpbc_private_areas_manage_pages_columns',10,1 );
+
+		add_filter( 'manage_edit-'.$type.'_sortable_columns', 'wpbc_private_areas_manage_pages_sortable_columns' );
+
+		add_action( 'manage_'.$type.'_posts_custom_column', 'wpbc_private_areas__manage_pages_custom_column', 10, 2 );
+	} 
+}  
 
 function wpbc_private_areas_manage_pages_columns( $defaults ) { 
-   $defaults['wpbc_private_areas'] = __('Private', 'bootclean');  
-   return $defaults;
+	$defaults['private_area__allow_page'] = __('Private', 'bootclean');  
+	return $defaults;
+}
+
+function wpbc_private_areas_manage_pages_sortable_columns($defaults){
+	$defaults['private_area__allow_page'] = __('Private', 'bootclean');
+	return $defaults;
 }
 
 function wpbc_private_areas__manage_pages_custom_column( $column_name, $id ){ 
-	if ( $column_name === 'wpbc_private_areas' ) {
+	if ( $column_name === 'private_area__allow_page' ) {
+
+		$private_area__allow_page = get_post_meta($id, 'private_area__allow_page', true);
+		// echo $private_area__allow_page;
 		if(WPBC_private_areas__if_allowed_page($id)){
 			echo WPBC_get_svg_icon('lock_open','#8ed74e').'<br><small>Public page</small>';
 		} else {
@@ -176,3 +195,30 @@ function wpbc_private_areas__manage_pages_custom_column( $column_name, $id ){
 		} 
 	}
 }
+
+// NOT USED ??
+// Should be using 
+add_action( 'pre_get_posts', 'wpbc_private_areas__manage_pages_custom_column_query' );
+function wpbc_private_areas__manage_pages_custom_column_query( $query ){
+    $orderby = $query->get( 'orderby' ); 
+    global $pagenow;
+    if ( !is_admin() )
+        return;
+ 
+    $location_post_types = WPBC_private_areas_location_post_types();
+    if ( 'Private' == $orderby && 'edit.php' == $pagenow && in_array( $_GET['post_type'], $location_post_types) ) { 
+        $meta_query = array(
+            'relation' => 'OR',
+            array(
+                'key' => 'private_area__allow_page',
+                'compare' => 'NOT EXISTS', // see note above
+            ),
+            array(
+                'key' => 'private_area__allow_page',
+            ),
+        ); 
+        $query->set( 'meta_query', $meta_query ); 
+        //$query->set( 'meta_key', 'private_area__allow_page' );
+        $query->set( 'orderby', 'meta_value' );
+    }
+} 

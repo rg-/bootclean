@@ -19,8 +19,7 @@ function WPBC_acf_make_repeater_field($args,$is_registered_option=false){
 		'max' => 0,
 		'layout' => 'block',
 		'button_label' => '',
-		'sub_fields' => array (
-		),
+		'sub_fields' => array (),
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 

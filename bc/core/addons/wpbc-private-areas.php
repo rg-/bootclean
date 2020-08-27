@@ -22,9 +22,9 @@ if($use_wpbc_private_areas){
 	add_filter('wpbc/filter/private_area/args',function($args){ 
 		$args = array(
 			'page_title'  => __('Private Areas','bootclean'),
-		  'menu_title'  => WPBC_get_svg_icon('lock','#ffffff').__('Private Areas','bootclean'), 
+		  'menu_title'  => __('Private Areas','bootclean'), 
 		  'menu_slug' => 'wpbc-private-areas-settings',
-			'capability' => 'edit_theme_options',
+			'capability' => 'edit_theme_options', 
 		); 
 		return $args;
 	},10,1);

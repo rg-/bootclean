@@ -30,6 +30,7 @@ if( function_exists('acf_add_options_page') ) {
       'menu_title'  => $private_areas_options_page['menu_title'], 
       'menu_slug' => $private_areas_options_page['menu_slug'],
 			'capability' => $private_areas_options_page['capability'],
+			'icon_url' => 'dashicons-lock',
 		);
 		
 		acf_add_options_page($args);
