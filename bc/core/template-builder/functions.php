@@ -60,9 +60,12 @@ function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
 
 	return "<$tag $layout_template $data $type $container_type $index $areaname>";
 }
-function WPBC_make_div_end($key='', $value='', $count=''){
+function WPBC_make_div_end($key='', $value='', $count='', $section=''){
 	$tag = !empty($value['tag']) ? $value['tag'] : 'div';
-	return "</$tag>";
+
+	$out = apply_filters('wpbc/filter/layout/'.$section.'/end', '');
+
+	return $out."</$tag><!-- HERE DIV $section END -->";
 }
 
 function WPBC_make_div_inner($key='', $value='', $count='', $main_key){
@@ -123,20 +126,21 @@ function WPBC_layout_struture__build($section=''){
 						$out .= WPBC_make_div_start($kkkey, $vvvalue, $cccount, $structure_id); 
 						$out .= WPBC_make_div_inner($kkkey, $vvvalue, $cccount, $key); 
 						// Posible 4 Level ?? 
-						$out .= WPBC_make_div_end($kkkey, $vvvalue, $cccount); 
+						$out .= WPBC_make_div_end($kkkey, $vvvalue, $cccount, $section); 
 
 						$cccount++;
 					}
 				}
 
-				$out .= WPBC_make_div_end($kkey, $vvalue, $count); 
+				$out .= WPBC_make_div_end($kkey, $vvalue, $count, $section); 
 				$ccount++;
 			} 
 		}
 
-		$out .= WPBC_make_div_end($key, $value, $count); 
+		$out .= WPBC_make_div_end($key, $value, $count, $section); 
 		$count++;
 	}
+	// _print_code($section);
 	$out = apply_filters('wpbc/filter/layout/'.$section.'/html', $out); // USED ??
 
 	echo $out;

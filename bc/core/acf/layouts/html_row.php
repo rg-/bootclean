@@ -1,4 +1,17 @@
 <?php
+
+function WPBC_group_builder__layout_html_row_clone($clone = array()){  
+
+	$clone = array(
+		0 => 'key__r_tab__content',
+		1 => 'key__r_html_code',
+		2 => 'key__r_tab__settings',
+		3 => 'key__r_builder_classes_group',
+	);
+
+	return apply_filters('WPBC_group_builder__layout_html_row_clone', $clone);
+}
+
 add_filter('WPBC_acf_builder_layouts', function($layouts){
 
 	$layouts['layout_html_row'] =  array(
@@ -20,13 +33,7 @@ add_filter('WPBC_acf_builder_layouts', function($layouts){
 					'class' => '',
 					'id' => '',
 				),
-				'clone' => array(
-					0 => 'key__r_tab__content',
-					1 => 'key__r_html_code',
-					2 => 'key__r_tab__settings',
-					3 => 'key__r_builder_classes_group',
-					//4 => 'key__r_tab__advanced',
-				),
+				'clone' => WPBC_group_builder__layout_html_row_clone(),
 				'display' => 'seamless',
 				'layout' => 'block',
 				'prefix_label' => 0,
