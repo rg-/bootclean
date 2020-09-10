@@ -194,9 +194,14 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 			if( $page_title_type ){
 				$page_title_subtitle = WPBC_get_field('layout_header_template_page_title_subtitle', $post_id);
 			}
-
+			$page_title_custom = WPBC_get_field('layout_header_template_page_title_custom', $post_id);
+			if( $page_title_custom ){
+				$title = WPBC_get_field('layout_header_template_page_title_custom_title', $post_id);
+			}else{
+				$title = get_the_title($post_id);
+			}
 			$use_page_title = array(
-				'title' => get_the_title($post_id),
+				'title' => $title,
 				'subtitle' => $page_title_subtitle,
 				'container_class' => 'container',
 				'row_class' => 'row',

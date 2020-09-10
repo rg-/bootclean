@@ -86,7 +86,7 @@ function WPBC_group_builder__layout__main_header_class($fields){
 		'name' => 'layout_header_template_class', 
 		'label' => __('Page Header Class','bootclean'),
 		'class' => '',
-		'width' => '50%',
+		'width' => '30%',
 		'conditional_logic' => array (
 			array (
 				array (
@@ -105,10 +105,11 @@ function WPBC_group_builder__layout__main_header_class($fields){
 */
 add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_header_page_title', 20.6, 1);
 function WPBC_group_builder__layout__main_header_page_title($fields){
+	
 	$fields[] = WPBC_acf_make_true_false_field(array(
-		'name' => 'layout_header_template_page_title_type',
-		'label' => __('Inclulde subtitle/lead?', 'bootclean'),
-		'width' => '30%',
+		'name' => 'layout_header_template_page_title_custom',
+		'label' => __('Custom Title?', 'bootclean'),
+		'width' => '25%',
 		'default_value' => 0,
 		'conditional_logic' => array (
 			array (
@@ -116,6 +117,42 @@ function WPBC_group_builder__layout__main_header_page_title($fields){
 					'field' => 'field_layout_header_template_type',
 					'operator' => '==',
 					'value' => 'title',
+				),
+			), 
+		),
+	));
+
+	$fields[] = WPBC_acf_make_true_false_field(array(
+		'name' => 'layout_header_template_page_title_type',
+		'label' => __('Inclulde subtitle/lead?', 'bootclean'),
+		'width' => '25%',
+		'default_value' => 0,
+		'conditional_logic' => array (
+			array (
+				array (
+					'field' => 'field_layout_header_template_type',
+					'operator' => '==',
+					'value' => 'title',
+				),
+			), 
+		),
+	));
+	$fields[] = WPBC_acf_make_textarea_field(array(
+		'name' => 'layout_header_template_page_title_custom_title', 
+		'label' => __('Custom Title','bootclean'),
+		'class' => 'acf-input-title',
+		'width' => '100%',
+		'conditional_logic' => array ( 
+			array (
+				array (
+					'field' => 'field_layout_header_template_type',
+					'operator' => '==',
+					'value' => 'title',
+				),
+				array (
+					'field' => 'field_layout_header_template_page_title_custom',
+					'operator' => '==',
+					'value' => 1,
 				),
 			), 
 		),
