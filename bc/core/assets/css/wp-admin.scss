@@ -448,6 +448,13 @@ body.wpbc_site_settings {
 	}
 }
 
+#wpbc_dashboard_welcome_widget {
+	.postbox-header{
+		h2{
+			display: inline-block;
+		}
+	}
+}
 
 .wpbc-dashboard-title{
 	font-size: 18px!important;

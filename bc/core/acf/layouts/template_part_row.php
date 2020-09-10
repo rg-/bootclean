@@ -93,7 +93,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 			'label' => __('Dynamic Template Arguments', 'bootclean'),
 			'name' => 'args',
 			'type' => 'repeater',
-			'instructions' => 'Arguments passed will be accesible on template part file by: WPBC_get_builder_layout_row_data($args).',
+			'instructions' => 'Arguments passed will be accesible on template part file by: wpbc_get_template_part_row_args($args).',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (
@@ -122,9 +122,10 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 						'id' => '',
 					),
 					'choices' => array (
-						'text' => 'Text',
-						'html' => 'Html',
-						'image' => 'Image',
+						'text' => __('Text','bootclean'),
+						'html' => __('Html','bootclean'),
+						'image' => __('Image','bootclean'),
+						'file' => __('File','bootclean'),
 					),
 					'default_value' => array (
 						0 => 'text',
@@ -218,7 +219,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 
 				array (
 					'key' => 'field_wpbc_template_args_value__image',
-					'label' => 'Image',
+					'label' => __('Image','bootclean'),
 					'name' => 'args_value__image',
 					'type' => 'image',
 					'instructions' => '',
@@ -245,6 +246,34 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'min_size' => '',
 					'max_width' => '',
 					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+
+				array(
+					'key' => 'field_wpbc_template_args_value__file',
+					'label' => __('File','bootclean'),
+					'name' => 'args_value__file',
+					'type' => 'file',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => array (
+						array (
+							array (
+								'field' => 'field_wpbc_template_args_type',
+								'operator' => '==',
+								'value' => 'file',
+							),
+						), 
+					),
+					'wrapper' => array (
+						'width' => '60',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'id',
+					'library' => 'all',
+					'min_size' => '',
 					'max_size' => '',
 					'mime_types' => '',
 				),
@@ -421,6 +450,7 @@ function wpbc_get_template_part_row_args($ar=''){
 				foreach ($this_template_args as $k => $v) {
 					if($v['args_type'] == 'text') $passed_args[$v['args_key']] = $v['args_value'];
 					if($v['args_type'] == 'image') $passed_args[$v['args_key']] = $v['args_value__image'];
+					if($v['args_type'] == 'file') $passed_args[$v['args_key']] = $v['args_value__file'];
 					if($v['args_type'] == 'html') $passed_args[$v['args_key']] = $v['args_value___html'];
 				} 
 			}
@@ -455,6 +485,9 @@ function wpbc_get_template_part_row_template_args($args){
 			}
 			if($value['field_wpbc_template_args_type'] == 'image'){
 				$v = $value['field_wpbc_template_args_value__image'];
+			}
+			if($value['field_wpbc_template_args_type'] == 'file'){
+				$v = $value['field_wpbc_template_args_value__file'];
 			}
 			if($value['field_wpbc_template_args_type'] == 'html'){
 				$v = $value['field_wpbc_template_args_value__html'];

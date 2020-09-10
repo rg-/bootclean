@@ -8,8 +8,14 @@
 
 		
 $scripts = array( 
+	/*
 	'jquery'=>	array( 
 		'src'=> THEME_URI .'/js/jquery.min.3.1.1.js',
+		'dependence' => array()
+	),
+	*/
+	'jquery'=>	array( 
+		'src'=> THEME_URI .'/js/jquery.min.3.5.1.js',
 		'dependence' => array()
 	),
 	

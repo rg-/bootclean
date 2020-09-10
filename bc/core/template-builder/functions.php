@@ -272,7 +272,7 @@ function WPBC_get_layout_structure_build_layout($id=''){
 
 	/* NEW v 11.00 */
 	$using_theme_settings = false;
-	$theme_settings_location = get_field('layout_location__'.$template,'options');
+	$theme_settings_location = WPBC_get_option('layout_location__'.$template );
 	if($theme_settings_location['layout_location__'.$template]){
 		$using_theme_settings = true;
 		$layout = $theme_settings_location['layout_location__'.$template]; 

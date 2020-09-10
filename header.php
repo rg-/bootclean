@@ -1,6 +1,6 @@
 <?php
  
-if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_ajax() && function_exists('acf_form_head') ){
+if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_ajax() && function_exists('acf_form_head') && WPBC_ACF_FORM() ){
 	acf_form_head();
 } 
 

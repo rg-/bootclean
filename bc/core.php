@@ -89,6 +89,17 @@ require BC_WP_DIR . 'core/bootstrap.php';
 /* 
 	ACF Things
 */
+function WPBC_get_field($field, $id=''){
+	if(function_exists('get_field')){
+		return get_field($field, $id) ? get_field($field, $id) : '';
+	}else{
+		if($id!='options'){
+			return get_post_meta($id, $field, true);
+		}else{
+			return get_option('options_'.$field);
+		}
+	} 
+} 
 require BC_WP_DIR . 'core/acf.php'; 
 /* 
 	Woocommerce Things

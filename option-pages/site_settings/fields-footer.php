@@ -75,4 +75,4 @@ add_filter('wpbc/filter/component/wp-footer/args', function($args){
 		}
 	}
 	return $args;
-});
+},10,1);

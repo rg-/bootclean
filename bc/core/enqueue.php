@@ -1,5 +1,24 @@
 <?php
 
+/**
+* De-registers WordPress default javascript
+* @link https://codex.wordpress.org/Function_Reference/wp_deregister_script
+*/
+
+$deregister_jquery = apply_filters('wpbc/filter/cleaner/javascript/deregister_jquery', 1);
+if( !empty($deregister_jquery) ){ 
+	$bc_enqueue_hook = null; 
+	if ( is_admin() ) { 
+	// $hook = 'admin_enqueue_scripts'; 
+	} elseif ( 'wp-login.php' === $GLOBALS['pagenow'] ) {
+		$bc_enqueue_hook = 'login_enqueue_scripts';
+	} else {
+		$bc_enqueue_hook = 'wp_enqueue_scripts';
+	}
+	add_action( $bc_enqueue_hook, function() {   
+		wp_deregister_script( 'jquery' ); 
+	} ); 
+}
 
 /*
 
@@ -31,7 +50,7 @@ include('enqueue/WPBC_add_inline_style.php');
 		if(is_user_logged_in()){
 			wp_register_style( 'wpbc-options', $uri, array(), '1');
 			wp_enqueue_style( 'wpbc-options' );  
-		}
+		} 
 	
 	}
 
@@ -139,10 +158,11 @@ function WPBC_wp_head_google_fonts() {
 		?>.font-<?php echo $v['base']; ?>{ font-family: <?php echo $v['font-family'];?> } <?php
 	}
 	?> body { font-family: <?php echo $family;?> } 
-</style><?php
+</style><?php  
 	}
 }
 add_action('wp_head', 'WPBC_wp_head_google_fonts', 10);
+
   
 
 /* 

@@ -51,7 +51,7 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 		$if = WPBC_if_has_main_navbar($id);
 	}
 	if($layout=='main_page_header'){
-		$title = 'Page Header';
+		$title = 'Page Header'; 
 		$temp = WPBC_layout__main_page_header_defaults($id);
 		$if = WPBC_if_has_page_header($id);
 	}
@@ -71,7 +71,12 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 		if( $if == 2 ){
 			$t_out = 'Not used';
 		}else{ 
-			$t_out = 'Using template: '.$link;
+			if( $if == 3 ){
+				$t_out = 'Using <b>Page Title</b> ';
+			}else{
+				$t_out = 'Using template: '.$link;
+			}
+			
 		} 
   }else{
  		$t_out = 'Using default';

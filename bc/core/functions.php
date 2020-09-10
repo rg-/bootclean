@@ -401,3 +401,9 @@ function WPBC_enable_cleaner_updates_checks_op(){
 	$enable = apply_filters('wpbc/filter/cleaner/updates/checks/disable', 0);
 	return $enable;
 }
+
+
+function WPBC_is_template_landing_enabled(){ 
+	$use_wpbc_template_landing = apply_filters('wpbc/filter/template-landing/installed', 1);
+	return $use_wpbc_template_landing;
+}

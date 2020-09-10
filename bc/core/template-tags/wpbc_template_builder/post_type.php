@@ -455,13 +455,17 @@ function WPBC_insert_page_builder__admin_menu() {
       'edit_posts',
       'wpbc-edit-new-page-builder',
       'WPBC_insert_page_builder_function_output' );
-  add_submenu_page(
+  
+  if(WPBC_is_template_landing_enabled()){
+  	 add_submenu_page(
       'edit.php?post_type=page',
       'New Landing Page',
       'New Landing Page',
       'edit_posts',
       'wpbc-edit-new-landing-page',
       'WPBC_insert_landing_function_output' );
+  }
+ 
   add_submenu_page(
       'edit.php?post_type=page',
       'Page Builder +',

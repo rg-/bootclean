@@ -44,7 +44,7 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 	$layout_count = 0;
 	$flexible_count = 0;
 	$key__flexible_content_rows = $row;
-	if( have_rows($key__flexible_content_rows, $post_id) ){ 
+	if( function_exists('have_rows') && have_rows($key__flexible_content_rows, $post_id) ){ 
 		while( have_rows($key__flexible_content_rows, $post_id) ){ 
 			the_row($post_id);  
 			$layout = get_row_layout(); 

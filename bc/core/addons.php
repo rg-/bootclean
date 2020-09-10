@@ -64,7 +64,7 @@ require "addons/bc-qtranslate.php";
 
 	Used mainly on ACF fields, Option Pages, Widgets...
 
-*/
+*/ 
 
 require "addons/bc-codemirror.php";
 

@@ -188,7 +188,7 @@ add_filter('WPBC_acf_builder_layouts', function($layouts){
 	$layouts['layout_widgets_row'] =  array(
 		'key' => 'layout_widgets_row',
 		'name' => 'widgets_row',
-		'label' => 'Widgets Row',
+		'label' => '<i class="icon-badge"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#fff" d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"/></svg></i>'.' Widgets Row',
 		'display' => 'block',
 		'sub_fields' => array(
 			array(

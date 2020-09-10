@@ -1,16 +1,6 @@
 <?php
 
-function WPBC_get_field($field, $id=''){
-	if(function_exists('get_field')){
-		return get_field($field, $id) ? get_field($field, $id) : '';
-	}else{
-		if($id!='options'){
-			return get_post_meta($id, $field, true);
-		}else{
-			return get_option('options_'.$field);
-		}
-	} 
-} 
+
 
 include('acf/functions.php'); 
 include('acf/reusable-fields.php');
@@ -64,9 +54,10 @@ add_action('wpbc/layout/builder/loop/after', function (){
 	if( WPBC_ACF_FORM()  && !wp_doing_ajax() ){
 	//	WPBC_get_acf_form();
 	} 
-},10);
+},10); 
 
 function WPBC_get_acf_form($post_id=''){
+	if(!function_exists('acf_form')) return;
 	?>
 	<div id="WPBC_acf_form">
 			<button class="btn btn-primary btn-sm button--form" type="button" data-toggle="collapse" data-target="#collapse-form" aria-expanded="false" aria-controls="collapseExample">
@@ -91,13 +82,13 @@ function WPBC_get_acf_form($post_id=''){
 						$settings = array( 
 							'post_title' => true,
 							'post_content' => true, 
-							'property_location_map' => false,
+							//'property_location_map' => false,
 						);
 						if(is_page()){
 							$settings = array( 
 								'post_title' => true,
 								'post_content' => true, 
-								'property_location_map' => false,
+								//'property_location_map' => false,
 							);
 						} 
 						
@@ -116,4 +107,46 @@ function WPBC_get_acf_form($post_id=''){
 			</div>
 		</div>
 	<?php
+}
+
+//add_action('acf/init', 'WPBC_form_init');
+function WPBC_form_init() {
+
+    // Check function exists.
+    if( function_exists('acf_register_form') ) {
+
+    	global $post;
+    	if(!empty($post)){
+    		$post_id = $post->ID;
+    	}
+
+    	if( is_page_template('_template_builder.php') ){ 
+				$settings = array(
+					'id'       => 'acf_register_form-event',
+					'post_id'=>$post_id, 
+				);
+			}else{
+				$settings = array( 
+					'id'       => 'acf_register_form-event',
+					'post_title' => true,
+					'post_content' => true, 
+					//'property_location_map' => false,
+				);
+				if(is_page()){
+					$settings = array( 
+						'id'       => 'acf_register_form-event',
+						'post_title' => true,
+						'post_content' => true, 
+						//'property_location_map' => false,
+					);
+				} 
+				
+			}
+
+			$post_type = get_post_type();
+			$settings = apply_filters('wpbc/filter/acf/form/settings', $settings, $post_type);
+
+      // Register form.
+      acf_register_form($settings);
+    }
 }

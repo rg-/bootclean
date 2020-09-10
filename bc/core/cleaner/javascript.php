@@ -83,27 +83,7 @@ if( !empty($remove_query_string) ){
 		add_filter( 'script_loader_src', 'WPBC_remove_query_string__ver_2', 20, 1 );
 		add_filter( 'style_loader_src', 'WPBC_remove_query_string__ver_2', 20, 1 );
 	}
-}
-
-/**
-* De-registers WordPress default javascript
-* @link https://codex.wordpress.org/Function_Reference/wp_deregister_script
-*/
-
-$deregister_jquery = apply_filters('wpbc/filter/cleaner/javascript/deregister_jquery', 1);
-if( !empty($deregister_jquery) ){ 
-	$bc_enqueue_hook = null; 
-	if ( is_admin() ) { 
-	// $hook = 'admin_enqueue_scripts'; 
-	} elseif ( 'wp-login.php' === $GLOBALS['pagenow'] ) {
-		$bc_enqueue_hook = 'login_enqueue_scripts';
-	} else {
-		$bc_enqueue_hook = 'wp_enqueue_scripts';
-	}
-	add_action( $bc_enqueue_hook, function() {   
-		wp_deregister_script( 'jquery' ); 
-	} ); 
-}
+} 
 
 
 /**

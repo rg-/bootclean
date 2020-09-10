@@ -13,7 +13,7 @@
 
 define('BC_GUTENBERG_URI', THEME_URI.'/bc/core/gutenberg'); 
 
-require 'gutenberg/test/index.php'; 
+//require 'gutenberg/test/index.php'; 
 //require 'gutenberg/simple-block/index.php'; 
 //require 'gutenberg/edit-block/index.php'; 
 //include 'gutenberg/01-basic/index.php'; 

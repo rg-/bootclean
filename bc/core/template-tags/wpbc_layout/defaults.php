@@ -107,9 +107,17 @@ function WPBC_if_has_layout($layout,$id){
 		/* CHANGED 2020 08 19 END */
 	
 	}else{
-		$return = 0;
-	}
 
+		if($layout=='main_page_header' && !empty($temp['type']) && $temp['type'] != 'none'){
+			$return = 3;
+		}else{
+			$return = 0;
+		}
+
+		
+	} 
+
+	//_print_code($temp);
 	return $return;
 
 }
@@ -141,6 +149,7 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 	$post_id = !empty($post_id) ? $post_id : WPBC_layout__get_id(); 
 	$template_ID = false;
 	$custom_html = false;
+	$use_page_title = false;
 
 	$layout_header_template_type = WPBC_get_field('layout_header_template_type', $post_id);
 	$layout_header_template = WPBC_get_field('layout_header_template', $post_id);
@@ -152,10 +161,13 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 		}else{
 			$template_ID = false;
 		} 
-	}else{
+	}else{ 
+
 		if($layout_header_template_type == 'html'){
+		
 			$template_ID = false;
 			$custom_html = WPBC_get_field('layout_header_template_html', $post_id);
+		
 		}else{ 
 
 			$template = WPBC_get_template();
@@ -174,7 +186,25 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 			} 
 
 		}
-	} 
+
+		if($layout_header_template_type == 'title'){ 
+			$template_ID = false; 
+			$$page_title_subtitle = '';
+			$page_title_type = WPBC_get_field('layout_header_template_page_title_type', $post_id);
+			if( $page_title_type ){
+				$page_title_subtitle = WPBC_get_field('layout_header_template_page_title_subtitle', $post_id);
+			}
+
+			$use_page_title = array(
+				'title' => get_the_title($post_id),
+				'subtitle' => $page_title_subtitle,
+				'container_class' => 'container',
+				'row_class' => 'row',
+				'col_class' => 'col-12 text-center',
+			);
+		}
+
+	}  
 
 	$params = array(
 		'id'=> 'main-page-header', 
@@ -183,8 +213,10 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 		'use_template' => $main_page_header_template, 
 		'use_custom_template' => $template_ID,
 		'use_custom_html' => $custom_html,
+		'use_page_title' => $use_page_title, 
 		'custom_attrs' => '',
 		'custom_class' => $custom_class,
+		'type' => $layout_header_template_type,
 	); 
 
 	$template_in_use_ID = WPBC_get_layout_customize_use($params, $params['id']);

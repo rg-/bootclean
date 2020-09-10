@@ -35,6 +35,7 @@ function WPBC_group_builder__layout__main_header($fields){
 		),
 		'choices' => array ( 
 			'none' => __('None','bootclean'),
+			'title' => __('Use Page Title','bootclean'),
 			'template' => __('Template','bootclean'),
 			'html' => __('HTML','bootclean'),
 		),
@@ -74,18 +75,18 @@ function WPBC_group_builder__layout__main_header($fields){
 		),
 	);   
 	return $fields;
-} 
+}  
 
-add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_header_class', 20.5, 1); 
-
-function WPBC_group_builder__layout__main_header_class($fields){
-	$fields[] = array (
-		'key' => 'field_layout_header_template_class',
-		'label' => 'Page Header Class',
-		'name' => 'layout_header_template_class',
-		'type' => 'text',
-		'instructions' => '',
-		'required' => 0,
+/*
+	Page Header Class
+*/
+add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_header_class', 20.5, 1);  
+function WPBC_group_builder__layout__main_header_class($fields){ 
+	$fields[] = WPBC_acf_make_text_field(array(
+		'name' => 'layout_header_template_class', 
+		'label' => __('Page Header Class','bootclean'),
+		'class' => '',
+		'width' => '50%',
 		'conditional_logic' => array (
 			array (
 				array (
@@ -95,14 +96,56 @@ function WPBC_group_builder__layout__main_header_class($fields){
 				),
 			), 
 		),
-		'wrapper' => array (
-			'width' => '50%',
-			'class' => '',
-			'id' => '',
-		), 
-	); 
+	));
+
 	return $fields;
 } 
+/*
+
+*/
+add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_header_page_title', 20.6, 1);
+function WPBC_group_builder__layout__main_header_page_title($fields){
+	$fields[] = WPBC_acf_make_true_false_field(array(
+		'name' => 'layout_header_template_page_title_type',
+		'label' => __('Inclulde subtitle/lead?', 'bootclean'),
+		'width' => '30%',
+		'default_value' => 0,
+		'conditional_logic' => array (
+			array (
+				array (
+					'field' => 'field_layout_header_template_type',
+					'operator' => '==',
+					'value' => 'title',
+				),
+			), 
+		),
+	));
+	$fields[] = WPBC_acf_make_textarea_field(array(
+		'name' => 'layout_header_template_page_title_subtitle', 
+		'label' => __('Subtitle / Lead','bootclean'),
+		'class' => '',
+		'width' => '100%',
+		'conditional_logic' => array ( 
+			array (
+				array (
+					'field' => 'field_layout_header_template_type',
+					'operator' => '==',
+					'value' => 'title',
+				),
+				array (
+					'field' => 'field_layout_header_template_page_title_type',
+					'operator' => '==',
+					'value' => 1,
+				),
+			), 
+		),
+	));
+	return $fields;
+}
+
+/*
+	
+*/
 
 add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_header_template_html', 21, 1); 
 

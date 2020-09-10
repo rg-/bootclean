@@ -1,40 +1,54 @@
 <?php 
 
-include('template-landing-builder/functions.php'); 
+$use_wpbc_template_landing = WPBC_is_template_landing_enabled();
 
-/*
-
-	Init first section as Page Header.
-
-*/
-
-if(function_exists('WPBC_template_landing_build_section')){  
-	
-	$default_section = array(
-			'id' => 'main-page-header',
-			'class' => 'template-landing--page_header',
-			'acf' => array(
-				'group_id' => 'page_header',
-				'label' => __('Page Header','bootclean'),
-				'group_layout' => 'seamless', 
-				'sub_fields' => array(),
-			),
-		);
-	$default_section = apply_filters('wpbc/filter/template-landing/default_section', $default_section );
-	$build_sections = array();
-	$build_sections[] = $default_section;
-	$build_sections = apply_filters('wpbc/filter/template-landing/build_sections', $build_sections);
-	foreach ($build_sections as $key => $value) { 
-		$value['acf']['sub_fields'] = apply_filters('wpbc/filter/template-landing/sub_fields/?group='.$value['acf']['group_id'].'', $value['acf']['sub_fields']); 
-		WPBC_template_landing_build_section($value);
+if(!$use_wpbc_template_landing){
+	function WPBC_remove_template_landing_builder( $templates ) {
+	    unset( $templates['_template_landing_builder.php'] );
+	    return $templates;
 	}
-	
- 
+	add_filter( 'theme_page_templates', 'WPBC_remove_template_landing_builder' );
 }
 
-include('template-landing-builder/admin.php');
-include('template-landing-builder/acf.php');
-include('template-landing-builder/layout.php');  
+if($use_wpbc_template_landing){
+ 
+	include('template-landing-builder/functions.php'); 
+
+	/*
+
+		Init first section as Page Header.
+
+	*/
+
+	if(function_exists('WPBC_template_landing_build_section')){  
+		
+		$default_section = array(
+				'id' => 'main-page-header',
+				'class' => 'template-landing--page_header',
+				'acf' => array(
+					'group_id' => 'page_header',
+					'label' => __('Page Header','bootclean'),
+					'group_layout' => 'seamless', 
+					'sub_fields' => array(),
+				),
+			);
+		$default_section = apply_filters('wpbc/filter/template-landing/default_section', $default_section );
+		$build_sections = array();
+		$build_sections[] = $default_section;
+		$build_sections = apply_filters('wpbc/filter/template-landing/build_sections', $build_sections);
+		foreach ($build_sections as $key => $value) { 
+			$value['acf']['sub_fields'] = apply_filters('wpbc/filter/template-landing/sub_fields/?group='.$value['acf']['group_id'].'', $value['acf']['sub_fields']); 
+			WPBC_template_landing_build_section($value);
+		}
+		
+	 
+	}
+
+	include('template-landing-builder/admin.php');
+	include('template-landing-builder/acf.php');
+	include('template-landing-builder/layout.php');  
+
+} // if $use_wpbc_template_landing END
 
 /* USAGE ON CHILD */
 

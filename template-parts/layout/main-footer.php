@@ -11,7 +11,7 @@ if( !empty($use_custom_template) ){
 	echo do_shortcode('[WPBC_get_template id="'.$use_custom_template.'"]'); 
 }else{
 	if( false == $use_from_options ){
-		// echo "<br>USE WPBC_get_component<br>";
+		// echo "<br>USE WPBC_get_component<br>"; 
 		WPBC_get_component('wp-footer', $params);
 	}else{
 		if( false != $use_template ){
