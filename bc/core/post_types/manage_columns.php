@@ -72,7 +72,8 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 			$t_out = 'Not used';
 		}else{ 
 			if( $if == 3 ){
-				$t_out = 'Using <b>Page Title</b> ';
+				$header_template_type = WPBC_get_field('layout_header_template_type', $id);
+				$t_out = ' Using <b>"'.$header_template_type.'"</b> ';
 			}else{
 				$t_out = 'Using template: '.$link;
 			}

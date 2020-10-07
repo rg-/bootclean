@@ -475,7 +475,7 @@ function wpbc_get_template_part_row_template_args($args){
 	$passed_args = array();
 
 	extract($passed_args);
-
+	
 	$post_id = $args["template_post_id"]; 
 	$this_template_args = get_sub_field('key__layout_template_part_row__content_'.'key__r_wpbc_template_args', $post_id);
 	if(!empty($this_template_args)){

@@ -175,7 +175,7 @@ function WPBC_acf_theme_settings_render_field($field){
 	if( !empty($field['is_option']) && $show_helpers ){ 
 		$name = str_replace('wpbc_theme_settings__', '', $field['_name']);
 		
-		if ( $field['type'] == 'post_object' ) {
+		if ( $field['type'] == 'post_object' || $field['type'] == 'taxonomy' ) {
 			return;
 		}
 		echo '<p class="wpbc-helper-tip"><input type="text" readonly class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none; border:0; width:100%; font-size:10px; padding:5px 4px; min-height: auto;" value="WPBC_get_theme_settings(\''.$name.'\')"></p>';

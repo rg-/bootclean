@@ -12,9 +12,11 @@ function WPBC_post_share( $args=array() ){
 		'social_buttons_class' => '',
 		'type' => 'default', // default || modal
 		'modal_title' => '',
-		'modal_class' => 'modal fade', 
-		'modal_dialog_class' => 'modal-dialog modal-dialog-centered',
-		'modal_body_class' => 'modal-body',
+		'modal_class' => 'fade', 
+		'modal_dialog_class' => 'modal-dialog-centered',
+		'modal_content_class' => '',
+		'modal_header_class' => '',
+		'modal_body_class' => '',
 		'share_buttons_before' => '',
 		'share_buttons_after' => '',
 
@@ -41,17 +43,18 @@ function WPBC_post_share( $args=array() ){
 	if($type=='modal'){
 		?>
 		<div class="post-share <?php echo $class; ?>">
+			
 			<a href="#" data-toggle="modal" data-target="#post-share" class="share_switch <?php echo $switch_class; ?>"><?php echo $switch_label; ?> <?php echo $switch_icon; ?></a>
 			
 			<!-- Modal #post-share -->
-			<div class="<?php echo $modal_class; ?>" id="post-share" tabindex="-1" role="dialog" aria-labelledby="post-share" aria-hidden="true">
+			<div class="<?php echo $modal_class; ?> modal" id="post-share" tabindex="-1" role="dialog" aria-labelledby="post-share" aria-hidden="true">
 
-			  <div class="<?php echo $modal_dialog_class; ?>" role="document">
+			  <div class="<?php echo $modal_dialog_class; ?> modal-dialog" role="document">
 			    
-			    <div class="modal-content">
+			    <div class="<?php echo $modal_content_class; ?> modal-content">
 
-			      <div class="modal-header">
-			      	<?php if(!empty($modal_title)){ ?>aca
+			      <div class="<?php echo $modal_header_class; ?> modal-header">
+			      	<?php if(!empty($modal_title)){ ?>
 			        <h5 class="modal-title" id="post-share"><?php echo $modal_title; ?></h5>
 			        <?php } ?>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -59,7 +62,7 @@ function WPBC_post_share( $args=array() ){
 			        </button>
 			      </div>
 
-			      <div class="<?php echo $modal_body_class; ?>">
+			      <div class="<?php echo $modal_body_class; ?> modal-body">
 			      	<?php echo $share_buttons_before; ?>
 			      	<div class="share_buttons <?php echo $share_buttons_class; ?>">
 								<div class="social_buttons <?php echo $social_buttons_class; ?>">
@@ -95,6 +98,11 @@ function build_share_button($item, $item_class, $item_input_class){
 	if(!empty($item['icon_html'])){
 		$icon = $item['icon_html'];
 	}
+	if(!empty($item['item_class'])){
+		$item_class = $item['item_class'];
+	}else{
+		$item_class = $item_class . ' btn-'.$id;
+	}
 	$title = __('Share this on').' '.$item['title'];
 	$label = !empty($icon) ? $icon : $item['title'];
 	
@@ -109,7 +117,7 @@ function build_share_button($item, $item_class, $item_input_class){
 
 	if($id!='email'){  
 	?>
-	<a href="<?php echo $url; ?>" <?php echo $data; ?> class="<?php echo $item_class;?> btn-<?php echo $id; ?>" title="<?php echo $title; ?>" target="_blank"><?php echo $label; ?></a>
+	<a href="<?php echo $url; ?>" <?php echo $data; ?> class="<?php echo $item_class;?>" title="<?php echo $title; ?>" target="_blank"><?php echo $label; ?></a>
 	<?php
 	}else{
 		?>
