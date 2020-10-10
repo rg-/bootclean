@@ -40,7 +40,7 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 			
 			// post type add row actions
 			
-			$enable_post_types = apply_filters('bc_duplicate_post__post_types' ,array('post','page'));
+			$enable_post_types = $this->enable_post_types();
 			foreach($enable_post_types as $post_type){
 				add_filter( $post_type.'_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
 			}
@@ -63,7 +63,11 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 			 */
 			// add_filter('page_row_actions','bc_remove_quick_edit',10,2);
 		}
-			 
+		
+		function enable_post_types(){
+			$enable_post_types = apply_filters('bc_duplicate_post__post_types' ,array('post','page'));
+			return $enable_post_types;
+		}
 		
 		// bc_remove_quick_edit
 		/*
@@ -81,7 +85,12 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 		// bc_duplicate_post_js_to_head
 		function bc_duplicate_post_js_to_head() {
 			global $post;
-			if ( current_user_can('edit_posts') ) { 
+			
+			if(isset($_GET['post'])) $post = get_post($_GET['post']);
+
+			$enable_post_types = $this->enable_post_types(); 
+			 
+			if ( current_user_can('edit_posts') && in_array(get_post_type($post), $enable_post_types) ) { 
 				if( get_post_type($post)!='acf-field-group' ){ 
 				?>
 				<style>

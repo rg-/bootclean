@@ -54,11 +54,7 @@ function WPBC_woocommerce_get_config(){
 
 			'myaccount' => array(
 				'class' => 'col-navigation-md-4 col-content-md-8 col-navigation-order-1 col-content-order-2 col-navigation-order-md-2 col-content-order-md-1',
-			),
-
-			'shop' => array(
-				'class' => '',
-			),
+			), 
 
 			'cart' => array(
 				'class' => '',
@@ -253,6 +249,9 @@ function WPBC_if_woocommerce_wrap_template(){
 	}
 	if(is_search()){
 		$wrap_template = false;
+	}
+	if(is_search() && isset($_GET['post_type']) && $_GET['post_type']=='product'){
+		$wrap_template = true;
 	}
 	return apply_filters('wpbc/filter/woocommerce/layout/wrap_template', $wrap_template);
 }
