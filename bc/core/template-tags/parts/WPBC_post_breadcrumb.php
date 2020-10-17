@@ -59,15 +59,17 @@ function WPBC_post_breadcrumb($args=''){
     
       $cat = get_the_category(); $cat = $cat[0];
       if ( $cat->parent != 0 ) {
-      $parent_category = get_category( $cat->parent );
-      echo get_category_parents($parent_category, TRUE, ' ' . $delimiter . ' ' );
-
-    } 
-    
-      
+        $parent_category = get_category( $cat->parent );
+        echo get_category_parents($parent_category, TRUE, ' ' . $delimiter . ' ' ); 
+      } else {
+        the_category($delimiter);
+        echo $delimiter; 
+      }
+       
       echo $currentBefore;
       the_title();
       echo $currentAfter;
+     
  
     } elseif ( is_page() && !$post->post_parent ) {
       echo $currentBefore;

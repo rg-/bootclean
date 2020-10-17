@@ -14,7 +14,7 @@ jQuery(function($) {
 		if($('.woocommerce-ordering select').length>0){
 			$('.woocommerce-ordering select').selectpicker(
 				{
-					liveSearch : true,
+					liveSearch : false,
 					showTick : true,
 				}
 			);

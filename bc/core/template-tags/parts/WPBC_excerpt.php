@@ -20,6 +20,7 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 			'post'            => '',
 			'length'          => 20,
 			'class'		=> 'entry-summary', 
+			'wrap' => true,
 			'excerpt_before'	=> '<span class="entry-excerpt">',
 			'excerpt_after'	=> '</span>',
 			'readmore'        => true,
@@ -45,7 +46,8 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 			global $post; 
 		} 
 		
-		$output = '<div class="'. esc_attr( $class ) .'">'; 
+		$output = '';
+		if($wrap) $output .= '<div class="'. esc_attr( $class ) .'">'; 
 		$text = $post->post_excerpt ? $post->post_excerpt : $post->post_content;
 		$text = do_shortcode($text);
 		$excerpt_length = apply_filters( 'excerpt_length', $length );
@@ -66,7 +68,7 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 			).$readmore_after;
 		} 
 		$output .= $text.$link; 
-		$output .= '</div>';
+		if($wrap) $output .= '</div>';
 		
 		if($echo){
 			echo apply_filters( 'WPBC_excerpt', $output );
