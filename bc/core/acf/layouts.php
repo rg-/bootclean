@@ -285,13 +285,7 @@ if(!function_exists('WPBC_acf_make_flexible_content_layout')){
 
 				} 
 
-			$sub_fields[] = WPBC_acf_make_tab_field(
-				array(
-					'key' => $layout_name.'__section_options_tab',
-					'label'=>_x('Settings', 'bootclean'),
-					'placement' => 'top',
-				)
-			); 
+			
 
 				$sub_fields_section_options = array(); 
 
@@ -373,15 +367,26 @@ if(!function_exists('WPBC_acf_make_flexible_content_layout')){
 								)
 							);  
 
-						$sub_fields[] = WPBC_acf_make_group_field(
-							array(
-								'name' => $layout_name.'__section_options',
-								'label'=>'',  
-								'width' => '100%',
-								'sub_fields' => $sub_fields_section_options,
-								'class' => 'wpbc-group-no-border wpbc-group-no-label',
-							)
-						); 
+			if(empty($args['hide_options_all'])){
+
+				$sub_fields[] = WPBC_acf_make_tab_field(
+					array(
+						'key' => $layout_name.'__section_options_tab',
+						'label'=>_x('Settings', 'bootclean'),
+						'placement' => 'top',
+					)
+				); 
+
+				$sub_fields[] = WPBC_acf_make_group_field(
+					array(
+						'name' => $layout_name.'__section_options',
+						'label'=>'',  
+						'width' => '100%',
+						'sub_fields' => $sub_fields_section_options,
+						'class' => 'wpbc-group-no-border wpbc-group-no-label',
+					)
+				); 
+			}
 
 			$layouts['layout_'.$layout_name] = array(
 				'key' => 'layout_'.$layout_name,
