@@ -95,10 +95,39 @@ function wpbc_dashboard_welcome(){
 		<ul class="wpbc-dashboard-list">
 			<li><b>Version</b>: <?php echo esc_html( $current_theme->get( 'Version' ) ); ?> | <b>Parent Theme</b>: <?php echo $current_theme->get( 'Template' ) ? esc_html( $current_theme->get( 'Template' ) ) : 'None, using parent directly (not recomended).'; ?></li>
 		</ul>
+
+		<div class="wpbc-dashboard-addons">
+			<br>
+			<h3 class="wpbc-dashboard-title"><?php echo WPBC_get_svg_icon('touch_app'); ?> <b>Actived Bootclean Addons</b></h3>
+			<ul class="wpbc-dashboard-list">
+				<?php 
+				$actived_addons = apply_filters('wpbc/filter/dashboard/actived_addons',array());
+				if( !empty($actived_addons) ){
+					foreach ($actived_addons as $key => $value) { 
+						$addon_name = $value['title']; 
+						if(!empty($value['url'])){
+							$manage = ' &nbsp;&nbsp;<a class="wpbc-btn-small button" href="'.$value['url'].'"><small>MANAGE</small></a>';
+						}else{
+							if( !empty($value['has_option_page']) ){
+								$manage = '&nbsp;&nbsp;<small class="wpbc-badge">MANAGED FROM THEME FUNCTIONS</small>';
+							}else{ 
+							$manage = '';
+							}
+						}
+						echo '<li>'. $icon_yes .' <b>'.$addon_name.'</b>'.$manage.'</li>';
+					}
+				}else{
+					echo '<li>'.__( 'No actived adddons used.', 'bootclean' ).'</li>';
+				} 
+				?>
+			</ul>
 		
-		<div class="dashboar-status">
+		</div>
 		
-			<h3 class="wpbc-dashboard-title"><b>Server Status</b></h3> 
+		<div class="wpbc-dashboard-status">
+			
+			<br>
+			<h3 class="wpbc-dashboard-title"><?php echo WPBC_get_svg_icon('perm_data_setting'); ?> <b>Server Status</b></h3> 
 			
 			<ul class="wpbc-dashboard-list">
 			<?php
@@ -159,32 +188,10 @@ function wpbc_dashboard_welcome(){
 			?>
 
 			</ul>
+		</div> 
+		
+		<div class="wpbc-dashboard-plugins">
 
-			<br>
-			<h3 class="wpbc-dashboard-title"><?php echo WPBC_get_svg_icon('touch_app'); ?> <b>Actived Bootclean Addons</b></h3>
-			<ul class="wpbc-dashboard-list">
-				<?php 
-				$actived_addons = apply_filters('wpbc/filter/dashboard/actived_addons',array());
-				if( !empty($actived_addons) ){
-					foreach ($actived_addons as $key => $value) { 
-						$addon_name = $value['title']; 
-						if(!empty($value['url'])){
-							$manage = ' &nbsp;&nbsp;<a class="wpbc-btn-small button" href="'.$value['url'].'"><small>MANAGE</small></a>';
-						}else{
-							if( !empty($value['has_option_page']) ){
-								$manage = '&nbsp;&nbsp;<small class="wpbc-badge">MANAGED FROM THEME FUNCTIONS</small>';
-							}else{ 
-							$manage = '';
-							}
-						}
-						echo '<li>'. $icon_yes .' <b>'.$addon_name.'</b>'.$manage.'</li>';
-					}
-				}else{
-					echo '<li>'.__( 'No actived adddons used.', 'bootclean' ).'</li>';
-				} 
-				?>
-			</ul>
-			
 			<br>
 			<h3 class="wpbc-dashboard-title"><span class="dashicons dashicons-admin-plugins"></span> <b>Actived Plugins</b></h3>
 			<?php

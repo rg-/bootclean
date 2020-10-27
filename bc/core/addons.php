@@ -39,6 +39,12 @@ require "addons/wpbc-private-areas.php";
 require "addons/wpbc-parallax.php";
 /*
 
+	tokko addon (if installed)	
+
+*/
+require "addons/wpbc-tokko.php";
+/*
+
 	swup addon (if installed)	
 
 */

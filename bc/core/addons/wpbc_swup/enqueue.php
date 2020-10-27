@@ -23,6 +23,9 @@ function WPBC_swup_enqueue_scripts(){
 		wp_register_script( 'wpbc-SwupGaPlugin', THEME_URI .'/bc/core/addons/wpbc_swup/assets/SwupGaPlugin.min.js', array(), null, true);
 		wp_enqueue_script( 'wpbc-SwupGaPlugin' );
 
+		wp_register_script( 'wpbc-SwupFormsPlugin', THEME_URI .'/bc/core/addons/wpbc_swup/assets/SwupFormsPlugin.min.js', array(), null, true);
+		wp_enqueue_script( 'wpbc-SwupFormsPlugin' );
+
 		wp_register_script( 'wpbc-swup', THEME_URI .'/bc/core/addons/wpbc_swup/assets/swup.min.js', array(), null, true);
 		wp_enqueue_script( 'wpbc-swup' );
 	}

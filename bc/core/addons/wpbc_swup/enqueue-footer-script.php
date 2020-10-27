@@ -5,6 +5,7 @@
 	$containers = apply_filters('wpbc/filter/swup/containers', '#main-container-areas, #simulate-body-tags' ); 
 	$plugins = apply_filters('wpbc/filter/swup/plugins', 'SwupFadeTheme' ); 
 	$SwupGaPlugin = apply_filters('wpbc/filter/swup/SwupGaPlugin',0);
+	$SwupFormsPlugin = apply_filters('wpbc/filter/swup/SwupFormsPlugin',0);
 	$plugins_mainElement = apply_filters('wpbc/filter/swup/plugins/mainElement', '#main-container-areas' ); 
 	?>
 	var test = <?php echo $plugins; ?>;
@@ -92,7 +93,10 @@
 						mainElement: '<?php echo $plugins_mainElement; ?>', 
 				}),
 				<?php if($SwupGaPlugin){ ?>
-					new SwupGaPlugin()
+					new SwupGaPlugin(),
+				<?php } ?>
+				<?php if($SwupFormsPlugin){ ?>
+					new SwupFormsPlugin(),
 				<?php } ?>
 		  ];
 		<?php	
@@ -105,8 +109,11 @@
 						reversed: false
 					}),
 					<?php if($SwupGaPlugin){ ?>
-					new SwupGaPlugin()
-				<?php } ?>
+						new SwupGaPlugin(),
+					<?php } ?>
+					<?php if($SwupFormsPlugin){ ?>
+						new SwupFormsPlugin(),
+					<?php } ?>
 	      ];
 		<?php	
 		}
@@ -122,7 +129,10 @@
 			$swup_defaults.plugins = [
 				new SwupOverlayTheme(<?php echo $args;?>),
 				<?php if($SwupGaPlugin){ ?>
-					new SwupGaPlugin()
+					new SwupGaPlugin(),
+				<?php } ?>
+				<?php if($SwupFormsPlugin){ ?>
+					new SwupFormsPlugin(),
 				<?php } ?>
 				];
 		<?php	
