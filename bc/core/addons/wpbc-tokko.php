@@ -23,7 +23,7 @@ if($use_wpbc_tokko){
  
 			'api_key' => get_option('options_wpbc_tokko_apikey', '5940ea45eb7cfb55228bec0b958ea9c0be151757'),
 			
-			'google_maps_api_key' => get_option('options_wpbc_tokko_google_maps_api_key', 'AIzaSyCgENpIO-JAtdDsceoikVL7xhqPdmk7vyA'), 
+			'google_maps_api_key' => get_option('options_wpbc_tokko_google_maps_api_key', ''), 
 
 			'templates' => array(
 				'ajax_get_properties' => admin_url( 'admin-ajax.php' ) .'?action=get_template&name=wpbc_tokko/ajax/get_properties',
