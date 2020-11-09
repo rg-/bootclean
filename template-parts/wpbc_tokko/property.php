@@ -1,21 +1,7 @@
 <?php
 
 $property = $args;
-
-/*
-	get_cover_picture()
-	stdClass Object
-			(
-			    [description] => 
-			    [image] => 
-			    [is_blueprint] => 
-			    [is_front_cover] => 1
-			    [order] => 1
-			    [original] => 
-			    [thumb] => 
-			)
-
-*/
+ 
 $get_cover_picture = $property->get_cover_picture(); 
 if(!empty($get_cover_picture)){
 	$img = $get_cover_picture->thumb;
@@ -24,120 +10,13 @@ if(!empty($get_cover_picture)){
 	$img = get_stylesheet_directory_uri().'/images/theme/placeholder.png';
 	$img_lg = $img;
 } 
-
-/*
-
-	get_fields()
-
-		address
-		age
-		
-		bathroom_amount
-
-		branch -> OBJ
-
-		created_at
-		deleted_at
-		custom1 ??
-		custom_tags -> () 
-
-		description
-		development
-		development_excel_extra_data
-		disposition
-
-		expenses
-		extra_attributes -> () 
-		fake_address
-		files -> () 
-		floors_amount
-
-		geo_lat
-		geo_long
-		gm_location_type
-		
-		id
-		is_starred_on_web
-		legally_checked
-		location -> OBJ
-				divisions -> OBJ id, name, resource_uri
-				full_location
-				id
-				name
-				parent_division
-				short_location
-				state
-
-		occupation -> () 
-
-		operations -> (
-	
-				OBJ (
-					operation_type
-					prices -> (
-						
-						OBJ(
-							currency
-							period
-							price
-						)
-
-					) 
-				)
-
-		) 
-
-		[producer] => stdClass Object
-      (
-          [cellphone] => ( 598) 98047772
-          [email] => pablo@aispuru.com
-          [id] => 10402
-          [name] => Pablo Cuadrado Aispuru
-          [phone] => ( 598) 44862433
-          [picture] => https://static.tokkobroker.com/...
-      )
-		
-		property_condition
-		public_url
-		publication_title
-		real_address
-		reference_code
-		roofed_surface
-		room_amount
-		semiroofed_surface
-		situation
-		status
-		suite_amount
-		surface
-		surface_measurement
-
-		tags -> (
-			OBJ (
-				id
-				name
-				type
-			)
-		)
-
-		toilet_amount
-		total_surface
-		transaction_requirements
-		type -> (
-			OBJ (
-				code
-				id
-				name
-			)
-		)
-		unroofed_surface
-		videos -> ()
-		web_price
-		zonification
-
-
-*/
+ 
 
 $id = $property->get_field('id');
+
+$single_page = WPBC_get_field('field_wpbc_tokko_post_object_single_property','options');  
+$propiedad_url = get_permalink($single_page).WPBC_get_tokko_rewrite_property_url($property);
+
 $address = $property->get_field('address');
 $publication_title = $property->get_field('publication_title'); 
 
@@ -169,7 +48,7 @@ $operations = $property->get_available_operations_names();
     <p>suite_amount: <?php echo $suite_amount; ?></p>
     <p>bathroom_amount: <?php echo $bathroom_amount; ?></p>
   </div>
-  <div class="card-footer">
-  	<a href="<?php echo $id; ?>" class="btn btn-primary">Ver más</a> - <small>REF: <?php echo $property->get_field('reference_code')?></small>
+  <div class="card-footer"> 
+  	<a href="<?php echo $propiedad_url;?>" class="btn btn-primary">Ver más</a> - <small>REF: <?php echo $property->get_field('reference_code'); ?></small>
   </div>
 </div>

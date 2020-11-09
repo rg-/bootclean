@@ -159,7 +159,14 @@ function WPBC_tokko_settings_fields(){
 		'name' => 'wpbc_tokko_apikey',
 		'label' => 'API Key',
 		'class' => '', 
-		'message' => '', 
+		'instructions' => 'For testings use: 5940ea45eb7cfb55228bec0b958ea9c0be151757', 
+	));
+
+	$fields[] = WPBC_acf_make_text_field(array(
+		'name' => 'wpbc_tokko_google_maps_api_key',
+		'label' => 'Google Maps API Key',
+		'class' => '', 
+		'instructions' => 'Required for maps', 
 	));
 
 	$fields[] = WPBC_acf_make_post_object_field(array(

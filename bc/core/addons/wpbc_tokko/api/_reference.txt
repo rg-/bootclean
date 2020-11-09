@@ -1,0 +1,19 @@
+	/* order_by:
+		random
+		price 
+		location
+		suite_amount
+		is_starred_on_web
+		age
+		situation
+		expenses
+		room_amount
+		bathroom_amount
+		toilet_amount
+		parking_lot_amount
+		floors_amount
+		surface
+		roofed_surface
+		semiroofed_surface
+		total_surface 
+	*/

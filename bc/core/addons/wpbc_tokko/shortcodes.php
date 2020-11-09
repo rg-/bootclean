@@ -1,9 +1,21 @@
-<?php
+<?php 
 
+function WPBC_get_tokko_property_FX($atts, $content = null){
+    $atts = shortcode_atts(array(
 
+    ), $atts);
+    ob_start(); 
+    WPBC_get_template_part('wpbc_tokko/property-single', $atts);
+    $content = ob_get_contents();
+    ob_end_clean();
+    return $content; 
+}
+add_shortcode('WPBC_get_tokko_property','WPBC_get_tokko_property_FX');
 
 function WPBC_get_tokko_properties_FX($atts, $content = null){
-	$atts = shortcode_atts(array(), $atts);
+	$atts = shortcode_atts(array(
+
+    ), $atts);
 	ob_start(); 
 	WPBC_get_template_part('wpbc_tokko/properties', $atts);
 	$content = ob_get_contents();
@@ -13,8 +25,19 @@ function WPBC_get_tokko_properties_FX($atts, $content = null){
 add_shortcode('WPBC_get_tokko_properties','WPBC_get_tokko_properties_FX');
 
 
-function WPBC_get_tokko_form_FX($atts, $content = null){
-    $atts = shortcode_atts(array(), $atts);
+function WPBC_get_tokko_form_FX($atts=array(), $content = null){
+    $atts = shortcode_atts(array(
+        'id' => '',
+        'action' => '',
+        'row_index' => '',
+        'post_id' => '',
+
+        'linked_results' => '',
+        'linked_results_id' => '',
+        'linked_results_page' => '',
+        'template' => ''
+        
+    ), $atts);
     ob_start(); 
     WPBC_get_template_part('wpbc_tokko/form', $atts);
     $content = ob_get_contents();

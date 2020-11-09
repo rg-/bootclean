@@ -25,15 +25,27 @@
 	So, here i filter them, if something is diferent than defaut value, 
 	then it´s passed to the array, then as a json, and then as the data-slick="" tag on the element.
 	*/
+	$temp = WPBC_get_slick_default_args();
+	$temp_args = array();
+	foreach ($temp as $key => $value) {
+		$temp_args['slider_args__'.$value['key']] = $value['default'];
+	}
+	//_print_code($temp_args);
+	//_print_code($slider_acf_object['value']['r_slider_settings_args']);
 	$slick_args_temp = array();
-	foreach($slick_args as $k=>$v){  
-		if($slider_acf_object['value']['r_slider_settings_args'][$k] != $v){ 
+	foreach($slick_args as $k=>$v){   
+		if( $temp_args[$k] != $v ){ 
 			$slick_args_temp[str_replace('slider_args__', '', $k)] = $v;
-		}else{ 
 		} 
+		if($slider_acf_object['value']['r_slider_settings_args'][$k]=='' && $v == ''){ 
+		//	$slick_args_temp[str_replace('slider_args__', '', $k)] = false;
+		}
 	} 
 	// As above said, if there are custom arguments, pass them, if not {} empty json !important, do not leave empty.
 	if(!empty($slick_args_temp)){
+		//_print_code($slider_acf_object['value']['r_slider_settings_args']);
+		//_print_code($slick_args);
+		// $slick_args_temp['arrows'] = 0;
 		$slick_attrs = json_encode($slick_args_temp);
 	}else{
 		$slick_attrs = $slick_attrs; 

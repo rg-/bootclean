@@ -1,17 +1,74 @@
 <script id="WPBC-tokko-footer-script" type="text/javascript">
 
-	+function(t){   
+	+function(t){  
 
+		function tokko_selectpickers(method){
+
+			if($('select.use_selectpicker').length>0){
+				if(!method) {
+					$('select.use_selectpicker').selectpicker();
+				}else{
+					$('select.use_selectpicker').selectpicker(method);
+				}
+			}  
+
+		} 
+		
+		$('body').on('wpbc.swup.contentReplaced',function(){
+			$('.use_selectpicker').selectpicker('refresh');
+		});
+		$(window).on('load.bs.select.data-api', function () {
+	    $('.use_selectpicker').each(function () {
+	    	$(this).selectpicker();
+	    })
+	  });
+
+	  $(document).on('change','[data-tokko-form="change"][data-trigger-to]',function(e){
+	  	var trigger_to = $(this).attr('data-trigger-to');
+	  	var this_name = $(this).attr('data-name');
+	  	var selected = $(this).val();
+	  	var form_trigger_to = $('[data-linked-results-id="'+trigger_to+'"]').find('[data-name="'+this_name+'"]');
+	  	form_trigger_to.val(selected).trigger('change'); 
+	  	return false;
+		});
+
+		$(document).on('click','[data-tokko="searchform-controls"] [data-tokko-form="submit"]',function(e){
+			var form = $('[data-tokko="searchform"]');
+			var use_form = $(this).closest('[data-tokko="searchform-controls"]');
+			if(use_form.attr('data-linked-results-id')){
+				form =  $('#'+use_form.attr('data-linked-results-id')+'');
+			} 
+			form.find('[type="submit"]').trigger('click');
+			return false;
+			});
 		/*
 		
 		[data-tokko-form="change"]
 
 		*/
-		$(document).on('change','[data-tokko-form="change"]',function(e){
+		$(document).on('change','[data-tokko="searchform-controls"] [data-tokko-form="change"]',function(e){
 
 			var form = $('[data-tokko="searchform"]');
+
+			var use_form = $(this).closest('[data-tokko="searchform-controls"]');
+			if(use_form.attr('data-linked-results-id')){
+				form =  $('#'+use_form.attr('data-linked-results-id')+'');
+			} 
+			
 			var data = form.find('[name="data"]').val();  
 			var data_json = JSON.parse(data); 
+
+			if($(this).hasClass('ui-tokko-property_prices')){ 
+				var val = $(this).val();
+				var prices = val.split("|");
+				var price_from = prices[0];
+				var price_to = prices[1];
+				console.log( 'price_from '+price_from );
+				console.log( 'price_to '+price_to );
+				data_json.price_from = price_from;
+				data_json.price_to = price_to;
+			}
+
 			// property_types
 			if($(this).hasClass('ui-tokko-property_types')){ 
 				

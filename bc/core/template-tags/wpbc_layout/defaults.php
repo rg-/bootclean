@@ -74,9 +74,7 @@ function WPBC_if_has_layout($layout,$id){
 	if($layout=='main_navbar'){
 		$temp = WPBC_layout__main_navbar_defaults($id);
 	}
-	if($layout=='main_page_header'){
-		$temp = WPBC_layout__main_page_header_defaults($id);
-	}
+	
 	if($layout=='main_footer'){
 		$temp = WPBC_layout__main_footer_defaults($id);
 	}
@@ -108,14 +106,24 @@ function WPBC_if_has_layout($layout,$id){
 	
 	}else{
 
-		if($layout=='main_page_header' && !empty($temp['type']) && $temp['type'] != 'none'){
-			$return = 3;
-		}else{
-			$return = 0;
-		}
+		
 
 		
 	} 
+
+	if($layout=='main_page_header'){
+		$temp = WPBC_layout__main_page_header_defaults($id); 
+		if($layout=='main_page_header' && !empty($temp['type']) && $temp['type'] != 'none'){
+			 
+			if($temp['type']=='template'){
+				$return = 1;
+			}else{
+				$return = 3;
+			}
+		}else{
+			$return = 0;
+		}
+	}
 
 	//_print_code($temp);
 	return $return;

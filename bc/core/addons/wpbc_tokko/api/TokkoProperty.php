@@ -46,6 +46,26 @@ class TokkoProperty
        }
    }
 
+   function get_age(){
+    if ($this->data == null){
+         return "No property";
+     }else{
+      $age = $this->data->age; 
+      if($age==0){
+        $age = 'A ESTRENAR';
+      }elseif($age=='-1'){
+        $age = 'EN CONSTRUCCIÓN';
+      }else{
+        if($age==1){
+          $age = $age.' AÑO';
+        }else{
+          $age = $age.' AÑOS';
+        } 
+      }
+     }
+     return $age;
+   }
+
    function has_tag_by_id($tag_id){
        $has_tag = false;
        if ($this->data == null){
@@ -62,6 +82,14 @@ class TokkoProperty
    }
 
    function get_tags_by_type($type){
+        /*
+        
+        1 - Servicios
+        2 - Ambientes
+        3 - Adicionales
+
+        */
+
        $tag_list = array();
        foreach ( $this->data->tags as $tag){
            if ($tag->type == $type){
@@ -91,6 +119,20 @@ class TokkoProperty
            }
        }
        return $cover_picture;
+   }
+
+   function get_pictures(){
+       $pictures = array();
+       if ($this->data == null){
+           echo "No property";
+       }else{
+           foreach ( $this->data->photos as $photo){
+               if (empty($photo->is_front_cover)){
+                   $pictures[] = $photo;
+               }
+           }
+       }
+       return $pictures;
    }
 
    function get_available_operations($legally_checked=null){
@@ -170,6 +212,15 @@ class TokkoProperty
                }
            }
        return $prices;
+       }
+   }
+
+   function get_operations(){
+      $operations = array();
+       if ($this->data == null){
+           echo "No property";
+       }else{
+        return $this->data->operations;
        }
    }
 

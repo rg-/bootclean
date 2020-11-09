@@ -609,10 +609,8 @@ if( function_exists('acf_add_local_field_group') ){
 function WPBC_group_builder__slider_settings_args($fields = array()){  
 	return apply_filters('WPBC_group_builder__slider_settings_args', $fields);
 }
-add_filter('WPBC_group_builder__slider_settings_args', function($fields){
 
-	// http://kenwheeler.github.io/slick/
-
+function WPBC_get_slick_default_args(){
 	$default_args = array(
 
 		array(
@@ -903,6 +901,14 @@ add_filter('WPBC_group_builder__slider_settings_args', function($fields){
 		),
 
 	);
+	return $default_args;
+}
+
+add_filter('WPBC_group_builder__slider_settings_args', function($fields){
+
+	// http://kenwheeler.github.io/slick/
+
+	$default_args = WPBC_get_slick_default_args();
 	
 	foreach ($default_args as $arg) {
 		if( $arg['type'] == 'true_false' ){

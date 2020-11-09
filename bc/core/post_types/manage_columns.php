@@ -53,7 +53,7 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 	if($layout=='main_page_header'){
 		$title = 'Page Header'; 
 		$temp = WPBC_layout__main_page_header_defaults($id);
-		$if = WPBC_if_has_page_header($id);
+		$if = WPBC_if_has_page_header($id); 
 	}
 	if($layout=='main_footer'){
 		$title = 'Main Footer';

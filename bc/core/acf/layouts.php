@@ -435,11 +435,15 @@ if(!function_exists('WPBC_get_section_row_args')){
  			
 		}  
 
+		/*
 		if( !empty( $options['style'] ) ) {
 			if( !in_array( $options['style'], array( 'transparent', 'white', 'rosa', 'rosa-claro' ) )){
 				$options['style_color'] = 'white';
 			}
 		} 
+		*/
+
+		$options['style_color'] = apply_filters('wpbc/filter/flexible-layout-row/style_color', $options['style_color'], $options);
 
 		$section_id = !empty($args[$p.'__section-title']) ? sanitize_title($args[$p.'__section-title']) : $args['acf_fc_layout'].'-'.uniqid();
 		$section_id = !empty( $options['id'] ) ? $options['id'] : $section_id;
@@ -470,6 +474,7 @@ add_action('wpbc/flexible-layout-row/start', function($section, $acf_fc_layout){
 	$row_class = $section['section_options']['row_class'];
 	$column_class = $section['section_options']['column_class'];
 
+	if(empty($column_class)) $column_class = 'col-12';
 ?>
 <div id="<?php echo $section['section_id']; ?>" class="<?php echo $layout_class; ?>">
 	<div class="container <?php echo $container_class; ?>">

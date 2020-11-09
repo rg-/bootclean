@@ -6,18 +6,24 @@
 	Api de prueba: 5940ea45eb7cfb55228bec0b958ea9c0be151757 
 
 */
+
+global $tokko_in_use;
+	
 $use_wpbc_tokko = apply_filters('wpbc/filter/tokko/installed', 0);
 
 if($use_wpbc_tokko){ 
+
+	function tokko_add_cors_http_header(){
+	    header("Access-Control-Allow-Origin: *");
+	}
+	add_action('init','tokko_add_cors_http_header');
 	
 	function tokko_config($key=null){ 
 		$config = array(
  
 			'api_key' => get_option('options_wpbc_tokko_apikey', '5940ea45eb7cfb55228bec0b958ea9c0be151757'),
 			
-			'property_types' => array(
-				1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
-			),
+			'google_maps_api_key' => get_option('options_wpbc_tokko_google_maps_api_key', 'AIzaSyCgENpIO-JAtdDsceoikVL7xhqPdmk7vyA'), 
 
 			'templates' => array(
 				'ajax_get_properties' => admin_url( 'admin-ajax.php' ) .'?action=get_template&name=wpbc_tokko/ajax/get_properties',
@@ -73,6 +79,8 @@ if($use_wpbc_tokko){
 	},10,1);
  
 	include('wpbc_tokko/functions.php');
+	include('wpbc_tokko/defaults.php'); 
+	include('wpbc_tokko/rewrites.php'); 
 	include('wpbc_tokko/option_page.php');
 	include('wpbc_tokko/enqueue.php');
 	include('wpbc_tokko/filters.php');

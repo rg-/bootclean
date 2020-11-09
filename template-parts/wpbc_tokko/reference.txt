@@ -1,0 +1,213 @@
+data => stdClass Object EJ
+			
+		id
+		reference_code
+
+		created_at
+		publication_title
+		real_address
+		reference_code
+		address
+		description
+		fake_address
+
+		disposition
+		orientation
+		occupation
+		situation
+		status
+	
+	locations
+		
+		type > Object
+                (
+                    [code] => LA
+                    [id] => 1
+                    [name] => Terreno
+                )
+		location > obj > divisions > array > stdClass Object
+                                (
+                                    [id] => 80399
+                                    [name] => Santa Monica
+                                    [resource_uri] => /api/v1/location/80399/
+                                )
+		operations > array > stdClass Object
+                        (
+                            [operation_type] => Venta
+                            [prices] => Array
+                                (
+                                    [0] => stdClass Object
+                                        (
+                                            [currency] => USD
+                                            [period] => 0
+                                            [price] => 4600000
+                                        )
+
+                                )
+
+                        )
+		zonification
+
+	amenities
+	
+		expenses
+		room_amount
+		suite_amount
+		bathroom_amount
+		toilet_amount
+		floors_amount
+		parking_lot_amount
+
+		>  tags (extra custom) => stdClass Object
+                        (
+                            [id] => 2
+                            [name] => Cloaca
+                            [type] => 1
+                        )
+
+	surfaces
+		roofed_surface
+		semiroofed_surface
+		surface
+		surface_measurement
+		total_surface
+		unroofed_surface
+
+	maps
+		geo_lat
+		geo_long
+		gm_location_type
+
+	media
+		files
+		photos
+		videos
+
+
+
+/*
+	get_cover_picture()
+	stdClass Object
+			(
+			    [description] => 
+			    [image] => 
+			    [is_blueprint] => 
+			    [is_front_cover] => 1
+			    [order] => 1
+			    [original] => 
+			    [thumb] => 
+			)
+
+*/
+
+/*
+
+	get_fields()
+
+		address
+		age
+		
+		bathroom_amount
+
+		branch -> OBJ
+
+		created_at
+		deleted_at
+		custom1 ??
+		custom_tags -> () 
+
+		description
+		development
+		development_excel_extra_data
+		disposition
+
+		expenses
+		extra_attributes -> () 
+		fake_address
+		files -> () 
+		floors_amount
+
+		geo_lat
+		geo_long
+		gm_location_type
+		
+		id
+		is_starred_on_web
+		legally_checked
+		location -> OBJ
+				divisions -> OBJ id, name, resource_uri
+				full_location
+				id
+				name
+				parent_division
+				short_location
+				state
+
+		occupation -> () 
+
+		operations -> (
+	
+				OBJ (
+					operation_type
+					prices -> (
+						
+						OBJ(
+							currency
+							period
+							price
+						)
+
+					) 
+				)
+
+		) 
+
+		[producer] => stdClass Object
+      (
+          [cellphone] => ( 598) 98047772
+          [email] => pablo@aispuru.com
+          [id] => 10402
+          [name] => Pablo Cuadrado Aispuru
+          [phone] => ( 598) 44862433
+          [picture] => https://static.tokkobroker.com/...
+      )
+		
+		property_condition
+		public_url
+		publication_title
+		real_address
+		reference_code
+		roofed_surface
+		room_amount
+		semiroofed_surface
+		situation
+		status
+		suite_amount
+		surface
+		surface_measurement
+
+		tags -> (
+			OBJ (
+				id
+				name
+				type
+			)
+		)
+
+		toilet_amount
+		total_surface
+		transaction_requirements
+		type -> (
+			OBJ (
+				code
+				id
+				name
+			)
+		)
+		unroofed_surface
+		videos -> ()
+		web_price
+		zonification
+
+
+*/

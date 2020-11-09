@@ -1,7 +1,6 @@
 <?php
 
-$search = $args['search'];
-$use_query_vars = $args['use_query_vars'];
+$search = $args['search']; 
 
 ?>
 

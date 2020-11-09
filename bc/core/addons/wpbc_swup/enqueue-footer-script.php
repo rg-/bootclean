@@ -6,6 +6,7 @@
 	$plugins = apply_filters('wpbc/filter/swup/plugins', 'SwupFadeTheme' ); 
 	$SwupGaPlugin = apply_filters('wpbc/filter/swup/SwupGaPlugin',0);
 	$SwupFormsPlugin = apply_filters('wpbc/filter/swup/SwupFormsPlugin',0);
+	$SwupScrollPlugin = apply_filters('wpbc/filter/swup/SwupScrollPlugin',0);
 	$plugins_mainElement = apply_filters('wpbc/filter/swup/plugins/mainElement', '#main-container-areas' ); 
 	?>
 	var test = <?php echo $plugins; ?>;
@@ -80,7 +81,13 @@
 
 	plugins: [
       new SwupHeadPlugin(),
-      new SwupBodyClassPlugin()
+      new SwupBodyClassPlugin(),
+      new SwupScrollPlugin({
+			    doScrollingRightAway: false,
+			    animateScroll: true,
+			    scrollFriction: 0.3,
+			    scrollAcceleration: 0.04,
+			}),
   ],
 
 	*/
@@ -98,6 +105,9 @@
 				<?php if($SwupFormsPlugin){ ?>
 					new SwupFormsPlugin(),
 				<?php } ?>
+				<?php if($SwupScrollPlugin){ ?>
+					new SwupScrollPlugin(),
+				<?php } ?>
 		  ];
 		<?php	
 		}
@@ -113,6 +123,9 @@
 					<?php } ?>
 					<?php if($SwupFormsPlugin){ ?>
 						new SwupFormsPlugin(),
+					<?php } ?>
+					<?php if($SwupScrollPlugin){ ?>
+						new SwupScrollPlugin(),
 					<?php } ?>
 	      ];
 		<?php	
@@ -134,6 +147,9 @@
 				<?php if($SwupFormsPlugin){ ?>
 					new SwupFormsPlugin(),
 				<?php } ?>
+				<?php if($SwupScrollPlugin){ ?>
+						new SwupScrollPlugin(),
+					<?php } ?>
 				];
 		<?php	
 		} 
@@ -152,6 +168,7 @@
 		$('body.side-menu-visible #side-menu .navbar-toggler').trigger('click'); 
 		$('*:focus').blur();
 		$('body').trigger('wpbc.swup.clickLink');
+		<?php do_action('wpbc/action/swup/clickLink'); ?>
 	});
 
 	/* triggers right after the content of page is replaced */
@@ -169,8 +186,8 @@
 	/* similar to contentReplaced, except it is once triggered on load */
 	swup.on('pageView', function() {
 		$('body').removeClass('loading');
-		$('body').addClass('inited'); 
-		$('body').trigger('wpbc.swup.pageView');
+		$('body').addClass('inited');  
+		$('body').trigger('wpbc.swup.pageView'); 
 	  <?php do_action('wpbc/action/swup/pageView'); ?>
 	});
 

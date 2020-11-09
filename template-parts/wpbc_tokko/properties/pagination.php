@@ -8,9 +8,10 @@ $pagination_args = tokko_config('pagination');
 	$max_show = $pagination_args['max_show'];
 	$pagination_nav_class = 'gmy-1';
 	$pagination_ul_class = 'pagination d-flex justify-content-center';
-	$pagination_item_class = 'page-item';
+	$pagination_item_class = 'page-items';
+	$pagination_item_active_class = 'page-item active';
 	$pagination_item_link_class = 'page-link';
-	$pagination_item_link_active_class = 'active';
+	$pagination_item_link_active_class = 'page-link';
 	$pagination_item_link_attrs = ''; 
 ?>
 <nav data-ajax="pagination" class="gmy-1">
@@ -28,7 +29,7 @@ if(!$use_query_vars){
 }
 ?>
 <?php if ($search->get_previous_page_or_null()){?>
-	<li class="page-item"><a <?php echo $anchor_data; ?> class="page-link" href='<?php echo $prev_url;?>'>
+	<li class="<?php echo $pagination_item_class; ?>"><a <?php echo $anchor_data; ?> class="<?php echo $pagination_item_link_class; ?>" href='<?php echo $prev_url;?>'>
 		&laquo;
 	</a></li>
 <?php } ?>
@@ -49,18 +50,18 @@ if(!$use_query_vars){
 				$class = 'd-none';
 				if($i==($max_show/2)+1){
 					?>
-					<li class="page-item"><span class="page-link pagination-separator">...</span></li>
+					<li class="<?php echo $pagination_item_class; ?>"><span class="<?php echo $pagination_item_link_class; ?> pagination-separator">...</span></li>
 					<?php
 				}
 			}
 			?>
-			<li class="page-item <?php echo $class; ?> <?php echo ($i==$current_page) ? 'active' : '';?>"><a <?php echo $anchor_data; ?> class="page-link" href='<?php echo $link; ?>'><?php echo $i; ?></a></li>
+			<li class="<?php echo $class; ?> <?php echo ($i==$current_page) ? $pagination_item_active_class : $pagination_item_class;?>"><a <?php echo $anchor_data; ?> class="<?php echo ($i==$current_page) ? $pagination_item_link_active_class : $pagination_item_link_class; ?>" href='<?php echo $link; ?>'><?php echo $i; ?></a></li>
 			<?php
 		}
 	}
 ?>
 <?php if ($search->get_next_page_or_null()){ ?>
-	<li class="page-item"><a <?php echo $anchor_data; ?> class="page-link" href='<?php echo $next_url; ?>'>
+	<li class="<?php echo $pagination_item_class; ?>"><a <?php echo $anchor_data; ?> class="<?php echo $pagination_item_link_class; ?>" href='<?php echo $next_url; ?>'>
 		&raquo;
 	</a></li>
 <?php } ?>

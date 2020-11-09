@@ -55,7 +55,7 @@ function WPBC_group_builder__layout__main_header($fields){
 		'label' => 'Page Header Template',
 		'name' => 'layout_header_template',
 		'type' => 'select',
-		'instructions' => '', 
+		'instructions' => 'Choose template to use', 
 		'wrapper' => array (
 			'width' => '20%', 
 		),

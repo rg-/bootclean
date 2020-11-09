@@ -17,9 +17,11 @@ if(empty($args)){
 }else{ 
 
 	$search = $args['search']; 
+	/*
 	$search->default_page_limit = $args['limit']; 
 	$search->default_search_order = $args['order']; 
-	$search->default_search_order_by = $args['order_by']; 
+	$search->default_search_order_by = $args['order_by'];
+	*/ 
 
 	$pagination = $args['pagination'];
 	$result_detail = $args['result_detail'];

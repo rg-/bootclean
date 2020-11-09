@@ -6,7 +6,7 @@ if( is_user_logged_in() && current_user_can( 'manage_options' ) && !wp_doing_aja
 
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> class="<?php echo apply_filters('wpbc/html/class','');?>">
 	<head>
 		
 		<?php do_action('wpbc/head/start'); ?>

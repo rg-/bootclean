@@ -401,15 +401,13 @@ function BC_apply_filters($fn, $a){
 }
 
 function _print_code($args){
-	?>
-	<pre class="gp-1" style="border:2px solid var(--primary);">
-		<code>
-		<?php 
-			if(!empty($args)){print_r($args);}else{echo "! empty result :(";} 
-		?>
-		</code>
-	</pre>
-	<?php
+	?><pre class="gp-1" style="border:2px solid var(--primary);">
+<code>
+<?php 
+if(!empty($args)){print_r($args);}else{echo "! empty result :(";} 
+?>
+</code>
+</pre><?php
 }
 
 function BC_http_strip_query_param($url,$param) {
