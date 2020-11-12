@@ -486,6 +486,11 @@
             ele.addClass('isv-lazysrc-loading');
             var lazysrc_url = ele.attr('data-is-inview-lazybackground'); 
             var loading = ele.find('.isv-lazysrc-loader'); 
+
+            if( ele.attr('data-lazybackground-spinner') == 'false' ){
+              loading.css('background-image','none');
+            }
+
             loading.fadeIn(0); 
             var temp = $("<img>");
             temp.load(lazysrc_url, function(){
@@ -494,10 +499,20 @@
               var new_src = $(this).attr('src'); 
               var orig_src = ele.css('background-image'); 
               // Prevent flickering once css changes
-              ele.css('background-image', 'url('+new_src+'), '+orig_src+'');  
+              if( ele.attr('data-lazybackground') == 'simple' ){
+                ele.css('background-image', 'url('+new_src+''); 
+              }else{
+                ele.css('background-image', 'url('+new_src+'), '+orig_src+''); 
+              }
+               
               loading.delay(300).fadeOut(600, function(){
                 // Remove the previous double background-image definition 
                 ele.css('background-image', 'url('+new_src+')');  
+
+                if( ele.attr('data-lazybackground-target') == 'parent' ){
+                  ele.parent().addClass('isv-lazysrc-parent-loaded');
+                }
+
                 loading.remove(); 
               }); 
             });

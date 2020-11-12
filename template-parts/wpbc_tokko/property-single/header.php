@@ -4,6 +4,7 @@
 
 	$classes = WPBC_tokko_get_property_single_classes($property); 
 
+	$id = $property->get_field('id');
 	$reference_code = $property->get_field('reference_code');
 	$address = $property->get_field('address');
 
@@ -28,10 +29,12 @@
 
 	<div class="<?php echo $classes['content_col_class']; ?>">
 
+		<!--
 		<p><?php echo 'publication_title: '. $property->get_field('publication_title'); ?></p>
 		<p><?php echo 'real_address: '. $property->get_field('real_address'); ?></p>
 		<p><?php echo 'address: '. $property->get_field('address'); ?></p>
 		<p><?php echo 'fake_address: '. $property->get_field('fake_address'); ?></p>
+		-->
 
 		<h2 class="section-title xl m-0 d-flex align-items-end"><?php echo $address; ?> <small class="ref text-primary text-right font-size-12">REF. <?php echo $reference_code; ?></small></h2>
 		<h3 class="font-size-18 m-0"><?php echo implode(" - ",$operations); ?> / <?php echo $type; ?> / <?php echo strtoupper($location); ?></h3>

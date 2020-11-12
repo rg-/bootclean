@@ -240,7 +240,7 @@ function WPBC_tokko_get_common_select_args($id=null,$args=array()){
 		$field_before = '<div class="form-group">';
 		$field_after = '</div>';
 		$field_class = 'use_selectpicker form-control shadow';
-		$field_attrs = ' data-tokko-form="change" data-style="btn-white"';
+		$field_attrs = ' data-tokko-form="change" data-style="btn-white" data-dropup="false" data-container="body" data-flip="false" ';
 		if(!empty($args['submit_on_change'])){
 				$field_attrs .= ' data-trigger="submit" ';
 		} 

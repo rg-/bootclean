@@ -3,10 +3,13 @@
 	<?php 
 	$animationSelector = apply_filters('wpbc/filter/swup/animationSelector', '[class*="swup-transition-"]' ); 
 	$containers = apply_filters('wpbc/filter/swup/containers', '#main-container-areas, #simulate-body-tags' ); 
+
 	$plugins = apply_filters('wpbc/filter/swup/plugins', 'SwupFadeTheme' ); 
+	
 	$SwupGaPlugin = apply_filters('wpbc/filter/swup/SwupGaPlugin',0);
 	$SwupFormsPlugin = apply_filters('wpbc/filter/swup/SwupFormsPlugin',0);
 	$SwupScrollPlugin = apply_filters('wpbc/filter/swup/SwupScrollPlugin',0);
+	
 	$plugins_mainElement = apply_filters('wpbc/filter/swup/plugins/mainElement', '#main-container-areas' ); 
 	?>
 	var test = <?php echo $plugins; ?>;
@@ -92,13 +95,37 @@
 
 	*/
 	<?php
-	if(!empty($plugins)){
-		if($plugins=='SwupFadeTheme'){
+	if(!empty($plugins)){ 
 		?>
 			$swup_defaults.plugins = [
-				new SwupFadeTheme({
+				
+				<?php if($plugins=='SwupFadeTheme'){ ?>
+					new SwupFadeTheme({
+							mainElement: '<?php echo $plugins_mainElement; ?>', 
+					}),
+				<?php } ?>
+
+				<?php if($plugins=='SwupSlideTheme'){ ?>
+					new SwupSlideTheme({
 						mainElement: '<?php echo $plugins_mainElement; ?>', 
-				}),
+						reversed: false
+					}),
+				<?php } ?>
+
+				<?php if($plugins=='SwupOverlayTheme'){
+
+						$args = array(
+							'color' => '#222',
+							'duration' => 600,
+							'direction' => 'to-left'
+						);
+						$args = apply_filters('wpbc/filter/swup/plugins/SwupOverlayTheme/args', $args );
+						$args = json_encode($args);
+
+					?>
+					new SwupOverlayTheme(<?php echo $args;?>),
+				<?php } ?>
+
 				<?php if($SwupGaPlugin){ ?>
 					new SwupGaPlugin(),
 				<?php } ?>
@@ -109,51 +136,7 @@
 					new SwupScrollPlugin(),
 				<?php } ?>
 		  ];
-		<?php	
-		}
-		if($plugins=='SwupSlideTheme'){
-		?>
-			$swup_defaults.plugins = [
-					new SwupSlideTheme({
-						mainElement: '<?php echo $plugins_mainElement; ?>', 
-						reversed: false
-					}),
-					<?php if($SwupGaPlugin){ ?>
-						new SwupGaPlugin(),
-					<?php } ?>
-					<?php if($SwupFormsPlugin){ ?>
-						new SwupFormsPlugin(),
-					<?php } ?>
-					<?php if($SwupScrollPlugin){ ?>
-						new SwupScrollPlugin(),
-					<?php } ?>
-	      ];
-		<?php	
-		}
-		if($plugins=='SwupOverlayTheme'){
-			$args = array(
-				'color' => '#222',
-				'duration' => 600,
-				'direction' => 'to-left'
-			);
-			$args = apply_filters('wpbc/filter/swup/plugins/SwupOverlayTheme/args', $args );
-			$args = json_encode($args);
-		?>
-			$swup_defaults.plugins = [
-				new SwupOverlayTheme(<?php echo $args;?>),
-				<?php if($SwupGaPlugin){ ?>
-					new SwupGaPlugin(),
-				<?php } ?>
-				<?php if($SwupFormsPlugin){ ?>
-					new SwupFormsPlugin(),
-				<?php } ?>
-				<?php if($SwupScrollPlugin){ ?>
-						new SwupScrollPlugin(),
-					<?php } ?>
-				];
-		<?php	
-		} 
-
+		<?php
 	}
 	?>
 	/* PLUGINS END */
@@ -165,9 +148,12 @@
 
 	/* triggers when link is clicked */
 	swup.on('clickLink', function() {
+
+		$('html').addClass('swup-start');
+
 		$('body.side-menu-visible #side-menu .navbar-toggler').trigger('click'); 
 		$('*:focus').blur();
-		$('body').trigger('wpbc.swup.clickLink');
+		$('body').trigger('wpbc.swup.clickLink'); 
 		<?php do_action('wpbc/action/swup/clickLink'); ?>
 	});
 
@@ -185,6 +171,7 @@
 
 	/* similar to contentReplaced, except it is once triggered on load */
 	swup.on('pageView', function() {
+		$('html').removeClass('swup-start');
 		$('body').removeClass('loading');
 		$('body').addClass('inited');  
 		$('body').trigger('wpbc.swup.pageView'); 
@@ -195,12 +182,32 @@
 		$('body').trigger('wpbc.swup.willReplaceContent');
 	  <?php do_action('wpbc/action/swup/willReplaceContent'); ?>
 	});
-	swup.on('animationInDone', function() { 
+
+
+	swup.on('animationInStart', function() {  
+		$('body').trigger('wpbc.swup.animationInStart');
+	  <?php do_action('wpbc/action/swup/animationInStart'); ?>
+	});
+	swup.on('animationInDone', function() {  
 		$('body').trigger('wpbc.swup.animationInDone');
 	  <?php do_action('wpbc/action/swup/animationInDone'); ?>
 	});
 
-	swup.on('transitionEnd', function() { 
+	swup.on('animationOutStart', function() {  
+		$('body').trigger('wpbc.swup.animationOutStart');
+	  <?php do_action('wpbc/action/swup/animationOutStart'); ?>
+	});
+	swup.on('animationOutDone', function() {  
+		$('body').trigger('wpbc.swup.animationOutDone');
+	  <?php do_action('wpbc/action/swup/animationOutDone'); ?>
+	});
+
+
+	swup.on('transitionStart', function() { 
+		$('body').trigger('wpbc.swup.transitionStart');
+	  <?php do_action('wpbc/action/swup/transitionStart'); ?>
+	});
+	swup.on('transitionEnd', function() {     
 		$('body').trigger('wpbc.swup.transitionEnd');
 	  <?php do_action('wpbc/action/swup/transitionEnd'); ?>
 	});
