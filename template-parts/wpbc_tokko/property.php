@@ -9,8 +9,7 @@ if(!empty($get_cover_picture)){
 }else{
 	$img = get_stylesheet_directory_uri().'/images/theme/placeholder.png';
 	$img_lg = $img;
-} 
- 
+}  
 
 $id = $property->get_field('id');
 
@@ -37,9 +36,15 @@ $operations = $property->get_available_operations_names();
 	<div class="card-header pt-1 pb-2">
 		<small><u><?php echo strtoupper($property->get_field("type")->name); ?></u> EN <?php echo strtoupper($property->get_field("location")->name); ?></small>
 	</div>
-  <div class="embed-responsive embed-responsive-16by9">
-		<div data-is-inview-lazybackground="<?php echo $img_lg; ?>" class="embed-responsive-item image-cover" style="background-image: url(<?php echo $img; ?>);"></div>
-	</div>
+  
+  <?php
+    WPBC_build_lazyloader_image(array(
+      'img_hi' => $img_lg, 
+      'img_low' => $img,
+      'type' => 'inview',
+    ));
+    ?> 
+
   <div class="card-body">
     <h5 class="card-title"><?php echo $address; ?></h5>
     <p class="card-text"><u><?php echo implode(' - ', $operations); ?></u></p>

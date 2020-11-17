@@ -1,24 +1,36 @@
 <?php
 
 	$property = $args;   
-  
+  /*
+	  
+	  1 - Servicios
+	  2 - Ambientes
+	  3 - Adicionales
+
+	  */
 	$tags = $property->get_field('tags');
 
+	$rooms = $property->get_tags_by_type(2);
+
+	if(!empty($rooms)){
 ?>
 
-<hr class="border-primary mt-4 mb-5">
+<div class="ui-property-content-row ui-rooms-row">
 
-<h3 class="section-subtitle md mb-4">Ambientes</h3>
+	<h3 class="section-subtitle md mb-4">Ambientes</h3>
 
-<div class="row mt-3"> 
-	<?php  
-		$servicios = $property->get_tags_by_type(2);
-		foreach ($servicios as $key => $value) {
-			?>
-			<div class="col-md-4">
-				<p><i class="icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
-			</div>
-			<?php
-		}
-	?>
+	<div class="row mt-3"> 
+		<?php  
+			
+			foreach ($rooms as $key => $value) {
+				?>
+				<div class="col-md-4">
+					<p><i class="icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
+				</div>
+				<?php
+			}
+		?>
+	</div>
+
 </div>
+<?php } ?>

@@ -8,11 +8,14 @@ $pagination_args = tokko_config('pagination');
 	$max_show = $pagination_args['max_show'];
 	$pagination_nav_class = 'gmy-1';
 	$pagination_ul_class = 'pagination d-flex justify-content-center';
-	$pagination_item_class = 'page-items';
+	$pagination_item_class = 'page-item';
 	$pagination_item_active_class = 'page-item active';
 	$pagination_item_link_class = 'page-link';
 	$pagination_item_link_active_class = 'page-link';
 	$pagination_item_link_attrs = ''; 
+
+	$prev_label = '<';
+	$next_label = '>';
 ?>
 <nav data-ajax="pagination" class="gmy-1">
 	<ul class="pagination d-flex justify-content-center">
@@ -30,7 +33,7 @@ if(!$use_query_vars){
 ?>
 <?php if ($search->get_previous_page_or_null()){?>
 	<li class="<?php echo $pagination_item_class; ?>"><a <?php echo $anchor_data; ?> class="<?php echo $pagination_item_link_class; ?>" href='<?php echo $prev_url;?>'>
-		&laquo;
+		<?php echo $prev_label; ?>
 	</a></li>
 <?php } ?>
 <?php 
@@ -62,7 +65,7 @@ if(!$use_query_vars){
 ?>
 <?php if ($search->get_next_page_or_null()){ ?>
 	<li class="<?php echo $pagination_item_class; ?>"><a <?php echo $anchor_data; ?> class="<?php echo $pagination_item_link_class; ?>" href='<?php echo $next_url; ?>'>
-		&raquo;
+		<?php echo $next_label; ?>
 	</a></li>
 <?php } ?>
 	</ul>

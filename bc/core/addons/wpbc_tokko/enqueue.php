@@ -13,6 +13,10 @@ function wpbc_tokko_enqueue_scripts(){
 		'1.0',
 		true ); 
 	*/ 
+
+		//wp_register_style( 'wpbc-tokko-icons', THEME_URI . '/bc/core/addons/wpbc_tokko/assets/wpbc_tokko_icons.css', array(), __scripts_version() ); 
+		//wp_enqueue_style( 'wpbc-tokko-icons' ); 
+
 } 
 
 

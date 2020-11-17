@@ -30,11 +30,13 @@ function _tokko_acf_choices_localizations(){
 	return $temp;
 }
 
+include('builder/ui-tokko-developments.php');
 include('builder/ui-tokko-properties.php'); 
 include('builder/ui-tokko-searchform.php'); 
 
 add_action('admin_head',function(){
 	$check = array(
+		'ui-tokko-developments',
 		'ui-tokko-properties',
 		'ui-tokko-searchform',
 	);

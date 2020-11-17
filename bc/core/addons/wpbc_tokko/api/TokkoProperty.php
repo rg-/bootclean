@@ -29,9 +29,31 @@ class TokkoProperty
                $this->data = json_decode(curl_exec($cp))->objects[0];
                curl_close($cp);
            }
+           if ($get_type == 'development__id'){
+               $url = $this->BASE_URL . "?format=json&development__id=". $data ."&key=". $auth->key ."&lang=".$auth->get_language();
+
+               $cp = curl_init();
+               curl_setopt($cp, CURLOPT_RETURNTRANSFER, 1);
+               curl_setopt($cp, CURLOPT_URL, $url);
+               curl_setopt($cp, CURLOPT_TIMEOUT, 60);
+               $this->data = json_decode(curl_exec($cp));
+               curl_close($cp);
+           }
         } catch (Exception $e) {
                $this->data = null;
         }
+   }
+
+   function get_development_properties(){
+      if ($this->data == null){
+           return array();
+       }else{
+           try{
+               return $this->data;
+           }catch (Exception $e) {
+               echo "Invalid search";
+           }
+       }
    }
 
    function get_field($field){

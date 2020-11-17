@@ -529,3 +529,6 @@ function WPBC_get_theme_settings_args($key=''){
 include ('functions/WPBC_get_svg.php');
 include ('functions/WPBC_acf_get__fx.php');
 include ('functions/WPBC_acf_make__fields.php');
+
+
+include ('functions/WPBC_build_lazyloader_image.php');

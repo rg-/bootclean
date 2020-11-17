@@ -2,14 +2,17 @@
 
 	$property = $args;   
   
-?>
+  $description = $property->get_field('description');
 
-<hr class="border-primary mt-4 mb-5">
+  if(!empty($description)){
+?> 
 
-<h3 class="section-subtitle md mb-4">Descripción</h3>
-
-	<?php $description = $property->get_field('description'); ?>
+<div class="ui-property-content-row ui-description-row">
+	
+	<h3 class="section-subtitle md mb-4">Descripción</h3>
 
 	<p><?php echo apply_filters('the_content', $description); ?></p>
 
-<br>
+</div>
+
+<?php } ?>

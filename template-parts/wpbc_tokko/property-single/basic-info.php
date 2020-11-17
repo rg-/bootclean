@@ -80,22 +80,28 @@
 		),
 
 	);
+
+	if(!empty($basic_info)){
 ?>
 
-<hr class="border-primary mt-4 mb-5">
+<div class="ui-property-content-row ui-basicinfo-row">
 
-<h3 class="section-subtitle md mb-4">Información básica</h3>
+	<h3 class="section-subtitle md mb-4">Información básica</h3>
 
-<div class="row">
+	<div class="row">
 
-	<?php
-	foreach ($basic_info as $key => $value) {
-		?>
-		<div class="col-md-4">
-			<p><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
-		</div>
 		<?php
-	}
-	?>
+		foreach ($basic_info as $key => $value) {
+			?>
+			<div class="col-md-4">
+				<p><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
+			</div>
+			<?php
+		}
+		?>
 
+	</div>
+	
 </div>
+
+<?php } ?>

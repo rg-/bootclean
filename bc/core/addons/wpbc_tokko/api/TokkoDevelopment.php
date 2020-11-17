@@ -49,6 +49,40 @@ class TokkoDevelopment
        }
        return $cover_picture;
    }
+   
+   function get_pictures(){
+       $pictures = array();
+       if ($this->data == null){
+           echo "No development";
+       }else{
+           foreach ( $this->data->photos as $photo){
+               if (empty($photo->is_front_cover)){
+                   $pictures[] = $photo;
+               }
+           }
+       }
+       return $pictures;
+   }
+
+   function get_age(){
+    if ($this->data == null){
+         return "No development";
+     }else{
+      $age = $this->data->age; 
+      if($age==0){
+        $age = 'A ESTRENAR';
+      }elseif($age=='-1'){
+        $age = 'EN CONSTRUCCIÓN';
+      }else{
+        if($age==1){
+          $age = $age.' AÑO';
+        }else{
+          $age = $age.' AÑOS';
+        } 
+      }
+     }
+     return $age;
+   }
 
    function get_tags_by_type($type){
        $tag_list = array();

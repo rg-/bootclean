@@ -38,18 +38,22 @@
 
 	); 
   
+  if(!empty($surfaces)){
 ?>
-<hr class="border-primary mt-4 mb-5">
+<div class="ui-property-content-row ui-surfaces-row">
 
-<h3 class="section-subtitle md mb-4">Superficies</h3>
+	<h3 class="section-subtitle md mb-4">Superficies</h3>
 
-<div class="row">
-	<?php foreach ($surfaces as $key => $value) {
+	<div class="row">
+		<?php foreach ($surfaces as $key => $value) {
+			?>
+			<div class="col-md-4">
+				<p><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
+			</div>
+			<?php
+		}
 		?>
-		<div class="col-md-4">
-			<p><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
-		</div>
-		<?php
-	}
-	?>
+	</div>
+
 </div>
+<?php } ?>

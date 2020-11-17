@@ -74,7 +74,7 @@ function build_ui_tokko_properties($layouts){
 			
 			$pagination_fields[] = WPBC_acf_make_select_field(
 				array(
-					'name'=>'order_by',
+					'name'=>'ui-tokko-properties_order_by',
 					'label' => 'Order by',
 					'choices' => array(
 						'price'=>'price',
@@ -87,7 +87,7 @@ function build_ui_tokko_properties($layouts){
 			);
 			$pagination_fields[] = WPBC_acf_make_select_field(
 				array(
-					'name'=>'order',
+					'name'=>'ui-tokko-properties_order',
 					'label' => 'Order',
 					'choices' => array(
 						'asc'=>'asc',
@@ -100,7 +100,7 @@ function build_ui_tokko_properties($layouts){
 
 			$pagination_fields[] = WPBC_acf_make_number_field(
 				array(
-					'name'=>'limit',
+					'name'=>'ui-tokko-properties_limit',
 					'label' => 'Limit',
 					'width' => '20%',
 					'default_value' => 20,
@@ -108,12 +108,12 @@ function build_ui_tokko_properties($layouts){
 			);
 
 			$pagination_fields[] = WPBC_acf_make_true_false_field(array(
-				'name' => 'pagination',
+				'name' => 'ui-tokko-properties_pagination_links',
 				'label' => 'Pagination Links',
 				'width' => '20%',
 			));
 			$pagination_fields[] = WPBC_acf_make_true_false_field(array(
-				'name' => 'result_detail',
+				'name' => 'ui-tokko-properties_result_detail',
 				'label' => 'Result detail',
 				'width' => '20%',
 			));
@@ -128,7 +128,7 @@ function build_ui_tokko_properties($layouts){
 			$filters_fields = array();
 
 			$filters_fields[] = $pagination_fields[] = WPBC_acf_make_true_false_field(array(
-				'name' => 'is_starred_on_web',
+				'name' => 'ui-tokko-properties_is_starred_on_web',
 				'label' => 'Starred on web',
 				'width' => '20%',
 				'default_value' => 0

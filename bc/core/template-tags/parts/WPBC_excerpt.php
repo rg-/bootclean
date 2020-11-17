@@ -17,6 +17,7 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 		 
 		// Set Defaults
 		$defaults = array(
+			'text' => null,
 			'post'            => '',
 			'length'          => 20,
 			'class'		=> 'entry-summary', 
@@ -48,7 +49,17 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 		
 		$output = '';
 		if($wrap) $output .= '<div class="'. esc_attr( $class ) .'">'; 
-		$text = $post->post_excerpt ? $post->post_excerpt : $post->post_content;
+		if(!empty($text)){
+
+		}else{
+			$text = $post->post_excerpt ? $post->post_excerpt : $post->post_content;
+			
+		}
+		if(!empty($permalink)){
+
+		}else{
+			$permalink = get_permalink( $post->ID );
+		}
 		$text = do_shortcode($text);
 		$excerpt_length = apply_filters( 'excerpt_length', $length );
 		$excerpt_more = apply_filters( 'excerpt_more', '' );
@@ -62,7 +73,7 @@ if ( ! function_exists( 'WPBC_excerpt' ) ) :
 			$show_title = $readmore_show_title ? sprintf( '<span class="screen-reader-text"> "%s"</span>' , get_the_title( $post->ID ) ) : ''; 
 			$more = $readmore_text . $show_title;
 			$link = $readmore_before . sprintf( '<a href="%1$s" class="'. esc_attr( $readmore_class ) .'">%2$s</a>',
-				esc_url( get_permalink( $post->ID ) ),
+				esc_url( $permalink ),
 				/* translators: %s: Name of current post */
 				$more
 			).$readmore_after;

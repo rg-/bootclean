@@ -11,9 +11,10 @@
 	 
 $debug_mode = 0;
 
-$use_query_vars = 1; // 1/0 
+$use_query_vars = 1; // 1/0  
 
 $search_defaults = WPBC_get_tokko_search_defaults($args);
+ 
 	
 	$limit = $search_defaults['limit'];
 	$order_by = $search_defaults['order_by'];

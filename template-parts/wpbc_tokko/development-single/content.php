@@ -10,13 +10,13 @@
 
 	<div class="ui-property-content-col <?php echo $classes['content_col_class']; ?>">
 		
-		<?php do_action('tokko/property-single/content/col', $property ); ?>
+		<?php do_action('tokko/development-single/content/col', $property ); ?> 
 
 	</div>
 
 	<div class="ui-property-content-aside <?php echo $classes['aside_col_class']; ?>">
 
-		<?php do_action('tokko/property-single/content/aside', $property ); ?>
+		<?php do_action('tokko/development-single/content/aside', $property ); ?>
 
 	</div>
 

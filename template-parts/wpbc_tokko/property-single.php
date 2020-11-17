@@ -28,7 +28,7 @@ $classes = WPBC_tokko_get_property_single_classes($property);
 
 <div id="ui-property-<?php echo $id; ?>" class="ui-tokko-property-single <?php echo $classes['content_class']; ?>">
 
-	<div class="<?php echo $classes['container_class']; ?>">
+	<div class="ui-tokko-property-container <?php echo $classes['container_class']; ?>">
 
 		<?php
 
@@ -36,8 +36,7 @@ $classes = WPBC_tokko_get_property_single_classes($property);
 
 			@hooked 'tokko/property-single/content'
 				
-				WPBC_tokko_property_single_header - 10
-
+				WPBC_tokko_property_single_header - 10 
 				WPBC_tokko_property_single_content - 20
 
 

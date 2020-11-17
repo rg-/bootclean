@@ -41,7 +41,10 @@ $slick = json_encode($slick);
 if(empty($property_images)) return;
 
 ?>
-<div class="ui-slick-property ">
+
+<div class="ui-property-content-row ui-images-row">
+
+<div class="ui-slick-property">
 
 	<div class="embed-responsive embed-responsive-4by3">
  
@@ -50,12 +53,15 @@ if(empty($property_images)) return;
 			<div id="<?php echo $slick_id; ?>" data-has-pager="true" class=" slick-embed-responsive theme-slick-slider shadow-lg" data-slick='<?php echo $slick; ?>' >
 
 				<?php foreach($property_images as $image ){ ?> 
-						<div class="item image-cover lazyload-overlayed lazyload-bluredXX">
-							<div class="item-container image-cover" data-lazybackground-src="<?php echo $image->original; ?>" style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/images/px-trans.png'">
-								<div class="item-image-content image-cover w-100" style="background-image: url('<?php echo $image->thumb; ?>'"></div>
-							</div>
+						
+							<?php
+							WPBC_build_lazyloader_image(array(
+								'img_hi' => $image->original, 
+								'img_low' => $image->thumb,
+								'type' => 'slick-embed',
+							));
+							?> 
 							
-						</div> 
 				<?php } ?>
 
 			</div>
@@ -69,7 +75,7 @@ if(empty($property_images)) return;
 		<button target="#<?php echo $slick_id; ?>" class="btn btn-icon prev" data-toggle="slick-prev">
 	    <i class="icon-arrow-left"></i>
 	  </button>
-	  <div class="pager" data-pager="#<?php echo $slick_id; ?>">
+	  <span class="pager" data-pager="#<?php echo $slick_id; ?>">
 			<span class="current">01</span>
 			<i class="sep">/</i>
 			<span class="total"><?php
@@ -79,11 +85,13 @@ if(empty($property_images)) return;
 			}
 			echo $total; 
 			?></span>
-		</div>
+		</span>
 		<button target="#<?php echo $slick_id; ?>" class="btn btn-icon next" data-toggle="slick-next">
 	    <i class="icon-arrow-right"></i>
 	  </button>
 	</div>
 	<?php } ?>
+
+</div>
 
 </div>

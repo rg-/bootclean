@@ -5,7 +5,9 @@ class TokkoDevelopmentList
   var $data = null;
   var $summary= null;
   var $auth;
-  var $querystring_page_key = "page";
+  var $querystring_page_key = "tk_page";
+  var $querystring_order_by_key = "tk_order_by";
+  var $querystring_order_key = "tk_order";
   var $querystring_page_limit_key = "limit";
   var $BASE_URL = "http://www.tokkobroker.com/api/v1/development/";
   var $SUMMARY_URL = "http://www.tokkobroker.com/api/v1/development/summary/";
@@ -15,6 +17,9 @@ class TokkoDevelopmentList
   var $default_page_limit = 20;
   var $current_search_order_by = 'id';
   var $current_search_order = 'desc';
+
+  var $default_developmet_limit = 300;
+  var $querystring_developmet_limit_key = "limit";
 
   function decode_search_data($search_data){
       return json_decode($bodytag = str_replace("\\", "", $search_data), true);
@@ -36,8 +41,18 @@ class TokkoDevelopmentList
       return ($this->get_current_page()-1) * $this->get_current_page_limit();
   }
 
+  function get_developmet_order_by(){ 
+      $order_by = $_REQUEST[$this->querystring_order_by_key];
+      if ($order_by){
+          $this->current_development_order_by = $order_by;
+      }else{
+          $this->current_development_order_by = 'location__name';
+      }
+      return $this->current_development_order_by;
+  }
+
   function get_search_order_by(){
-      $order_by = $_REQUEST['order_by'];
+      $order_by = $_REQUEST[$this->querystring_order_by_key];
       if ($order_by){
           $this->current_search_order_by = $order_by;
       }else{
@@ -47,7 +62,7 @@ class TokkoDevelopmentList
   }
 
   function get_search_order(){
-      $order = $_REQUEST['order'];
+      $order = $_REQUEST[$this->querystring_order_key];
       if ($order){
           $this->current_search_order = $order;
       }else{
@@ -89,9 +104,12 @@ class TokkoDevelopmentList
         }
   }
 
-  function get_development_list($filters_array=null){
+  function get_development_list($limit=null, $order_by=null, $filters_array=null){
       try {
-          $url = $this->BASE_URL . "?format=json&limit=300&order_by=location__name&key=". $this->auth->key ."&lang=".$this->auth->get_language();
+          if (!$limit){ $limit = $this->get_developmet_limit(); }
+          if (!$order_by){ $order_by = $this->get_developmet_order_by();}  
+
+          $url = $this->BASE_URL . "?format=json&limit=".$limit."&order_by=".$order_by."&key=". $this->auth->key ."&lang=".$this->auth->get_language();
 
           if($filters_array){
             foreach($filters_array as $filter){
@@ -111,6 +129,8 @@ class TokkoDevelopmentList
               $this->data = null;
       }
   }
+
+  
 
   function TokkoDevelopmentList($auth=null){
           $this->auth = $auth;
@@ -161,6 +181,14 @@ class TokkoDevelopmentList
             return ceil($this->data->meta->total_count/$this->data->meta->limit);
         }
     }
+
+  function get_developmet_limit(){
+      if ($_REQUEST[$this->querystring_developmet_limit_key]){
+          return intval($_REQUEST[$this->querystring_developmet_limit_key]);
+      }else{
+          return $this->default_developmet_limit;
+      }
+  }
 
   function get_current_page_limit(){
       if ($_REQUEST[$this->querystring_page_limit_key]){

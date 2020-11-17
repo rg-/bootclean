@@ -9,6 +9,9 @@ add_filter('query_vars', 'WPBC_tokko_add_state_var', 99, 1);
 function WPBC_tokko_add_state_var($vars){
 		$vars[] = 'property_id'; 
 		$vars[] = 'property_slug';  
+
+		$vars[] = 'development_id'; 
+		$vars[] = 'development_slug';  
     return $vars;
 }
 
@@ -29,12 +32,19 @@ function WPBC_tokko_custom_rewrite_tag(){
 	$property_id = get_query_var('property_id', null);  
 	if(empty($property_id)){
 		$property_id = $_GET['property_id'];
-	}   
-
+	}    
 	$single_page = WPBC_get_field('field_wpbc_tokko_post_object_single_property','options'); 
-	$pagename = get_post_field( 'post_name', $single_page ); 
-	
+	$pagename = get_post_field( 'post_name', $single_page );  
 	add_rewrite_rule('^'.$pagename.'/([^/]+)-([0-9]+)/?$','index.php?pagename='.$pagename.'&property_slug=$matches[1]&property_id=$matches[2]','top');
+
+
+	$development_id = get_query_var('development_id', null);  
+	if(empty($development_id)){
+		$development_id = $_GET['development_id'];
+	}    
+	$single_development = WPBC_get_field('field_wpbc_tokko_post_object_single_development','options'); 
+	$development_pagename = get_post_field( 'post_name', $single_development );  
+	add_rewrite_rule('^'.$development_pagename.'/([^/]+)-([0-9]+)/?$','index.php?pagename='.$development_pagename.'&development_slug=$matches[1]&development_id=$matches[2]','top');
  
 } 
 
@@ -71,6 +81,7 @@ add_action( 'template_redirect', 'WPBC_tokko_template_redirect' );
 /* SEO */
 
 function WPBC_tokko_custom_title($title_parts) {
+		
 		$property_id = get_query_var('property_id', null);  
 		if(empty($property_id)){
 			$property_id = $_GET['property_id'];
@@ -83,15 +94,34 @@ function WPBC_tokko_custom_title($title_parts) {
 			$property = new TokkoProperty('id', $property_id, $auth);
 			if(empty($property)) return; 
 
-			$address = $property->get_field('address');
-	    $title_parts['title'] = $address;
+			$title = $property->get_field('address');
+	    $title_parts['title'] = $title;
     }
+
+		$development_id = get_query_var('development_id', null);  
+		if(empty($development_id)){
+			$development_id = $_GET['development_id'];
+		} 
+		if(!empty($development_id)){
+			$api_key = tokko_config('api_key');  
+			if(empty($api_key)) return;
+			$auth = new TokkoAuth($api_key); 
+			if(empty($auth)) return;
+			$development = new TokkoDevelopment('id', $development_id, $auth);
+			if(empty($development)) return; 
+
+			$title = $development->get_field('name');
+	    $title_parts['title'] = $title;
+    }
+
+
     return $title_parts;
 }
 add_filter( 'document_title_parts', 'WPBC_tokko_custom_title' ); 
 
 
 add_filter('wpbc/filter/post/share/permalink', function($the_permalink, $id){
+	
 	$property_id = get_query_var('property_id', null);  
 		if(empty($property_id)){
 			$property_id = $_GET['property_id'];
@@ -104,14 +134,36 @@ add_filter('wpbc/filter/post/share/permalink', function($the_permalink, $id){
 		$property = new TokkoProperty('id', $property_id, $auth);
 		if(empty($property)) return; 
 
-		$single_page = WPBC_get_field('field_wpbc_tokko_post_object_single_property','options'); $single_page_url = get_permalink($single_page);
+		$single_page = WPBC_get_field('field_wpbc_tokko_post_object_single_property','options');
+		$single_page_url = get_permalink($single_page);
 
 		$the_permalink = $single_page_url.WPBC_get_tokko_rewrite_property_url($property);
 	}
+
+
+	$development_id = get_query_var('development_id', null);  
+		if(empty($development_id)){
+			$development_id = $_GET['development_id'];
+		} 
+	if(!empty($development_id)){
+		$api_key = tokko_config('api_key');  
+		if(empty($api_key)) return;
+		$auth = new TokkoAuth($api_key); 
+		if(empty($auth)) return;
+		$development = new TokkoDevelopment('id', $development_id, $auth);
+		if(empty($development)) return; 
+
+		$development_single_page = WPBC_get_field('field_wpbc_tokko_post_object_single_development','options');
+		$single_development_page_url = get_permalink($development_single_page);
+
+		$the_permalink = $single_development_page_url.WPBC_get_tokko_rewrite_development_url($development);
+	}
+
 	return $the_permalink;
 },10,2);
 
 add_filter('wpbc/filter/post/share/title', function($title, $id){
+	
 	$property_id = get_query_var('property_id', null);  
 		if(empty($property_id)){
 			$property_id = $_GET['property_id'];
@@ -122,11 +174,25 @@ add_filter('wpbc/filter/post/share/title', function($title, $id){
 		$auth = new TokkoAuth($api_key); 
 		if(empty($auth)) return;
 		$property = new TokkoProperty('id', $property_id, $auth);
-		if(empty($property)) return; 
-
-		$address = $property->get_field('address');
-
+		if(empty($property)) return;  
+		$address = $property->get_field('address'); 
 		$title = $address;
 	}
+
+	$development_id = get_query_var('development_id', null);  
+		if(empty($development_id)){
+			$development_id = $_GET['development_id'];
+		} 
+	if(!empty($development_id)){
+		$api_key = tokko_config('api_key');  
+		if(empty($api_key)) return;
+		$auth = new TokkoAuth($api_key); 
+		if(empty($auth)) return;
+		$development = new TokkoDevelopment('id', $development_id, $auth);
+		if(empty($property)) return;  
+		$name = $development->get_field('name'); 
+		$title = $name;
+	}
+
 	return $title;
 },10,2);
