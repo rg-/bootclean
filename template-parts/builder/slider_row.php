@@ -63,6 +63,15 @@ if(!empty($slider_items)){
 	} 
 	
 	$slider_id = 'template-slider-row-'.$post_id;
+
+	$use_lazytype = 'lazybackground';
+	global $WPBC_VERSION; 
+	if ( version_compare( $WPBC_VERSION, '11.0.0', '>' ) ) {
+		$use_lazytype = 'lazybackground';
+	}else{
+		$use_lazytype = 'lazyload';
+	}
+	
 	$slider_args = array( 
 		'this_id' => $post_id,
 		'id'=>						$slider_id, 
@@ -76,6 +85,8 @@ if(!empty($slider_items)){
 		'breakpoint-height-args' => $slider_breakpoint_heights_args,
 		'enable-at' => $slider_breakpoint_enable,
 		'lazyload' => true,
+		'lazytype' => $use_lazytype, 
+		'lazytype_fx' => '',
 	); 
 	$slider_args = apply_filters('wpbc/slick/args', $slider_args, $post_id);
 	BC_get_component('slick', $slider_args);
