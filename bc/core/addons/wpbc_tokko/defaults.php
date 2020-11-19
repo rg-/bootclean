@@ -1,40 +1,42 @@
 <?php
 
 
-add_filter('wpbc/filter/tokko/property_features', function($def_features, $property){
+add_filter('wpbc/filter/tokko/property_features', function($def_features, $property, $template){
 
 	$surface_measurement = $property->get_field("surface_measurement"); 
+
+	$ifx = WPBC_tokko_get_icon_prefix();
 
 	$def_features = array(
 
 		array(
 			'key' => 'suite_amount',  
-			'icon' => 'icon-suite_amount',
+			'icon' => $ifx.'-suite_amount',
 			'labels' => array('dorm','dorms'),
 		),
 
 		array(
 			'key' => 'bathroom_amount',  
-			'icon' => 'icon-bathroom_amount',
+			'icon' => $ifx.'-bathroom_amount',
 			'labels' => array('baño','baños'),
 		),
 
 		array(
 			'key' => 'total_surface',  
-			'icon' => 'icon-total_surface',
+			'icon' => $ifx.'-total_surface',
 			'labels' => array($surface_measurement,$surface_measurement),
 		),
 
 		array(
 			'key' => 'floors_amount',  
-			'icon' => 'icon-floors_amount',
+			'icon' => $ifx.'-floors_amount',
 			'labels' => array('planta','plantas'),
 		),
 
 	); 
 	return $def_features;
 
-},10,2 );
+},10, 3);
 
 
 

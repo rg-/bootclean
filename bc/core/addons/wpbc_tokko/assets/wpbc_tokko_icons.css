@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'wpbc-tokko-icons';
-  src:  url('fonts/wpbc_tokko_icons.eot?9f01qe');
-  src:  url('fonts/wpbc_tokko_icons.eot?9f01qe#iefix') format('embedded-opentype'),
-    url('fonts/wpbc_tokko_icons.ttf?9f01qe') format('truetype'),
-    url('fonts/wpbc_tokko_icons.woff?9f01qe') format('woff'),
-    url('fonts/wpbc_tokko_icons.svg?9f01qe#wpbc-realstate') format('svg');
+  src:  url('fonts/wpbc-tokko-icons.eot?9f01qe');
+  src:  url('fonts/wpbc-tokko-icons.eot?9f01qe#iefix') format('embedded-opentype'),
+    url('fonts/wpbc-tokko-icons.ttf?9f01qe') format('truetype'),
+    url('fonts/wpbc-tokko-icons.woff?9f01qe') format('woff'),
+    url('fonts/wpbc-tokko-icons.svg?9f01qe#wpbc-realstate') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] { 
+[class^="wptk-"], [class*=" wptk-"] { 
 
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'wpbc-tokko-icons' !important;
@@ -25,159 +25,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.bcicon-arrow-down:before {
-  content: "\e900";
-}
-.bcicon-arrow-left:before {
-  content: "\e901";
-}
-.bcicon-arrow-right:before {
-  content: "\e902";
-}
-.bcicon-arrow-up:before {
-  content: "\e903";
-}
-.bcicon-envelope:before {
-  content: "\e907";
-}
-.bcicon-facebook:before {
-  content: "\e908";
-}
-.bcicon-instagram:before {
-  content: "\e909";
-}
-.bcicon-location:before {
-  content: "\e90a";
-}
-.bcicon-phone:before {
-  content: "\e90c";
-}
-.bcicon-whatsapp:before {
-  content: "\e90d";
-}
-.bcicon-whatsapp-outline:before {
-  content: "\e90e";
-}
-.bcicon-Balcon:before {
-  content: "\e904";
-}
-.icon-bathroom_amount:before {
-  content: "\e906";
-}
-.bcicon-Calefaccion:before {
-  content: "\e90f";
-}
-.bcicon-Camas_doble:before {
-  content: "\e910";
-}
-.bcicon-Camas_simple:before {
-  content: "\e911";
-}
-.bcicon-Camas:before {
-  content: "\e912";
-}
-.bcicon-Cochera:before {
-  content: "\e905";
-}
-.bcicon-Cocina:before {
-  content: "\e913";
-}
-.bcicon-Comedor:before {
-  content: "\e914";
-}
-.bcicon-Dependencia_de_servicio:before {
-  content: "\e915";
-}
-.icon-suite_amount:before {
-  content: "\e90b";
-}
-.bcicon-Emprendimiento_en_Pozo:before {
-  content: "\e916";
-}
-.bcicon-Financiacion:before {
-  content: "\e917";
-}
-.bcicon-Living:before {
-  content: "\e918";
-}
-.bcicon-Microondas:before {
-  content: "\e919";
-}
-.icon-total_surface:before {
-  content: "\e91a";
-}
-.bcicon-Mts_Terreno:before {
-  content: "\e91b";
-}
-.bcicon-Mucama:before {
-  content: "\e91c";
-}
-.bcicon-Parrillero_propio:before {
-  content: "\e91d";
-}
-.bcicon-Piscina:before {
-  content: "\e91e";
-}
-.bcicon-Primera_Fila:before {
-  content: "\e91f";
-}
-.bcicon-Refrigerador:before {
-  content: "\e920";
-}
-.bcicon-Toilette1:before {
-  content: "\e921";
-}
-.bcicon-Tv:before {
-  content: "\e922";
-}
-.bcicon-Vista_al_mar:before {
+ 
+.wptk-total_surface:before {
   content: "\e923";
 }
-.bcicon-Wifi:before {
+.wptk-floors_amount:before {
   content: "\e924";
 }
-.bcicon-Terrazas:before {
+.wptk-suite_amount:before {
   content: "\e925";
-  color: #cd9351;
 }
-.bcicon-Toilette:before {
-  content: "\e926";
-  color: #cd9351;
-}
-.bcicon-Canchas:before {
+.wptk-bathroom_amount:before {
   content: "\e927";
-  color: #cd9351;
-}
-.bcicon-Ropa_blanca:before {
-  content: "\e928";
-  color: #cd9351;
-}
-.bcicon-Lavavajillas:before {
-  content: "\e929";
-  color: #cd9351;
-}
-.bcicon-Heladera:before {
-  content: "\e92a";
-  color: #cd9351;
-}
-.bcicon-Lavarropas:before {
-  content: "\e92b";
-  color: #cd9351;
-}
-.bcicon-Tv_cable:before {
-  content: "\e92c";
-  color: #cd9351;
-}
-.bcicon-Alarma:before {
-  content: "\e92d";
-  color: #cd9351;
-}
-.bcicon-Seguridad:before {
-  content: "\e92e";
-  color: #cd9351;
-}
-.bcicon-Capacidad:before {
-  content: "\e92f";
-  color: #cd9351;
 }

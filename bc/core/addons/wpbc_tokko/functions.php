@@ -115,10 +115,10 @@ function WPBC_tokko_get_property_single_classes($property=null){
 	return $classes;
 }
  
-function WPBC_tokko_property_features( $args=array() ){
+function WPBC_tokko_property_features( $args=array(), $template='property' ){
 		if(empty($args['property'])) return; 
 
-		$def_features = apply_filters('wpbc/filter/tokko/property_features', array(), $args['property']);
+		$def_features = apply_filters('wpbc/filter/tokko/property_features', array(), $args['property'], $template);
 
 		if(!empty($args['features'])){
 			$features = $args['features'];

@@ -9,9 +9,7 @@
 
 		<?php WPBC_tokko_property_features(array(
 			'property' => $property
-		)); ?> 
-
-		<hr class="border-primary mt-4 mb-5">
+		), 'property-single'); ?>
 
 	</div>
 
