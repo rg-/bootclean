@@ -14,3 +14,6 @@
 	</div>
 
 </div>
+
+<div id="cloned-prices" class="ui-property-content-row ui-prices-row">
+</div>

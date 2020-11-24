@@ -22,7 +22,6 @@ foreach ($filter_options as $key => $value) {
 	$new_key = str_replace($prefix, '', $key);
 	$filter_temp[$new_key] = $value;
 } 
-
 ?>
 
 <?php do_action('wpbc/flexible-layout-row/start', $section, $acf_fc_layout ); ?> 

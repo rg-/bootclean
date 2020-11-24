@@ -106,6 +106,8 @@ function build_share_button($item, $item_class, $item_input_class){
 	$title = __('Share this on').' '.$item['title'];
 	$label = !empty($icon) ? $icon : $item['title'];
 	
+	if(!empty($item['url'])) $url = $item['url'];
+
 	$url = apply_filters('wpbc/filter/post/share/button/url', $url, $id);
 	$data = '';
 	$data = apply_filters('wpbc/filter/post/share/button/data', $data, $id);
@@ -162,7 +164,11 @@ add_filter('wpbc/filter/post/share/button/url', function($url, $id){
 	} 
 	if($id=='pinterest'){  
 		$url = 'javascript:void((function()%7Bvar%20e=document.createElement(&apos;script&apos;);e.setAttribute(&apos;type&apos;,&apos;text/javascript&apos;);e.setAttribute(&apos;charset&apos;,&apos;UTF-8&apos;);e.setAttribute(&apos;src&apos;,&apos;http://assets.pinterest.com/js/pinmarklet.js?r=&apos;+Math.random()*99999999);document.body.appendChild(e)%7D)());';
-	} 
+	}  
+
+	if($id=='whatsapp'){  
+		$url = 'https://api.whatsapp.com/send?text='.$the_permalink.'';
+	}
 
 	return $url; 
 },10,2);

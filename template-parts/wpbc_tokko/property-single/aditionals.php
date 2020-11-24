@@ -18,8 +18,8 @@
 		
 		foreach ($additionals as $key => $value) {
 			?>
-			<div class="col-md-4">
-				<p><i class="icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
+			<div class="col-sm-6 col-md-4">
+				<p class="ui-property-tag has-icon"><i class="icon icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
 			</div>
 			<?php
 		}
@@ -28,3 +28,6 @@
 
 </div>
 <?php } ?>
+
+<div id="cloned-map" class="ui-property-content-row ui-map-row">
+</div>

@@ -59,8 +59,8 @@ function tokko_get_property_single_modals(){
 				WPBC_get_template_part('wpbc_tokko/property-single/images', $property);
 			}
 		add_action('tokko/property-single/content/col', 'WPBC_tokko_property_single_content_col_features',20,1);
-			function WPBC_tokko_property_single_content_col_features($property){
-				WPBC_get_template_part('wpbc_tokko/property-single/features', $property);
+			function WPBC_tokko_property_single_content_col_features($property){ 
+				WPBC_get_template_part('wpbc_tokko/property-single/features', $property); 
 			}
 		add_action('tokko/property-single/content/col', 'WPBC_tokko_property_single_content_col_basicinfo',30,1);
 			function WPBC_tokko_property_single_content_col_basicinfo($property){
@@ -71,7 +71,7 @@ function tokko_get_property_single_modals(){
 				WPBC_get_template_part('wpbc_tokko/property-single/surfaces', $property);
 			}
 		add_action('tokko/property-single/content/col', 'WPBC_tokko_property_single_content_col_description',50,1);
-			function WPBC_tokko_property_single_content_col_description($property){
+			function WPBC_tokko_property_single_content_col_description($property){ 
 				WPBC_get_template_part('wpbc_tokko/property-single/description', $property);
 			}
 		add_action('tokko/property-single/content/col', 'WPBC_tokko_property_single_content_col_services',60,1);
@@ -84,7 +84,7 @@ function tokko_get_property_single_modals(){
 			}
 		add_action('tokko/property-single/content/col', 'WPBC_tokko_property_single_content_col_aditionals',80,1);
 			function WPBC_tokko_property_single_content_col_aditionals($property){
-				WPBC_get_template_part('wpbc_tokko/property-single/aditionals', $property);
+				WPBC_get_template_part('wpbc_tokko/property-single/aditionals', $property); 
 			}
 
 	add_action('tokko/property-single/content', 'WPBC_tokko_property_single_content',20,1);
@@ -95,13 +95,19 @@ function tokko_get_property_single_modals(){
 		// tokko/property-single/content/aside
 
 		add_action('tokko/property-single/content/aside', 'WPBC_tokko_property_single_content_prices',10,1);
-			function WPBC_tokko_property_single_content_prices($property){
-				WPBC_get_template_part('wpbc_tokko/property-single/prices', $property);
+			function WPBC_tokko_property_single_content_prices($property){ 
+				WPBC_get_template_part('wpbc_tokko/property-single/prices', $property); 
 			}
 		add_action('tokko/property-single/content/aside', 'WPBC_tokko_property_single_content_map',20,1);
-			function WPBC_tokko_property_single_content_map($property){
-				WPBC_get_template_part('wpbc_tokko/property-single/map', $property);
+			function WPBC_tokko_property_single_content_map($property){ 
+				WPBC_get_template_part('wpbc_tokko/property-single/map', $property); 
 			}
+
+
+	add_action('tokko/property-single/after', 'WPBC_tokko_property_single_related',10,1);
+		function WPBC_tokko_property_single_related($property){
+			WPBC_get_template_part('wpbc_tokko/property-single/related', $property);
+		}
 /*
 	
 	@hooked 'tokko/development-single/content'
@@ -126,7 +132,10 @@ function tokko_get_property_single_modals(){
 	}
 		add_action('tokko/development-single/content/aside', 'WPBC_tokko_property_single_content_map',10,1);
 			 
-
+		add_action('tokko/development-single/after', 'WPBC_tokko_development_single_related',10,1);
+		function WPBC_tokko_development_single_related($property){
+			WPBC_get_template_part('wpbc_tokko/development-single/related', $property);
+		}
 /*
 
 	Properties results (loop)

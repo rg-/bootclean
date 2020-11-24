@@ -49,7 +49,6 @@ $search_defaults = WPBC_get_tokko_search_defaults($args);
 <?php } ?>
 
 <div class="ui-tokko-properties position-relative">
-	 
 
 		<?php 
 				$input_type = 'hidden'; 
@@ -110,9 +109,11 @@ $search_defaults = WPBC_get_tokko_search_defaults($args);
 						$row_attrs = apply_filters('wpbc/filter/tokko/properties/attrs', '');
 						$col_attrs = apply_filters('wpbc/filter/tokko/properties/item/attrs', '');
 					?>
-					<div class="<?php echo $row_class; ?>" <?php echo $row_attrs; ?>>
+					
 
-						<?php if(!empty($search->get_properties()) ) { ?>
+					<?php if(!empty($search->get_properties()) ) { ?>
+
+						<div class="<?php echo $row_class; ?>" <?php echo $row_attrs; ?>>
 
 						<?php foreach ($search->get_properties() as $property){
 							?>
@@ -124,13 +125,22 @@ $search_defaults = WPBC_get_tokko_search_defaults($args);
 							<?php
 						} ?>
 
-						<?php }else{ ?>
-							<?php
-								WPBC_get_template_part('wpbc_tokko/properties/no_results', $search);
-								?>
-						<?php }?>
+						</div>
 
-					</div>
+					<?php } else { ?>
+
+						<div class="<?php echo $row_class; ?>" <?php echo $row_attrs; ?>>
+
+							<?php
+								WPBC_get_template_part('wpbc_tokko/properties/no_results', array(
+									'section_args' => $args,
+									'search' => $search,
+								));
+								?>
+
+						</div>
+
+					<?php }?> 
 					
 				</div>
 

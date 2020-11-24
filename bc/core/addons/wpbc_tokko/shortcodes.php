@@ -35,7 +35,8 @@ function WPBC_get_tokko_form_FX($atts=array(), $content = null){
         'linked_results' => '',
         'linked_results_id' => '',
         'linked_results_page' => '',
-        'template' => ''
+        'template' => '',
+        'form_id' => '',
         
     ), $atts);
     ob_start(); 

@@ -1,4 +1,39 @@
 <?php 
+
+function WPBC_tokko_get_operations($lang='es_ar'){
+	if( $lang == 'en' ){
+		$operations = array(
+			array(
+				'id' => 1,
+				'name' => 'Sale'
+			),
+			array(
+				'id' => 2,
+				'name' => 'Rent'
+			),
+			array(
+				'id' => 3,
+				'name' => 'Temporary Rent'
+			),
+		);
+	} else {
+		$operations = array(
+			array(
+				'id' => 1,
+				'name' => 'Venta'
+			),
+			array(
+				'id' => 2,
+				'name' => 'Alquiler'
+			),
+			array(
+				'id' => 3,
+				'name' => 'Alquiler Temporario'
+			),
+		);
+	}
+}
+
 function acf_tokko_get_operation_types(){
 	$api_key = tokko_config('api_key');  
 	$auth = new TokkoAuth($api_key); 
@@ -155,32 +190,47 @@ function WPBC_tokko_settings_fields(){
 		'message' => 'Let your Wordpress site run Tokko Broker API resources.', 
 	));
 
-	$fields[] = WPBC_acf_make_text_field(array(
-		'name' => 'wpbc_tokko_apikey',
-		'label' => 'API Key',
-		'class' => '', 
-		'instructions' => 'For testings use: 5940ea45eb7cfb55228bec0b958ea9c0be151757', 
+	$fields[] = WPBC_acf_make_tab_field(array(
+		'key' => 'field_wpbc_tokko_tab_keys',
+		'label' => 'API/KEYS', 
 	));
 
-	$fields[] = WPBC_acf_make_text_field(array(
-		'name' => 'wpbc_tokko_google_maps_api_key',
-		'label' => 'Google Maps API Key',
-		'class' => '', 
-		'instructions' => 'Required for maps', 
+		$fields[] = WPBC_acf_make_text_field(array(
+			'name' => 'wpbc_tokko_apikey',
+			'label' => 'API Key',
+			'class' => '', 
+			'instructions' => 'For testings use: 5940ea45eb7cfb55228bec0b958ea9c0be151757', 
+		));
+
+		$fields[] = WPBC_acf_make_text_field(array(
+			'name' => 'wpbc_tokko_google_maps_api_key',
+			'label' => 'Google Maps API Key',
+			'class' => '', 
+			'instructions' => 'Required for maps', 
+		));
+
+	$fields[] = WPBC_acf_make_tab_field(array(
+		'key' => 'field_wpbc_tokko_tab_pages',
+		'label' => 'PAGES/TEMPLATES', 
 	));
 
-	$fields[] = WPBC_acf_make_post_object_field(array(
-		'name' => 'wpbc_tokko_post_object_single_property',
-		'label' => 'Single Property Page Template',
-		'post_type' => array('page'),
-		'multiple' => 0,
-	));
+		$fields[] = WPBC_acf_make_post_object_field(array(
+			'name' => 'wpbc_tokko_post_object_single_property',
+			'label' => 'Single Property Page Template',
+			'post_type' => array('page'),
+			'multiple' => 0,
+		));
 
-	$fields[] = WPBC_acf_make_post_object_field(array(
-		'name' => 'wpbc_tokko_post_object_single_development',
-		'label' => 'Single Developments Page Template',
-		'post_type' => array('page'),
-		'multiple' => 0,
+		$fields[] = WPBC_acf_make_post_object_field(array(
+			'name' => 'wpbc_tokko_post_object_single_development',
+			'label' => 'Single Developments Page Template',
+			'post_type' => array('page'),
+			'multiple' => 0,
+		));
+
+	$fields[] = WPBC_acf_make_tab_field(array(
+		'key' => 'field_wpbc_tokko_tab_form',
+		'label' => 'FORM', 
 	));
 
 	// operation_types

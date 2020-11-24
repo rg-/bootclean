@@ -8,7 +8,7 @@
 	if(empty($geo_lat) && empty($geo_long)) return;
 
 ?>
-<div class="ui-property-content-row ui-map-row">
+<div data-clone="#cloned-map" class="ui-property-content-row ui-map-row d-none d-md-block">
 
 	<?php 
 	$api_key = tokko_config('google_maps_api_key');

@@ -24,8 +24,8 @@
 			
 			foreach ($rooms as $key => $value) {
 				?>
-				<div class="col-md-4">
-					<p><i class="icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
+				<div class="col-sm-6 col-md-4">
+					<p class="ui-property-tag has-icon"><i class="icon icon-plus sm text-primary"></i> <?php echo strtoupper($value->name); ?></p>
 				</div>
 				<?php
 			}

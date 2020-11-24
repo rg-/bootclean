@@ -13,7 +13,7 @@
 
 	<div class="col-12 d-flex alig-items-center justify-content-end">
 		<?php if( current_user_can('manage_options') || $debug ){  
-			echo "<span class='mr-auto'><a target='_blank' class='btn btn-success btn-sm px-2 py-1' href='https://www.tokkobroker.com/development/".$id."/'>Edit > tokkobroker.com/development/".$id."/</a></span>";
+			echo "<span class='mr-auto d-none d-lg-block'><a target='_blank' class='btn btn-success btn-sm px-2 py-1' href='https://www.tokkobroker.com/development/".$id."/'>Edit > tokkobroker.com/development/".$id."/</a></span>";
 		}
 		?>
 		<a href="<?php $back_url = 'javascript:history.back()'; echo $back_url; ?>" class="btn btn-link btn-sm"><i class="icon-arrow-left mr-2"></i> VOLVER A RESULTADOS</a>
@@ -32,7 +32,9 @@
 		<p><?php echo 'fake_address: '. $property->get_field('fake_address'); ?></p>
 		-->
 
-		<h2 class="section-title xl m-0 d-flex align-items-end"><?php echo $property->get_field('name'); ?> <small class="ref text-primary text-right font-size-12">REF. <?php echo $reference_code; ?></small></h2>
+		<small class="ref text-primary font-size-12 mb-2 d-inline-block">REF. <span class="font-size-14"><?php echo $reference_code; ?></span></small>
+		
+		<h2 class="section-title xl m-0 d-flex align-items-end"><?php echo $property->get_field('name'); ?></h2>
 		
 	</div>
 

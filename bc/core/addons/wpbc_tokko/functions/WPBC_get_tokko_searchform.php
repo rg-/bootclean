@@ -37,17 +37,32 @@ function WPBC_get_tokko_search_defaults($args=array()){
 	/* 
 	filters specific 
 	*/
+	//_print_code($args['filter_options']);
 	$filter_options = !empty($args['filter_options']) ? $args['filter_options'] : array();
 
-		$is_starred_on_web = !empty($filter_options['field_is_starred_on_web']) ? $filter_options['field_is_starred_on_web'] : ( !empty($filter_options['is_starred_on_web']) ? $filter_options['is_starred_on_web'] : 0 );
-	 
 	$filters = array(); 
+
+
+	$is_starred_on_web = !empty($filter_options['field_is_starred_on_web']) ? $filter_options['field_is_starred_on_web'] : ( !empty($filter_options['is_starred_on_web']) ? $filter_options['is_starred_on_web'] : 0 );
+
 	if($is_starred_on_web){
 		$filters[] = array('is_starred_on_web', '=', 1);
-	} 
+	}  
 
+	// $temp = array();
+	foreach ($filter_options as $filter) {
+		// _print_code($filter); 
+		if(is_array($filter)){
+			$filters[] = $filter;
+		 }else{
+			
+		}
+	}
+	// _print_code($filters);
 	//$filters[] = array('reference_code', '=', 7); 
-
+	//_print_code($filter_options);
+	//_print_code($temp);
+	//_print_code($filters);
 	$search_data = array( 
 		'current_localization_id' => $current_localization_id,
 		'current_localization_type' => $current_localization_type,

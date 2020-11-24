@@ -83,8 +83,12 @@
 				} 
 
 				$form_action = get_permalink($post_id);
+
+
+					$form_id = !empty($args['form_id']) ? $args['form_id'] : $args['linked_results_id'];
+
 				?>
-<form id="<?php echo $args['linked_results_id'];?>" method="get" data-tokko="searchform" data-swup-form class="ui-tokko-searchform" action="<?php echo $form_action; ?>"> 
+<form id="<?php echo $form_id;?>" method="get" data-tokko="searchform" data-swup-form class="ui-tokko-searchform" action="<?php echo $form_action; ?>"> 
 	<input type="<?php echo $input_type; ?>" name="tk_order_by" value='<?php echo $order_by; ?>'>
 	<input type="<?php echo $input_type; ?>" name="limit" value='<?php echo $limit; ?>'>
 	<input type="<?php echo $input_type; ?>" name="tk_order" value='<?php echo $order; ?>'>
@@ -135,7 +139,7 @@
 
 <?php } ?>
 
-<div data-linked-results-id="<?php echo $args['linked_results_id'];?>" data-tokko="searchform-controls" class="ui-tokko-searchform-controls gmy-1"> 
+<div data-linked-results-id="<?php echo $form_id;?>" data-tokko="searchform-controls" class="ui-tokko-searchform-controls gmy-1"> 
 
 		<?php
 		$template = 'default';

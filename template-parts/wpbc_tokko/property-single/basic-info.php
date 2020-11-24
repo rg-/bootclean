@@ -93,8 +93,8 @@
 		<?php
 		foreach ($basic_info as $key => $value) {
 			?>
-			<div class="col-md-4">
-				<p><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
+			<div class="col-sm-6 col-md-4">
+				<p class="ui-property-tag"><?php echo $value['label']; ?>: <span class="text-primary"><?php echo $value['value']; ?></span></p>
 			</div>
 			<?php
 		}

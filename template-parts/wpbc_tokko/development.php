@@ -64,16 +64,4 @@ $development_url = get_permalink($single_page).WPBC_get_tokko_rewrite_developmen
 
 	</div>
 
-</div>
-
-<!--
-<?php $development_properties = new TokkoProperty('development__id', $development->get_field('id'), $auth);
-	$properties = $development_properties->get_development_properties(); 
-	if(!empty($properties->objects)){ 
-		foreach ($properties->objects as $key => $value) {
-			?>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;>> <?php echo $value->name .' - '. $value->reference_code; ?></p>
-			<?php
-		}
-	} ?>
-	-->
+</div> 

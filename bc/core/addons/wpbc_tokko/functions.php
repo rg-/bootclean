@@ -1,6 +1,7 @@
 <?php
 
 include('functions/WPBC_get_tokko_searchform.php');
+include('functions/WPBC_tokko_property_features.php');
 
 function WPBC_get_tokko_rewrite_property_url($property){
 	
@@ -109,47 +110,12 @@ function WPBC_tokko_get_property_single_classes($property=null){
 		'row_class' => 'row',
 		'content_col_class' => 'col-md-9',
 		'aside_col_class' => 'col-md-3',
+
+		'content_related_class' => '',
+		'container_related_class' => 'container',
+
 	);
 
 	$classes = apply_filters('wpbc/filter/tokko/property-single/classes',$classes,$property);
 	return $classes;
-}
- 
-function WPBC_tokko_property_features( $args=array(), $template='property' ){
-		if(empty($args['property'])) return; 
-
-		$def_features = apply_filters('wpbc/filter/tokko/property_features', array(), $args['property'], $template);
-
-		if(!empty($args['features'])){
-			$features = $args['features'];
-		}else{
-			$features = $def_features;
-		}
-
-		foreach($features as $key => $value){ 
-
-			$labels = $value['labels'];
-
-			$val = $args['property']->get_field($value['key']);
-			$label = $labels[0];
-			if($val>1 || $val==0) {
-				$label = $labels[1];
-			}
-			if($val==0) $val = '--';
-
-			$icon = '';
-			if(!empty($value['icon'])){
-				$icon = '<i class="'. $value['icon'] .'"></i>';
-			}
-
-			$pos = 'ivl'; // IconValueLabel
-
-			if($pos == 'ivl') $text = $icon . $val .' '. $label;
-
-			if($pos == 'vli') $text =  $val .' '. $label . ' ' . $icon;
-
-			if($pos == 'lvi') $text =   $label . ' ' . $val . $icon;
-
-			echo '<span class="feature feature-'.$value['key'].'">'. $text .'</span>';
-		}
-	}
+} 

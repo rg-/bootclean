@@ -3,6 +3,7 @@
 class TokkoProperty
 {
    var $data = null;
+   var $language = "es_ar";
    var $BASE_URL = "http://www.tokkobroker.com/api/v1/property/";
    function TokkoProperty($get_type, $data, $auth=null){
        if ($get_type == 'object'){
@@ -18,6 +19,8 @@ class TokkoProperty
                curl_setopt($cp, CURLOPT_TIMEOUT, 60);
                $this->data = json_decode(curl_exec($cp));
                curl_close($cp);
+
+               $this->language = $auth->get_language();
            }
            if ($get_type == 'reference_code'){
                $url = $this->BASE_URL . "?format=json&reference_code=". urlencode($data) ."&key=". $auth->key ."&lang=".$auth->get_language();
@@ -28,6 +31,8 @@ class TokkoProperty
                curl_setopt($cp, CURLOPT_TIMEOUT, 60);
                $this->data = json_decode(curl_exec($cp))->objects[0];
                curl_close($cp);
+
+               $this->language = $auth->get_language();
            }
            if ($get_type == 'development__id'){
                $url = $this->BASE_URL . "?format=json&development__id=". $data ."&key=". $auth->key ."&lang=".$auth->get_language();
@@ -38,7 +43,12 @@ class TokkoProperty
                curl_setopt($cp, CURLOPT_TIMEOUT, 60);
                $this->data = json_decode(curl_exec($cp));
                curl_close($cp);
+
+               $this->language = $auth->get_language();
            }
+
+           
+
         } catch (Exception $e) {
                $this->data = null;
         }
@@ -217,6 +227,82 @@ class TokkoProperty
            }
        }
        return $operations_ret;
+   }
+
+   function get_available_operations_object(){
+
+      $lang = $this->language;
+
+      if( $lang == 'en' ){
+        $operations_object = array(
+          array(
+            'id' => 1,
+            'name' => 'Sale'
+          ),
+          array(
+            'id' => 2,
+            'name' => 'Rent'
+          ),
+          array(
+            'id' => 3,
+            'name' => 'Temporary Rent'
+          ),
+        );
+      } else {
+        $operations_object = array(
+          array(
+            'id' => 1,
+            'name' => 'Venta'
+          ),
+          array(
+            'id' => 2,
+            'name' => 'Alquiler'
+          ),
+          array(
+            'id' => 3,
+            'name' => 'Alquiler Temporario'
+          ),
+        );
+      }
+
+      $temp = array();
+      foreach ( $this->data->operations as $operation){
+
+        foreach($operations_object as $k=>$v){
+          if( $operation->operation_type == $v['name'] ){
+            $temp[] = $v;
+          }
+        }
+
+      }
+
+      return $temp;
+
+   }
+
+   function is_sale(){
+      $operations_object = $this->get_available_operations_object();
+      foreach ($operations_object as $key => $value) {
+        if($value['id'] == 1){
+          return true;
+        }
+      }
+   }
+   function is_rent(){
+      $operations_object = $this->get_available_operations_object();
+      foreach ($operations_object as $key => $value) {
+        if($value['id'] == 2){
+          return true;
+        }
+      }
+   }
+   function is_temporary_rent(){
+      $operations_object = $this->get_available_operations_object();
+      foreach ($operations_object as $key => $value) {
+        if($value['id'] == 3){
+          return true;
+        }
+      }
    }
 
    function get_available_prices_by_operation($ope){
