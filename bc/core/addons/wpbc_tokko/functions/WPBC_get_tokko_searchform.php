@@ -331,14 +331,15 @@ function WPBC_tokko_form_property_prices($args=array()){
 	if(!empty($options)){
 		$args['options'] = $options;
 	}
- 
+ 	
+ 	$field_args = WPBC_tokko_get_common_select_args($id,$args);
+ 	
 	$out = '';
 
 	$options = $args['options'];
 	if(!empty($options)){ 
  		$current_data = WPBC_tokko_form_get_encoded_data($args);
- 		
- 		$field_args = WPBC_tokko_get_common_select_args($id,$args);
+ 		 
  		$out .= '<select '.$field_args['field_attrs'].' class="ui-tokko-'.$id.' '.$field_args['field_class'].'">';
 
 			$price_from = $current_data['price_from'];
@@ -353,6 +354,9 @@ function WPBC_tokko_form_property_prices($args=array()){
 			}
 			$out .= '</select>'; 
 	}
+	if(!empty($out)){
+	 	$out = $field_args['field_before'] . $out . $field_args['field_after'];
+	 }
 	echo $out; 
 }  
 

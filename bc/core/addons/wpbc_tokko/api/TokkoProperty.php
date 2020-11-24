@@ -167,7 +167,12 @@ class TokkoProperty
        return $pictures;
    }
 
-   function get_available_operations($legally_checked=null){
+   function get_available_operations($args=array()){
+
+      $legally_checked = !empty($args['legally_checked']) ? $args['legally_checked'] : null;
+
+      $show_only = !empty($args['show_only']) ? $args['show_only'] : null;
+
        $operations = array();
        if ($this->data == null){
            echo "No property";
@@ -178,18 +183,29 @@ class TokkoProperty
                    foreach ($operation->prices as $price){
                        $currency_type = "$";
                        if($price->currency == "USD"){$currency_type = 'u$s';}
-                       array_push($prices, $currency_type." ".$price->price);
+                       array_push($prices, $currency_type." ".number_format($price->price, 0, ',', '.'));
                    }
-                   if(!$legally_checked){
-                     array_push($operations, $operation->operation_type . " " . implode("/", $prices) );
-                   }else{
-                     if($operation->operation_type == "Venta"){
-                       if($this->data->legally_checked == "Si"){
-                         array_push($operations, $operation->operation_type . " " . implode("/", $prices) );
-                       }
+
+                   if( $show_only ){
+                      if(in_array($operation->operation_type, $show_only)){
+                        array_push($operations, $operation->operation_type . " " . implode("/", $prices) );
+                      }
+                    } else {
+
+                     if(!$legally_checked){ 
+
+                      array_push($operations, $operation->operation_type . " " . implode("/", $prices) );
+                       
                      }else{
-                       array_push($operations, $operation->operation_type . " " . implode("/", $prices));
+                       if($operation->operation_type == "Venta"){
+                         if($this->data->legally_checked == "Si"){
+                           array_push($operations, $operation->operation_type . " " . implode("/", $prices) );
+                         }
+                       }else{
+                         array_push($operations, $operation->operation_type . " " . implode("/", $prices));
+                       }
                      }
+
                    }
                }
            }

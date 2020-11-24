@@ -40,7 +40,7 @@ $classes = WPBC_tokko_get_property_single_classes($property);
 				WPBC_tokko_property_single_content - 20
 
 
-		*/
+		*/ 
 
 		do_action('tokko/property-single/content', $property ); ?>
 

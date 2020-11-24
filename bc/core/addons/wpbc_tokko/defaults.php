@@ -104,8 +104,8 @@ add_filter('wpbc/filter/tokko/form_filter/args/?id=order_by', function($args){
 	$args['options'] = array(
 		'price' => 'Precio',
 		'id' => 'ID',
-		'random' => 'Rándomico',
-		'room_amount' => 'Abitaciones',
+		'random' => 'Azar',
+		'room_amount' => 'Habitaciones',
 		'suite_amount' => 'Dormitorios',
 		'bathroom_amount' => 'Baños',
 		);
