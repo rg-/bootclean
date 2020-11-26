@@ -196,16 +196,7 @@ function WPBC_get_theme_settings($option=''){
 	}
 
 	return $temp;
-}
-function WPBC_get_theme_settings_FX($atts, $content = null){
-	extract(shortcode_atts(array( 
-		'name'=> ''
-	), $atts)); 
-	if(!empty($name)){
-		return WPBC_get_theme_settings($name);
-	} 
-}
-add_shortcode('WPBC_get_theme_settings','WPBC_get_theme_settings_FX');
+} 
 
 function WPBC_get_theme_settings_fields(){ 
 	$fields = array();  
@@ -234,3 +225,22 @@ foreach ($locations as $key => $value) {
 		return $field;
 	},10,1);
 } 
+
+
+
+
+/*
+
+	SHORTCODES
+
+*/
+
+function WPBC_get_theme_settings_FX($atts, $content = null){
+	extract(shortcode_atts(array( 
+		'name'=> ''
+	), $atts)); 
+	if(!empty($name)){
+		return WPBC_get_theme_settings($name);
+	} 
+}
+add_shortcode('WPBC_get_theme_settings','WPBC_get_theme_settings_FX'); 

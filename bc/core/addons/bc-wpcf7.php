@@ -16,6 +16,22 @@
 	TODO, add after/before filters to append, prepend things on child themes.
 
 */
+
+// Allow custom shortcodes in CF7 HTML form
+add_filter( 'wpcf7_form_elements', 'WPBC_wpcf7_do_shortcodes_form', 10, 1 );
+function WPBC_wpcf7_do_shortcodes_form( $form ) {
+    $form = do_shortcode( $form );
+    return $form;
+}
+
+// Allow custom shortcodes in CF7 mailed message body
+add_filter( 'wpcf7_mail_components', 'WPBC_wpcf7_do_shortcodes_mail_body', 10, 2 );
+function WPBC_wpcf7_do_shortcodes_mail_body( $components, $number ) {
+    $components['body'] = do_shortcode( $components['body'] );
+    return $components;
+}; 
+
+
 add_filter( 'wpcf7_form_elements', 'WPBC_wpcf7_form_elements' );
 function WPBC_wpcf7_form_elements( $content ) {
 	// global $wpcf7_contact_form;
@@ -29,7 +45,7 @@ function WPBC_wpcf7_form_elements( $content ) {
 	// Find/replace bootstrap classes
 	// $control_text = array('wpcf7-text','form-controlarea');
 	// $bootstrap_control = 'form-control';
-	// $content = str_replace($control_text, $bootstrap_control, $content);
+	// $content = str_replace($control_text, $bootstrap_control, $content); 
 
 	return $content;	
 }

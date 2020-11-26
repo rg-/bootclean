@@ -2,6 +2,11 @@
 
 function WPBC_get_theme_settings_custom_login_default_args(){
 	$args = array(
+
+		'body' => array(
+			'background-color' => '#ffffff',
+		),
+
 		'login_brand' => array(
 			'background-image' => THEME_URI.'/images/theme/bootclean-logo-color-@2.png',
 			'background-size' => '240px auto',
@@ -22,7 +27,9 @@ add_action( 'login_head', function(){
 
 <style>
 	
-	body{	}
+	body{	
+		background-color: <?php echo $args['body']['background-color']; ?>;
+	}
 
 	.login h1 a{
 		background-image: url(<?php echo $args['login_brand']['background-image']; ?>) !important; 

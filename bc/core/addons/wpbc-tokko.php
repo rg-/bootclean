@@ -101,5 +101,5 @@ if($use_wpbc_tokko){
 	include('wpbc_tokko/layout.php'); 
 	include('wpbc_tokko/shortcodes.php'); 
 	include('wpbc_tokko/builder.php'); 
-
+	include('wpbc_tokko/plugins.php'); 
 }

@@ -125,6 +125,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 						'text' => __('Text','bootclean'),
 						'html' => __('Html','bootclean'),
 						'image' => __('Image','bootclean'),
+						'gallery' => __('Gallery','bootclean'),
 						'file' => __('File','bootclean'),
 					),
 					'default_value' => array (
@@ -248,6 +249,28 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'max_height' => '',
 					'max_size' => '',
 					'mime_types' => '',
+				),
+
+				array(
+					'key' => 'field_wpbc_template_args_value__gallery',
+					'label' => __('Gallery','bootclean'),
+					'name' => 'args_value__gallery',
+					'type' => 'gallery',
+					'instructions' => '',
+					'conditional_logic' => array (
+						array (
+							array (
+								'field' => 'field_wpbc_template_args_type',
+								'operator' => '==',
+								'value' => 'gallery',
+							),
+						), 
+					),
+					'wrapper' => array (
+						'width' => '60',
+						'class' => '',
+						'id' => '',
+					),
 				),
 
 				array(
@@ -452,6 +475,7 @@ function wpbc_get_template_part_row_args($ar=''){
 					if($v['args_type'] == 'image') $passed_args[$v['args_key']] = $v['args_value__image'];
 					if($v['args_type'] == 'file') $passed_args[$v['args_key']] = $v['args_value__file'];
 					if($v['args_type'] == 'html') $passed_args[$v['args_key']] = $v['args_value___html'];
+					if($v['args_type'] == 'gallery') $passed_args[$v['args_key']] = $v['args_value___gallery'];
 				} 
 			}
 			$passed_args = apply_filters('wpbc/get/template/part/row/template_args', $passed_args, $post_id); 
@@ -492,9 +516,12 @@ function wpbc_get_template_part_row_template_args($args){
 			if($value['field_wpbc_template_args_type'] == 'html'){
 				$v = $value['field_wpbc_template_args_value__html'];
 			} 
+			if($value['field_wpbc_template_args_type'] == 'gallery'){
+				$v = $value['field_wpbc_template_args_value__gallery'];
+			} 
 			$passed_args[$value['field_wpbc_template_args_key']] = $v;
 		} 
-	}
+	} 
 	$passed_args = apply_filters('wpbc/get/template/part/row/template_args', $passed_args, $post_id); 
 	return $passed_args;
 }

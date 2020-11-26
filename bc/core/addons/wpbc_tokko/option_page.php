@@ -219,13 +219,20 @@ function WPBC_tokko_settings_fields(){
 			'label' => 'Single Property Page Template',
 			'post_type' => array('page'),
 			'multiple' => 0,
-		));
+		)); 
 
 		$fields[] = WPBC_acf_make_post_object_field(array(
 			'name' => 'wpbc_tokko_post_object_single_development',
 			'label' => 'Single Developments Page Template',
 			'post_type' => array('page'),
 			'multiple' => 0,
+		));
+
+		$fields[] = WPBC_acf_make_text_field(array(
+			'name' => 'wpbc_tokko_form_single_property',
+			'label' => 'Contact Form used on single Property page',
+			'class' => '', 
+			'instructions' => 'Shortcode', 
 		));
 
 	$fields[] = WPBC_acf_make_tab_field(array(
