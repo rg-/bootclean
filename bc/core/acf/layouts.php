@@ -414,12 +414,14 @@ if(!function_exists('WPBC_get_section_row_args')){
 
 
 			if(!empty($options[$p.'__attributes'])){
-				$attributes = $options[$p.'__attributes'];
-				$id = $attributes[$p.'__attributes_id'];
-				$class = $attributes[$p.'__attributes_class'];
-				$container_class = $attributes[$p.'__attributes_container_class'];
-				$row_class = $attributes[$p.'__attributes_row_class'];
-				$column_class = $attributes[$p.'__attributes_column_class']; 
+				$a = $options[$p.'__attributes'];
+				
+				$id = $a[$p.'__attributes_id'];
+				$class = $a[$p.'__attributes_class'];
+
+				$container_class = !empty($a[$p.'__attributes_container_class']) ? $a[$p.'__attributes_container_class'] : '';
+				$row_class = !empty($a[$p.'__attributes_row_class']) ? $a[$p.'__attributes_row_class'] : '';
+				$column_class = !empty($a[$p.'__attributes_column_class']) ? $a[$p.'__attributes_column_class'] : ''; 
 			}
 
 			$options = array(

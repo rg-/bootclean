@@ -103,7 +103,15 @@ function build_share_button($item, $item_class, $item_input_class){
 	}else{
 		$item_class = $item_class . ' btn-'.$id;
 	}
+
+
+
 	$title = __('Share this on').' '.$item['title'];
+
+	if(!empty($item['item_title'])){
+		$title = $item['item_title'];
+	}
+
 	$label = !empty($icon) ? $icon : $item['title'];
 	
 	if(!empty($item['url'])) $url = $item['url'];
@@ -117,17 +125,24 @@ function build_share_button($item, $item_class, $item_input_class){
 
 	echo apply_filters('wpbc/filter/post/share/button/before', $before, $id);
 
-	if($id!='email'){  
+	$filter_id = array('email','print');
+
+	if( !in_array($id, $filter_id) ){  
 	?>
 	<a href="<?php echo $url; ?>" <?php echo $data; ?> class="<?php echo $item_class;?>" title="<?php echo $title; ?>" target="_blank"><?php echo $label; ?></a>
 	<?php
-	}else{
-		?>
-		<label for="share-email"><?php echo __('Copy & Paste URL', 'bootclean'); ?></label>
-		<textarea name="share-email" class="<?php echo $item_input_class;?>" readonly><?php echo $url; ?></textarea>
-		
-		<?php  
+	} 
+	
+	if($id=='print'){ ?>
+		<button onClick="<?php echo $url; ?>" <?php echo $data; ?> class="<?php echo $item_class;?>" title="<?php echo $title; ?>" target="_blank"><?php echo $label; ?></button>
+	<?php }
+
+	if($id=='email'){ ?>
+	<label for="share-email"><?php echo __('Copy & Paste URL', 'bootclean'); ?></label>
+	<textarea name="share-email" class="<?php echo $item_input_class;?>" readonly><?php echo $url; ?></textarea>
+	<?php
 	}
+	 
 	echo apply_filters('wpbc/filter/post/share/button/after', $after, $id);
 }
 add_filter('wpbc/filter/post/share/button/data', function($data, $id){  
@@ -135,6 +150,7 @@ add_filter('wpbc/filter/post/share/button/data', function($data, $id){
 },10,2);
 
 add_filter('wpbc/filter/post/share/button/url', function($url, $id){ 
+	$url_passed = $url;
 	$the_permalink = get_permalink();
 		$the_permalink = apply_filters('wpbc/filter/post/share/permalink',$the_permalink, $id);
 	$the_title = get_the_title();
@@ -142,7 +158,12 @@ add_filter('wpbc/filter/post/share/button/url', function($url, $id){
 	$the_title_urlencode = urlencode($the_title);
 	$the_title_rawurlencode = rawurlencode($the_title);
 	if($id=='email'){  
-		$url = $the_permalink;
+		if(!empty($url)){
+			$url = $url;
+		}else{
+			$url = $the_permalink;
+		}
+		
 	}
 	if($id=='facebook'){  
 		$url = 'http://facebook.com/share.php?u='.$the_permalink.'&amp;t='.$the_title_urlencode.'';
@@ -162,12 +183,28 @@ add_filter('wpbc/filter/post/share/button/url', function($url, $id){
 	if($id=='google-plus'){  
 		$url = 'https://plusone.google.com/_/+1/confirm?hl=en&amp;url='.$the_permalink.'';
 	} 
+	if($id=='linkedin'){  
+		$url = 'https://www.linkedin.com/sharing/share-offsite/?url='.$the_permalink.'';
+	} 
 	if($id=='pinterest'){  
 		$url = 'javascript:void((function()%7Bvar%20e=document.createElement(&apos;script&apos;);e.setAttribute(&apos;type&apos;,&apos;text/javascript&apos;);e.setAttribute(&apos;charset&apos;,&apos;UTF-8&apos;);e.setAttribute(&apos;src&apos;,&apos;http://assets.pinterest.com/js/pinmarklet.js?r=&apos;+Math.random()*99999999);document.body.appendChild(e)%7D)());';
 	}  
 
 	if($id=='whatsapp'){  
-		$url = 'https://api.whatsapp.com/send?text='.$the_permalink.'';
+		if(!empty($url)){
+			$url = $url;
+		}else{
+			$url = 'https://api.whatsapp.com/send?text='.$the_permalink.'';
+		}
+		
+	} 
+
+	if($id=='print'){
+		$url = 'window.print()';
+	}
+
+	if(!empty($url_passed)){
+		$url = $url_passed;
 	}
 
 	return $url; 

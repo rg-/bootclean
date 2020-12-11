@@ -14,7 +14,7 @@ if(!empty($section['section_options']['visible'])) return;
 	 if(!empty($row['field_wysiwyg_row_content'])){
 	 	?>
 <div class="wysiwyg_row-content">
-	<?php echo $row['field_wysiwyg_row_content']; ?>
+	<?php echo apply_filters('the_content', $row['field_wysiwyg_row_content']); ?>
 </div>
 	 	<?php
 	 }
