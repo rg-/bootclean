@@ -71,6 +71,9 @@ function WPBC_get_layout_customize_use($args=array(), $layout){
 }
 
 function WPBC_if_has_layout($layout,$id){
+
+	$return = 0;
+	
 	if($layout=='main_navbar'){
 		$temp = WPBC_layout__main_navbar_defaults($id);
 	}
@@ -197,7 +200,7 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 
 		if($layout_header_template_type == 'title'){ 
 			$template_ID = false; 
-			$$page_title_subtitle = '';
+			$page_title_subtitle = '';
 			$page_title_type = WPBC_get_field('layout_header_template_page_title_type', $post_id);
 			if( $page_title_type ){
 				$page_title_subtitle = WPBC_get_field('layout_header_template_page_title_subtitle', $post_id);

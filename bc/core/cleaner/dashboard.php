@@ -85,6 +85,13 @@ function WPBC_wp_dashboard_setup(){
 
 function wpbc_dashboard_welcome(){
 	$current_theme = wp_get_theme();  
+
+
+	$icon_yes = '<span class="dashicons dashicons-yes text-success"></span>';
+	$icon_no = '<span class="dashicons dashicons-no-alt text-danger"></span>'; 
+	$icon_warning = '<span class="dashicons dashicons-warning text-danger"></span>'; 
+
+
 	?>
 	<div class="main">
 
@@ -132,9 +139,7 @@ function wpbc_dashboard_welcome(){
 			<ul class="wpbc-dashboard-list">
 			<?php
 
-			$icon_yes = '<span class="dashicons dashicons-yes text-success"></span>';
-			$icon_no = '<span class="dashicons dashicons-no-alt text-danger"></span>'; 
-			$icon_warning = '<span class="dashicons dashicons-warning text-danger"></span>'; 
+			
 
 			if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '>=' ) ) { 
 				echo '<li>'.$icon_yes.' Wordpress version '.$GLOBALS['wp_version'].'</li>';

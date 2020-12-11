@@ -214,17 +214,17 @@ if(!function_exists('WPBC_layout_struture__woocommerce_shop_end')){
 			
 			</div><!-- .wpbc-woo-main-content-area end -->
 			
-			<?php echo $args['after_woo-main-content-area']; ?>
+			<?php echo !empty($args['after_woo-main-content-area']) ? $args['after_woo-main-content-area'] : ''; ?>
 
 		</div><!-- .wpbc-woo-container-row end -->
 
-		<?php echo $args['after_woo-main-container-row']; ?>
+		<?php echo !empty($args['after_woo-main-container-row']) ? $args['after_woo-main-container-row'] : ''; ?>
 
 	</div><!-- .wpbc-woo-container-area end -->
 
 	<?php do_action( 'wpbc/woo/layout/after/main-container-areas', $args ); ?>
 
-	<?php echo $args['after_woo-main-container-area']; ?>
+	<?php echo !empty($args['after_woo-main-container-area']) ? $args['after_woo-main-container-area'] : ''; ?>
 
 	<?php
 	}
