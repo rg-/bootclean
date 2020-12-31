@@ -13,6 +13,7 @@ function WPBC_acf_make_social_items_group_field($args,$is_registered_option=fals
 					'facebook' => 'Facebook', 
 					'instagram' => 'Instagram', 
 					'twitter' => 'Twitter', 
+					'linkedin' => 'Linkedin', 
 					'whatsapp' => 'Whatsapp',
 				),
 				'default_value' => !empty($args['default_type']) ? $args['default_type'] : 'facebook',

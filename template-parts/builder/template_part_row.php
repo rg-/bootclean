@@ -1,5 +1,5 @@
-<?php
- 
+<?php 
+
 $template_id = get_sub_field('key__layout_template_part_row__content_'.'key__r_wpbc_template_part', $post_id);
 $inview = get_sub_field('key__layout_template_part_row__content_'.'key__r_wpbc__advanced_group_inview', $post_id);
 $use_inview = false; 

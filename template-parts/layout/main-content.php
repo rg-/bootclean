@@ -1,4 +1,7 @@
-<?php if( !is_page_template('_template_builder.php') ){ ?>
+<?php 
+echo "<!-- template-parts/layout/main-content.php -->";
+
+if( !is_page_template('_template_builder.php') ){ ?>
 	<?php 
 		do_action('wpbc/layout/inner/content/before');
 	?>
@@ -34,6 +37,7 @@
 		do_action('wpbc/layout/inner/content/loop/after'); 
 		
 		if(!is_singular()){
+			echo "<!-- post_pagination -->";
 			$post_pagination = apply_filters('wpbc/filter/layout/post_pagination', 'post_pagination' );  
 			get_template_part( 'template-parts/'.$post_pagination ); 
 		} 

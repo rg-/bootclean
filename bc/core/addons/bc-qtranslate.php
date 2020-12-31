@@ -4,7 +4,7 @@ define('BC_ACF_QTRANSLATEX_ENABLED', apply_filters('bc_acf_qtranslatex_enabled',
 
 // qtranslatex things
 
-if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED') && BC_ACF_QTRANSLATEX_ENABLED == true ){
+if( function_exists('qtranxf_use') && defined('BC_ACF_QTRANSLATEX_ENABLED') && BC_ACF_QTRANSLATEX_ENABLED == true ){
 	
 	// get translated content from raw ddbb value
 	if(!function_exists('ynbs_translatethis')){
@@ -60,7 +60,7 @@ if( function_exists('qtrans_getLanguage') && defined('BC_ACF_QTRANSLATEX_ENABLED
 	add_action('admin_head', 'wpbc_qtranslate_admin_styles');
 	
 	function wpbc_qtranslate_admin_styles(){
-		echo '<style type="text/css">
+		echo '<style id="wpbc_qtranslate_admin_styles" type="text/css">
 
 		.wp-admin:not(.nav-menus-php) #post-body-content .qtranxs-lang-switch-wrap.widefat{
 			display:none!important;

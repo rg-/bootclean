@@ -98,15 +98,16 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 						
 						/*
 							Removing $key_prefix 
-						*/
+						*/ 
 						$classes_group_temp = array();
 						if(!empty($classes_group)){
 							foreach($classes_group as $k=>$v){
-								$kk = str_replace($key_prefix,'',$k);
+								$kk = str_replace('key__classes__','',$k);
 								$classes_group_temp[$kk] = $v;
 							}
 						}
 						$classes_group = $classes_group_temp;
+						 
 						$key_prefix = '';
 						 
 $content_row_id = !empty($classes_group[$key_prefix.'content_row_id']) ? $classes_group[$key_prefix.'content_row_id'] : '';
@@ -167,11 +168,31 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 						
 						$temp = apply_filters('wpbc/template/builder/rows/pre', $temp, $post_id, $row, $key_prefix, $layout, $edit_id, $classes_group);
 
-						if($content_visible){
+						//_print_code($layout);
+						//_print_code($classes_group);
+						
+
+						$visible = true;
+						if(isset($classes_group['content_visible'])){
+							$visible = false;
+							if($classes_group['content_visible']==1){
+								$visible = true;
+							}
+						}
+						//_print_code($layout);
+						//_print_code($classes_group['content_visible']);
+						$out .= '<!-- visible: '.$visible.' layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
+
+						if($visible){
+ 
 							if($content_use_divs){
 								$out .= $layout_start.$layout_row_start. $temp .$layout_row_end.$layout_end;
 							}else{
 								$out .= $temp;
+							}
+							if($layout=='template_part_row'){ 
+								//_print_code("content visible");
+								//_print_code($classes_group);
 							}
 						}else{
 
@@ -183,10 +204,10 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 							Let´s see what happend once playing with sub sub flexibles.... :()
 
 							*/
-
-							$out .= '<!-- NOT VISIBLE HERE: <div id="'. $layout_id .'" .... -->';
-							$row = get_row();
-							$out .= apply_filters('wpbc/template/builder/row/custom', $temp, $row, $layout);
+							
+							$out .= '<!-- HIDDEN layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
+							//$row = get_row();
+							//$out .= apply_filters('wpbc/template/builder/row/custom', $temp, $row, $layout);
 						}
 
 					} else { // IF layout not $special_types flex_2-main-content-html_row-1

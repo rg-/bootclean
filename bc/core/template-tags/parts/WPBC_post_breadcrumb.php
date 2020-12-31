@@ -32,10 +32,10 @@ function WPBC_post_breadcrumb($args=''){
     }
   }
  
-    if ( is_category() || is_tax() ) {
+    if ( is_archive() || is_category() || is_tax() ) {
       global $wp_query;
       $cat_obj = $wp_query->get_queried_object();
-      $thisCat = $cat_obj->term_id;
+      $thisCat = $cat_obj->term_id; 
       $thisCat = get_category($thisCat);
       $parentCat = get_category($thisCat->parent);
       if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));

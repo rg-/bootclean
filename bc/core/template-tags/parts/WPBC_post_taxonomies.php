@@ -67,6 +67,8 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 			"before" => '',
 			"sep" => ', ',
 			"after" => '',
+			"before_item" => '',
+			"after_item" => '',
 			"before_name" => '',
 			"after_name" => '',
 			"term_class" => '',
@@ -99,7 +101,7 @@ if ( ! function_exists( 'WPBC_get_the_terms' ) ) :
 						$item = $a.$item.$aa;
 					}
 					
-					$temp[] = $item;
+					$temp[] = $before_item.$item.$after_item;
 
 				} 
 				$out = $before.join( "$sep ", $temp ).$after;

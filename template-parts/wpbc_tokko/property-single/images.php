@@ -54,11 +54,11 @@ if(empty($property_images)) return;
 
 				<?php foreach($property_images as $image ){ ?> 
 						
-							<?php
+							<?php 
 							WPBC_build_lazyloader_image(array(
 								'img_hi' => $image->original, 
 								'img_low' => $image->thumb,
-								'type' => 'slick-embed',
+								'type' => 'slick-onload',
 							));
 							?> 
 							
