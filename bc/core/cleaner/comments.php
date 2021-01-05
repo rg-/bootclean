@@ -119,6 +119,29 @@ if ( ! class_exists( 'Remove_Comments_Absolute' ) ) {
 
 			// Return an object with each comment stat set to zero.
 			add_filter( 'wp_count_comments', array( $this, 'filter_count_comments' ) );
+
+
+
+			// set the options to change
+			$option = array( 
+			    // disable comments
+			    'default_comment_status'        => 'closed',
+			    // disable trackbacks
+			    'use_trackback'                 => '',
+			    // disable pingbacks
+			    'default_ping_status'           => 'closed',
+			    // disable pinging
+			    'default_pingback_flag'         => '', 
+			    // don't use those ugly smilies
+			    'use_smilies'                   => '',
+			    'show_avatars' => '',
+			);
+			  
+			// change the options!
+			foreach ( $option as $key => $value ) {  
+			    update_option( $key, $value );
+			}
+
 		}
 
 		/**
@@ -246,6 +269,8 @@ if ( ! class_exists( 'Remove_Comments_Absolute' ) ) {
 			foreach ( get_post_types() as $post_type ) {
 				// Remove the comment status meta box.
 				remove_meta_box( 'commentstatusdiv', $post_type, 'normal' );
+				// Remove the comments meta box.
+				remove_meta_box( 'commentsdiv', $post_type, 'normal' );
 				// Remove the trackbacks meta box.
 				remove_meta_box( 'trackbacksdiv', $post_type, 'normal' );
 				// Remove all comments/trackbacks from tables.
