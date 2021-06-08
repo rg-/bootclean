@@ -41,8 +41,8 @@ define('IMG_URI', THEME_URI.'/images' ); // ??
 // Add new constant that returns true if WooCommerce is active
 define( 'WPBC_WOOCOMMERCE_ACTIVE', class_exists( 'WooCommerce' ) ); 
 
-function WPBC_is_woocommerce_active(){
-	if ( 'WPBC_WOOCOMMERCE_ACTIVE' ) {
+function WPBC_is_woocommerce_active(){ 
+	if ( class_exists( 'WooCommerce' ) ) {
 		return true;
 	}else{
 		return false;

@@ -13,10 +13,17 @@ if( function_exists('acf_add_options_page') ) {
 $site_settings_tabs_fields = array(
 	'fields-general',
 	'fields-header',
+	
+	'fields-layout', // NEW v 13
+	
 	'fields-footer',
 	//'fields-typography', // TODOING
 	'fields-custom-code', 
 );
+
+
+
+
 if(!empty($site_settings_tabs_fields)){
 	foreach ($site_settings_tabs_fields as $key) {
 		$file_path = 'site_settings/'.$key.'.php';

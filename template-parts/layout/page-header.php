@@ -1,15 +1,19 @@
 <?php
 
 $post_id = apply_filters('wpbc/filter/layout/main-page-header/post_id', '');
-$params = WPBC_layout__main_page_header_defaults($post_id); 
+$params = WPBC_layout__main_page_header_defaults($post_id);  
 $use_from_options = $params['use_from_options'];
 $use_template = $params['use_template']; 
 $use_custom_template = $params['use_custom_template']; 
 $use_custom_html = $params['use_custom_html'];  
 $use_page_title = $params['use_page_title'];    
 $template_id = $params['template_id'];  
-$custom_attrs = $params['custom_attrs'];  
+$custom_attrs = $params['custom_attrs'];   
 $custom_class = $params['custom_class'];  
+
+	$custom_attrs = apply_filters('wpbc/main-page-header/data', $custom_attrs);
+	$class = apply_filters('wpbc/main-page-header/class', $class); 
+
 if( !empty($template_id) || !empty($use_custom_html) || !empty($use_page_title) ){
 ?>
 <div id="main-page-header" class="page-header <?php echo $custom_class; ?>" <?php echo $custom_attrs; ?>>

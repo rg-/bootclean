@@ -16,11 +16,48 @@ function WPBC_acf_make_wysiwyg_field($args,$is_registered_option=false){
 		),
 		'default_value' => '',
 		'tabs' => 'all', // 'all',
-		'toolbar' => 'basic', // 'full',
+		'toolbar' => 'basic', // 'full', 'basic','wpbc-basic' 
 		'media_upload' => 0,
-		'delay' => 1,
+		'delay' => 0,
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;
 }
+
+
+function WPBC_acf_make_wysiwyg_field_xmini($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_xmini';
+	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+function WPBC_acf_make_wysiwyg_field_mini($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_mini';
+	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+function WPBC_acf_make_wysiwyg_field_mini_html($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_mini';
+	$args['tabs'] = 'all';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+function WPBC_acf_make_wysiwyg_field_basic($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_basic';
+	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+	function WPBC_acf_make_wysiwyg_field_basic_all($args,$is_registered_option=false){
+		$args['toolbar'] = 'wpbc_basic';
+		$args['tabs'] = 'all';
+		return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+	}
+function WPBC_acf_make_wysiwyg_field_format($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_format';
+	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+	function WPBC_acf_make_wysiwyg_field_format_all($args,$is_registered_option=false){
+		$args['toolbar'] = 'wpbc_format';
+		$args['tabs'] = 'alll';
+		return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+	}

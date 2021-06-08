@@ -6,14 +6,17 @@ function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
 
 	$value = apply_filters('wpbc/filter/layout/main_container/args?='.$key.'', $value);
 
-	$value = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/args', $value);
+	$value = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/args', $value); 
 
 	$id = !empty($value['id']) ? ' id="'.$value['id'].'" ' : ''; 
+
+	$value = apply_filters('wpbc/filter/layout/main_container/args', $value, $structure_id, $value['id']);
 	
 	$class  = !empty($value['class']) ? $value['class'] : '';
 	
 	if(!empty( $value['container_type'] )){
 		$container_type = $value['container_type'];
+
 		if($container_type == 'fluid'){
 			$class .= ' container-fluid';
 		}
@@ -32,12 +35,17 @@ function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
 		$class .= ' -'.$value['container_type'];
 	}
 	
+	$area_name = '';
 	if(!empty($value['area-name'])){
+		$area_name = $value['area-name'];
 		//$class = apply_filters('wpbc/filter/layout/main_container/area-name/'.$value['area-name'].'/class', $class);
 		$class = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/area-name/'.$value['area-name'].'/class', $class);
 	} 
 	// ej: 'wpbc/filter/layout/class/?id=main-container-areas'
 	$class = apply_filters('wpbc/filter/layout/class/?id='.$value['id'], $class, $structure_id, $key);
+
+	$class = apply_filters('wpbc/filter/layout/main_container/class', $class, $structure_id, $value['id'], $area_name);
+
 	$class = ' class="'.$structure_id.' '.$class.'" ';
 	
 	$attrs = !empty($value['attrs']) ? ' '.$value['attrs'].' ' : '';
@@ -245,6 +253,8 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	$template = WPBC_get_template();
 	$post_type = get_post_type();
 
+	
+
 	// home, when root, page for post, front page or none
 	// home-blog when default settings and no front page or page for post selected
 	// blog when viewing the blog page if using page for post option 
@@ -253,16 +263,25 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	if( WPBC_is_page_template('_template_builder.php', $id) ){ 
 		$template = '_template_builder';
 	} 
+	if ( get_post_meta( $id, '_wp_page_template', true ) ){
+		$template = get_post_meta( $id, '_wp_page_template', true );
+		$template = str_replace('.php', '', $template);
+	}
 	
-	$locations = WPBC_get_layout_locations(); 
+	if( $id == get_option('page_for_posts') ){
+		$template = 'blog'; 
+	}
+	
+	$locations = WPBC_get_layout_locations();  
+	//_print_code($locations);
 	if( !empty($locations[$template]['id']) ){
 		$path = WPBC_get_layout_structure_path();
 		if( file_exists( $path.$locations[$template]['id'].'.php') ){
-			$layout = $locations[$template]['id'];
-
+			$layout = $locations[$template]['id']; 
 		}
-
+		
 	} 
+
 	/* Theme Options PART */
 	$custom_layout_locations__enable = WPBC_get_option('custom_layout_locations__enable');
 	// custom_layout__custom_locations__builder
@@ -280,7 +299,8 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	/* NEW v 11.00 */
 
 	/* ACF PART */
-	$using_page_settings = false;
+	$using_page_settings = false; 
+
 	if(!empty($id)){
 		$custom_layout__enable = WPBC_get_field('custom_layout__enable', $id);
 		$custom_layout__custom_location = WPBC_get_field('custom_layout__custom_location', $id);
@@ -298,7 +318,8 @@ function WPBC_get_layout_structure_build_layout($id=''){
  
 	if(''==$layout){
 		$layout = 'defaults'; // Yes again, if anything fails, use defaults.
-	}
+	} 
+	
 	$layout = apply_filters('wpbc/filter/layout/location', $layout, $template, $using_theme_settings, $using_page_settings);
 
 	return $layout;
@@ -329,6 +350,43 @@ function WPBC_get_main_container_max_content_areas($return=''){
 		return max($temp);
 	}  
 }
+
+
+function WPBC_get_layout_locations_for_acf(){
+		$layout_defaults = WPBC_layout_struture__defaults();
+		$main_container = $layout_defaults['main_container'];
+		$test_array = array(); 
+		foreach ($main_container as $key => $value) {
+			if($key!='defaults'){ 
+				//$icon = WPBC_get_option('custom_layout_preview__'.$key);
+				$img_path = get_template_directory_uri();
+				$icon = $img_path.'/template-parts/layout/structure/'.$key.'.png';
+				$test_array[$key] = '<img title="'.$key.'" src="'.$icon.'" width="50" class=""/><small style="margin:auto;">'.$key.'</small>';
+			}
+		}
+		return $test_array;
+	}
+
+function WPBC_get_layout_container_type_choices(){
+	$img_path = get_template_directory_uri(); 
+
+	$choices = array(
+		'none',
+		'fixed',
+		'fixed-left',
+		'fixed-right',
+		'fluid',
+	);
+
+	$custom_layout__container_type_choices = array();
+	foreach ($choices as $choice) {
+		$custom_layout__container_type_choices[$choice] = '<img src="'.$img_path.'/bc/core/assets/images/layout_'.$choice.'.png'.'" width="24" class=""/> <small style="vertical-align:4px;">'.$choice.'</small>';
+	} 
+	return $custom_layout__container_type_choices;
+}
+
+
+/* SEE THIS ONE HERE ????? */
 
 function WPBC_get_main_container_content_areas($args){ 
 	// Extreme importan function to get an array with content areas used.

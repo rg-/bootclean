@@ -1,5 +1,4 @@
-<div class="text-center">
-	<?php
+<?php
 	$args = array(
 		'use_ajax' => apply_filters('wpbc/filter/advanced_pagination/use_ajax',false),
 		'use_get_next' => apply_filters('wpbc/filter/advanced_pagination/use_get_next',false),
@@ -10,7 +9,6 @@
 		'nav_class' => 'gpy-2 text-left',
 		'prev_arrow' => '<i class="icon-arrow-left"></i>',
 		'next_arrow' => '<i class="icon-arrow-right"></i>',
-		'ul_class' => 'pagination'
 	);
+	$args = apply_filters('wpbc/filter/advanced_pagination/args',$args);
 	WPBC_advanced_posts_pagination($args); ?>
-</div>

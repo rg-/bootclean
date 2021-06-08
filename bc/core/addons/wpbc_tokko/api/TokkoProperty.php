@@ -139,7 +139,7 @@ class TokkoProperty
        return $tag_list;
    }
 
-   function get_cover_picture(){
+   function get_cover_picture(){ 
        $cover_picture = null;
        if ($this->data == null){
            echo "No property";
@@ -148,6 +148,9 @@ class TokkoProperty
                if ($photo->is_front_cover){
                    $cover_picture = $photo;
                }
+           }
+           if(empty($cover_picture)){
+            $cover_picture = $this->data->photos[0];
            }
        }
        return $cover_picture;
@@ -165,6 +168,39 @@ class TokkoProperty
            }
        }
        return $pictures;
+   }
+
+   function get_available_operations_array($args=array()){
+    $operations = array();
+    if ($this->data == null){
+       echo "No property";
+    }else{
+      $get_operations = $this->get_operations(); 
+      $currency_type = "$";
+      $currency = 'USD';
+      $period = '';
+      $price_out = '';
+      foreach ($get_operations as $key => $value) {  
+        $prices = $value->prices;
+        foreach ($prices as $price) { 
+          if($price->currency == $currency){
+            $currency_type = $price->currency;
+            $price_out = number_format_i18n($price->price, 0, ',', '.');
+            if(!empty( $price->period )){
+              $period = $price->period;
+            }
+          }
+          
+        }
+        $operations[] = array(
+          'operation_type' => $value->operation_type,
+          'price' => $price_out,
+          'currency' => $currency_type,
+          'period' => $period
+        );
+      }
+    }
+    return $operations;
    }
 
    function get_available_operations($args=array()){

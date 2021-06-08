@@ -13,6 +13,8 @@
 function WPBC_get_tokko_search_defaults($args=array()){
 	$defaults = array();
 
+	$args = apply_filters('wpbc/filter/tokko/search_vars/args',$args);
+
 	$limit = !empty($args['limit']) ? $args['limit'] : 9; 
 	$order_by = !empty($args['order_by']) ? $args['order_by'] : 'price';
 	$order = !empty($args['order']) ? $args['order'] : 'desc'; // desc/asc
@@ -22,8 +24,14 @@ function WPBC_get_tokko_search_defaults($args=array()){
 	$result_detail = $args['result_detail']; 
 
 	$operation_types = !empty($args['operation_types']) ? array($args['operation_types']) : array();
-	$property_types = !empty($args['property_types']) ? array($args['property_types']) : array(); 
+	if(is_array($operation_types)){
+		$operation_types = $operation_types[0]; 
+	}
 
+	$property_types = !empty($args['property_types']) ? array($args['property_types']) : array(); 
+	if(is_array($property_types)){
+		$property_types = $property_types[0]; 
+	}
 
 	$localizations = !empty($args['localizations']) ? array($args['localizations']) : null; 
 
@@ -128,18 +136,39 @@ function WPBC_tokko_form_build_options($select_args = array(
 
 			$field_args = WPBC_tokko_get_common_select_args($id,$select_args['args']); 
 
-	 		$out .= '<select '.$field_args['field_attrs'].' class="ui-tokko-'.$id.' '.$field_args['field_class'].'">';
+			$multiple = false;
+			if(!empty($select_args['args']['multiple'])){
+				$multiple = true;
+	 			$field_args['field_attrs'] .= ' multiple';
+	 		}
+
+	 		$out .= '<select '.$field_args['field_attrs'].' class="ui-tokko-'.$id.' '.$field_args['field_class'].'" >';
 	 		
 	 		if(empty($select_args['args']['hide_show_all'])){
 	 			$out .= '<option value="0">'.$show_all.'</option>';
 	 		}
+
+	 		$default_value = !empty($select_args['args']['default_value']) ? $select_args['args']['default_value'] : '';
 	 		
 	 		foreach ($select_args['options'] as $key => $value) {
 	 			$selected = '';
-	 		
-	 			if(!empty($current_data) && is_array($current_data[$id]) && in_array($value['id'], $current_data[$id])){
+
+	 			if(!empty($current_data) && is_array($current_data[$id]) ){
+	 				 
+	 				if($multiple && in_array($value['id'], $current_data[$id])){
+	 					$selected = 'selected';	
+	 				}
+
+	 				$current_as_text = implode(',', $current_data[$id]);
+	 				if(!empty($current_as_text) && $current_as_text == $value['id']){
+	 					$selected = 'selected';	
+	 				} 
+					
+				}
+				if(!empty($default_value) && $default_value == $value['id']){
 					$selected = 'selected';
 				}
+
 	 			$out .= '<option '.$selected.' value="'.$value['id'].'">'. $value['name'] .'</option>';
 	 		
 	 		}
@@ -193,18 +222,36 @@ function WPBC_tokko_form_build_filter_amount_options($select_args=array()){
 
 /* WPBC_tokko_form_* Template functions */
 
+function WPBC_tokko_get_common_form_fields_args(){
+
+	$return = array(
+		'field_before' => '<div class="form-group">',
+		'field_after' => '</div>',
+		'field_class' => 'form-control shadow',
+	);
+
+	$return = apply_filters('wpbc/filter/tokko/common_form_fields_args', $return);
+
+	return $return;
+
+}
+
 function WPBC_tokko_get_common_select_args($id=null,$args=array()){
 	if(!empty($id)){
 
-		$field_before = '<div class="form-group">';
-		$field_after = '</div>';
+		$common_form_fields_args = WPBC_tokko_get_common_form_fields_args();
+
+		$field_before = $common_form_fields_args['field_before'];
+		$field_after = $common_form_fields_args['field_after'];
 		
-		$field_class = 'use_selectpicker form-control shadow';
+		$field_class = 'use_selectpicker '.$common_form_fields_args['field_class'];
 		
 		$field_attrs = ' data-tokko-form="change" data-style="btn-white" data-dropup="false" data-container="body" data-flip="false" ';
 
 		// multiple title="Elegir"
-
+		if(!empty($args['attrs'])){
+			$field_attrs .= $args['attrs'];
+		}
 		if(!empty($args['submit_on_change'])){
 				$field_attrs .= ' data-trigger="submit" ';
 		} 
@@ -217,7 +264,7 @@ function WPBC_tokko_get_common_select_args($id=null,$args=array()){
 			'field_after' => $field_after,
 			'field_class' => $field_class,
 			'field_attrs' => $field_attrs,
-		);
+		); 
 
 		return $return;
 	}
@@ -309,10 +356,11 @@ function WPBC_tokko_form_order($args=array()){
 function WPBC_tokko_form_submit($args=array(
 		'label' => 'Buscar',
 		'class' => 'btn btn-primary',
+		'attrs' => '',
 	)){
 	$select_args = WPBC_tokko_get_common_select_args('submit',$args);
 	$out = '';
-	$out .= '<button data-tokko-form="submit" class="'.$args['class'].'" type="button">'.$args['label'].'</button>';
+	$out .= '<button data-tokko-form="submit" class="'.$args['class'].'" type="button" '.$args['attrs'].'>'.$args['label'].'</button>';
 	if(!empty($out)){
 	 	$out = $select_args['field_before'] . $out . $select_args['field_after'];
 	 }

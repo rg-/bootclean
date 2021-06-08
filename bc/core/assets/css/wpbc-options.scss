@@ -1,7 +1,8 @@
 
 $primary: #e97f02; 
 $primary-dark: #331d03;
-$secondary: #8A9B0F ; 
+$secondary: #8A9B0F;
+$success: #28a745; 
 $gray-100: #dcdcdc;
 $gray-200: #eee;
 $gray-300: #ddd;
@@ -16,6 +17,13 @@ $gray-700: #777;
 	text-transform: uppercase;
 	&.secondary{
 		background-color: $secondary;
+	}
+	&.success{
+		background-color: $success;
+	}
+	&.xs{
+		padding:0 5px;
+		font-size: 9px;
 	}
 }
 .acf-accordion{

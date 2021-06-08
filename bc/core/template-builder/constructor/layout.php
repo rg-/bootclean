@@ -38,8 +38,10 @@ function WPBC_layout_struture__main_pageheader(){
 
 add_action('wpbc/layout/start', 'WPBC_layout_struture__main_content_wrap', 30 ); 
 function WPBC_layout_struture__main_content_wrap(){
+	$data = apply_filters('wpbc/main-content-wrap/data', '');
+	$class = apply_filters('wpbc/main-content-wrap/class', ''); 
 	?>
-	<div id="main-content-wrap" class="layout__main_content_wrap aside-expand-content <?php WPBC_class_main_content_wrap(); ?>">
+	<div id="main-content-wrap" <?php echo $data; ?> class="layout__main_content_wrap aside-expand-content <?php WPBC_class_main_content_wrap(); ?> <?php echo $class; ?>">
 	<?php
 }
 

@@ -2,9 +2,75 @@
 
 $WPBC_is_acf = WPBC_is_acf(); 
 
+function WPBC_masonry_installed(){ 
+	return apply_filters('wpbc/filter/masonry/installed', 0);
+}
+
 /*
 
-	theme settingss addon (if installed)	
+	wpbc-disable-blog addon (not installed by default)
+	@since v12
+	@since may 2021 
+
+*/
+require "addons/wpbc-tinymce.php";
+
+/*
+
+	wpbc-disable-blog addon (not installed by default)
+	@since v12
+	@since abr 2021 
+
+*/
+require "addons/wpbc-disable-blog.php";
+
+
+/*
+	
+	TESTING
+
+*/
+require "addons/wpbc-rest-api.php";
+
+/*
+
+	wpbc-layout-typography (multipe installed on/off options)
+	@since v12
+	@since abr 2021
+
+	Manage the entire way Typography is embeded into pages,
+	and how styles are used.
+
+*/
+
+require "addons/wpbc-layout-typography.php";
+
+/*
+
+	wpbc-layout-blog addon (not installed by default)
+	@since v12
+	@since abr 2021
+
+	Complete layout for blog posts, archives, category, tags, so on...
+
+*/
+
+require "addons/wpbc-layout-blog.php";
+
+/*
+
+	flex_builder addon (if installed)	
+	@since v11
+	@since feb 2021
+
+	Will replace OLD builder layouts with the new way, back and front end.
+
+*/
+require "addons/wpbc-flex_builder.php";
+
+/*
+
+	theme settings addon (if installed)	
 	@since v11
 */
 require "addons/wpbc-theme-settings.php";
@@ -15,6 +81,10 @@ require "addons/wpbc-theme-settings.php";
 	@since v11
 */
 require "addons/wpbc-is-inview.php";
+
+
+
+require "addons/wpbc-masonry.php";
 
 /*
 

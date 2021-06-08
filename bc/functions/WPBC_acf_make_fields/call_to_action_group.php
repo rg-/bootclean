@@ -71,18 +71,25 @@ function WPBC_acf_make_call_to_action_group_field($args, $is_registered_option=f
 
 	$sub_fields_prefix = 'call_to_action';
 
+	$btn_choices = array (
+		'none' => _x('Disabled','bootclean'), 
+		'btn' => _x('Button','bootclean'), 
+		'html'=> _x('HTML','bootclean'),
+	);
+
+	if(!empty($args['disable_none'])){
+		unset($btn_choices['none']);
+		$args['default_type'] = 'btn';
+	}
+
 	$sub_fields[] = WPBC_acf_make_radio_field( array(
-				'name' => $sub_fields_prefix.'_type',
-				'label'=>'', 
-				'choices' => array (
-					'none' => _x('Disabled','bootclean'), 
-					'btn' => _x('Button','bootclean'), 
-					'html'=> _x('HTML','bootclean'),
-				),
-				'default_value' => !empty($args['default_type']) ? $args['default_type'] : 'none',
-				'width' => '100%',
-				'class' => 'wpbc-radio-as-btn wpbc-field-no-padding wpbc-field-no-label show-radio'
-			) );
+		'name' => $sub_fields_prefix.'_type',
+		'label'=>'', 
+		'choices' => $btn_choices,
+		'default_value' => !empty($args['default_type']) ? $args['default_type'] : 'none',
+		'width' => '100%',
+		'class' => 'wpbc-radio-as-btn wpbc-field-no-padding wpbc-field-no-label show-radio'
+	) );
 
 
 		$sub_fields_type_btn = array();

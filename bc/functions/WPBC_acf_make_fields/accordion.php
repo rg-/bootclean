@@ -1,5 +1,8 @@
 <?php
 function WPBC_acf_make_accordion_field($args){
+	if(empty($args['key'])){
+		$args['key'] = 'field_'.$args['name'];
+	}
 	if(empty($args['key'])) return;
 	$defaults = array(
 		'key' => 'field_key',

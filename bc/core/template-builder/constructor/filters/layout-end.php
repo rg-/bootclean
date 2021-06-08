@@ -2,38 +2,45 @@
 
 add_action('wpbc/layout/end', function($out){  
 
-	global $post;
-	if(isset($_GET['post'])){ 
-		$post = get_post($_GET['post']);
-		$post_id = $post->ID;
-	}
-	if(!empty($post)){
-		$post_id = $post->ID;
-	}
-	global $wp_query;
-	if(!empty($wp_query->is_posts_page)){
-		$post_id = get_option('page_for_posts');
-	}
-	$post_type = get_post_type($post);
-	if(is_single() && $post_type == 'post'){ 
-		$post_id = get_option('page_for_posts');
-	}
-
-	if(is_singular()){
-		if ( have_posts() ) {
-			while ( have_posts() ) { 
-				the_post();
-				$post_id = get_the_ID();
-			}
-		} 
-		do_action('wpbc/layout/acf_form', $post_id); 
-	}
-	 
-	$show_wpbc_layout_debug = apply_filters('WPBC_layout_debug', 1);
+	$show_wpbc_layout_debug = apply_filters('WPBC_layout_debug', 1); 
 
 	if( is_user_logged_in() && current_user_can( 'manage_options' ) && !empty($show_wpbc_layout_debug) ){
 
+		global $post;
+		if(isset($_GET['post'])){ 
+			$post = get_post($_GET['post']);
+			$post_id = $post->ID;
+		}
+		if(!empty($post)){
+			$post_id = $post->ID;
+		}
+		global $wp_query;
+		if(!empty($wp_query->is_posts_page)){
+			$post_id = get_option('page_for_posts');
+		}
+		$post_type = get_post_type($post);
+		if(is_single() && $post_type == 'post'){ 
+			$post_id = get_option('page_for_posts');
+		}
+
 		$template = WPBC_get_template();
+
+		// When no page for posts is selected, default home page looping posts
+		if( empty($post_id) && $template = 'home-blog' ){
+			$post_id = 0;
+		}
+
+		if(is_singular()){
+			if ( have_posts() ) {
+				while ( have_posts() ) { 
+					the_post();
+					$post_id = get_the_ID();
+				}
+			} 
+			do_action('wpbc/layout/acf_form', $post_id); 
+		} 
+
+		
 		$post_type = get_post_type();
 		 
 		$layout = WPBC_get_layout_structure_build_layout();
@@ -57,7 +64,9 @@ add_action('wpbc/layout/end', function($out){
 
 		$out .= '| $post_type: <b>'.$post_type.'</b> ';
 
-		$out .= '| $template: <b>'.$template.'</b> ';
+		$page_template = get_page_template_slug( $post_id );
+		$out .= '| $template: <b>'.$page_template.'</b> ';
+		$out .= '| $wp-template: <b>'.WPBC_get_template().'</b> ';
 		
 		$out .= '| $layout: <b>'.$layout.'</b> ';  
 

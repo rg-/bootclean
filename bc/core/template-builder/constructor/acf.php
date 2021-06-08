@@ -1,18 +1,4 @@
-<?php 
-function WPBC_get_layout_locations_for_acf(){
-		$layout_defaults = WPBC_layout_struture__defaults();
-		$main_container = $layout_defaults['main_container'];
-		$test_array = array(); 
-		foreach ($main_container as $key => $value) {
-			if($key!='defaults'){ 
-				//$icon = WPBC_get_option('custom_layout_preview__'.$key);
-				$img_path = get_template_directory_uri();
-				$icon = $img_path.'/template-parts/layout/structure/'.$key.'.png';
-				$test_array[$key] = '<img src="'.$icon.'" width="50" class=""/>';
-			}
-		}
-		return $test_array;
-	}
+<?php  
 
 function WPBC_group_builder__layout__custom_layout($fields){
 
@@ -51,7 +37,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 		'ui' => 1,
 		'ui_on_text' => '',
 		'ui_off_text' => '',
-	);  
+	);   
 
  	
 	$custom_layout__custom_location_choices = WPBC_get_layout_locations_for_acf();  

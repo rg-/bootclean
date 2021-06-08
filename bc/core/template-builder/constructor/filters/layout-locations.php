@@ -147,7 +147,19 @@ add_filter('wpbc/filter/layout/locations', function($locations){
 			)
 		),
 
+		'search' => array(
+			'id' => 'a2-ml',
+			'options' => array(
+				'label' => 'Search',
+				'description' => 'For Search pages.'
+			),
+			'args' => array(
+				'container_type' => 'fixed'
+			)
+		),
+
 	);
 	
 	return $locations;  
+	
 }, 10,1 );

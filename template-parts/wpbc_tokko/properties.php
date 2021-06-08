@@ -9,7 +9,7 @@
  *
  */  
 	 
-$debug_mode = 0;
+$debug_mode = apply_filters('wpbc/filter/tokko/form/debug_mode', false);
 
 $use_query_vars = 1; // 1/0  
 

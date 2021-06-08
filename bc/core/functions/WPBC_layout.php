@@ -72,6 +72,10 @@ function WPBC_get_layout_main_content_classes($type = 'defaults', $just_options 
 	} else {
 		$main_content_classes = WPBC_get_layout_main_content_default_classes($type);
 	}
+
+	$layout = WPBC_get_layout_structure_build_layout($post_id);
+	$main_content_classes['layout'] = $layout;
+
 	return $main_content_classes;
 } 
 

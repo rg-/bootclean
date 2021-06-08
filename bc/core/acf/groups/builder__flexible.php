@@ -17,8 +17,14 @@ if( function_exists('acf_add_local_field_group') ){
 					'param' => 'page_template',
 					'operator' => '==',
 					'value' => '_template_builder.php',
-				)
-			),  
+				),
+				array(
+					'param' => 'page_type',
+					'operator' => '!=',
+					'value' => 'posts_page',
+				),
+			),
+ 
 			/*
 
 			OBSOLETE, see wpbc_template default/slider

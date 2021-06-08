@@ -47,22 +47,28 @@ function WPBC_get_template_builder_rows($post_id='', $sub_flex = false, $name=''
 	if( function_exists('have_rows') && have_rows($key__flexible_content_rows, $post_id) ){ 
 		while( have_rows($key__flexible_content_rows, $post_id) ){ 
 			the_row($post_id);  
-			$layout = get_row_layout(); 
-			 
+			$layout = get_row_layout();  
+
 			if(!empty($layout)){ 
 
-				$file_uri = get_template_directory_uri().'/template-parts/builder';
-				$file_path = get_template_directory().'/template-parts/builder';
+				$layout = apply_filters('wpbc/template/builder/layout', $layout); 
+
+				$template_parts_builder = 'builder';
+				$template_parts_builder = apply_filters('wpbc/template/builder/folder-parts',$template_parts_builder, $layout);
+
+				$file_uri = get_template_directory_uri().'/template-parts/'.$template_parts_builder;
+				$file_path = get_template_directory().'/template-parts/'.$template_parts_builder;
 				
-				$child_file_uri = get_stylesheet_directory_uri().'/template-parts/builder';
-				$child_file_path = get_stylesheet_directory().'/template-parts/builder';
+				$child_file_uri = get_stylesheet_directory_uri().'/template-parts/'.$template_parts_builder;
+				$child_file_path = get_stylesheet_directory().'/template-parts/'.$template_parts_builder;
 				
 				$inc = false; 
-				if( file_exists( $child_file_path.'/'.$layout.'.php' ) ){
-					$inc = $child_file_path.'/'.$layout.'.php'; 
+				$layout_include = apply_filters('wpbc/template/builder/layout_include', $layout);
+				if( file_exists( $child_file_path.'/'.$layout_include.'.php' ) ){
+					$inc = $child_file_path.'/'.$layout_include.'.php'; 
 				}else{
-					if( file_exists( $file_path.'/'.$layout.'.php' ) ){
-						$inc = $file_path.'/'.$layout.'.php'; 
+					if( file_exists( $file_path.'/'.$layout_include.'.php' ) ){
+						$inc = $file_path.'/'.$layout_include.'.php'; 
 					}
 				} 
 				$temp = '';
@@ -130,7 +136,12 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 						}else{
 							$layout_id = $post_id; 
 						}
-						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$layout_id.'-'.$name.'-'.$layout.'-'.$layout_count );
+
+						$name_for_id = '';
+						if(!empty($name)){
+							$name_for_id = '-'.$name;
+						}
+						$layout_id = $content_row_id ? $content_row_id: ( 'flex_'.$layout_id.$name_for_id.'-'.$layout.'-'.$layout_count );
 						
 						$layout_start_args = array(
 							'post_id'=> $post_id,
@@ -166,10 +177,7 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 							
 						$layout_end .= '</div>'; // flexible_content_row
 						
-						$temp = apply_filters('wpbc/template/builder/rows/pre', $temp, $post_id, $row, $key_prefix, $layout, $edit_id, $classes_group);
-
-						//_print_code($layout);
-						//_print_code($classes_group);
+						$temp = apply_filters('wpbc/template/builder/rows/pre', $temp, $post_id, $row, $key_prefix, $layout, $edit_id, $classes_group); 
 						
 
 						$visible = true;
@@ -179,21 +187,32 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 								$visible = true;
 							}
 						}
-						//_print_code($layout);
-						//_print_code($classes_group['content_visible']);
-						$out .= '<!-- visible: '.$visible.' layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
+
+						/*
+							New for wpbc_flex_builder addon feb 2021
+						*/
+						$this_row = get_row();
+						if(!empty($this_row)){
+							$is_hidden = WPBC_get_flex_layout_field('section_visible', $this_row);
+							if(!empty($is_hidden)){
+								$visible = false;
+							}
+						} 
+						
 
 						if($visible){
+
+							if ( current_user_can('edit_theme_options') ) {
+								
+							}
+							$out .= '<!-- visible: '.$visible.' layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
  
 							if($content_use_divs){
 								$out .= $layout_start.$layout_row_start. $temp .$layout_row_end.$layout_end;
-							}else{
+							}else{ 
 								$out .= $temp;
-							}
-							if($layout=='template_part_row'){ 
-								//_print_code("content visible");
-								//_print_code($classes_group);
-							}
+							} 
+
 						}else{
 
 							/*
@@ -204,8 +223,9 @@ $content_row__container_row_col = !empty($classes_group[$key_prefix.'content_row
 							Let´s see what happend once playing with sub sub flexibles.... :()
 
 							*/
-							
-							$out .= '<!-- HIDDEN layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
+							if ( current_user_can('edit_theme_options') ) {
+								$out .= '<!-- HIDDEN layout: '.$layout.' -  layout_id: '. $layout_id .' -->';
+							}
 							//$row = get_row();
 							//$out .= apply_filters('wpbc/template/builder/row/custom', $temp, $row, $layout);
 						}

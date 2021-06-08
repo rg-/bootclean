@@ -14,8 +14,8 @@ $pagination_args = tokko_config('pagination');
 	$pagination_item_link_active_class = 'page-link';
 	$pagination_item_link_attrs = ''; 
 
-	$prev_label = '<';
-	$next_label = '>';
+	$prev_label = $pagination_args['prev_label'];
+	$next_label = $pagination_args['next_label'];
 ?>
 <nav data-ajax="pagination" class="gmy-1">
 	<ul class="pagination d-flex justify-content-center">

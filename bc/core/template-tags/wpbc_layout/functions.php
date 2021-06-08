@@ -46,7 +46,7 @@ function WPBC_get_navbar_affix_attrs($params=array()){
 
 function WPBC_layout__get_id(){
 	
-	$default = array(
+	$default = array( 
 		'blog' 
 	);
 	$template = WPBC_get_template();

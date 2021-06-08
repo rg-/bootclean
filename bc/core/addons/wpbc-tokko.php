@@ -18,6 +18,7 @@ $use_wpbc_tokko = WPBC_is_tokko_installed();
 
 if(!$use_wpbc_tokko){
 	function WPBC_remove_template_tokko( $templates ) {
+	    unset( $templates['_template_tokko_development_single.php'] );
 	    unset( $templates['_template_tokko_property_single.php'] );
 	    return $templates;
 	}
@@ -44,6 +45,9 @@ if($use_wpbc_tokko){
 
 			'pagination' => array(
 				'max_show' => 8, // max item-links to show
+
+				'prev_label' => '<',
+				'next_label' => '>',
 			),
 			
 		);

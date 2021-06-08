@@ -175,7 +175,7 @@ function WPBC_acf_theme_settings_render_field($field){
 	if( !empty($field['is_option']) && $show_helpers ){ 
 		$name = str_replace('wpbc_theme_settings__', '', $field['_name']);
 		
-		if ( $field['type'] == 'post_object' || $field['type'] == 'taxonomy' ) {
+		if ( $field['type'] == 'post_object' || $field['type'] == 'taxonomy' || !empty($field['hide_help_tip']) ) {
 			return;
 		}
 		echo '<p class="wpbc-helper-tip"><input type="text" readonly class="wpbc-badge" style="margin-top:5px; background:#3db980; color:#fff; text-transform:none; border:0; width:100%; font-size:10px; padding:5px 4px; min-height: auto;" value="WPBC_get_theme_settings(\''.$name.'\')"></p>';
@@ -183,11 +183,12 @@ function WPBC_acf_theme_settings_render_field($field){
 }
 
 function WPBC_get_theme_settings($option=''){
-	$settings_fields = WPBC_get_theme_settings_fields();
+	
 	if($option){
 		$temp = get_field( 'wpbc_theme_settings__'.$option, 'option' );
 	}else{
 		$temp = array();
+		$settings_fields = WPBC_get_theme_settings_fields();
 		foreach ($settings_fields as $field) {
 			if(!empty($field['is_option'])){ 
 				$temp[] = $field;
@@ -243,4 +244,4 @@ function WPBC_get_theme_settings_FX($atts, $content = null){
 		return WPBC_get_theme_settings($name);
 	} 
 }
-add_shortcode('WPBC_get_theme_settings','WPBC_get_theme_settings_FX'); 
+add_shortcode('WPBC_get_theme_settings','WPBC_get_theme_settings_FX');  

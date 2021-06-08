@@ -22,6 +22,9 @@ function wpbc_acf_layouts(){
 		'template_row',
 		'template_part_row', 
 	);
+
+	$wpbc_acf_layouts = apply_filters('acf/fields/flexible_layouts', $wpbc_acf_layouts);
+
 	return $wpbc_acf_layouts; 
 }
 $wpbc_acf_layouts = wpbc_acf_layouts();
@@ -42,7 +45,7 @@ $field, $layout, $i){
     	$value = $_POST['value'];  
     }else{
     	// code normal php load
-    	$value = $field['value'][$i];
+    	$value = !empty($field['value'][$i]) ? $field['value'][$i] : null;
     }
 	
 	//_print_code($value);
@@ -84,15 +87,19 @@ $field, $layout, $i){
 add_action('admin_head',function(){ 
 	?>
 <style>
+[data-layout].-collapsed .acf-fc-layout-handle{
+
+}
 [data-layout] .acf-fc-layout-handle svg{
 	vertical-align: -2px;
 }
 [data-layout] .acf-fc-layout-handle svg.sep{
 	vertical-align: -3px;
 }
+[data-layout].-collapsed .acf-fc-layout-handle svg.svg,
 [data-layout].-collapsed .acf-fc-layout-handle svg path.path{
-		fill:#333333 !important;
-	}
+	fill:#333333 !important;
+}
 .wpbc-badge-style{
 		position: relative;
 		border: 1px solid rgba(255,255,255,.8);
@@ -100,7 +107,7 @@ add_action('admin_head',function(){
 		height: 10px;
 		padding: 0;
 		width: 10px;
-		top: 2px;
+		top: 0;
 		cursor: default;
 	}
 	[data-layout].-collapsed .wpbc-badge-style{
@@ -210,7 +217,12 @@ function WPBC_acf_builder_layouts(){
 	$layouts['layout_flexible_row'] = $flexible_rows['layout_flexible_row']; 
 
 	$layouts = apply_filters('wpbc/filter/acf/builder/flexible_content/layouts', $layouts);
-
+	add_filter('wpbc/filter/flexible_content/layout_title/layouts', function($lay) use ($layouts){
+		foreach ($layouts as $key => $value) {
+		 $lay[] = $value['name'];
+		} 
+		return $lay;
+	}); 
 	return $layouts;
 }
 
@@ -332,6 +344,14 @@ if(!function_exists('WPBC_acf_make_flexible_content_layout')){
 									'width' => '50%',
 								));
 
+
+								$sub_fields__attributes[] = WPBC_acf_make_textarea_field(array(
+									'name' => $layout_name.'__attributes_column_data', 
+									'label' => __('Custom data attributes','bootclean'),
+									'instructions' => __('Ex. data-custom="something" ','bootclean'),
+									'width' => '100%',
+								));
+
 							}
 
 						$sub_fields_section_options[] = WPBC_acf_make_group_field(array(
@@ -422,6 +442,8 @@ if(!function_exists('WPBC_get_section_row_args')){
 				$container_class = !empty($a[$p.'__attributes_container_class']) ? $a[$p.'__attributes_container_class'] : '';
 				$row_class = !empty($a[$p.'__attributes_row_class']) ? $a[$p.'__attributes_row_class'] : '';
 				$column_class = !empty($a[$p.'__attributes_column_class']) ? $a[$p.'__attributes_column_class'] : ''; 
+
+				$section_data = !empty($a[$p.'__attributes_column_data']) ? $a[$p.'__attributes_column_data'] : ''; 
 			}
 
 			$options = array(
@@ -433,6 +455,7 @@ if(!function_exists('WPBC_get_section_row_args')){
 				'container_class' => !empty($container_class) ? $container_class : '',
 				'row_class' => !empty($row_class) ? $row_class : '',
 				'column_class' => !empty($column_class) ? $column_class : '',
+				'section_data' => !empty($section_data) ? $section_data : '',
 			);
  			
 		}  
@@ -475,10 +498,11 @@ add_action('wpbc/flexible-layout-row/start', function($section, $acf_fc_layout){
 	$container_class = $section['section_options']['container_class'];
 	$row_class = $section['section_options']['row_class'];
 	$column_class = $section['section_options']['column_class'];
+	$section_data = $section['section_options']['section_data'];
 
 	if(empty($column_class)) $column_class = 'col-12';
 ?>
-<div id="<?php echo $section['section_id']; ?>" class="<?php echo $layout_class; ?>">
+<div id="<?php echo $section['section_id']; ?>" class="<?php echo $layout_class; ?>" <?php echo $section_data; ?>>
 	<div class="container <?php echo $container_class; ?>">
 		<div class="row <?php echo $row_class; ?>">
 			<div class="<?php echo $column_class; ?>">

@@ -12,6 +12,16 @@
 // $layout_customize = WPBC_get_layout_customize();   
 
 global $WPBC_VERSION; 
+
+
+/*
+
+		All functions used
+
+	*/
+	include('template-builder/functions.php'); 
+
+
 if ( version_compare( $WPBC_VERSION, '9.0.0', '>' ) ) {
  
  	/*
@@ -25,13 +35,7 @@ if ( version_compare( $WPBC_VERSION, '9.0.0', '>' ) ) {
 	*/
 	include('template-builder/version_compatible.php');
 
-	/*
-
-		All functions used
-
-	*/
-	include('template-builder/functions.php'); 
-
+	
 	/*
 
 		The builder itself, actions and filters.

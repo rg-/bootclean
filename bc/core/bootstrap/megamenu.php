@@ -135,11 +135,11 @@ function WPBC_walker_nav_menu_start_el($item_output, $item, $depth, $args){
 		
 		$megamenu_class = 'dropdown-megamenu-menu dropdown-menu animated fadeInDown';
 		$megamenu_class = apply_filters('wpbc/filter/megamenu/class', $megamenu_class, $item);
-
+ 
 		$megamenu_args = 'data-animated-respond="lg" data-animation="megamenu" data-animation-delay=".6s" data-animation-duration=".6s"';
 		$megamenu_args = apply_filters('wpbc/filter/megamenu/args', $megamenu_args, $item);
 
-		$megamenu_dialog_class = 'megamenu-dialog p-0';
+		$megamenu_dialog_class = 'megamenu-dialog';
 		$megamenu_dialog_class = apply_filters('wpbc/filter/megamenu/dialog/class', $megamenu_dialog_class, $item);
 
 		$megamenu_container_class = 'megamenu-dialog-container';

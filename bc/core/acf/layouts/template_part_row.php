@@ -86,29 +86,10 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 	*/
 	$use_builder_layout_row_data = true;
 	$use_builder_layout_row_data = apply_filters('wpbc/acf/reusables/template_part_args/use_builder_layout_row_data', $use_builder_layout_row_data);
-	if($use_builder_layout_row_data){  
 
-		$fields[] = array(
-			'key' => 'key__r_wpbc_template_args',
-			'label' => __('Dynamic Template Arguments', 'bootclean'),
-			'name' => 'args',
-			'type' => 'repeater',
-			'instructions' => 'Arguments passed will be accesible on template part file by: wpbc_get_template_part_row_args($args).',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'collapsed' => '',
-			'min' => 0,
-			'max' => 0,
-			'layout' => 'block',
-			'button_label' => __('Add Argument','bootclean'),
-			'sub_fields' => array (
+	$layout_row_data_sub_fields = array(
 
-				array (
+				array(
 					'key' => 'field_wpbc_template_args_type',
 					'label' => 'Type',
 					'name' => 'args_type',
@@ -116,19 +97,21 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'instructions' => '',
 					'required' => 0,
 					'conditional_logic' => 0,
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '20',
 						'class' => '',
 						'id' => '',
 					),
-					'choices' => array (
+					'choices' => array(
 						'text' => __('Text','bootclean'),
 						'html' => __('Html','bootclean'),
 						'image' => __('Image','bootclean'),
 						'gallery' => __('Gallery','bootclean'),
 						'file' => __('File','bootclean'),
+						'template' => __('Template','bootclean'),
+						'post_object' => __('Post Object','bootclean'),
 					),
-					'default_value' => array (
+					'default_value' => array(
 						0 => 'text',
 					),
 					'allow_null' => 0,
@@ -139,7 +122,7 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'placeholder' => '',
 				),
 
-				array (
+				array(
 					'key' => 'field_wpbc_template_args_key',
 					'label' => 'Key',
 					'name' => 'args_key',
@@ -162,23 +145,23 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 				/* ------ */
 				
 
-				array (
+				array(
 					'key' => 'field_wpbc_template_args_value',
 					'label' => 'Value',
 					'name' => 'args_value',
 					'type' => 'text',
 					'instructions' => '',
 					'required' => 0,
-					'conditional_logic' => array (
-						array (
-							array (
+					'conditional_logic' => array(
+						array(
+							array(
 								'field' => 'field_wpbc_template_args_type',
 								'operator' => '==',
 								'value' => 'text',
 							),
 						), 
 					),
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '60',
 						'class' => '',
 						'id' => '',
@@ -190,23 +173,23 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'maxlength' => '',
 				),
 
-				array (
+				array(
 					'key' => 'field_wpbc_template_args_value__html',
 					'label' => 'Value',
 					'name' => 'args_value___html',
 					'type' => 'textarea',
 					'instructions' => '',
 					'required' => 0,
-					'conditional_logic' => array (
-						array (
-							array (
+					'conditional_logic' => array(
+						array(
+							array(
 								'field' => 'field_wpbc_template_args_type',
 								'operator' => '==',
 								'value' => 'html',
 							),
 						), 
 					),
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '60',
 						'class' => 'codemirror-custom-field md',
 						'id' => '',
@@ -218,23 +201,23 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'maxlength' => '',
 				),
 
-				array (
+				array(
 					'key' => 'field_wpbc_template_args_value__image',
 					'label' => __('Image','bootclean'),
 					'name' => 'args_value__image',
 					'type' => 'image',
 					'instructions' => '',
 					'required' => 0,
-					'conditional_logic' => array (
-						array (
-							array (
+					'conditional_logic' => array(
+						array(
+							array(
 								'field' => 'field_wpbc_template_args_type',
 								'operator' => '==',
 								'value' => 'image',
 							),
 						), 
 					),
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '60',
 						'class' => '',
 						'id' => '',
@@ -257,16 +240,16 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'name' => 'args_value__gallery',
 					'type' => 'gallery',
 					'instructions' => '',
-					'conditional_logic' => array (
-						array (
-							array (
+					'conditional_logic' => array(
+						array(
+							array(
 								'field' => 'field_wpbc_template_args_type',
 								'operator' => '==',
 								'value' => 'gallery',
 							),
 						), 
 					),
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '60',
 						'class' => '',
 						'id' => '',
@@ -280,16 +263,16 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'type' => 'file',
 					'instructions' => '',
 					'required' => 0,
-					'conditional_logic' => array (
-						array (
-							array (
+					'conditional_logic' => array(
+						array(
+							array(
 								'field' => 'field_wpbc_template_args_type',
 								'operator' => '==',
 								'value' => 'file',
 							),
 						), 
 					),
-					'wrapper' => array (
+					'wrapper' => array(
 						'width' => '60',
 						'class' => '',
 						'id' => '',
@@ -301,9 +284,89 @@ add_filter('WPBC_acf_reusables_fields', function($fields){
 					'mime_types' => '',
 				),
 
+				array(
+					'key' => 'field_wpbc_template_args_value__template',
+					'label' => __('Template','bootclean'),
+					'name' => 'args_value__template',
+					'type' => 'post_object',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => array(
+						array(
+							array(
+								'field' => 'field_wpbc_template_args_type',
+								'operator' => '==',
+								'value' => 'template',
+							),
+						), 
+					),
+					'wrapper' => array(
+						'width' => '60',
+						'class' => '',
+						'id' => '',
+					),
+					'post_type' => array( 'wpbc_template' ),
+					'taxonomy' => array(),
+					'allow_null' => 0,
+					'multiple' => 0,
+					'return_format' => 'id',
+					'ui' => 1,
+				),
+
+				array(
+					'key' => 'field_wpbc_template_args_value__post_object',
+					'label' => __('Post Object','bootclean'),
+					'name' => 'args_value__post_object',
+					'type' => 'post_object',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => array(
+						array(
+							array(
+								'field' => 'field_wpbc_template_args_type',
+								'operator' => '==',
+								'value' => 'post_object',
+							),
+						), 
+					),
+					'wrapper' => array(
+						'width' => '60',
+						'class' => '',
+						'id' => '',
+					),
+					'post_type' => array(),
+					'taxonomy' => array(),
+					'allow_null' => 0,
+					'multiple' => 0,
+					'return_format' => 'id',
+					'ui' => 1,
+				),
+
 				/* ------ */
 
+			);
+
+	if($use_builder_layout_row_data){  
+
+		$fields[] = array(
+			'key' => 'key__r_wpbc_template_args',
+			'label' => __('Dynamic Template Arguments', 'bootclean'),
+			'name' => 'args',
+			'type' => 'repeater',
+			'instructions' => 'Arguments passed will be accesible on template part file by: wpbc_get_template_part_row_args($args).',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
+			'collapsed' => '',
+			'min' => 0,
+			'max' => 0,
+			'layout' => 'block',
+			'button_label' => __('Add Argument','bootclean'),
+			'sub_fields' => $layout_row_data_sub_fields,
 		);
 	} // if enabled by filter END 
 	// Dynamic Template Arguments END
@@ -476,6 +539,8 @@ function wpbc_get_template_part_row_args($ar=''){
 					if($v['args_type'] == 'file') $passed_args[$v['args_key']] = $v['args_value__file'];
 					if($v['args_type'] == 'html') $passed_args[$v['args_key']] = $v['args_value___html'];
 					if($v['args_type'] == 'gallery') $passed_args[$v['args_key']] = $v['args_value___gallery'];
+					if($v['args_type'] == 'template') $passed_args[$v['args_key']] = $v['args_value___template'];
+					if($v['args_type'] == 'post_object') $passed_args[$v['args_key']] = $v['args_value___post_object'];
 				} 
 			}
 			$passed_args = apply_filters('wpbc/get/template/part/row/template_args', $passed_args, $post_id); 
@@ -519,6 +584,13 @@ function wpbc_get_template_part_row_template_args($args){
 			if($value['field_wpbc_template_args_type'] == 'gallery'){
 				$v = $value['field_wpbc_template_args_value__gallery'];
 			} 
+			if($value['field_wpbc_template_args_type'] == 'template'){
+				$v = $value['field_wpbc_template_args_value__template'];
+			} 
+			if($value['field_wpbc_template_args_type'] == 'post_object'){
+				$v = $value['field_wpbc_template_args_value__post_object'];
+			} 
+
 			$passed_args[$value['field_wpbc_template_args_key']] = $v;
 		} 
 	} 

@@ -151,17 +151,31 @@ function wpbc_dashboard_welcome(){
 
 			$response = wp_check_php_version(); 
 			echo '<li>';
-	    if ( ! $response ) {
-	      echo $icon_yes.' PHP_VERSION '.PHP_VERSION;
-	    }else{ 
-	    	echo $icon_warning.' PHP_VERSION '.PHP_VERSION.'<br>';
-	    	if ( isset( $response['is_secure'] ) && ! $response['is_secure'] ) {
-		    	echo '<br>Your site is running on an insecure version of PHP.'; 
-		    } else {
-		    	echo '<br>Your site is running on an outdated version of PHP.'; 
-		    }
-		    echo "<br>Recomended version: ".$response['recommended_version']." | Minimum version: ".$response['minimum_version']."";
-	    } 
+
+			if( empty($response) ){
+				echo $icon_warning.' PHP_VERSION '.PHP_VERSION;
+			}else{
+
+				if( !empty($response['is_supported']) ){
+					$php_v_msg = $icon_yes.' PHP_VERSION '.PHP_VERSION;
+				}else{
+					$php_v_msg = $icon_warning.' PHP_VERSION '.PHP_VERSION.'<br>';
+					$php_v_msg .= 'Your site is running on an not supported version of PHP.';
+				}
+
+				if( empty($response['is_supported']) ){
+					$php_v_msg .= "<br>Recomended version: ".$response['recommended_version']." | Minimum version: ".$response['minimum_version']."";
+				}
+				if( empty($response['is_secure']) ){
+					$php_v_msg .= '<br>Your site is running on an not secure version of PHP.';
+				}
+				if( empty($response['is_acceptable']) ){
+					$php_v_msg .= '<br>Your site is running on an not acceptable version of PHP.';
+				} 
+
+				echo $php_v_msg; 
+			} 
+			
 	    echo '</li>';
 	    
  

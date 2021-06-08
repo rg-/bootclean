@@ -42,19 +42,27 @@
 				dynamic_sidebar( $secondary_area_widget );
 			} 
 		} 
+		
 	}else{  
 
 		$post_id = WPBC_layout__get_id(); 
-		$post_id = apply_filters('wpbc/filter/layout/secondary-content/post_id',$post_id); 
-		WPBC_get_template_builder_rows($post_id, 'key__flexible_secondary_content_rows_'.$content_area_index, $name);
+		$post_id = apply_filters('wpbc/filter/layout/secondary-content/post_id',$post_id, $content_area_index); 
+
+		$template_id= apply_filters('wpbc/filter/layout/secondary-content/template_id', null, $content_area_index); 
+ 
+		if(!empty($template_id)){ 
+			echo do_shortcode('[WPBC_get_template id="'.$template_id.'"/]');
+		}else{ 
+			WPBC_get_template_builder_rows($post_id, 'key__flexible_secondary_content_rows_'.$content_area_index, $name);
+		}
+		
 	}
 
-	$widget_output = ob_get_clean();
-	$widget_output = apply_filters('wpbc/filter/layout/secondary-content/widget_output',$widget_output);
+	$widget_output = ob_get_clean(); 
+	$widget_output = apply_filters('wpbc/filter/layout/secondary-content/widget_output',$widget_output, $content_area_index);
 	if(!empty($widget_output)){
 		echo $widget_output;
-	}else{ 
-
+	}else{  
 		if(!empty($defaults_widgets)){
 			foreach ($defaults_widgets as $widget) {
 				if(is_active_sidebar( $widget ) ){
@@ -65,18 +73,21 @@
 			if( is_user_logged_in() && current_user_can( 'manage_options' ) ){ 
 			$wp_registered_sidebars = $GLOBALS['wp_registered_sidebars']; 
 			$name_to_id = 'widget_'.str_replace('-', '_', $name); 
-			?>
-			<div class="widget-box">
-				<p><?php _e('There are no widgets used for:', 'bootclean'); ?></p>
-				<h5 class="section-title gmb-2"><?php echo $wp_registered_sidebars[$name_to_id]['name']; ?></h5>
-				<p><a target="_blank" class="btn btn-primary btn-sm" href="<?php echo get_admin_url(); ?>/widgets.php"><?php _e('Manage your Widgets', 'bootclean'); ?></a></p>
-			</div>
-			<?php
+			 
+			if(is_active_sidebar( $name_to_id ) ){
+				dynamic_sidebar( $name_to_id );
+			}else{
+				?>
+				<div class="widget-box">
+					<p><?php _e('There are no widgets used for:', 'bootclean'); ?></p>
+					<h5 class="section-title gmb-2"><?php echo $wp_registered_sidebars[$name_to_id]['name']; ?></h5>
+					<p><a target="_blank" class="btn btn-primary btn-sm" href="<?php echo get_admin_url(); ?>/widgets.php"><?php _e('Manage your Widgets', 'bootclean'); ?></a></p>
+				</div>
+				<?php
+				}
 			}
 			
-		}
-
-
+		} 
 		
 	}
 

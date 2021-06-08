@@ -5,9 +5,7 @@ function WPBC_group_builder__layout($fields = array()){
 	return apply_filters('WPBC_group_builder__layout', $fields);
 }  
 
-function WPBC_group_builder__layout_posts_page($fields = array()){  	
-	return apply_filters('WPBC_group_builder__layout_posts_page', $fields);
-} 
+
 
 /*
 

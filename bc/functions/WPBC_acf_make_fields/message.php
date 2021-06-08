@@ -1,10 +1,12 @@
 <?php
 function WPBC_acf_make_message_field($args){
+	if(empty($args['key'])){
+		$args['key'] = 'field_'.$args['name'];
+	}
 	if(empty($args['key'])) return;
 	$defaults = array (
 		'key' => 'field_key',
-		'label' => 'Message Field',
-		'name' => '',
+		'label' => 'Message Field', 
 		'type' => 'message',
 		'instructions' => '',
 		'required' => 0,

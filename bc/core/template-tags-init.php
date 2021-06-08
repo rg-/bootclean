@@ -55,7 +55,7 @@ add_filter('wpbc/filter/layout/start/defaults', function($template_args){
 
 	if( 'single-post' == $WPBC_get_template ){
 		$container = WPBC_get_layout_main_content_classes('single-post'); 
-	}
+	} 
 
 	if( 'page' == $WPBC_get_template ){
 		$container = WPBC_get_layout_main_content_classes('page');  

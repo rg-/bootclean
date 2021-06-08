@@ -17,31 +17,7 @@ if( function_exists('acf_add_local_field_group') ){
 		
 	*/   
 
-	$WPBC_group_builder__layout_posts_page = WPBC_group_builder__layout_posts_page(); 
-	$WPBC_group_builder__layout_posts_page_locations = array( 
-		array(
-			array(
-				'param' => 'page_type',
-				'operator' => '==',
-				'value' => 'posts_page',
-			), 
-		),
-	); 
-
-	acf_add_local_field_group(array( 
-		'key' => 'group_builder__layout_posts_page',
-		'title' => 'Posts & Archive Layout Settings',
-		'fields' => $WPBC_group_builder__layout_posts_page,
-		'location' => $WPBC_group_builder__layout_posts_page_locations,
-		'menu_order' => 2,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => ( !empty( $WPBC_group_builder__layout_posts_page ) ? 1 : 0 ),
-		'description' => '',
-	)); 
+	 
 
 	$WPBC_group_builder__layout = WPBC_group_builder__layout(); 
 	$WPBC_group_builder__layout_locations = array( 

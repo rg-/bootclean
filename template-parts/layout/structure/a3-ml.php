@@ -53,7 +53,7 @@ $args['main_container']['a3-ml'] = array(
 
 					'content-area' => array(
 						'name' => 'area-2',
-						'shortcode' => '[WPBC_get_template name="layout/secondary-content" args="area-id: 2"/]',
+						'shortcode' => '[WPBC_get_template name="layout/secondary-content" args="name:area-2"/]',
 					), 
 				),
 

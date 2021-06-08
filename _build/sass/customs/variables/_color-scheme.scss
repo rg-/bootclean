@@ -4,6 +4,16 @@
 
 $primary: #151719 !default;
 $secondary: #6c757d !default;
+
+$body-bg: #ffffff !default;
+$body-color: #212529 !default;
+
+$theme-colors: () !default;
+$theme-colors: map-merge((
+  "body-bg":    $body-bg,
+  "body-color":  $body-color
+), $theme-colors);
+
 // stylelint-disable
 
 /*

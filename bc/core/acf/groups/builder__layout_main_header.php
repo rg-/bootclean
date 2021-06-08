@@ -52,10 +52,9 @@ function WPBC_group_builder__layout__main_header($fields){
 
 	$fields[] = array (
 		'key' => 'field_layout_header_template',
-		'label' => 'Page Header Template',
+		'label' => __('Template','bootclean'),
 		'name' => 'layout_header_template',
-		'type' => 'select',
-		'instructions' => 'Choose template to use', 
+		'type' => 'select', 
 		'wrapper' => array (
 			'width' => '20%', 
 		),
@@ -84,7 +83,7 @@ add_filter('WPBC_group_builder__layout', 'WPBC_group_builder__layout__main_heade
 function WPBC_group_builder__layout__main_header_class($fields){ 
 	$fields[] = WPBC_acf_make_text_field(array(
 		'name' => 'layout_header_template_class', 
-		'label' => __('Page Header Class','bootclean'),
+		'label' => __('Class','bootclean'),
 		'class' => '',
 		'width' => '30%',
 		'conditional_logic' => array (

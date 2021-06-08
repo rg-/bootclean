@@ -50,7 +50,10 @@ if( !is_page_template('_template_builder.php') ){ ?>
 		if(is_404()){
 			$t = '404';
 		}
+		do_action('wpbc/layout/inner/content/loop/before');
+		echo "<!-- TEMPLATE TO USE: ".$t." -->"; 
 		get_template_part( 'template-parts/content', $t ); 
+		do_action('wpbc/layout/inner/content/loop/after'); 
 	} 
 	wp_reset_query(); 
 	?>
@@ -58,5 +61,6 @@ if( !is_page_template('_template_builder.php') ){ ?>
 		do_action('wpbc/layout/inner/content/after');
 	?>
 <?php } else {
+	echo "<!-- template-parts/layout/main-content-builder.php -->";
 	get_template_part('template-parts/layout/main-content-builder');
 } ?>

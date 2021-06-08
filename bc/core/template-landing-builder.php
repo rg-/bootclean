@@ -34,6 +34,8 @@ if($use_wpbc_template_landing){
 			);
 		$default_section = apply_filters('wpbc/filter/template-landing/default_section', $default_section );
 		$build_sections = array();
+		$top_section = apply_filters('wpbc/filter/template-landing/top_section', array() );
+		$build_sections[] = $top_section;
 		$build_sections[] = $default_section;
 		$build_sections = apply_filters('wpbc/filter/template-landing/build_sections', $build_sections);
 		foreach ($build_sections as $key => $value) { 

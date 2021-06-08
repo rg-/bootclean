@@ -1,5 +1,5 @@
 <?php
-function WPBC_post_breadcrumb($args=''){
+function WPBC_post_breadcrumb($args=''){ 
 
   $args = wp_parse_args( $args, apply_filters('wpbc/filter/post_breadcrumb/args', $args) ); 
 
@@ -18,6 +18,8 @@ function WPBC_post_breadcrumb($args=''){
   $currentBefore = isset($args['currentBefore']) ? $args['currentBefore'] : '<span class="current">';
   $currentAfter = isset($args['currentAfter']) ? $args['currentAfter'] : '</span>';
  
+
+  $include_cat = isset($args['include_cat']) ? $args['include_cat'] : false; 
   if ( /*!is_home() && !is_front_page() &&*/ !is_attachment() || is_paged() ) {
  
     echo '<div class="breadcrumb '.$addclass.'">';
@@ -33,15 +35,10 @@ function WPBC_post_breadcrumb($args=''){
   }
  
     if ( is_archive() || is_category() || is_tax() ) {
-      global $wp_query;
-      $cat_obj = $wp_query->get_queried_object();
-      $thisCat = $cat_obj->term_id; 
-      $thisCat = get_category($thisCat);
-      $parentCat = get_category($thisCat->parent);
-      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
-      echo $currentBefore . $title_cats .' '. $quote;
+      
+      echo $currentBefore;
       single_cat_title();
-      echo $quote . $currentAfter;
+      echo $currentAfter;
  
     } elseif ( is_day() ) {
       echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
@@ -56,14 +53,16 @@ function WPBC_post_breadcrumb($args=''){
       echo $currentBefore . get_the_time('Y') . $currentAfter;
  
     } elseif ( is_single() ) {
-    
-      $cat = get_the_category(); $cat = $cat[0];
-      if ( $cat->parent != 0 ) {
-        $parent_category = get_category( $cat->parent );
-        echo get_category_parents($parent_category, TRUE, ' ' . $delimiter . ' ' ); 
-      } else {
-        the_category($delimiter);
-        echo $delimiter; 
+      
+      if($include_cat){
+        $cat = get_the_category(); $cat = $cat[0];
+        if ( $cat->parent != 0 ) {
+          $parent_category = get_category( $cat->parent );
+          echo get_category_parents($parent_category, TRUE, ' ' . $delimiter . ' ' ); 
+        } else {
+          the_category($delimiter);
+          echo $delimiter; 
+        }
       }
        
       echo $currentBefore;

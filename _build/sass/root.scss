@@ -17,6 +17,9 @@
   //  --#{$color}: #{$value};
   }
 
+  --body-bg: #{$body-bg};
+  --body-color: #{$body-color};
+
   @each $color, $value in $theme-colors {
     --#{$color}: #{$value};
   }
@@ -31,6 +34,8 @@
   --font-family-monospace: #{inspect($font-family-monospace)};
 }
 :root_colors { 
+  --body-bg: #{$body-bg};
+  --body-color: #{$body-color};
 	@each $color, $value in $theme-colors {
 		--#{$color}: #{$value};
 	}

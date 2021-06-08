@@ -34,7 +34,7 @@ function WPBC_acf_make_gallery_advanced_field($args,$is_registered_option=false)
 		'max_size' => '',
 		'mime_types' => '',
 
-		'button_label' => 'Add',
+		'button_label' => __('Add image','bootclean'),
 		'columns' => 4,
 		'preview_size' => 'medium'
 	);

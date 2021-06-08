@@ -26,7 +26,7 @@
 
 function WPBC_acf_make_fields__filter($field, $args){
 	if(!empty($args['class'])){
-		if(empty($args['wrapper']['class'])){
+		if(empty($field['wrapper']['class'])){
 			$field['wrapper']['class'] = $args['class'];
 		}else{
 			$field['wrapper']['class'] .= ' '.$args['class'];

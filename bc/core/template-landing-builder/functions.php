@@ -30,6 +30,7 @@ function WPBC_template_landing_build_section($args=array()){
 			'id' => !empty($args['id']) ? $args['id'] : '',
 			'class' => !empty($args['class']) ? $args['class'] : '',
 			'attrs' => !empty($args['attrs']) ? $args['attrs'] : '',
+			'next' => !empty($args['next']) ? $args['next'] : '',
 			'acf' => !empty($args['acf']) ? $args['acf'] : '',
 			//'acf_field' => WPBC_get_field($args['acf']['group_id'], $post_id),
 		);
@@ -89,7 +90,8 @@ function WPBC_template_landing_build_section($args=array()){
 
 function WPBC_template_landing__get_sections(){
 	$sections = array();
-	$sections = apply_filters('wpbc/filter/template-landing/sections', $sections);
+	$sections = apply_filters('wpbc/filter/template-landing/sections', $sections); 
+
 	return $sections;
 }
 
@@ -98,7 +100,7 @@ function WPBC_template_landing__main_pageheader(){
 }
 
 function WPBC_template_landing__main_container($get_page_header=false, $post_id=false){   
-
+	
 	global $post;
 
 	if($post_id){
@@ -110,28 +112,45 @@ function WPBC_template_landing__main_container($get_page_header=false, $post_id=
 	
 	$sections = WPBC_template_landing__get_sections();
 
-	if($sections[0]['id']=='main-page-header' && !$get_page_header){
-		unset($sections[0]);	
+	foreach ($sections as $key => $value) {
+		if(!empty($value['acf']['not_front_end'])){
+			unset($sections[$key]); 
+		} 
+	}
+	
+	$section_temp = array();
+	if(!$get_page_header){
+		foreach ($sections as $key => $value) {
+			if( $value['id'] != 'main-page-header' ){
+				$section_temp[] = $value;
+			} 
+		}
+	}else{
+		foreach ($sections as $key => $value) {
+			if( $value['id'] == 'main-page-header' ){
+				$section_temp[] = $value;
+			} 
+		}
+	} 
+
+	if($section_temp[0]['id']=='main-page-header' && !$get_page_header){ 
 		$count = 1;
 	}else{
 		$count = 0;
 	}
-
-	if( !empty($sections[0]['id']) && $sections[0]['id']=='main-page-header' && $get_page_header){ 
-		$sections = array($sections[0]); 
-	}
-	//_print_code($sections); 
+ 
+	// 
 	
-	if(!empty($sections) && $make_sections){ 
+	if(!empty($section_temp) && $make_sections){ 
  		
- 		do_action('wpbc/layout/sections/start', $sections, $get_page_header);
+ 		do_action('wpbc/layout/sections/start', $section_temp, $get_page_header);
 
-		foreach ($sections as $k=>$v){
+		foreach ($section_temp as $k=>$v){
 			$args = array(); 
 			$args['id'] = $v['id'];
 			$args['class'] = $v['class'];
 			$args['attrs'] = $v['attrs'];
-			$args['next'] = (!empty($v['next'])) ? $v['next'] : ( !empty($sections[$count+1]['id']) ? $sections[$count+1]['id'] : '' );
+			$args['next'] = (!empty($v['next'])) ? $v['next'] : ( !empty($section_temp[$count+1]['id']) ? $section_temp[$count+1]['id'] : '' );
 
 			if(!empty($v['acf_field'])){ 
 				$args['acf_field'] = $v['acf_field'];  
@@ -159,7 +178,7 @@ function WPBC_template_landing__main_container($get_page_header=false, $post_id=
 			$count++; 
 		} 
 
-		do_action('wpbc/layout/sections/end', $sections, $get_page_header);
+		do_action('wpbc/layout/sections/end', $section_temp, $get_page_header);
 
 	}
 }
@@ -240,8 +259,33 @@ function WPBC_template_landing__section_slider($args, $items, $type='inline'){
 	<?php
 }
 
-function WPBC_template_landing__section_next($next, $class='text-primary', $text='<i class="icon-arrow-down"></i>'){
-?>
-<a class="btn-section-next scroll-to <?php echo $class;?>" href="#<?php echo $next;?>"><?php echo $text;?></a>
-<?php
-} 
+if(!function_exists('WPBC_template_landing__section_next')){
+	function WPBC_template_landing__section_next(
+		$next, 
+		$class='btn btn-primary', 
+		$text='<i class="icon-arrow-down"></i>'){
+	?>
+	<a class="btn-section-next scroll-to <?php echo $class;?>" href="#<?php echo $next;?>">
+		<?php echo $text;?>
+	</a>
+	<?php
+	} 
+}
+if(!function_exists('WPBC_template_landing__section_next_shortcode')){
+	add_shortcode ('btn_section_next', 'WPBC_template_landing__section_next_shortcode' );
+	function WPBC_template_landing__section_next_shortcode($atts, $content = null){
+		$defs = array(
+	    'next' => '',
+	    'class' => 'btn btn-primary',
+	    'label' => 'Next',
+	  ); 
+	  $args = shortcode_atts($defs, $atts);
+	  
+	  $out = '';
+	  if(!empty($args['next'])){
+	    $out = '<a class="btn-section-next scroll-to '.$args['class'].'" href="#'.$args['next'].'">'.$args['label'].'</a>';
+	  }
+
+	  return $out;  
+	}
+}

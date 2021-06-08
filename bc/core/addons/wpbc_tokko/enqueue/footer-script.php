@@ -63,32 +63,40 @@
 				var prices = val.split("|");
 				var price_from = prices[0];
 				var price_to = prices[1];
-				console.log( 'price_from '+price_from );
-				console.log( 'price_to '+price_to );
+				//console.log( 'price_from '+price_from );
+				//console.log( 'price_to '+price_to );
 				data_json.price_from = price_from;
 				data_json.price_to = price_to;
 			}
 
 			// property_types
 			if($(this).hasClass('ui-tokko-property_types')){ 
-				
-				if( $(this).val()!=0 ){
-					data_json.property_types = [$(this).val()];
+				var value = $(this).val();  
+				if( value!=0 ){ 
+					if( $(this).prop('multiple') === false ){
+						var splitted = value.split(',');  
+					}else{
+						var splitted = value;
+					} 
+					data_json.property_types = splitted;
 				}else{
 					data_json.property_types = [];
-				}  
-
+				} 
 			}
 
 			// operation_types
-			if($(this).hasClass('ui-tokko-operation_types')){
- 
-				if( $(this).val()!=0 ){
-					data_json.operation_types = [$(this).val()];
+			if( $(this).hasClass('ui-tokko-operation_types') ){ 
+ 				var value = $(this).val();  
+				if( value!=0 ){ 
+					if( $(this).prop('multiple') === false ){
+						var splitted = value.split(',');  
+					}else{
+						var splitted = value;
+					} 
+					data_json.operation_types = splitted;
 				}else{
 					data_json.operation_types = [];
-				}   
-
+				} 
 			}
 
 			// order_by

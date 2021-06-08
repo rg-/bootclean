@@ -90,7 +90,7 @@ require BC_WP_DIR . 'core/bootstrap.php';
 	ACF Things
 */
 function WPBC_get_field($field, $id=''){
-	if(function_exists('get_field')){
+	if(function_exists('get_field')){ 
 		return get_field($field, $id) ? get_field($field, $id) : '';
 	}else{
 		if($id!='options'){

@@ -91,6 +91,10 @@ function WPBC_template_builder(){
 		'not_found_in_trash' => __( 'No Template found in Trash.', 'bootclean' )
 	);
 	
+	$publicly_queryable = false;
+	if ( current_user_can( 'manage_options' ) ) {
+	    $publicly_queryable = true;
+	}
 	register_post_type(
 		WPBC_template_builder__post_type_name(), 
 		array(
@@ -100,7 +104,7 @@ function WPBC_template_builder(){
 			'has_archive' => false,
 			'hierarchical' => false,
 			'show_in_nav_menus' => false,
-			'publicly_queryable' => false, // hide from front end
+			'publicly_queryable' => $publicly_queryable, // hide from front end
 			'exclude_from_search' => true,
 			'query_var' => false,
 			'supports' => WPBC_template_builder__post_type_supports(),

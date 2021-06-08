@@ -15,7 +15,7 @@
 	
 	<footer class="entry-footer">
 		<?php get_template_part( 'template-parts/post_share' ); ?>
-		<?php get_template_part( 'template-parts/entry_date' ); ?>
+		
 		<?php get_template_part( 'template-parts/entry_meta' ); ?>
 		<?php get_template_part( 'template-parts/link_pages' ); ?>
 		<?php get_template_part( 'template-parts/edit_post_link' ); ?>

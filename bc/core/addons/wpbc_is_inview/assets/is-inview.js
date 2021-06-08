@@ -16,6 +16,9 @@
 
       var defaults = {
 
+        'target': $(window),
+        'is_window': true,
+
         'offset': $('body').data('is-inview-offset') ? $('body').data('is-inview-offset') : 0,
         'offsetTop': $('body').data('is-inview-offsetTop') ? $('body').data('is-inview-offsetTop') : 0,
         'offsetBottom': $('body').data('is-inview-offsetBottom') ? $('body').data('is-inview-offsetBottom') : 0,
@@ -530,8 +533,8 @@
         /*
         Should i use/move thing into settings and also let data-* or ? to define those things globaly
         */
-        var trigger_to = $(window); 
-        var is_window = true; 
+        var trigger_to = defaults.target; 
+        var is_window = defaults.is_window; 
 
         var closest_target = me.closest('[data-is-inview-holder]');
         if($(closest_target).length>0){ 

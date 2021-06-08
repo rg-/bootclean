@@ -48,7 +48,10 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 	if($layout=='main_navbar'){
 		$title = 'Main Navbar';
 		$temp = WPBC_layout__main_navbar_defaults($id);
-		$if = WPBC_if_has_main_navbar($id);
+		$if = WPBC_if_has_main_navbar($id);  
+		if( $temp['use_custom_template'] == 'none' ){
+			$if = 2;
+		}
 	}
 	if($layout=='main_page_header'){
 		$title = 'Page Header'; 
@@ -69,7 +72,7 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 
   if( !empty($if) ){
 		if( $if == 2 ){
-			$t_out = 'Not used';
+			$t_out = '<i style="color:red">'.__('Not used','bootclean').'</i>';
 		}else{ 
 			if( $if == 3 ){
 				$header_template_type = WPBC_get_field('layout_header_template_type', $id);
@@ -149,49 +152,73 @@ function wpbc_get_template_settings_for_columns($layout, $id){
 	Admin Columns for Page post type
 
 */
-add_filter( 'manage_pages_columns', 'wpbc_manage_pages_columns' );
+add_filter( 'manage_pages_columns', 'wpbc_manage_pages_columns',10,1 );
 add_action( 'manage_pages_custom_column', 'wpbc_manage_pages_custom_column', 5, 2 );
 
 function wpbc_manage_pages_columns( $defaults ) { 
-   $defaults['template-layout'] = __('Template used', 'bootclean'); 
-   $defaults['template-settings'] = __('Layout', 'bootclean'); 
+   $defaults['template-layout'] = __('Template/Layout', 'bootclean'); 
+   $defaults['template-settings'] = __('Main Elements', 'bootclean'); 
    $defaults['featured-image'] = __('Featured Image', 'bootclean'); 
    return $defaults;
 }
 
 function wpbc_manage_pages_custom_column( $column_name, $id ){
 
-	if ( $column_name === 'template-layout' ) {
+	if ( $column_name === 'template-layout' ) { 
 
+				/*
+				Get the WP template used
+				*/	
 		   $set_template = get_post_meta( $id, '_wp_page_template', true ); 
 		   if ( empty($set_template) || $set_template == 'default' ) {
-			   echo 'Default';
+			   $page_template = 'Default';
 		   }
 		   $templates = get_page_templates();
 		   ksort( $templates );
 		   foreach ( array_keys( $templates ) as $template ) :
-			   if ( $set_template == $templates[$template] ) echo $template;
+			   if ( $set_template == $templates[$template] ) $page_template = $template;
 		   endforeach; 
 
-		  wpbc_get_template_settings_for_columns('ajax_navigation', $id);
-   		
+		   echo '<small style="font-size:9px;">TEMPLATE:</small> <small class="text-success">'.$page_template.'</small><br>';
+
+		   /* ONLD THING, REMOVE UP TO V 12.0.0.0*/
+		  	wpbc_get_template_settings_for_columns('ajax_navigation', $id);
+
+		  $using_settings = WPBC_get_layout_using_settings('main_container');
+
+		  $layout = WPBC_get_layout_structure_build_layout($id);
+		  $layout_defaults = WPBC_layout_struture__defaults();
+			$layout_args = WPBC_filter_layout_structure_build( $layout_defaults );
+			
+			$img_path = get_template_directory_uri();  
+ 
    		$custom_layout__enable = WPBC_get_field('custom_layout__enable', $id);
-	   	if($custom_layout__enable){
-				$layout = WPBC_get_layout_structure_build_layout($id);
-				$layout_defaults = WPBC_layout_struture__defaults();
-				$layout_args = WPBC_filter_layout_structure_build( $layout_defaults );
-
-				$container_type = $layout_args['main_container'][$layout]['container_type']; 
-				$img_path = get_template_directory_uri();
-
-				$layout_icon = $img_path.'/template-parts/layout/structure/'.$layout.'.png';
-				$container_icon = $img_path.'/bc/core/assets/images/layout_'.$container_type.'.png';
-			   
-			   //echo WPBC_get_field('custom_layout__custom_location', $id);
-
-			   echo '<br><small>Container <small>'.$container_type.'</small>:<br> <img src="'.$container_icon.'" width="30" /></small>'; 
-			   echo '<br><small>Layout <small>'.$layout.'</small>:<br> <img src="'.$layout_icon.'" width="30" /></small>';  
+	   	if($custom_layout__enable){ 
+			   $container_type = $layout_args['main_container'][$layout]['container_type']; 
+			   //echo WPBC_get_field('custom_layout__custom_location', $id); 
+		   }else{
+		   	  $container_type = $layout_defaults['main_container'][$layout]['container_type'];
 		   }
+
+
+		   $layout_icon = $img_path.'/template-parts/layout/structure/'.$layout.'.png';
+			 $container_icon = $img_path.'/bc/core/assets/images/layout_'.$container_type.'.png';
+
+			 if( $using_settings == 'from_acf_options' ){
+			 	$settings = 'Custom settings';
+			 }
+			 if( $using_settings == 'from_theme' ){
+			 	$settings = 'Default options';
+			 } 
+
+			 echo '<small style="font-size:9px;">SETTINGS:</small> <small class="text-success">'.$settings.'</small><br>';
+		   
+		   echo '<div style="display:flex; flex-direction:row;">';
+		   echo '<small style="font-size:9px; padding-right:20px;">LAYOUT:<br>'.'<img src="'.$layout_icon.'" width="30" title="'.$layout.'" /></small><br>';
+ 			 
+ 			 echo '<small style="font-size:9px; ">CONTAINER:<br>'.'<img src="'.$container_icon.'" width="30" title="'.$container_type.'" /></small><br>';
+ 			 echo '</div>';
+
    } // 'template-layout' END 
 
    if ( $column_name === 'template-settings' ) { 

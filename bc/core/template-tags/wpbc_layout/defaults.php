@@ -126,6 +126,7 @@ function WPBC_if_has_layout($layout,$id){
 		}else{
 			$return = 0;
 		}
+		
 	}
 
 	//_print_code($temp);
@@ -181,6 +182,7 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 		
 		}else{ 
 
+			/*
 			$template = WPBC_get_template();
 			$page_for_posts = get_option( 'page_for_posts' ); 
 			if( 'single' == $template ){ 
@@ -195,6 +197,7 @@ function WPBC_layout__main_page_header_defaults($post_id=''){
 			if( 'archive' == $template ){ 
 				$template_ID = WPBC_get_field('layout_header_template_archive', $page_for_posts);  
 			} 
+			*/
 
 		}
 

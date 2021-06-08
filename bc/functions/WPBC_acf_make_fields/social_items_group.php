@@ -15,6 +15,7 @@ function WPBC_acf_make_social_items_group_field($args,$is_registered_option=fals
 					'twitter' => 'Twitter', 
 					'linkedin' => 'Linkedin', 
 					'whatsapp' => 'Whatsapp',
+					'location' => 'Location',
 				),
 				'default_value' => !empty($args['default_type']) ? $args['default_type'] : 'facebook',
 				'width' => '20%',

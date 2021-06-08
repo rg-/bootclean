@@ -42,11 +42,11 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 			
 			$enable_post_types = $this->enable_post_types();
 			foreach($enable_post_types as $post_type){
-				add_filter( $post_type.'_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
+				//add_filter( $post_type.'_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
 			}
 			
-			//add_filter( 'post_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
-			//add_filter( 'page_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
+			add_filter( 'post_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
+			add_filter( 'page_row_actions', array($this, 'bc_duplicate_post_link'), 10, 2 );
 			
 			/* TODO
 				
@@ -135,7 +135,10 @@ if( ! class_exists('bc_duplicate_posts') && $use_wpbc_duplicate_post ) :
 		
 		// bc_duplicate_post_link
 		function bc_duplicate_post_link( $actions, $post ) {
-			if ( current_user_can('edit_posts') && get_post_type($post)!='acf-field-group' ) { 
+
+			$enable_post_types = $this->enable_post_types();
+
+			if ( current_user_can('edit_posts') && get_post_type($post)!='acf-field-group' && in_array(get_post_type($post), $enable_post_types) ) { 
 				$actions['duplicate'] = '<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $post->ID . '" title="Duplicate this post" rel="permalink">Duplicate</a>';
 			}
 			return $actions;

@@ -619,29 +619,29 @@ function WPBC_get_slick_default_args(){
 			'default'=> 1
 		),
 
-		array(
-			'key'=> 'adaptiveHeight',
-			'type'=> 'true_false',
-			'default'=> 0	
-		),
+				array(
+					'key'=> 'adaptiveHeight',
+					'type'=> 'true_false',
+					'default'=> 0	
+				),
 
-		array(
-			'key'=> 'autoplay',
-			'type'=> 'true_false',
-			'default'=> 0	
-		),
+				array(
+					'key'=> 'autoplay',
+					'type'=> 'true_false',
+					'default'=> 0	
+				),
 
-		array(
-			'key'=> 'autoplaySpeed',
-			'type'=> 'number',
-			'default'=> '3000'	
-		),
+				array(
+					'key'=> 'autoplaySpeed',
+					'type'=> 'number',
+					'default'=> '3000'	
+				),
 
-		array(
-			'key'=> 'arrows',
-			'type'=> 'true_false',
-			'default'=> 1	
-		),
+				array(
+					'key'=> 'arrows',
+					'type'=> 'true_false',
+					'default'=> 1	
+				),
 
 		array(
 			'key'=> 'asNavFor',
@@ -697,11 +697,11 @@ function WPBC_get_slick_default_args(){
 			'default'=> 'n/a'	
 		),
 
-		array(
-			'key'=> 'dots',
-			'type'=> 'true_false',
-			'default'=> 0	
-		),
+				array(
+					'key'=> 'dots',
+					'type'=> 'true_false',
+					'default'=> 0	
+				),
 
 		array(
 			'key'=> 'dotsClass',
@@ -715,11 +715,11 @@ function WPBC_get_slick_default_args(){
 			'default'=> 1	
 		),
 
-		array(
-			'key'=> 'fade',
-			'type'=> 'true_false',
-			'default'=> 0	
-		),
+				array(
+					'key'=> 'fade',
+					'type'=> 'true_false',
+					'default'=> 0	
+				),
 
 		array(
 			'key'=> 'focusOnSelect',

@@ -20,7 +20,7 @@ $prefix = 'field_ui-tokko-searchform_';
 		   $linked_results_url = $row[$prefix.'linked_results_url'];   
 
 		   $template = $row[$prefix.'template'];   
-
+		   
 		WPBC_get_template_part('wpbc_tokko/form', array(
 			'post_id' => $post_id,
 			'row_index' => $row_index, 

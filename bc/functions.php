@@ -29,9 +29,16 @@ function WPBC_version_compare($v){
 function WPBC_get_template_part($template, $args=''){ 
 	$temp = WPBC_include_template_part($template);
 	if($temp){
-		include($temp);
-	}
-
+		if( !empty($args) && is_array($args) && !empty($args['return'])){
+			ob_start(); 
+			include($temp);
+			$content = ob_get_contents();
+			ob_end_clean();
+			return $content;
+		}else{
+			include($temp);
+		} 
+	} 
 }
 function WPBC_include_template_part($template){
 	
@@ -400,8 +407,8 @@ function BC_apply_filters($fn, $a){
 	} 
 }
 
-function _print_code($args){
-	?><pre class="gp-1" style="border:2px solid var(--primary);">
+function _print_code($args, $color='#000'){
+	?><pre class="gp-1" style="border:2px solid var(--primary); color:<?php echo $color; ?>;">
 <code>
 <?php 
 if(!empty($args)){print_r($args);}else{echo "! empty result :(";} 
@@ -528,7 +535,25 @@ function WPBC_get_theme_settings_args($key=''){
 
 include ('functions/WPBC_get_svg.php');
 include ('functions/WPBC_acf_get__fx.php');
+
+/*
+ *
+ *Auto include from /WPBC/ folder
+ *
+ */
+
+$WPBC_functions = BC_ABSPATH.'/functions/WPBC/*.php';
+foreach (glob($WPBC_functions) as $filename) {
+  include $filename;
+} 
+
+/*
+ *
+ *Auto include from /WPBC_acf_make__fields/ folder
+ * 
+ */
+
 include ('functions/WPBC_acf_make__fields.php');
 
 
-include ('functions/WPBC_build_lazyloader_image.php');
+include ('functions/WPBC_build_lazyloader_image.php'); 

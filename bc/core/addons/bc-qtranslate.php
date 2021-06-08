@@ -81,6 +81,11 @@ if( function_exists('qtranxf_use') && defined('BC_ACF_QTRANSLATEX_ENABLED') && B
 			min-width: inherit;
 			cursor:default!important;
 		} 
+		#qtranxs-meta-box-lsb > .postbox-header,
+		#qtranxs-meta-box-lsb > .inside,
+		#qtranxs-meta-box-lsb .qtranxs-lang-copy{
+			display:none!important;
+		}
 
 		#wpbody-content .qtranxs-lang-switch-wrap{
 			margin: 8px 0 4px!important;
@@ -205,6 +210,23 @@ if( function_exists('qtranxf_use') && defined('BC_ACF_QTRANSLATEX_ENABLED') && B
 		$field['type'] = 'qtranslate_textarea';
 		return $field;	 
 	}
+
+
+	add_filter('acf/load_field', function($field){
+
+		if($field['type'] == 'text' && !empty($field['qtranslate'])){
+			$field['type'] = 'qtranslate_text';
+		}
+		if($field['type'] == 'textarea' && !empty($field['qtranslate'])){
+			$field['type'] = 'qtranslate_textarea';
+		}
+		if($field['type'] == 'wysiwyg' && !empty($field['qtranslate'])){
+			$field['type'] = 'qtranslate_wysiwyg';
+		}
+
+		return $field;
+
+	},100,1);
 	
 	// ACF fields ( could be more to add... TODO, find all of them ) 
 

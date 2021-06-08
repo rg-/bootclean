@@ -1,4 +1,11 @@
 <?php
+/*
+
+	wpbc-acf-flex-field right-label wpbc-true_false-ui wpbc-ui-mini
+
+*/
+
+
 function WPBC_acf_make_true_false_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
 	$defaults = array (

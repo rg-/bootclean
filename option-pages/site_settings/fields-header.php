@@ -16,8 +16,8 @@ function wpbc_theme_settings__header_tab($fields){
 	<path d="M21,11v3H11v-3H21 M22,10H10v5h12V10L22,10z"/>
 </g>
 <g>
-	<rect x="3.5" y="5.5" width="18" height="3"/>
-	<path d="M21,6v2H4V6H21 M22,5H3v4h19V5L22,5z"/>
+	<rect fill="var(--primary)" x="3.5" y="5.5" width="18" height="3"/>
+	<path fill="var(--primary)" d="M21,6v2H4V6H21 M22,5H3v4h19V5L22,5z"/>
 </g>
 <g>
 	<path d="M21,17v1H4v-1H21 M22,16H3v3h19V16L22,16z"/>

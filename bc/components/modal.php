@@ -39,7 +39,7 @@ $modal_footer_content = !empty($modal_args['modal-footer']['content']) ? $modal_
 	<div class="modal-dialog <?php echo $modal_dialog_class; ?>" role="document">
 		<div class="modal-content <?php echo $modal_content_class; ?>">
 			 
-			<?php echo $modal_content_before; ?>
+			<?php echo do_shortcode($modal_content_before); ?>
 
 			<div class="modal-header <?php echo $modal_args['modal-header']['class']; ?>">
         <?php if( !empty($modal_title) ) { ?>
@@ -51,14 +51,14 @@ $modal_footer_content = !empty($modal_args['modal-footer']['content']) ? $modal_
       </div>
 
 	    <div class="modal-body <?php echo $modal_body_class; ?>">
-      	<?php echo $modal_body_content; ?>
+      	<?php echo do_shortcode($modal_body_content); ?>
       </div>
 
       <div class="modal-footer <?php echo $modal_footer_class; ?>">
-      	<?php echo $modal_footer_content; ?>
+      	<?php echo do_shortcode($modal_footer_content); ?>
       </div>
 
-      <?php echo $modal_content_after; ?>
+      <?php echo do_shortcode($modal_content_after); ?>
 
 		</div>
 	</div>

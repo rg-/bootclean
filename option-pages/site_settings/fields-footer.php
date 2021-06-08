@@ -18,7 +18,7 @@ function wpbc_theme_settings__footer_tab($fields){
 <g>
 	<path d="M21,6v2H4V6H21 M22,5H3v4h19V5L22,5z"/>
 </g>
-<rect x="3" y="16" width="19" height="3"/>
+<rect fill="var(--primary)" x="3" y="16" width="19" height="3"/>
 </svg> '._x('Footer','bootclean'), 
 		)
 	); 

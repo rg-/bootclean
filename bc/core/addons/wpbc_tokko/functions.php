@@ -3,6 +3,31 @@
 include('functions/WPBC_get_tokko_searchform.php');
 include('functions/WPBC_tokko_property_features.php');
 
+function WPBC_tokko_if_sale(){
+	if( isset($_REQUEST['data']) ){
+		$search_data = json_decode($bodytag = str_replace("\\", "", $_REQUEST['data']), true);
+		foreach ($search_data['operation_types'] as $operation) {
+			if($operation==1) return true;
+		}
+	}
+}
+function WPBC_tokko_if_rent(){
+	if( isset($_REQUEST['data']) ){
+		$search_data = json_decode($bodytag = str_replace("\\", "", $_REQUEST['data']), true);
+		foreach ($search_data['operation_types'] as $operation) {
+			if($operation==2) return true;
+		}
+	}
+}
+function WPBC_tokko_if_temporary_rent(){
+	if( isset($_REQUEST['data']) ){
+		$search_data = json_decode($bodytag = str_replace("\\", "", $_REQUEST['data']), true);
+		foreach ($search_data['operation_types'] as $operation) {
+			if($operation==3) return true;
+		}
+	}
+}
+
 function WPBC_get_tokko_rewrite_property_url($property){
 	
 	$address = $property->get_field('address');

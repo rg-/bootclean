@@ -1,5 +1,7 @@
 <?php  
-	$debug_mode = false;
+	
+	$debug_mode = apply_filters('wpbc/filter/tokko/form/debug_mode', false);
+
 	$use_query_vars = true;
 
 	global $tokko_in_use;  
@@ -48,6 +50,10 @@
 			'properties_id' => $row[$prefix.'id'], 
 
 		);
+
+		// Used only here, not globaly
+		$nargs = apply_filters('wpbc/filter/tokko/form/args',$nargs);
+
 		$search_defaults = WPBC_get_tokko_search_defaults($nargs);
 
 			$limit = $search_defaults['limit'];
@@ -142,7 +148,7 @@
 <?php } ?>
 
 <?php $form_id = !empty($args['form_id']) ? $args['form_id'] : $args['linked_results_id']; ?>
-<div data-linked-results-id="<?php echo $form_id;?>" data-tokko="searchform-controls" class="ui-tokko-searchform-controls gmy-1">
+<div data-linked-results-id="<?php echo $form_id;?>" data-tokko="searchform-controls" class="ui-tokko-searchform-controls">
 		<?php
 		$template = 'default';
 		if(!empty($args['template'])){

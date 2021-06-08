@@ -12,7 +12,14 @@ function WPBC_get_theme_settings_custom_login_default_args(){
 			'background-size' => '240px auto',
 			'width' => '240px',
 			'height' => '70px',
-		)
+		),
+
+		'btn' => array(
+			'primary-color' => '#007cba',
+			'primary-border' => '#007cba',
+			'primary-background' => '#fff',
+		),
+
 	);
 
 	$args = apply_filters('wpbc/filter/custom_login/default_args', $args); 
@@ -41,6 +48,12 @@ add_action( 'login_head', function(){
 
 	.login #backtoblog a, .login #nav a, a{
 		
+	}
+
+	.wp-core-ui .button-primary{
+		background: <?php echo $args['btn']['primary-background']; ?>;
+    border-color: <?php echo $args['btn']['primary-border']; ?>;
+    color: <?php echo $args['btn']['primary-color']; ?>;
 	}
 
 </style>

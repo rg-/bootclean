@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 add_filter('wpbc/filter/layout/struture', function($args){ 
 	
@@ -34,13 +34,17 @@ add_filter('wpbc/filter/layout/struture', function($args){
 	} 
 	/* NEW v 11.00 */
 
-	/* ACF PART */
+	/* ACF PART */ 
+
 		$using_page_settings = false;
 		$custom_layout__enable = WPBC_get_field('custom_layout__enable');  // TODO all the subfields
+		 
+
 		if(!empty($custom_layout__enable)){ 
+
 			$using_settings = 'from_acf_options'; 
-			$using_page_settings = false;
-			$custom_layout_container_type = WPBC_get_field('custom_layout__container_type');
+			$using_page_settings = true;
+			$custom_layout_container_type = WPBC_get_field('custom_layout__container_type'); 
 		}
 
 	/* Theme Options PART custom_layout__enable */
@@ -73,7 +77,7 @@ add_filter('wpbc/filter/layout/struture', function($args){
 
 	/* MIX THEM ALL */
 	$args = wp_parse_args( $new_args, $args );
-
+	
 	return $args;
 
 },10,1); 

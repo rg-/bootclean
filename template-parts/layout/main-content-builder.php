@@ -11,6 +11,7 @@ if ( have_posts() ) {
 		the_post();
 		$post_id = get_the_ID(); 
 		do_action('wpbc/layout/builder/rows/before');
+		echo "<!-- main-content-builder.php - post_id: ".$post_id." -->";
 		WPBC_get_template_builder_rows($post_id,'','main-content');
 		WPBC_get_edit_template_builder($post_id);
 		do_action('wpbc/layout/builder/rows/after'); 
