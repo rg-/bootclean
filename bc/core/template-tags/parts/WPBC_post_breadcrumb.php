@@ -18,6 +18,8 @@ function WPBC_post_breadcrumb($args=''){
   $currentBefore = isset($args['currentBefore']) ? $args['currentBefore'] : '<span class="current">';
   $currentAfter = isset($args['currentAfter']) ? $args['currentAfter'] : '</span>';
  
+  $currentPagedBefore = isset($args['currentPagedBefore']) ? $args['currentPagedBefore'] : '<span class="current">';
+  $currentPagedAfter = isset($args['currentPagedAfter']) ? $args['currentPagedAfter'] : '</span>';
 
   $include_cat = isset($args['include_cat']) ? $args['include_cat'] : false; 
   if ( /*!is_home() && !is_front_page() &&*/ !is_attachment() || is_paged() ) {
@@ -108,7 +110,7 @@ function WPBC_post_breadcrumb($args=''){
  
     if ( get_query_var('paged') ) {
       if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
-      echo ' '. $title_page . ' ' . get_query_var('paged');
+      echo $delimiter . $currentPagedBefore . $title_page . ' ' . get_query_var('paged') . $currentPagedAfter;
       if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
     }
  

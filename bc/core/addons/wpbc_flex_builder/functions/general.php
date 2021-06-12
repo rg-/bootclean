@@ -8,7 +8,7 @@ function WPBC_acf_make_section_title_field($sub_fields, $args){
 
 	$sub_fields[] = WPBC_acf_make_text_field(array(
 		'name' => $args['layout_name'].'__section-title-use',
-		'label' => _x('Use Section Title?','bootclean'), 
+		'label' => !empty($args['label']) ? $args['label'] : _x('Use Section Title?','bootclean'), 
 		'width' => '100%',
 		'default_value' => 1,
 		'readonly' => 1,
@@ -19,7 +19,7 @@ function WPBC_acf_make_section_title_field($sub_fields, $args){
 
 		$sub_fields[] = WPBC_acf_make_true_false_field(array(
 			'name' => $args['layout_name'].'__section-title-use',
-			'label' => _x('Use Section Title?','bootclean'), 
+			'label' => !empty($args['label']) ? $args['label'] : _x('Use Section Title?','bootclean'), 
 			'width' => '100%',
 			'default_value' => 0,
 			'class' => 'wpbc-acf-flex-field right-label wpbc-true_false-ui wpbc-ui-mini'
@@ -45,6 +45,7 @@ function WPBC_acf_make_section_title_field($sub_fields, $args){
 				'hide_use' => $args['hide_use'],
 				'hide_responsive' => $args['hide_responsive'],
 				'hide_align' => $args['hide_align'],
+				'hide_color' => !empty($args['hide_color']) ? true : false,
 				'conditional_logic' => $conditional_logic,
 			)
 		); 
@@ -812,7 +813,7 @@ function WPBC_get_ui_layout_posts_advanced_args(){
 	}else{
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 	}
-	$query_args['paged'] = $paged;  
+	$query_args['paged'] = intval($paged);  
 
 
 	$query_args = WPBC_get_layout_posts_query($query_args);

@@ -25,7 +25,7 @@
 	$post_count = $query_posts->post_count; 
 	
 	$next_link = wp_parse_args( $query, array(
-		'paged' => !empty($query['paged']) ? $query['paged'] : 1, 
+		'paged' => !empty($query['paged']) ? intval($query['paged']) : 1, 
 		'target_id' => !empty($query['target_id']) ? $query['target_id'] : $template_args['target_id'],
 	) );
 	$paged = $next_link['paged'];

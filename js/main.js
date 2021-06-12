@@ -6542,7 +6542,85 @@ function urlParam(name){
 				if(multiply){
 					value = value * (multiply);
 				}
-				$(this).css(apply_tag, value); 
+				
+				if( $(this).attr('data-overlap-breakpoint') || $(this).attr('data-overlap-breakpoint-down') ){
+
+					$use_break = false;
+					$down = false;
+
+					if( $(this).attr('data-overlap-breakpoint') ){
+						var breakpoint = $(this).attr('data-overlap-breakpoint');
+						if( get_window_sizes('w') > bc_config.breakpoints[breakpoint] ){
+							$use_break = true;
+						}else{
+							$use_break = false;
+						}
+					}
+					if( $(this).attr('data-overlap-breakpoint-down') ){
+						$down = true;
+						var breakpoint = $(this).attr('data-overlap-breakpoint-down');
+						if( get_window_sizes('w') < bc_config.breakpoints[breakpoint] ){
+							$use_break = true;
+						}else{
+							$use_break = false;
+						}
+					}
+
+					if( $use_break ){ 
+
+						$(this).css(apply_tag, value); 
+
+						if(!$down){
+							if(apply_tag=='margin-left'){
+								$(this).css('margin-right', '');
+							}
+							if(apply_tag=='margin-right'){
+								$(this).css('margin-left', '');
+							}
+						} 
+
+						if($down){
+							if(apply_tag=='margin-left'){
+								$(this).css('margin-right', value);
+							}
+							if(apply_tag=='margin-right'){
+								$(this).css('margin-left', value);
+							} 
+						}
+
+						$(this).addClass('is_on_breakpoint');
+
+					}else{
+
+						if(!$down){
+							if(apply_tag=='margin-left'){
+								$(this).css('margin-right', value);
+							}
+							if(apply_tag=='margin-right'){
+								$(this).css('margin-left', value);
+							}
+							$(this).css(apply_tag, value);
+						}
+
+						if($down){
+							if(apply_tag=='margin-left'){
+								$(this).css('margin-right', '');
+							}
+							if(apply_tag=='margin-right'){
+								$(this).css('margin-left', '');
+							} 
+							$(this).css(apply_tag, '');
+						}
+
+						$(this).removeClass('is_on_breakpoint');
+						
+					}
+
+				}else{
+					
+					$(this).css(apply_tag, value); 
+
+				} 
 
 			});
  
@@ -6623,7 +6701,7 @@ function urlParam(name){
 			wpbc_container_reference.removeClass('xl');
 		}
 
-		$('body').attr('data-breakpoint',is_responsive);
+		$('body').attr('data-breakpoint',is_responsive); 
 
 	});
 
@@ -7204,6 +7282,44 @@ $(window).on('resize',function(){
 
  }(jQuery); 
 
+
+
+ +function(t){
+
+ 	function WPBC_make_breakpoint_style(me){
+ 		var breakpoint = me.attr('data-breakpoint-style');
+ 		var style_defaults = me.attr('data-style-default');
+ 		var style_breakpoint = me.attr('data-style-breakpoint');
+ 		var w_width = get_window_sizes('w');
+    var breakpoints = bc_config.breakpoints;
+ 
+    if( w_width > breakpoints[breakpoint] ){  
+    	me.removeClass('is_on_breakpoint');
+    	me.addClass('not_on_breakpoint');
+    	$.each(JSON.parse(style_breakpoint),function(i,k){ 
+        if(me.css(i)!=k){
+        	me.css(i, k);
+        }
+      }); 
+    }else{ 
+    	me.removeClass('not_on_breakpoint');
+    	me.addClass('is_on_breakpoint');
+    	$.each(JSON.parse(style_defaults),function(i,k){ 
+    		if(me.css(i)!=k){
+        	me.css(i, k);
+        }
+      });
+    } 
+
+ 	}
+	 $(window).on('load resize orientationchange',function(){ 
+	    $('[data-breakpoint-style]').each(function(){ 
+	      WPBC_make_breakpoint_style($(this));
+	    }); 
+	  });
+
+ }(jQuery); 
+
 /* ##################################################### */
 /* ##################################################### */
 
@@ -7255,6 +7371,115 @@ $(window).on('resize',function(){
   });
 
  }(jQuery); 
+
+
+ +function(t){
+
+ $('.list-tree-item-toggle[aria-expanded="true"]').each(function(){
+    var me = $(this);
+    me.closest('.collapse').parent().find('.list-tree-item-toggle').removeClass('collapsed');
+    me.closest('.collapse').parent().find('.list-tree-item-toggle').attr('aria-expanded','true');
+    me.closest('.collapse').addClass('show');
+  });
+
+ }(jQuery); 
+
+
+
+ /*
+	* 
+	* Bootclean - Dynamic Styles Addon
+	*
+	* Make element paramenters into an appended <style> into head with all @media queries for styles defined
+	* 
+	* Use like:
+
+	<span data-dynamic-styles="{"300px":{"color":"var(--white)","background-color":"var(--dark)"},"sm":{"color":"var(--primary)","background-color":"var(--white)"},"900px":{"color":"var(--white)","background-color":"var(--dark)"},"lg":{"color":"var(--primary)","background-color":"var(--white)"},"1210px":{"font-size":"4rem","color":"var(--white)","background-color":"var(--success)"}}">Hello</span>
+
+	* Accepts breakpoint variable as "xs", "sm", so on, and px, rem, % values, basic will be:
+	* "breakpoint" : { "property": "value" }
+	* 
+	*/
+
++function(t){    
+
+	$.fn.dynamicStyles = function(options) {
+
+		return this.each( function(e) {
+			var me = $(this);
+			var breakpoints = bc_config.breakpoints; 
+			var unique_class = 'wpbcds_'+Math.random().toString(36).substr(2, 9);
+			if( me.attr( 'id' ) ){
+				unique_class = 'wpbcds_'+me.attr( 'id' );
+			}
+			var data = me.attr('data-dynamic-styles');
+
+			var query = 'min-width'; 
+			if( me.attr( 'data-dynamic-query' ) ){
+				query = me.attr( 'data-dynamic-query' );
+			}
+
+			var json = JSON.parse(data);
+			
+			me.addClass(unique_class);
+
+			var style_out = '';
+
+			if(json){
+				style_out = '<style id="'+ unique_class +'_'+e+'">';
+				$.each(json,function(breakpoint,values){  
+
+					var input  = breakpoint;
+					var output = '';
+					var tmp;
+
+					tmp = parseInt( input.replace(/^[^1-9]*/, '') ); 
+					if ( tmp ) { 
+					  if ( tmp + '%' == input ) {
+					    output = tmp + '%';
+					  } else if ( tmp + 'em' == input ) {
+					    output = tmp + 'em';
+					  } else  {
+					    output = tmp + 'px';
+					  }  
+					  if ( output != 'NaN' ) {
+					  	var min_width = output;
+					  }
+					} else {
+						var px = (breakpoints[breakpoint]>0) ? 'px' : '';
+						var min_width = breakpoints[breakpoint]+''+px;
+					} 
+					if(!min_width || min_width == undefined || min_width == 'undefined'){
+						min_width = '0';
+					}
+		  		style_out += '@media ('+query+': '+min_width+'){';
+
+		  			if(values){
+		  				style_out += '.'+unique_class+'{';
+			  			$.each(values,function(tag,value){ 
+				  			style_out += tag+': '+value+';';
+				  		});
+				  		style_out += '}'; 
+			  		}
+
+		  		style_out += '}'; 
+		  		
+		    });
+		    style_out += '</style>';
+			}
+			
+			if(style_out){
+				$('head').append(style_out);
+			} 
+
+
+		});
+
+	}
+
+	$('[data-dynamic-styles]').dynamicStyles(); 
+
+}(jQuery); 
 
 /*
 

@@ -205,6 +205,11 @@ if($use_wpbc_tinymce_custom_block_formats){
 
 			// fontsizeselect
 
+		$toolbars['wpbc_xxmini'] = array();
+			$toolbars['wpbc_xxmini'][1] = array( 
+				'formatselect', 'bold', 'italic', 'link',
+			);
+
 		$toolbars['wpbc_xmini'] = array();
 			$toolbars['wpbc_xmini'][1] = array(
 				'forecolor',

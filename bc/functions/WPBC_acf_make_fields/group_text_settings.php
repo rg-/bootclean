@@ -104,15 +104,19 @@ function WPBC_acf_make_group_text_settings_field($args,$is_registered_option=fal
 
 		}
 
-		$sub_fields[] = WPBC_acf_make_color_picker_field(
-			array(
-				'name' => $args['name'].'__color'.$key_prefix,
-				'label'=> __('Color','bootclean'),
-				'class' => $sub_fields_class . ' wpbc-section-color wpbc-picker-no-label wpbc-picker-absolute',
-				'width' => $sub_fields_width,
-				'conditional_logic' => $conditional_logic,
-				)
-		);
+		if(empty($args['hide_color'])){
+
+			$sub_fields[] = WPBC_acf_make_color_picker_field(
+				array(
+					'name' => $args['name'].'__color'.$key_prefix,
+					'label'=> __('Color','bootclean'),
+					'class' => $sub_fields_class . ' wpbc-section-color wpbc-picker-no-label wpbc-picker-absolute',
+					'width' => $sub_fields_width,
+					'conditional_logic' => $conditional_logic,
+					)
+			);
+
+		}
 
 	}
 

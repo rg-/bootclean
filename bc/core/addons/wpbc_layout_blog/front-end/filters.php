@@ -144,7 +144,7 @@ add_filter('wpbc/filter/ui_layout_posts_advanced/pagination_args', function($arg
 add_action( 'pre_get_posts', 'ui_layout_posts_advanced_pre_get_posts', 1 );
 
 function ui_layout_posts_advanced_pre_get_posts($query){
-	if( $query->is_main_query() && !$query->is_single ) {
+	if( !is_admin() && $query->is_main_query() && !$query->is_single ) {
 
 		$WPBC_layout_posts_page = WPBC_get_layout_posts_page_settings();
 		if(!empty($WPBC_layout_posts_page)){

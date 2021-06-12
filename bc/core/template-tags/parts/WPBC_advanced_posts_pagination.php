@@ -10,7 +10,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 
 		'wp_query' => '',
 		'max_page' => '',
-		'paged' => '',
+		'paged' => 0,
 
 		'use_ajax' => false,
 		'use_get_next' => false,
@@ -82,7 +82,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 		$query = $wp_query;
 		$query_vars = $wp_query->query_vars;
 		 
-		$current_page = $query_vars['paged'] ? $query_vars['paged'] : $paged;
+		$current_page = !empty($query_vars['paged']) ? intval($query_vars['paged']) : intval($paged);
 		$data_ajax_nav = '';
 
 		$arr_data = '';

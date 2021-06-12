@@ -1,6 +1,39 @@
-<?php
-	
-	extract($args);
+<?php 
+
+	$defaults = array(
+		'layout_ID' => 'wpbc-full-aside-cols_'.uniqid(),
+		'layout_type' => 'default',
+
+		'breakpoint' => 'md',
+		'content_side' => '',
+		'image_embed' => '1by1',
+
+		'gallery_ids' => array(),
+
+		'col_img_class' => '', 
+		'col_gallery_attrs' => '',
+		'col_gallery_wrap_class' => '', 
+		'col_gallery_wrap_attrs' => '',
+
+		'content_wysiwyg' => '', 
+		'container_content_class' => '', 
+		'row_content_class' => '', 
+		'col_content_class' => '', 
+		'col_content_wrap_class' => '', 
+		'col_content_wysiwyg_wrap_class' => '', 
+
+		'use_title' => false,
+		'content_title' => '',
+		'title_attrs' => '',
+		'content_title_settings' => array(),
+		'col_content_title_wrap_class' => '',
+		
+		'custom_content_title' => false,
+
+	);
+
+	$defaults = array_merge($defaults, $args); 
+	extract($defaults);
 
 /*
 

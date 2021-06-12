@@ -1,4 +1,6 @@
 <?php
+require 'bootstrap/class-wp-bootstrap-cardswalker.php'; 
+require 'bootstrap/class-wp-bootstrap-catwalker.php'; 
 require 'bootstrap/class-wp-bootstrap-navwalker.php'; 
 require 'bootstrap/megamenu.php'; 
 require 'bootstrap/template.php'; 

@@ -70,9 +70,9 @@ function WPBC_ajax_posts_pagination__template(){
 	$post_type = !empty($_GET['post_type']) ? $_GET['post_type'] : $_POST['post_type'];
 	$posts_per_page = !empty($_GET['posts_per_page']) ? $_GET['posts_per_page'] : $_POST['posts_per_page'];
 
-	$query_vars['paged'] = $paged;
+	$query_vars['paged'] = intval($paged);
 	$query_vars['post_type'] = $post_type;
-	$query_vars['posts_per_page'] = $posts_per_page; 
+	$query_vars['posts_per_page'] = intval($posts_per_page); 
 
 	$posts = new WP_Query( $query_vars );
     	$GLOBALS['wp_query'] = $posts; 

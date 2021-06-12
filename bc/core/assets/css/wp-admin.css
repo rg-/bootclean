@@ -356,6 +356,24 @@ a > .wp-menu-name .hide-top {
 
 .acf-small-gallery .acf-gallery {
   height: 200px !important; }
+.acf-small-gallery .acf-gallery-toolbar ul.acf-hl {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start; }
+  .acf-small-gallery .acf-gallery-toolbar ul.acf-hl li {
+    float: none; }
+.acf-small-gallery .acf-gallery-toolbar .acf-button {
+  font-size: 11px;
+  line-height: 19px;
+  min-height: 22px;
+  margin: 0;
+  padding: 0 5px; }
+.acf-small-gallery .acf-gallery-toolbar .acf-gallery-sort {
+  padding: 0px 5px;
+  font-size: 12px;
+  line-height: 19px;
+  min-height: 22px;
+  vertical-align: top; }
 
 .acf-small-wysiwyg .wp-editor-area {
   height: 200px !important; }

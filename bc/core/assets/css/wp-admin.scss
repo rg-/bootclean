@@ -431,6 +431,30 @@ a > .wp-menu-name .hide-top{
 	.acf-gallery{
 		height: 200px!important; 
 	}
+	.acf-gallery-toolbar{
+		ul.acf-hl{
+			display: flex;
+			align-items: flex-start;
+			justify-content: flex-start;
+			li{
+				float: none;
+			}
+		}
+		.acf-button{
+			font-size: 11px;
+			line-height: 19px;
+			min-height: 22px;
+			margin: 0;
+			padding: 0 5px;
+		}
+		.acf-gallery-sort{
+			padding: 0px 5px;
+			font-size: 12px;
+			line-height: 19px;
+			min-height: 22px;
+			vertical-align: top;
+		}
+	}
 }
 
 .acf-small-wysiwyg{ 

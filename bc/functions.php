@@ -65,7 +65,7 @@ function WPBC_include_template_part($template){
 function WPBC_get_template($args='') {
 	global $post;
 	if(isset($_GET['post'])){
-		$post = get_post($_GET['post']);
+		$post = get_post( intval($_GET['post']) );
 	}
 	// Reference guide: https://developer.wordpress.org/reference/functions/get_body_class/
 	// https://developer.wordpress.org/themes/references/list-of-conditional-tags/

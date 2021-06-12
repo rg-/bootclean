@@ -30,11 +30,11 @@ function WPBC_get_query_form_default_query_fields( $template_args, $query){
 		), 
 		array(
 			'name'=>'posts_per_page',
-			'value' => !empty($query['posts_per_page']) ? $query['posts_per_page'] : '',
+			'value' => !empty($query['posts_per_page']) ? intval($query['posts_per_page']) : '',
 		),
 		array(
 			'name'=>'paged',
-			'value' => !empty($query['paged']) ? $query['paged'] : '',
+			'value' => !empty($query['paged']) ? intval($query['paged']) : '',
 		),
 	);
 
@@ -196,7 +196,7 @@ function WPBC_get_query_posts_default_query($query){
 	} 
 
 	if(!empty( get_query_var('paged') )){
-		$query['paged'] =  get_query_var('paged');
+		$query['paged'] =  intval(get_query_var('paged'));
 	}else{
 		if(empty($query['paged'])){
 			$query['paged'] = 1;

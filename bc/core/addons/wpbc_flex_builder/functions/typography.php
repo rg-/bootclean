@@ -126,7 +126,7 @@ function WPBC_get_typography_tags(){
 		),
 		'.display-3' => array(
 			'font-family' => $commons['display-font-family-base'],
-			'font-size' => ( number_format($commons['font-size-base']) * 1 ).'rem',
+			'font-size' => ( number_format($commons['font-size-base']) * 1.2 ).'rem',
 			'font-weight' => $commons['display-font-weight'],
 			'line-height' => $commons['display-line-height'],
 			'margin-top' => $commons['display-margin-top'],
@@ -225,10 +225,18 @@ function WPBC_get_typography_tags(){
 			'line-height' => $commons['headings-line-height'],
 			'margin-top' => $commons['headings-margin-top'],
 			'margin-bottom' => $commons['headings-margin-bottom'],
-		), 
+		),  
 
 	);
-
+	
+	$arr_fix = array(
+		'p','h1','h2','h3','h4','h5','h6','.display-1','.display-2','.display-3','.display-4'
+	);
+	foreach ($arr_fix as $fix) {
+		$tags[$fix.':last-child'] = array(
+			'margin-bottom' => '0',
+		);
+	}
 
 	$tags = apply_filters('wpbc/filter/typography', $tags);
 

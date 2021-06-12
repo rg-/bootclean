@@ -12,7 +12,7 @@ $custom_attrs = $params['custom_attrs'];
 $custom_class = $params['custom_class'];  
 
 	$custom_attrs = apply_filters('wpbc/main-page-header/data', $custom_attrs);
-	$class = apply_filters('wpbc/main-page-header/class', $class); 
+	$custom_class = apply_filters('wpbc/main-page-header/class', $custom_class); 
 
 if( !empty($template_id) || !empty($use_custom_html) || !empty($use_page_title) ){
 ?>

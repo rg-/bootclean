@@ -14,6 +14,10 @@
 	if(!empty($args['slick_class'])){
 		$slick_class = $args['slick_class'];
 	}
+	$custom_html_class = 'position-absolute-full';
+	if(!empty($args['custom_html_class'])){
+		$custom_html_class = $args['custom_html_class'];
+	}
 
 
 	$slick = array(
@@ -24,7 +28,12 @@
 		'autoplay' => true,
 		'autoplaySpeed' => 5000
 	);
-	$slick = json_encode($slick); 
+
+	if(!empty($args['slick_args'])){
+		$slick = array_merge($slick, $args['slick_args']);
+	}
+
+	$slick = json_encode($slick);   
 
 	$slick_heights = array(
 		'xs' => array(
@@ -52,7 +61,7 @@
 </div>
 <?php } ?>
 <?php if(!empty($html)){ ?>
-	<div class="position-absolute-full custom-html">
+	<div class="<?php echo $custom_html_class; ?> custom-html">
 		<?php echo $html; ?>
 	</div>
 <?php } ?>

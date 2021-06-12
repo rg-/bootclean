@@ -20,7 +20,7 @@ add_filter('wpbc/filter/acf/builder/flexible_content/layouts', 'WPBC_build__ui_l
 			$headline_sub_fields = array();
 
 				$headline_sub_fields[] = WPBC_acf_make_textarea_field(array(
-					'label' => __('Title','bootclean').$WPBC_VERSION,
+					'label' => __('Title','bootclean'),
 					'name' => $layout_name.'__items_title',
 					'width' => '80%',
 					'rows' => '1',
@@ -29,7 +29,7 @@ add_filter('wpbc/filter/acf/builder/flexible_content/layouts', 'WPBC_build__ui_l
 				$headline_sub_sub_fields = array();
 
 					$headline_sub_sub_fields[] = WPBC_acf_make_true_false_field(array(
-						'label' => __('Collapse','bootclean').$WPBC_VERSION,
+						'label' => __('Collapse','bootclean'),
 						'name' => $layout_name.'__items_settings_collapsed',
 						'default_value' => 0, 
 						'class' => 'wpbc-ui-mini w-auto wpbc-field-no-label ',

@@ -25,10 +25,27 @@ function WPBC_acf_make_wysiwyg_field($args,$is_registered_option=false){
 	return $field;
 }
 
+// SEE bc\core\addons\wpbc-tinymce.php
+
+function WPBC_acf_make_wysiwyg_field_xxmini($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_xxmini';
+	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+function WPBC_acf_make_wysiwyg_field_xxmini_html($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_xxmini';
+	$args['tabs'] = 'all';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
 
 function WPBC_acf_make_wysiwyg_field_xmini($args,$is_registered_option=false){
 	$args['toolbar'] = 'wpbc_xmini';
 	$args['tabs'] = 'visual';
+	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+}
+function WPBC_acf_make_wysiwyg_field_xmini_html($args,$is_registered_option=false){
+	$args['toolbar'] = 'wpbc_xmini';
+	$args['tabs'] = 'all';
 	return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
 }
 function WPBC_acf_make_wysiwyg_field_mini($args,$is_registered_option=false){
