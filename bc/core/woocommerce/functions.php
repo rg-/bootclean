@@ -101,6 +101,20 @@ function WPBC_woo_myaccount_btn_FX( $atts, $content = null ) {
   return ob_get_clean();  
 }
 
+add_shortcode ('WPBC_woo_shop_btn', 'WPBC_woo_shop_btn_FX' ); 
+function WPBC_woo_shop_btn_FX( $atts, $content = null ) {  
+  $args = shortcode_atts(array(
+
+    'label' => __('Shop','bootclean'),
+    'class' => 'btn btn-primary',
+
+  ), $atts); 
+  /**/
+  ob_start(); 
+  WPBC_get_template_part('shortcodes/woocommerce/WPBC_woo_shop_btn', $args); 
+  return ob_get_clean();  
+}
+
 
 add_shortcode ('WPBC_woo_products', 'WPBC_woo_products_FX' ); 
 function WPBC_woo_products_FX( $atts, $content = null ) {  

@@ -89,7 +89,7 @@ add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__main_navba
 	}
 
 add_action('wpbc/layout/body/start', 'action__wpbc_layout_body_start__page_header', 35);
- 	function action__wpbc_layout_body_start__page_header(){ 
+ 	function action__wpbc_layout_body_start__page_header(){  
 		get_template_part( 'template-parts/layout/page-header' ); 
 	}
 

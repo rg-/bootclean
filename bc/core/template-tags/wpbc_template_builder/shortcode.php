@@ -81,6 +81,34 @@ function WPBC_get_template_FX($atts, $content = null) {
 add_shortcode('WPBC_get_template', 'WPBC_get_template_FX');
 
 
+function WPBC_ajax_get_template() {  
+	$id = !empty($_GET['id']) ? $_GET['id'] : 0;
+	$name = !empty($_GET['name']) ? $_GET['name'] : 0;
+	$post_id = !empty($_GET['post_id']) ? $_GET['post_id'] : 0; 
+	$template_id = !empty($_GET['template_id']) ? $_GET['template_id'] : 0;
+	$from = !empty($_GET['from']) ? $_GET['from'] : '';
+	$layout_count = !empty($_GET['layout_count']) ? $_GET['layout_count'] : 0;
+	if($id && !$name){
+		echo do_shortcode('[WPBC_get_template post_id="'.$post_id.'" id="'.$id.'" template_id="'.$template_id.'" from="'.$from.'" is_ajax="true" layout_count="'.$layout_count.'"/]');
+	}
+	if($name && !$id){
+		echo do_shortcode('[WPBC_get_template post_id="'.$post_id.'" name="'.$name.'" template_id="'.$template_id.'"from="'.$from.'" is_ajax="true" layout_count="'.$layout_count.'"/]');
+	} 
+
+	if( !empty($_GET['preview']) ) {
+
+		if('builder' == $_GET['preview']){
+			get_template_part('bc/core/theme-options/preview');
+		}
+
+	}
+	
+	die(); 
+}
+add_action('wp_ajax_get_template', 'WPBC_ajax_get_template');
+add_action('wp_ajax_nopriv_get_template', 'WPBC_ajax_get_template');
+
+
 function WPBC_get_template_theme_FX($atts, $content = null) {
 	extract(shortcode_atts(array( 
 		"from"=>'',

@@ -38,7 +38,7 @@ if(!function_exists('WPBC_woo_product_thumbnail')){
 		global $product;
 		$post_thumbnail_id = $product->get_image_id();
 		$full_size = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
-		$full_src = wp_get_attachment_image_src( $post_thumbnail_id, $full_size ); 
+		$full_src = wp_get_attachment_image_src( $post_thumbnail_id, $full_size );  
 		?>
 	<span class="embed-responsive embed-responsive-1by1">
 	<span class="embed-responsive-item image-cover" style="background-image: url(<?php echo $full_src[0]; ?>);"></span>

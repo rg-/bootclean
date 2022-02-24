@@ -47,22 +47,26 @@ function WPBC_get_navbar_affix_attrs($params=array()){
 function WPBC_layout__get_id(){
 	
 	$default = array( 
-		'blog' 
+		'blog', 'home'
 	);
-	$template = WPBC_get_template();
-	
+	$template = WPBC_get_template(); 
 	$post_id = '';
 
 
 	if( in_array($template, $default) ){
 		// page_on_front
-		$post_id = get_option( 'page_for_posts' );
+		if ($template == 'home') {
+			$post_id = get_option( 'page_on_front' );
+		}
+		if ($template == 'blog') {
+			$post_id = get_option( 'page_for_posts' );
+		} 
 
 	}else{
 		global $post;
-		if(!empty($post)){
+		if(!empty($post->ID)){
 			$post_id = $post->ID;
 		}
-	} 
+	}  
 	return $post_id;
 }

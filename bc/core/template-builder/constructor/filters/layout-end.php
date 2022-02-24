@@ -11,7 +11,7 @@ add_action('wpbc/layout/end', function($out){
 			$post = get_post($_GET['post']);
 			$post_id = $post->ID;
 		}
-		if(!empty($post)){
+		if(!empty($post->ID)){
 			$post_id = $post->ID;
 		}
 		global $wp_query;

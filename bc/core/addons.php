@@ -6,6 +6,22 @@ function WPBC_masonry_installed(){
 	return apply_filters('wpbc/filter/masonry/installed', 0);
 }
 
+global $WPBC_VERSION;
+
+if ( version_compare( $WPBC_VERSION, '11.9.9', '>' ) ) {
+
+	require "addons/wpbc-typography.php";
+
+	require "addons/wpbc-imagesloaded.php";
+
+	require "addons/wpbc-svg-support.php";
+
+}
+
+require "addons/wpbc-megamenu.php";
+require "addons/wpbc-add_image_size-blured.php";
+require "addons/wpbc-add_image_size-grayscale.php";
+
 /*
 
 	wpbc-disable-blog addon (not installed by default)

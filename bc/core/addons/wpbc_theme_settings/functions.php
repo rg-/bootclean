@@ -151,9 +151,9 @@ function WPBC_get_theme_settings_prefilter($fields){
 		Check if field name has or not the "wpbc_theme_settings__", prefixed
 		This is crucial for some functions/shortcodes to get data into front-end
 		*/
-		if (strpos($field['name'], 'wpbc_theme_settings__') !== false) { 
+		if ( isset($field['name']) && strpos($field['name'], 'wpbc_theme_settings__') !== false) { 
 		}else{
-			if($field['name']!='') {
+			if( isset($field['name']) && $field['name']!='' ) {
 				$field['is_option'] = true; 
 				$field['name'] = 'wpbc_theme_settings__'.$field['name']; 
 			}
@@ -235,6 +235,43 @@ foreach ($locations as $key => $value) {
 	SHORTCODES
 
 */
+
+function WPBC_get_theme_settings_flex_social( $fields = 'general_flex_social' ){
+
+	$general_social = WPBC_get_theme_settings($fields);
+	if(!empty($general_social)){ 
+
+	}
+	return $social_temp;
+}
+
+function WPBC_get_theme_settings_social( $fields = 'general_social' ){
+
+	$general_social = WPBC_get_theme_settings($fields);
+	if(!empty($general_social)){ 
+		$social_temp = array();
+		foreach ($general_social as $key => $value) {
+			$url = '';
+			$label = '';
+			 
+			if (strpos($key, 'url') !== false) {
+				$key_s = str_replace('general_social__url_', '', $key); 
+		    $url = $value;
+		    if(!empty($key_s) && !empty($url) ){
+		    	$social_temp[$key_s]['url'] = $url;
+		    }
+			}
+			if (strpos($key, 'label') !== false) {
+			    $label = $value; 
+			    if( !empty($key_s) && !empty($social_temp[$key_s]['url']) ){
+			    	$social_temp[$key_s]['label'] = $label;
+			    }
+			} 
+			 
+		}
+		return $social_temp;
+	}
+}
 
 function WPBC_get_theme_settings_FX($atts, $content = null){
 	extract(shortcode_atts(array( 

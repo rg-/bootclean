@@ -18,6 +18,7 @@
 			'name' => $layout_name.'__sub_content',
 			'layouts' => $sub_layouts,
 			'button_label' => __('Add Sub Row','bootclean'),
+			'max' => 10,
 		)); 
 
 		$flexible_layouts = WPBC_acf_make_flex_builder_layout(array(
@@ -72,6 +73,7 @@ add_filter('WPBC_acf_builder_layouts', 'WPBC_build__ui_layout_flexible',9999,1);
 			'name' => $layout_name.'__sub_content',
 			'layouts' => $sub_layouts,
 			'button_label' => __('Add Sub Row','bootclean'),
+			'max' => 10,
 		)); 
 
 		$flexible_layouts = WPBC_acf_make_flex_builder_layout(array(

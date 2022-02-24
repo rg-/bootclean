@@ -24,12 +24,12 @@ function WPBC_get_tokko_search_defaults($args=array()){
 	$result_detail = $args['result_detail']; 
 
 	$operation_types = !empty($args['operation_types']) ? array($args['operation_types']) : array();
-	if(is_array($operation_types)){
+	if(is_array($operation_types) && !empty($operation_types[0]) ){
 		$operation_types = $operation_types[0]; 
 	}
 
 	$property_types = !empty($args['property_types']) ? array($args['property_types']) : array(); 
-	if(is_array($property_types)){
+	if(is_array($property_types) && !empty($property_types[0]) ){
 		$property_types = $property_types[0]; 
 	}
 
@@ -169,7 +169,35 @@ function WPBC_tokko_form_build_options($select_args = array(
 					$selected = 'selected';
 				}
 
-	 			$out .= '<option '.$selected.' value="'.$value['id'].'">'. $value['name'] .'</option>';
+				// optgroup
+				$sub_locations = $value['sub_locations'];
+				if(!empty($sub_locations)){
+					$out .= '<optgroup label="'.$value['name'].'">';
+					$out .= '<option '.$selected.' title="'.$value['name'].'" value="'.$value['id'].'">'. __('All','bootclean') .'</option>';
+
+					foreach ($sub_locations as $s_key => $s_value) {
+						
+						$sub_selected = '';
+
+						if(!empty($current_data) && is_array($current_data[$id]) ){
+			 				 
+			 				if($multiple && in_array($s_value['id'], $current_data[$id])){
+			 					$sub_selected = 'selected';	
+			 				}
+
+			 				$current_as_text = implode(',', $current_data[$id]);
+			 				if(!empty($current_as_text) && $current_as_text == $s_value['id']){
+			 					$sub_selected = 'selected';	
+			 				} 
+							
+						}
+
+						$out .= '<option '.$sub_selected.' value="'.$s_value['id'].'" title="'.$value['name'].' / '.$s_value['name'].'">'. $s_value['name'] .'</option>';
+					}
+					$out .= '</optgroup>';
+				}else{
+					$out .= '<option '.$selected.' value="'.$value['id'].'">'. $value['name'] .'</option>';
+				} 
 	 		
 	 		}
 	 		
@@ -442,9 +470,10 @@ function WPBC_tokko_form_property_types($args=array()){
 }
 
 
+
 function WPBC_tokko_form_localization($args=array()){ 
 	$out = '';
-	$available_locations = WPBC_tokko_get_available_localizations();
+	$available_locations = WPBC_tokko_get_available_localizations(); 
 	if(!empty($available_locations)){ 
 		$out .= WPBC_tokko_form_build_options(array(
 			'options' => $available_locations,

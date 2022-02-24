@@ -66,9 +66,11 @@ $search_defaults = WPBC_get_tokko_search_defaults($args);
 					$form_action = home_url($url_request).'/';
 				} 
 
+				$form_id = !empty($args['linked_results_id']) ? " id='".$args['linked_results_id']."' " : '';
+
 			?>
 
-		<form id="<?php echo $args['linked_results_id']; ?>" method="get" data-tokko="searchform" data-swup-form class="ui-tokko-searchform" action="<?php echo $form_action; ?>"> 
+		<form <?php echo $form_id; ?> method="get" data-tokko="searchform" data-swup-form class="ui-tokko-searchform" action="<?php echo $form_action; ?>"> 
 			<input type="<?php echo $input_type; ?>" name="tk_order_by" value='<?php echo $order_by; ?>'>
 			<input type="<?php echo $input_type; ?>" name="limit" value='<?php echo $limit; ?>'>
 			<input type="<?php echo $input_type; ?>" name="tk_order" value='<?php echo $order; ?>'>

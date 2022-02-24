@@ -421,7 +421,7 @@ function WPBC_codemirror_admin_footer(){
 
 // Save codemirror size used
 
-add_action( 'init', 'WPBC_codemirror_cookies' );
+add_action( 'wp', 'WPBC_codemirror_cookies' );
 
 function WPBC_codemirror_cookies() {
 	if( !isset($_COOKIE['wpbc_codemirror_size']) ) {

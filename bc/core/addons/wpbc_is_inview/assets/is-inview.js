@@ -4,7 +4,7 @@
   /*
    *
    * $.fn.is_inview
-   * v 1.3
+   * v 1.3.1
    *
    */ 
 
@@ -473,6 +473,11 @@
             var new_src = $(this).attr('src'); 
             ele.attr('src', new_src);  
             loading.delay(300).fadeOut(600, function(){ 
+
+              if( ele.attr('data-lazybackground-target') == 'parent' ){
+                ele.parent().addClass('isv-lazysrc-parent-loaded');
+              }
+
               loading.remove(); 
             }); 
           });
@@ -517,6 +522,9 @@
                 }
 
                 loading.remove(); 
+
+                ele.trigger('bc.inview.loaded');
+
               }); 
             });
             temp.attr('src', lazysrc_url); 
@@ -587,3 +595,52 @@
   
 
   }(jQuery); 
+
+
+  /*
+  
+
+    data-is-inview="click"
+    data-click-target="element"
+
+  */
+
++function ($) {
+
+  function inviewMe_click__on(ele){ 
+    if( ele.attr('data-is-inview-once') ){
+      ele.addClass('is-inview-once');
+    }
+    ele.find('[data-is-inview-once]').each(function(){
+      $(this).addClass('is-inview-once'); 
+    }); 
+
+    var click_target = ele.attr('data-click-target');
+    if( !ele.hasClass('is-inview-once') ){
+      if($(click_target).length){
+        ele.addClass('is-inview-once');
+        $(click_target).trigger('click');
+      } 
+    }
+
+  }
+  
+  function inviewMe_click__off(ele){ 
+    if( !ele.hasClass('is-inview-once') ){   
+
+    }   
+  } 
+
+  $('[data-is-inview="click"]').on('bc.inview.on', function(){ 
+    inviewMe_click__on($(this)); 
+  });
+  $('[data-is-inview="click"]').on('bc.inview.partial', function(){
+    if($(this).attr('data-is-inview')!='detect-partial'){
+      inviewMe_click__on($(this));
+    }  
+  }); 
+  $('[data-is-inview="click"]').on('bc.inview.off', function(){ 
+    inviewMe_click__off($(this)); 
+  }); 
+
+}(jQuery);

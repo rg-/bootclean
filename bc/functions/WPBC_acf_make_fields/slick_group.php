@@ -64,6 +64,8 @@ function WPBC_acf_make_slick_group_field($layout_name, $args, $is_registered_opt
 				'name' => $args['name'].'__item_content', 
 				'width' => '70',
 				'conditional_logic' => $item_conditional_logic,
+
+				'qtranslate' => true,
 			));	 
 		}
 	 	if($item_content_type=='wysiwyg'){
@@ -72,6 +74,8 @@ function WPBC_acf_make_slick_group_field($layout_name, $args, $is_registered_opt
 				'name' => $args['name'].'__item_content', 
 				'width' => '70',
 				'conditional_logic' => $item_conditional_logic,
+
+				'qtranslate' => true,
 			));	 
 		}
 
@@ -111,6 +115,12 @@ function WPBC_acf_make_slick_group_field($layout_name, $args, $is_registered_opt
 		'label' => __('Item Style','bootclean'),
 		'name' => $args['name'].'__item_styles', 
 		'class' => 'wpbc-tabsless-group acf-group-seamless wpbc-acf-no-label', 
+		'width' => '70%', 
+	));
+	$sub_items_fields[] = WPBC_acf_make_text_field(array(
+		'label' => __('Item Class','bootclean'),
+		'name' => $args['name'].'__item_class',
+		'width' => '30%', 
 	));
 
 	$item_type_choices = WPBC_acf_get_slick_types_choices();

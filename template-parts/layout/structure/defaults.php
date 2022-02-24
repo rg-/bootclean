@@ -157,6 +157,14 @@ $args['main_pageheader']['defaults'] = array(
 	),
 
 );
+
+global $WPBC_VERSION;
+	if ( version_compare( $WPBC_VERSION, '11.9.9', '>' ) ) {
+
+		$args['main_pageheader']['defaults']['content-area']['shortcode'] = '[WPBC_get_template name="layout/main-page-header"/]';
+
+	}
+
 $args['main_footer']['defaults'] = array(
  
 	'id' => 'main_footer_container',

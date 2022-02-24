@@ -17,6 +17,12 @@ function WPBC_acf_make_slick_settings_group_field($args, $is_registered_option=f
 			'class' => 'wpbc-tabsless-group acf-group-seamless wpbc-acf-highlighted-field info-light',
 		));
 
+		$sub_fields[] = WPBC_acf_make_group_field(array(
+			'label' => __('Slider Custom Options','bootclean'),
+			'name' => $args['name'].'__custom_options',
+			'sub_fields' => WPBC_acf_get_slick_custom_options($args['name'].'__custom_options'), 
+			'class' => 'wpbc-tabsless-group acf-group-seamless wpbc-acf-highlighted-field info-light',
+		));
 
 		$sub_fields[] = WPBC_acf_make_true_false_field(array(
 			'name' => $args['name'].'__use_heights',

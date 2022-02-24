@@ -1,4 +1,5 @@
 <?php 
+
 /*
 
 $params are passed when using this via:
@@ -61,7 +62,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		'is_main' => $is_main,
 		
 		'id' => 'wp-navbar-'.$_uid,
-		'class' => 'gmb-1 navbar navbar-expand-aside navbar-dark bg-primary collapse-right navbar-expand-xs',
+		'class' => 'navbar navbar-expand-aside navbar-dark bg-primary collapse-right navbar-expand-xs',
 		'container_class' => 'container',
 		'container_attrs' => '', // NEW V10
 		
@@ -76,7 +77,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		// affix things
 		'affix' => false,
 		'affix_defaults' => array(
-			'position' => 'top', /* top / bottom */
+			'position' => 'top', /* top / bottom , fixed-top */
 			'simulate' => true, /* top / bottom / false ((default))  */
 			'simulate_target' => '',
 			'simulate_resize' => 'true',
@@ -125,7 +126,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		),
 		
 		// wp_nav_menu things, aka navbar-collapse
-
+		'disable_wp_nav_menu' => false,
 		'wp_nav_menu' => array(
 			'theme_location'  => 'primary',
 			'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.
@@ -196,7 +197,7 @@ $is_main = isset($_p['is_main']) ? true : false;
 		?> 
 
 		<?php 
-		if(!empty($_p['wp_nav_menu'])) { 
+		if(!empty($_p['wp_nav_menu']) && empty($_p['disable_wp_nav_menu'])) { 
 			echo $_p['wp_nav_menu']['before_menu']; 
 
 			$nav_menus = array(); 

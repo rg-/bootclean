@@ -11,7 +11,7 @@ if( !is_page_template('_template_builder.php') ){ ?>
 	if ( have_posts() && $template != 'search' ) { 
 		
 		do_action('wpbc/layout/inner/content/loop/before'); 
-		
+		 
 		while ( have_posts() ) { 
 			
 			do_action('wpbc/layout/inner/content/post/before'); 

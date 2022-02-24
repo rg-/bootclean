@@ -43,3 +43,10 @@ function WPBC_tokko_wp_footer(){
 		include('enqueue/footer-script.php');
 	}
 }
+
+add_action('wp_header', 'WPBC_tokko_wp_header', 99);
+function WPBC_tokko_wp_header(){
+	if( WPBC_is_tokko_enabled() && WPBC_use_tokko_js() ){
+		include('enqueue/header-script.php');
+	}
+}

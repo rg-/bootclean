@@ -4,15 +4,12 @@ function WPBC_acf_make_select_nav_menu_field($args,$is_registered_option=false){
 	if(empty($args['name'])) return;
 
 	$choices = array();  
-	$choices[0] = 'None'; 
+	$choices['none'] = 'None'; 
 
-	$menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
-		
-		foreach( $menus as $menu ) {
-		
-			$choices[ $menu->term_id ] = $menu->name;
-			
-		}
+	$menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) ); 
+	foreach( $menus as $menu ) {   
+		$choices[ $menu->term_id ] = $menu->name; 
+	} 
 
 	$defaults = array (
 		'key' => 'field_'.$args['name'],
@@ -36,6 +33,12 @@ function WPBC_acf_make_select_nav_menu_field($args,$is_registered_option=false){
 		'return_format' => 'value',
 		'placeholder' => '',
 	);
+
+	if(!empty($args['default_location'])){
+		$menu_locations = get_nav_menu_locations(); 
+		$defaults['default_value'] = !empty($menu_locations['primary']) ? $menu_locations['primary'] : 'none';
+	}
+
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;

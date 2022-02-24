@@ -3,11 +3,31 @@
 include('extends/class-acf-field-true_false_advanced.php');
 include('extends/class-acf-field-gallery_advanced.php'); 
 
+add_filter( 'wp_kses_allowed_html', 'wpbc_acf_add_allowed_svg_tag', 10, 2 );
+function wpbc_acf_add_allowed_svg_tag( $tags, $context ) {
+    if ( $context === 'acf' ) {
+        $tags['svg']  = array(
+            'xmlns'       => true,
+            'fill'        => true,
+            'viewbox'     => true,
+            'role'        => true,
+            'aria-hidden' => true,
+            'focusable'   => true,
+        );
+        $tags['path'] = array(
+            'd'    => true,
+            'fill' => true,
+            'class' => true,
+        ); 
+    }
+
+    return $tags;
+}
 
 add_action('admin_footer','WPBC_acf_loading_admin_footer',999);
 function WPBC_acf_loading_admin_footer(){
 	?>
-<script id="WPBC_theme_settings_admin_footer">
+<script id="WPBC_acf_admin_footer">
 	
 	(function($) { 
 
@@ -16,6 +36,75 @@ function WPBC_acf_loading_admin_footer(){
 				$('body.wpbc_acf_loading').removeClass('wpbc_acf_loading').addClass('wpbc_acf_loaded');
 			}, 1000); 
 		}); 
+
+		$('.acf-field-true-false.wpbc-select-type').each(function(){
+			var me = $(this);
+			var select = me.find('.acf-input [type="checkbox"]');
+
+			var classes = me.attr('class');
+			var classes = classes.split(" ");
+			var target = '';
+		
+			select.on('change', function(event){
+
+				$.each(classes, function(k,v){
+
+					if( v.startsWith('wpbc-select-type-') ){ 
+						var target = v.replace('wpbc-select-type-','');
+						if(target){ 
+							var badge = $('[data-key="'+ target +'"]').find('.wpbc-tab-badge');
+							if (event.currentTarget.checked) { 
+								choosed = true;
+						    badge.removeClass('wpbc-d-none'); 
+						  } else {
+						  	choosed = false;
+						  	badge.addClass('wpbc-d-none');  
+						  }
+						  if( choosed == 1){
+						  	choosed = 'ENABLED';
+						  }else{
+						  	choosed = 'DISABLED';
+						  }
+						  badge.attr('title', choosed);
+						}
+					}
+
+				}); 
+
+			});
+
+		});
+
+		$('.acf-field-select.wpbc-select-type').each(function(){
+			var me = $(this);
+			var select = me.find('.acf-input select');
+			
+			var classes = me.attr('class');
+			var classes = classes.split(" ");
+			var target = ''; 
+
+			select.on('change', function(){
+
+				var choosed = $(this).val();  
+
+				$.each(classes, function(k,v){ 
+					if( v.startsWith('wpbc-select-type-') ){ 
+						var target = v.replace('wpbc-select-type-',''); 
+						if(target){ 
+							var badge = $('[data-key="'+ target +'"]').find('.wpbc-tab-badge'); 
+							if( choosed != 'none' ){  
+								badge.removeClass('wpbc-d-none');  
+							}else{  
+								badge.addClass('wpbc-d-none');  
+							}
+							badge.attr('title', choosed);
+						}
+					} 
+				});  
+
+			});
+
+		});
 
 	})(jQuery); 
 

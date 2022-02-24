@@ -83,10 +83,69 @@ if($use_wpbc_tinymce_custom_block_formats){
 
 	add_filter( 'tiny_mce_before_init', 'wpbc_tinymce_settings' );
 
-	function wpbc_tinymce_settings( $init_array ) {
+	function wpbc_tinymce_get_block_formats(){
+		/*
+			ed.formatter.register( 'p-lead', {
+		    block : 'p',
+		    classes : 'lead'
+			});
+		*/
+		$block_formats_X = array(
+			array(
+				'key' => 'p',
+				'block' => 'p',
+				'classes' => '',
+				'tinymce' => 'Paragraph=p'
+			),
+			array(
+				'key' => 'p-lead',
+				'block' => 'p',
+				'classes' => 'lead',
+				'tinymce' => 'Paragraph Lead=p-lead'
+			),
+			array(
+				'key' => 'p-small',
+				'block' => 'p',
+				'classes' => 'small',
+				'tinymce' => 'Paragraph Small=p-small'
+			),
 
+			array(
+				'key' => 'display-1',
+				'block' => 'h1',
+				'classes' => 'display-1',
+				'tinymce' => 'Display 1=display-1'
+			),
+			array(
+				'key' => 'display-2',
+				'block' => 'h2',
+				'classes' => 'display-2',
+				'tinymce' => 'Display 2=display-2'
+			),
+			array(
+				'key' => 'display-3',
+				'block' => 'h3',
+				'classes' => 'display-3',
+				'tinymce' => 'Display 3=display-3'
+			),
+			array(
+				'key' => 'display-4',
+				'block' => 'h4',
+				'classes' => 'display-4',
+				'tinymce' => 'Display 4=display-4'
+			),
+
+			array(
+				'key' => 'display-4',
+				'block' => 'h4',
+				'classes' => 'display-4',
+				'tinymce' => 'Heading 1=h1'
+			),
+
+		);
 		$block_formats = [
         'Paragraph=p',
+        'Paragraph Lead=p-lead',
         'Paragraph Small=p-small',
         'Display 1=display-1',
         'Display 2=display-2',
@@ -99,8 +158,32 @@ if($use_wpbc_tinymce_custom_block_formats){
         'Heading 5=h5',
         'Heading 6=h6', 
     ];
+    $block_formats = apply_filters('wpbc/filter/tinymce/block_formats', $block_formats);
+    return $block_formats;
+	}
+	function wpbc_tinymce_get_font_formats(){
+		$font_formats = array();
+		/*
+			EX:
+			$font_formats = array(
+				'Spartan=Spartan,sans-serif',
+				'Lora=Lora,serif',
+			);
+		*/
+		$font_formats = apply_filters('wpbc/filter/tinymce/font_formats', $font_formats);
+		return $font_formats;
+	}
+	function wpbc_tinymce_settings( $init_array ) {
+
+		$block_formats = wpbc_tinymce_get_block_formats();
 	  $init_array['block_formats'] = implode(';', $block_formats);
-		
+
+	  $font_formats = wpbc_tinymce_get_font_formats();
+	 
+	  if(!empty($font_formats)){
+	  	$init_array['font_formats'] = implode(';', $font_formats); 
+	  }
+		 
 		$style_formats = array(  
 			// Each array child is a format with it's own settings
 			array(  
@@ -144,23 +227,43 @@ if($use_wpbc_tinymce_custom_block_formats){
 				      scope: "node"
 				    });
 				    */
-
-				    ed.formatter.register( 'p-small', {
+				    ed.formatter.register( 'p', {
 	            block : 'p',
-	            classes : 'small'
+	            attributes: { class: '' }
 	        	});
+				    ed.formatter.register( 'p-lead', {
+	            block : 'p', 
+	            attributes: { class: 'lead' }
+	        	});
+				    ed.formatter.register( 'p-small', {
+	            block : 'p', 
+	            attributes: { class: 'small' }
+	        	});
+
 				    ed.formatter.register( 'display-1', {
-	            block : 'h1',
-	            classes : 'display-1'
+	            block : 'h1', 
+	            attributes: { class: 'display-1' }
 	        	});
 	        	ed.formatter.register( 'display-2', {
-	            block : 'h2',
-	            classes : 'display-2'
+	            block : 'h2', 
+	            attributes: { class: 'display-2' }
 	        	});
 	        	ed.formatter.register( 'display-3', {
-	            block : 'h3',
-	            classes : 'display-3'
+	            block : 'h3', 
+	            attributes: { class: 'display-3' }
 	        	});
+	        	ed.formatter.register( 'display-4', {
+	            block : 'h4', 
+	            attributes: { class: 'display-4' }
+	        	}); 
+
+	        	for (var i = 1; i < 7; i++) { 
+	        		 ed.formatter.register( 'h'+i+'', {
+		            block : 'h'+i+'', 
+		            attributes: { class: 'h'+i+'' }
+		        	});
+	        	}
+
 				});
 
 	      acf.add_filter('wysiwyg_tinymce_settings', function( mceInit, id, field ){
@@ -246,6 +349,20 @@ if($use_wpbc_tinymce_custom_block_formats){
 				'wp_adv'
 			);
 			$toolbars['wpbc_format'][2] = array(
+				'strikethrough','hr','blockquote', 
+				'pastetext','removeformat','charmap',
+				'outdent','indent',
+				'fullscreen'
+			); 
+
+		$toolbars['wpbc_format_family'] = array();
+			$toolbars['wpbc_format_family'][1] = array(
+				'formatselect', 'fontselect', 'forecolor',  
+				'bold', 'italic', 'underline', 'bullist', 'numlist', 
+				'alignleft', 'aligncenter','alignright', 'link', 
+				'wp_adv'
+			);
+			$toolbars['wpbc_format_family'][2] = array(
 				'strikethrough','hr','blockquote', 
 				'pastetext','removeformat','charmap',
 				'outdent','indent',

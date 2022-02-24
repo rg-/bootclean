@@ -48,6 +48,19 @@
     -ms-transform: translate(0, 25%);
     transform: translate(0, 25%); }
 
+[data-is-inview="transition"] [data-is-inview-fx="fadeInDown"] {
+  transition: 1s ease all; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-is-inview="transition"] [data-is-inview-fx="fadeInDown"] {
+      transition: none; } }
+  [data-is-inview="transition"] [data-is-inview-fx="fadeInDown"]:not(.is-inview-once) {
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    opacity: 0;
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    transform: translate(0, -25%); }
+
 [data-is-inview="transition"] [data-is-inview-fx="translateLeft"] {
   transition: 1s ease all; }
   @media (prefers-reduced-motion: reduce) {
@@ -76,7 +89,16 @@
   -ms-transform: scale(1);
   transform: scale(1); }
 
-[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="fadeInUp"], [data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="fadeInUp"] {
+[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="translateLeft"],
+[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="translateTop"], [data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="translateLeft"],
+[data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="translateTop"] {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="fadeInUp"],
+[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="fadeInDown"], [data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="fadeInUp"],
+[data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="fadeInDown"] {
   -webkit-opacity: 1;
   -moz-opacity: 1;
   opacity: 1;
@@ -88,10 +110,3 @@
   -webkit-opacity: 1;
   -moz-opacity: 1;
   opacity: 1; }
-
-[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="translateLeft"],
-[data-is-inview="transition"][data-is-inview-visible="partial"] [data-is-inview-fx="translateTop"], [data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="translateLeft"],
-[data-is-inview="transition"][data-is-inview-visible="on"] [data-is-inview-fx="translateTop"] {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0); }

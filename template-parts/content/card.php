@@ -1,10 +1,10 @@
 <?php 
 	
 	$id = !empty($args['id']) ? $args['id'] : get_the_ID();
-	$style_args = !empty($args['style_args']) ? $args['style_args'] : ''; 
-	$id = apply_filters('wpbc/filter/ui_layout_posts_advanced-item/id', $id);
-	$style_args = apply_filters('wpbc/filter/ui_layout_posts_advanced-item/style_args', $style_args); 
+	$style_args = !empty($args['style_args']) ? $args['style_args'] : array(); 
 	
+	$id = apply_filters('wpbc/filter/ui_layout_posts_advanced-item/id', $id);
+	$style_args = apply_filters('wpbc/filter/ui_layout_posts_advanced-item/style_args', $style_args);  
 ?>
 <article id="post-id-<?php echo $id;?>" class="ui_layout_posts_advanced-item <?php echo $style_args['item_class'];?>">
 	<div class="card">
@@ -24,7 +24,7 @@
 	  <div class="card-body">
 	    <h5 class="card-title"><?php echo get_the_title($id);?></h5>
 	    <p class="card-text"><?php echo get_the_excerpt($id);?></p>
-	    <a href="<?php echo get_the_permalink($id);?>" class="btn btn-primary"><?php echo __('Read more', 'bootclean');?></a>
+	    <a href="<?php echo get_the_permalink($id);?>" class="<?php echo $style_args['btn_more_class'];?>"><?php echo $style_args['btn_more_label'];?></a>
 	  </div>
 	</div>
 </article>

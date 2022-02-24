@@ -40,10 +40,13 @@ function WPBC_make_div_start($key='', $value='', $count='', $structure_id=''){
 		$area_name = $value['area-name'];
 		//$class = apply_filters('wpbc/filter/layout/main_container/area-name/'.$value['area-name'].'/class', $class);
 		$class = apply_filters('wpbc/filter/layout/'.$structure_id.'/main_container/area-name/'.$value['area-name'].'/class', $class);
+		// or
+		$class = apply_filters('wpbc/filter/layout/class/?area-name='.$value['area-name'], $class, $structure_id, $key);
 	} 
 	// ej: 'wpbc/filter/layout/class/?id=main-container-areas'
-	$class = apply_filters('wpbc/filter/layout/class/?id='.$value['id'], $class, $structure_id, $key);
+	$class = apply_filters('wpbc/filter/layout/class/?id='.$value['id'], $class, $structure_id, $key); 
 
+	// or use this one generaly (not recomened)
 	$class = apply_filters('wpbc/filter/layout/main_container/class', $class, $structure_id, $value['id'], $area_name);
 
 	$class = ' class="'.$structure_id.' '.$class.'" ';
@@ -88,8 +91,7 @@ function WPBC_make_div_inner($key='', $value='', $count='', $main_key){
 	} 
 	if(!empty($value['content-area'])){ 
 		$name = !empty($value['content-area']['name']) ? $value['content-area']['name'] : '';
-		$shortcode = !empty($value['content-area']['shortcode']) ? $value['content-area']['shortcode'] : '';
-		
+		$shortcode = !empty($value['content-area']['shortcode']) ? $value['content-area']['shortcode'] : ''; 
 	}
 	$shortcode = apply_filters('wpbc/filter/layout/content-area/shortcode/'.$name, $shortcode, $key, $value);
 	$shortcode = apply_filters('wpbc/filter/layout/'.$main_key.'/content-area/shortcode/'.$name, $shortcode, $value);
@@ -115,6 +117,7 @@ function WPBC_layout_struture__build($section=''){
 		$structure_id = $key;
 
 		$out .= WPBC_make_div_start($key, $value, $count, $structure_id); 
+
 		$out .= WPBC_make_div_inner($key, $value, $count, $key);  
 
 		$ccount = 0;
@@ -131,7 +134,8 @@ function WPBC_layout_struture__build($section=''){
 					$ccontent = $vvalue['content'];
 					foreach ($ccontent as $kkkey => $vvvalue) {
 						
-						$out .= WPBC_make_div_start($kkkey, $vvvalue, $cccount, $structure_id); 
+						$out .= WPBC_make_div_start($kkkey, $vvvalue, $cccount, $structure_id);
+
 						$out .= WPBC_make_div_inner($kkkey, $vvvalue, $cccount, $key); 
 						// Posible 4 Level ?? 
 						$out .= WPBC_make_div_end($kkkey, $vvvalue, $cccount, $section); 
@@ -292,7 +296,7 @@ function WPBC_get_layout_structure_build_layout($id=''){
 	/* NEW v 11.00 */
 	$using_theme_settings = false;
 	$theme_settings_location = WPBC_get_option('layout_location__'.$template );
-	if($theme_settings_location['layout_location__'.$template]){
+	if( isset($theme_settings_location['layout_location__'.$template]) && $theme_settings_location['layout_location__'.$template]){
 		$using_theme_settings = true;
 		$layout = $theme_settings_location['layout_location__'.$template]; 
 	} 
@@ -348,7 +352,8 @@ function WPBC_get_main_container_max_content_areas($return=''){
 		return $temp;
 	}else{
 		return max($temp);
-	}  
+	}   
+
 }
 
 
@@ -367,7 +372,10 @@ function WPBC_get_layout_locations_for_acf(){
 		return $test_array;
 	}
 
-function WPBC_get_layout_container_type_choices(){
+function WPBC_get_layout_container_type_choices($args=array()){
+
+	$width = !empty($args['width']) ? $args['width'] : '24';
+
 	$img_path = get_template_directory_uri(); 
 
 	$choices = array(
@@ -380,7 +388,7 @@ function WPBC_get_layout_container_type_choices(){
 
 	$custom_layout__container_type_choices = array();
 	foreach ($choices as $choice) {
-		$custom_layout__container_type_choices[$choice] = '<img src="'.$img_path.'/bc/core/assets/images/layout_'.$choice.'.png'.'" width="24" class=""/> <small style="vertical-align:4px;">'.$choice.'</small>';
+		$custom_layout__container_type_choices[$choice] = '<img src="'.$img_path.'/bc/core/assets/images/layout_'.$choice.'.png'.'" width="'.$width.'" class=""/> <small style="margin:auto;">'.$choice.'</small>';
 	} 
 	return $custom_layout__container_type_choices;
 }

@@ -253,7 +253,7 @@ add_action('admin_head', function(){
 });
 
 function WPBC_template_buider_save_post( $post_id, $post ) {
-    if ( 'publish' === $post->post_status ) {
+    if ( 'publish' === $post->post_status && $post->post_type == 'wpbc_template' ) {
     	// Make "default" to be saved as default if nothing selected
         $defaults = array(
             WPBC_template_builder__taxonomy_type_name() => 'default'
@@ -322,14 +322,16 @@ function wpbc_template_custom_column_views( $column_name, $id ){
 }
 
 
-// ACF
+// ACF 
 
 if( function_exists('acf_add_local_field_group') ):
 function d(){
 	if(!empty($_GET['post'])){
 		$id = $_GET['post'];
 		$name = get_the_title($id);
-		return '<span class="wpbc_template_id wpbc_template_'.$id.'"><input style="font-size:12px; line-height:12px; width:100%;" onclick="this.focus();this.select()" type="text" name="bc_layout_id" value="[WPBC_get_template id=&quot;'.$id.'&quot; name=&quot;'.$name.'&quot;/]" readonly="readonly"></span>';
+		$shortcode = "[WPBC_get_template id=&quot;".$id."&quot; name=&quot;".$name."&quot;/]";
+		//$shortcode = '';
+		return "<span class='wpbc_template_id wpbc_template_".$id."' style='display:inline-block;'><span style='font-size:12px; line-height:12px; width:100%; display:inline-block; padding:6px 8px; border:1px solid #8c8f94; border-radius:3px;' onclick='wpbc_selectText(this.id)' id='wpbc_selectText'>".$shortcode."</span></span>";
 	} 
 }
 acf_add_local_field_group(array(
@@ -371,7 +373,7 @@ acf_add_local_field_group(array(
 			'maxlength' => '',
 			'rows' => '',
 			'new_lines' => 'wpautop',
-		),
+		), 
 	), 
 	'location' => array(
 		array(
@@ -446,6 +448,31 @@ function WPBC_insert_page_builder__admin_footer(){
 
   <p><small>(*) This is just the default Wordpress page.</small></p>
 </div>
+
+<script>
+	function wpbc_selectText(id){
+		var sel, range;
+		var el = document.getElementById(id); //get element id
+		if (window.getSelection && document.createRange) { //Browser compatibility
+		  sel = window.getSelection();
+		  if(sel.toString() == ''){ //no text selection
+			 window.setTimeout(function(){
+				range = document.createRange(); //range object
+				range.selectNodeContents(el); //sets Range
+				sel.removeAllRanges(); //remove all ranges from selection
+				sel.addRange(range);//add Range to a Selection.
+			},1);
+		  }
+		}else if (document.selection) { //older ie
+			sel = document.selection.createRange();
+			if(sel.text == ''){ //no text selection
+				range = document.body.createTextRange();//Creates TextRange object
+				range.moveToElementText(el);//sets Range
+				range.select(); //make selection.
+			}
+		}
+	}
+</script>
 <?php
 }
 

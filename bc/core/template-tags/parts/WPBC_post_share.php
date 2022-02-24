@@ -114,7 +114,7 @@ function build_share_button($item, $item_class, $item_input_class){
 
 	$label = !empty($icon) ? $icon : $item['title'];
 	
-	if(!empty($item['url'])) $url = $item['url'];
+	$url = !empty($item['url']) ? $item['url'] : '';
 
 	$url = apply_filters('wpbc/filter/post/share/button/url', $url, $id);
 	$data = '';

@@ -5,7 +5,7 @@ if ( ! function_exists( 'WPBC_advanced_posts_pagination' ) ) :
 function WPBC_advanced_posts_pagination($args=array()){  
 
 	$show_nav = false; // Just for debug 
-
+	
 	$defaults = array(
 
 		'wp_query' => '',
@@ -23,10 +23,10 @@ function WPBC_advanced_posts_pagination($args=array()){
 		'li_a_current_class' => 'current',
 		'li_disabled' => 'disabled',
 		'aria-label' => '',
-		'prev_arrow' => '<i class="fa fa-chevron-left"></i>',
-		'next_arrow' => '<i class="fa fa-chevron-right"></i>',
-		'title_first' => '<i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i>',
-		'title_last' => '<i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i>',
+		'prev_arrow' => '<i class="wpbci-angle-left"></i>',
+		'next_arrow' => '<i class="wpbci-angle-right"></i>',
+		'title_first' => '<i class="wpbci-chevron-double-left"></i>',
+		'title_last' => '<i class="wpbci-chevron-double-right"></i>',
 		'title_paged' => __('Page', 'bootclean'),
 		'title_paged_of' => __('of', 'bootclean'),
 		'txt_info' => __('posts under this term.', 'bootclean'),
@@ -42,7 +42,7 @@ function WPBC_advanced_posts_pagination($args=array()){
 		'use_pagination_paged' => false,
 	);
 	$args = wp_parse_args( $args, $defaults );
-
+	
 	extract( $args ); 
 
 	$use_pagination_results = $out_info; 

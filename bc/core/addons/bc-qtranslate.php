@@ -228,7 +228,7 @@ if( function_exists('qtranxf_use') && defined('BC_ACF_QTRANSLATEX_ENABLED') && B
 
 	},100,1);
 	
-	// ACF fields ( could be more to add... TODO, find all of them ) 
+	// ACF fields ( could be more to add... TODO, find all of them )  
 
 	// layout_code_body_class
 	// add_filter('acf/load_field/name=layout_code_body_class', 'bc_child_defaults_qtranslate_text_fx',100,1);
@@ -269,4 +269,44 @@ if( function_exists('qtranxf_use') && defined('BC_ACF_QTRANSLATEX_ENABLED') && B
 		return $content;
 	}
 	add_shortcode('WPBC_get_text_language', 'WPBC_get_text_language_FX');
+
+	/*
+		
+		If QTS, remove meta box from some post types
+
+	*/
+	add_action( 'init', 'WPBC_remove_slug_meta_box' );
+	function WPBC_remove_slug_meta_box () {
+	    // Global object containing current admin page
+	    global $pagenow;
+
+	    // If current page is post.php and post isset than query for its post type 
+	    // if the post type is 'wpbc_template' do something
+
+	    $post_type_no = array( 'wpbc_template', 'acf-field-group' );
+
+	    if ( 'post.php' === $pagenow && isset($_GET['post']) && in_array( get_post_type( $_GET['post'] ), $post_type_no ) ){
+
+	    	// Remove QTS meta box
+	      global $qtranslate_slug;
+	      if(!empty($qtranslate_slug)){
+	 				remove_action( 'admin_menu', array($qtranslate_slug, 'add_slug_meta_box') );
+	    	}
+
+	    }
+
+	}
+
+	/*
+	
+		Remove lang column form some post types
+
+	*/
+	add_filter( 'manage_wpbc_template_posts_columns', 'WPBC_remove_post_type_lang_column' ); 
+	function WPBC_remove_post_type_lang_column( $columns ) {
+		unset( $columns['language'] ); 
+		return $columns;
+	}
+
+
 }

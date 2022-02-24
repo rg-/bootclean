@@ -3,6 +3,8 @@
 $attachment_id = $args['content__item_image'];  
 
 $item_content = $args['content__item_content'];  
+$item_class = $args['content__item_class'];
+
 
 $image_hi_data = wp_get_attachment_image_src( $attachment_id, "full" );
 $image_low_data = wp_get_attachment_image_src( $attachment_id, "medium" ); 
@@ -11,6 +13,7 @@ $img_hi = $image_hi_data[0];
 $img_low = $image_low_data[0];
 	
 	$item_args = array(
+		'item_class' => $item_class,
 		'type' => 'slick-image-cover',
 		'img_hi' => $img_hi,
 		'img_low' => $img_low, 

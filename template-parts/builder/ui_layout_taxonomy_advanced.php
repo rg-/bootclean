@@ -31,7 +31,7 @@
 
 ?>
 
-<div id="<?php echo $ui_layout_args['row_id']; ?>" class="ui_layout_posts_advanced-container <?php echo $ui_layout_args['style_args']['container_class'];?>">
+<div id="<?php echo $ui_layout_args['row_id']; ?>" class="ui_layout_posts_advanced-container <?php echo $ui_layout_args['style_args']['container_class'];?>" <?php echo $ui_layout_args['style_args']['container_args'];?>>
 
 	<div <?php echo $ui_layout_args['style_args']['row_args'];?> class="ui_layout_posts_advanced-row <?php echo $ui_layout_args['style_args']['row_class'];?> row-half-gutters" data-delay-items >
 
@@ -53,7 +53,7 @@
 			
 			foreach($taxonomy as $term){
 				$term_id = number_format($term->term_id);  
-	    	$template = $ui_layout_args['style_args']['item_template']; 
+	    	$template = !empty($ui_layout_args['style_args']['item_template']) ? $ui_layout_args['style_args']['item_template'] : 'default'; 
 				$temp_folder = WPBC_get_template_part_content_path().'/taxonomy'; 
 				echo "<!-- ".$temp_folder.'/'.$template." -->";
 				WPBC_get_template_part( $temp_folder.'/'.$template, array(

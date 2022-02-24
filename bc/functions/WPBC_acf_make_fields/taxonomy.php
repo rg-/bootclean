@@ -15,7 +15,7 @@ function WPBC_acf_make_taxonomy_field($args,$is_registered_option=false){
 			'id' => '',
 		),
 		'taxonomy' => '',
-		'field_type' => 'select',
+		'field_type' => 'select', // select, checkbox, radio
 		'allow_null' => 0,
 		'add_term' => 0,
 		'save_terms' => 0,

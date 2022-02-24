@@ -54,10 +54,13 @@ add_filter('wpcf7_autop_or_not', '__return_false');
 
 add_filter( 'wpcf7_default_template', 'WPBC_wpcf7_default_template', 10, 2 );
 function WPBC_wpcf7_default_template($template, $prop){
-	if($prop == 'form'){
 
-		$form_control_class = 'class:form-control';
+	$form_type = apply_filters('wpbc/filter/wpcf7/default_template_type', 'fa-icons');
+
+	$form_control_class = 'class:form-control';
 		$form_btn_class = 'class:btn class:btn-primary';
+
+	if($prop == 'form' && $form_type == 'fa-icons'){
 
 		$template = '<div class="form-group has-icon">'.PHP_EOL;
 		$template .= '<span class="fa fa-user form-control-icon"></span>'.PHP_EOL;
@@ -79,35 +82,61 @@ function WPBC_wpcf7_default_template($template, $prop){
 		$template .= '[textarea your-message '.$form_control_class.' placeholder "Your Message"]'.PHP_EOL;
 		$template .= '</div>'.PHP_EOL;
 
-		$template .= '<div class="form-group">'.PHP_EOL;
+		$template .= '<div class="form-group form-group-action">'.PHP_EOL;
 		$template .= '[submit '.$form_btn_class.' "Submit"]'.PHP_EOL;
 		$template .= '</div>'.PHP_EOL; 
 	}
+
+	if($prop == 'form' && $form_type == 'bootstrap'){
+
+		$template = '<div class="form-group">'.PHP_EOL; 
+		$template .= '[text* your-name '.$form_control_class.' placeholder "Your Name"]'.PHP_EOL;
+		$template .= '</div>'.PHP_EOL; 
+
+		$template .= '<div class="form-group">'.PHP_EOL;
+		$template .= '[email* your-email '.$form_control_class.' placeholder "Your Email"]'.PHP_EOL;
+		$template .= '</div>'.PHP_EOL;
+
+		$template .= '<div class="form-group">'.PHP_EOL;
+		$template .= '[text your-subject '.$form_control_class.' placeholder "Your Subject"]'.PHP_EOL;
+		$template .= '</div>'.PHP_EOL;
+
+		$template .= '<div class="form-group">'.PHP_EOL;
+		$template .= '[textarea your-message '.$form_control_class.' placeholder "Your Message"]'.PHP_EOL;
+		$template .= '</div>'.PHP_EOL;
+
+		$template .= '<div class="form-group form-group-action">'.PHP_EOL;
+		$template .= '[submit '.$form_btn_class.' "Submit"]'.PHP_EOL;
+		$template .= '</div>'.PHP_EOL; 
+
+	}
+
 	return $template; 
 }  
 
 
+if( apply_filters( 'wpbc/filter/wpcf7/control-animated', false ) ){
+	add_action('wp_footer', 'WPBC_wpcf7_wp_footer_scripts', 99);
 
-add_action('wp_footer', 'WPBC_wpcf7_wp_footer_scripts', 99);
-
-function WPBC_wpcf7_wp_footer_scripts(){
-	?>
-<script id="WPBC_wpcf7_wp_footer_scripts">
-+function(t){  
-	$(document).on('focus', '.wpcf7-form .m-form-control-animated', function(e){
-		  $(this).closest('.m-form-group').addClass('focused');
-	});
-	$(document).on('blur', '.wpcf7-form .m-form-control-animated', function(e){
-		if(this.value == ""){
-		  $(this).closest('.m-form-group').removeClass('focused');
-		}
-	});
-	$(document).on('input', '.wpcf7-form .m-form-control-animated', function(e){
-		if(this.value == ""){
-		  $(this).closest('.m-form-group').removeClass('focused');
-		}
-	});
-	}(jQuery); 
-</script>
-	<?php
+	function WPBC_wpcf7_wp_footer_scripts(){
+		?>
+	<script id="WPBC_wpcf7_wp_footer_scripts">
+	+function(t){  
+		$(document).on('focus', '.wpcf7-form .m-form-control-animated', function(e){
+			  $(this).closest('.m-form-group').addClass('focused');
+		});
+		$(document).on('blur', '.wpcf7-form .m-form-control-animated', function(e){
+			if(this.value == ""){
+			  $(this).closest('.m-form-group').removeClass('focused');
+			}
+		});
+		$(document).on('input', '.wpcf7-form .m-form-control-animated', function(e){
+			if(this.value == ""){
+			  $(this).closest('.m-form-group').removeClass('focused');
+			}
+		});
+		}(jQuery); 
+	</script>
+		<?php
+	}
 }

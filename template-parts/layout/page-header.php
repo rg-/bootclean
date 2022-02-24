@@ -1,5 +1,13 @@
 <?php
 
+/*
+
+	OBSOLETE since v12.0.0
+
+	@see template-parts/layout/main-page-header.php new ONE
+
+*/
+
 $post_id = apply_filters('wpbc/filter/layout/main-page-header/post_id', '');
 $params = WPBC_layout__main_page_header_defaults($post_id);  
 $use_from_options = $params['use_from_options'];

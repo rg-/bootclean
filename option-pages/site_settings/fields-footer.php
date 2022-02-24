@@ -51,28 +51,83 @@ function wpbc_theme_settings__footer__subtitle($fields){
 }
 
 
-add_filter('wpbc/filter/theme_settings/fields/footer', 'wpbc_theme_settings__footer_copyright', 10, 1);
-function wpbc_theme_settings__footer_copyright($fields){
-	$fields[] =  WPBC_acf_make_textarea_field(
+add_filter('wpbc/filter/theme_settings/fields/footer', 'wpbc_theme_settings__footer_defaults', 10, 1);
+function wpbc_theme_settings__footer_defaults($fields){
+
+	$fields[] = WPBC_acf_make_true_false_field(
+			array( 
+				'name' => 'footer__use',
+				'label' => _x('Visble','bootclean'), 
+				'default_value' => 1,
+				'width' => '15'
+			)
+		);  
+
+	$fields[] = WPBC_acf_make_radio_field(
 		array( 
-			'name' => 'footer_copyright',
-			'label' => _x('Copyright text','bootclean'),  
+			'name' => 'footer_template_type',
+			'label' => _x('Footer Type','bootclean'), 
+			'default_value' => 'default',
+			'choices' => array (
+				'default' => 'Default',
+				'template' => 'Template',
+				'template-part' => 'Template Part (php)',
+				'custom' => 'Custom HTML', 
+			),
+			'default_value' => 'default',
+			'class' => 'wpbc-radio-as-btn as-btn-danger',
+			'width' => '85'
+		),
+		true
+	);  
+
+	$fields[] =  WPBC_acf_make_post_object_wpbc_template(
+		array( 
+			'name' => 'footer_template',
+			'label' => _x('Footer template','bootclean'),
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_footer_template_type',
+						'operator' => '==',
+						'value' => 'template',
+					),
+				), 
+			),
 		)
 	); 
+
+	$fields[] =  WPBC_acf_make_select_template_part_field(
+		array( 
+			'name' => 'footer_template_part',
+			'label' => _x('Footer template part','bootclean'),
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_footer_template_type',
+						'operator' => '==',
+						'value' => 'template-part',
+					),
+				), 
+			),
+		)
+	); 
+
+	$fields[] =  WPBC_acf_make_codemirror_field(
+		array( 
+			'name' => 'footer_custom_html',
+			'label' => _x('Footer Custom Html','bootclean'),
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_footer_template_type',
+						'operator' => '==',
+						'value' => 'custom',
+					),
+				), 
+			),
+		)
+	);  
+
 	return $fields;
-}
-
-
-
-
-/* FRONT END FILTERS/ACTIONS FOR THIS SETTINGS */
-
-add_filter('wpbc/filter/component/wp-footer/args', function($args){
-	if(!empty($args['is_main'])){
-		$footer_copyright = WPBC_get_theme_settings('footer_copyright');
-		if(!empty($footer_copyright)){
-			$args['default_content'] = $footer_copyright;
-		}
-	}
-	return $args;
-},10,1);
+} 

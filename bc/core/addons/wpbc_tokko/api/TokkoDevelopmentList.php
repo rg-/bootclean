@@ -113,12 +113,13 @@ class TokkoDevelopmentList
 
           if($filters_array){
             foreach($filters_array as $filter){
+
                $url = $url."&".$filter["key"]."=".$filter["value"];
             }
           }
 
-          $url = $url."&offset=".$this->get_offset();
-
+          $url = $url."&offset=".$this->get_offset(); 
+          
           $cp = curl_init();
           curl_setopt($cp, CURLOPT_RETURNTRANSFER, 1);
           curl_setopt($cp, CURLOPT_URL, $url);

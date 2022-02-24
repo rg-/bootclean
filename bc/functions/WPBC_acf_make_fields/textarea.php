@@ -18,7 +18,7 @@ function WPBC_acf_make_textarea_field($args,$is_registered_option=false){
 		'placeholder' => '',
 		'maxlength' => '',
 		'rows' => '3',
-		'new_lines' => '',
+		'new_lines' => '', // br, wpautop
 	);
 	$field = array_merge($defaults, $args); 
 	$field = WPBC_acf_make_fields__filter($field, $args); 

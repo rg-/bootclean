@@ -2,7 +2,7 @@
 	$WPBC = array( 
 		'header_class' => apply_filters('WPBC_post_header_class', ''),
 		'title_tag' => apply_filters('WPBC_post_header_title_tag', 'h2'),
-		'title_class' => apply_filters('WPBC_post_header_title_class', 'entry-title')
+		'title_class' => apply_filters('WPBC_post_header_title_class', 'display-3')
 	);
 	$WPBC = apply_filters('WPBC_post_header', $WPBC);
 	extract($WPBC); 

@@ -124,6 +124,8 @@
 		'cols' => $cols,
 	);
 
+	$args = apply_filters('wpbc/filter/ui_layout_full_content_fit/args',$args);
+
 	WPBC_get_full_content_fit( $full_content_fit ); 
 
 ?>

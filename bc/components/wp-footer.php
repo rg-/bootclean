@@ -9,7 +9,7 @@
 		'is_main' => $is_main,
 		
 		'id' => '',
-		'class' => 'pt-4 pb-2',
+		'class' => 'gpy-2',
 		'container_class' => 'container',
 		'container_row_class' => 'row',
 		'container_col_class' => 'col-12',

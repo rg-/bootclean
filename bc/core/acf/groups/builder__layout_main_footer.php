@@ -20,7 +20,88 @@ function WPBC_group_builder__layout__main_footer($fields){
 		'endpoint' => 0,
 	);
 
-	$fields[] = array (
+	
+
+	global $WPBC_VERSION; 
+	if ( version_compare( $WPBC_VERSION, '11.9.9', '>' ) ) {	
+		
+		$fields[] = WPBC_acf_make_true_false_field(
+			array( 
+				'name' => 'layout_footer__use',
+				'label' => _x('Visble','bootclean'), 
+				'default_value' => 1,
+				'width' => '15'
+			)
+		);  
+
+		$fields[] = WPBC_acf_make_radio_field(
+			array( 
+				'name' => 'layout_footer_template_type',
+				'label' => _x('Footer Type','bootclean'), 
+				'default_value' => 'default',
+				'choices' => array (
+					
+					'default' => 'Default',
+					'template' => 'Template',
+					'template-part' => 'Template Part (php)',
+					'custom' => 'Custom HTML', 
+
+				),
+				'class' => 'wpbc-radio-as-btn as-btn-danger', 
+				'width' => '85'
+			)
+		);  
+
+		$fields[] =  WPBC_acf_make_post_object_wpbc_template(
+			array( 
+				'name' => 'layout_footer_template',
+				'label' => _x('Footer template','bootclean'),
+				'conditional_logic' => array (
+					array (
+						array (
+							'field' => 'field_layout_footer_template_type',
+							'operator' => '==',
+							'value' => 'template',
+						),
+					), 
+				),
+			)
+		); 
+
+		$fields[] =  WPBC_acf_make_select_template_part_field(
+		array( 
+			'name' => 'layout_footer_template_part',
+			'label' => _x('Footer template part','bootclean'),
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_layout_footer_template_type',
+						'operator' => '==',
+						'value' => 'template-part',
+					),
+				), 
+			),
+		)
+	); 
+
+	$fields[] =  WPBC_acf_make_codemirror_field(
+		array( 
+			'name' => 'layout_footer_custom_html',
+			'label' => _x('Footer Custom Html','bootclean'),
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_layout_footer_template_type',
+						'operator' => '==',
+						'value' => 'custom',
+					),
+				), 
+			),
+		)
+	); 
+
+	}else{
+		$fields[] = array (
 		'key' => 'field_layout_footer_template',
 		'label' => 'Main Footer Template',
 		'name' => 'layout_footer_template',
@@ -35,6 +116,6 @@ function WPBC_group_builder__layout__main_footer($fields){
 		'ui' => 1, 
 		'return_format' => 'value', 
 	);
-
+	}
 	return $fields;
 }

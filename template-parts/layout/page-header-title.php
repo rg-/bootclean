@@ -12,15 +12,40 @@
 	
 	@see _print_code($args);
 
-*/ 
-?>
-<div class="<?php echo $args['container_class']; ?>">
+*/  
+	$type = !empty($args['type']) ? $args['type'] : 'jumbotron';
+	$container = !empty($args['container']) ? $args['container'] : 'inside';
 
-	<div class="<?php echo $args['row_class']; ?>">
-		<div class="<?php echo $args['col_class']; ?>">
-			<?php echo $args['title']; ?>
-			<?php echo $args['subtitle']; ?>
+	WPBC_get_template_part('components/container', array());
+	WPBC_get_template_part('components/jumbotron', array());
+?> 
+
+<?php if( $container == 'outside' ) { ?>
+	<div class="<?php echo $args['container_class']; ?>">
+<?php } ?>
+
+<div class="<?php echo $type; ?> mb-0 bg-transparent">
+
+	<?php if( $container == 'inside' ) { ?>
+		<div class="<?php echo $args['container_class']; ?>">
+			<?php } ?>
+
+			<?php echo $args['before']; ?>
+
+		  <h1 class="display-2"><?php echo $args['title']; ?></h1>
+
+		  <?php if( $args['subtitle'] ) { ?>
+				<p class="lead"><?php echo $args['subtitle']; ?></p>
+			<?php } ?>
+
+			<?php echo $args['after']; ?>
+
+		  <?php if( $container == 'inside' ) { ?>
 		</div>
-	</div>
+	<?php } ?>
 
 </div>
+
+<?php if( $container == 'outside' ) { ?>
+	</div>
+<?php } ?>

@@ -4,25 +4,42 @@ add_action('admin_footer',function(){
 
 	/*
 
-		USE LIKE, where [LAYOUT-NAME] is your layout name, like "ui_layout_section_base":
+		Filter 'wpbc/filters/ui_layout_template_part/dynamic_params'
+
+		USE LIKE, where [LAYOUT-NAME] is your layout name.
+		If file name is 'ui_layout_section_base.php',
+		you should use "ui_layout_section_base" as the layout name on the filter.
 
 
-			'[LAYOUT-NAME]' => array( 
-				'params' => array(
-					array(
-						'key' => 'icono',
-						'type' => 'text'
-					),
-					array(
-						'key' => 'titulo',
-						'type' => 'html'
-					),
-					array(
-						'key' => 'texto',
-						'type' => 'html'
-					),
-				) 
-			),
+		add_filter('wpbc/filters/ui_layout_template_part/dynamic_params', 'theme_custom_dynamic_params',10,1 );
+
+				function theme_custom_dynamic_params($params){
+
+					$params = array(
+
+						'[LAYOUT-NAME]' => array( 
+							'params' => array(
+								array(
+									'key' => 'icono',
+									'type' => 'text',
+									'desc' => 'Something here to describe the value to use.'
+								),
+								array(
+									'key' => 'titulo',
+									'type' => 'html'
+								),
+								array(
+									'key' => 'texto',
+									'type' => 'html'
+								),
+							) 
+						),
+
+					);
+
+					return $params;
+
+				}
 
 	*/
 	$ui_layout_template_part__msg = apply_filters('wpbc/filters/ui_layout_template_part/dynamic_params', array() );
@@ -38,9 +55,38 @@ add_action('admin_footer',function(){
 			var msgs = <?php echo json_encode($ui_layout_template_part__msg); ?>;
 
 			if(msgs[val]){
+				msgout += '<small style=" padding:3px 5px; background:#007bff; color:#F9F9F9; display:inline-block; margin-bottom:10px;">'+val+'.php</small>';
+				msgout += '<table class="acf-table">';
+					msgout += '<tr>';
+						msgout += '<td style="width:25px;">#'; 
+						msgout += '</td>';
+						msgout += '<td style="width:100px;">'; 
+						msgout += '<b>Type</b>'; 
+						msgout += '</td>';
+						msgout += '<td style="width:100px;">'; 
+						msgout += '<b>Key</b>'; 
+						msgout += '</td>';
+						msgout += '<td>'; 
+						msgout += '<b>Description</b>'; 
+						msgout += '</td>';
+					msgout += '</tr>';
 				$.each( msgs[val]['params'], function(i,val){ 
-					msgout += (i+1) +' - Type: <b><u>'+val.type+'</u></b> Key: <b><u>'+val.key+'</u></b> <br>'; 
+					msgout += '<tr>';
+						msgout += '<td>';
+						msgout += (i+1);
+						msgout += '</td>';
+						msgout += '<td>';
+						msgout += '<b>'+val.type+'</b>'; 
+						msgout += '</td>';
+						msgout += '<td>';
+						msgout += '<b>'+val.key+'</b>'; 
+						msgout += '</td>';
+						msgout += '<td>';
+						msgout += '<small>'+( val.desc ? val.desc : '--' )+'</small>'; 
+						msgout += '</td>';
+					msgout += '</tr>';
 				}); 
+				msgout += '</table>';
 			} else {
 
 				msgout = 'Nothing defined.';

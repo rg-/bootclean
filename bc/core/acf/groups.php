@@ -8,6 +8,8 @@ include('groups/builder__layout_main_content.php'); // obsolete < 9.0
 include('groups/builder__layout_main_footer.php');
 include('groups/builder__layout_code.php'); 
 
+include('groups/builder__layout_export.php'); 
+
 /* Posts / Archiives */
 
 include('groups/builder__layout_posts_page.php');
@@ -62,7 +64,7 @@ function secondary_content_rows_message($field){
 		$layout = WPBC_get_layout_structure_build_layout($_GET['post']);  
 
 		$layout_defaults = WPBC_layout_struture__defaults();
-		$content_areas = $layout_defaults['main_container'][$layout]['content_areas'];  
+		$content_areas = $layout_defaults['main_container'][$layout]['content_areas'];   
 
 		if($content_areas==1){
 			$field['label'] = 'This layout ('.$layout.') has no secondary areas to manage.';

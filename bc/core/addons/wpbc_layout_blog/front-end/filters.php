@@ -84,7 +84,7 @@ add_filter('wpbc/filter/ui_layout_posts_advanced-item/style_args', function($sty
 	}
 	return $style_args;
 
-},10,2); 
+},10,1); 
 
 add_filter('wpbc/filter/layout/post_pagination', function($post_pagination){
 
@@ -115,10 +115,7 @@ add_filter('wpbc/filter/advanced_pagination/args', function($args){
   foreach ($types as $post_type) {
 		$WPBC_layout_posts_page = WPBC_get_layout_posts_page_settings($post_type); 
 
-		if( is_blog('', $post_type) ){
-			$args['nav_class'] = 'gpy-1';
-			$args['prev_arrow'] = '<i class="fa fa-angle-left"></i>';
-			$args['next_arrow'] = '<i class="fa fa-angle-right"></i>';  
+		if( is_blog('', $post_type) ){  
 		}
 	}
 	return $args;
@@ -126,10 +123,7 @@ add_filter('wpbc/filter/advanced_pagination/args', function($args){
 },10,1);
 
 add_filter('wpbc/filter/ui_layout_posts_advanced/pagination_args', function($args){
- 	 
-	$args['nav_class'] = 'gpy-1';
-	$args['prev_arrow'] = '<i class="fa fa-angle-left"></i>';
-	$args['next_arrow'] = '<i class="fa fa-angle-right"></i>';  
+ 	  
 	return $args;
 
 },10,1);
@@ -147,15 +141,17 @@ function ui_layout_posts_advanced_pre_get_posts($query){
 	if( !is_admin() && $query->is_main_query() && !$query->is_single ) {
 
 		$WPBC_layout_posts_page = WPBC_get_layout_posts_page_settings();
-		if(!empty($WPBC_layout_posts_page)){
+		if(!empty($WPBC_layout_posts_page['query'])){ 
 
-			$posts_per_page = $WPBC_layout_posts_page['query']['posts_per_page']; 
-			$order = $WPBC_layout_posts_page['query']['order'];
-			$orderby = $WPBC_layout_posts_page['query']['orderby']; 
-
-      $query->set( 'posts_per_page', $posts_per_page );
-      $query->set( 'order', $order );
-      $query->set( 'orderby', $orderby );
+			if( !empty($WPBC_layout_posts_page['query']['posts_per_page']) ){
+				$query->set( 'posts_per_page', $WPBC_layout_posts_page['query']['posts_per_page'] );
+			}
+			if( !empty($WPBC_layout_posts_page['query']['order']) ){
+				$query->set( 'order', $WPBC_layout_posts_page['query']['order'] );
+			}
+			if( !empty($WPBC_layout_posts_page['query']['orderby']) ){
+				$query->set( 'orderby', $WPBC_layout_posts_page['query']['orderby'] ); 
+			}       
 
 		}
 

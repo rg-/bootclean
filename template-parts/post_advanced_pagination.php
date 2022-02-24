@@ -7,8 +7,8 @@
 		'more_class' => 'btn btn-black btn-max',
 
 		'nav_class' => 'gpy-2 text-left',
-		'prev_arrow' => '<i class="icon-arrow-left"></i>',
-		'next_arrow' => '<i class="icon-arrow-right"></i>',
+		'prev_arrow' => '<i class="wpbci-angle-left"></i>',
+		'next_arrow' => '<i class="wpbci-angle-right"></i>',
 	);
 	$args = apply_filters('wpbc/filter/advanced_pagination/args',$args);
 	WPBC_advanced_posts_pagination($args); ?>

@@ -39,7 +39,9 @@ if($use_wpbc_template_landing){
 		$build_sections[] = $default_section;
 		$build_sections = apply_filters('wpbc/filter/template-landing/build_sections', $build_sections);
 		foreach ($build_sections as $key => $value) { 
-			$value['acf']['sub_fields'] = apply_filters('wpbc/filter/template-landing/sub_fields/?group='.$value['acf']['group_id'].'', $value['acf']['sub_fields']); 
+			if(!empty($value['acf'])){
+				$value['acf']['sub_fields'] = apply_filters('wpbc/filter/template-landing/sub_fields/?group='.$value['acf']['group_id'].'', $value['acf']['sub_fields']); 
+			}
 			WPBC_template_landing_build_section($value);
 		}
 		

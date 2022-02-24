@@ -29,13 +29,6 @@
 
 	<div class="<?php echo $classes['content_col_class']; ?>">
 
-		<!--
-		<p><?php echo 'publication_title: '. $property->get_field('publication_title'); ?></p>
-		<p><?php echo 'real_address: '. $property->get_field('real_address'); ?></p>
-		<p><?php echo 'address: '. $property->get_field('address'); ?></p>
-		<p><?php echo 'fake_address: '. $property->get_field('fake_address'); ?></p>
-		-->
-
 		<small class="ref text-primary font-size-12 mb-2 d-inline-block">REF. <span class="font-size-14"><?php echo $reference_code; ?></span></small>
 
 		<h2 class="section-title xl"><?php echo $address; ?></h2>

@@ -492,22 +492,46 @@ function WPBC_get_acf_root_colors_select_choices($field_name=''){
 	return $style_choices;
 }
 
-function WPBC_get_acf_root_colors_choices($field_name=''){
+function WPBC_get_acf_root_colors_choices($field_name='', $first = 'transparent'){
 	$style_choices = array();
 	$root_colors = BC_get_root_colors();
-	$style_choices['transparent'] = '<span title="Transparent" style="min-width:20px; overflow:hidden; display: inline-block; width: 50%; display: block;"><i style="background-color:#fff;display: block;position: relative; border:1px solid rgba(1,1,1,.2); display:block; height:10px; "></i><i style="display:block; position:absolute; top: 8px; left: 0; right: 0; text-align: center; font-size:8px; color:#999; text-style:normal;">X</i></span>';
+
+	if($first == 'transparent'){ 
+
+		$style_choices['transparent'] = '<span title="Transparent" class="wpbc-root_color_choice">';
+			$style_choices['transparent'] .= '<span class="wpbc-root_color_choice-bg" style="background-color:#fff">';
+			$style_choices['transparent'] .= '<span class="wpbc-root_color_choice-x">x</span>';
+			$style_choices['transparent'] .= '</span>';	
+		$style_choices['transparent'] .= '</span>';
+
+	}
+	if($first == 'none'){ 
+
+		$style_choices['none'] = '<span title="Not Set" class="wpbc-root_color_choice">';
+			$style_choices['none'] .= '<span class="wpbc-root_color_choice-bg" style="background-color:#fff">';
+			$style_choices['none'] .= '<span class="wpbc-root_color_choice-x">x</span>';
+			$style_choices['none'] .= '</span>';	
+		$style_choices['none'] .= '</span>';
+
+	}
+	
 	foreach($root_colors as $k=>$v){ 
 		$choice_key = str_replace('--', '', $k); 
-		$style_choices[$choice_key] = '<span title="'.strtoupper($choice_key).'" style="min-width:20px; overflow:hidden; display: inline-block; width: 50%; display: block;"><i style="background-color:'.$v.';display: block;position: relative; border:1px solid rgba(1,1,1,.2); display:block; height:10px; "></i><i style="display:none;">'.strtoupper($choice_key).'</i></span>';
-		 
+		
+		// $style_choices[$choice_key] = '<span title="'.strtoupper($choice_key).'" style="min-width:20px; overflow:hidden; display: inline-block; width: 50%; display: block;"><i style="background-color:'.$v.';display: block;position: relative; border:1px solid rgba(1,1,1,.2); display:block; height:10px; "></i><i style="display:none;">'.strtoupper($choice_key).'</i></span>';
+		
+		$style_choices[$choice_key] = '<span title="'.strtoupper($choice_key).'" class="wpbc-root_color_choice">';
+			$style_choices[$choice_key] .= '<span class="wpbc-root_color_choice-bg" style="background-color:'.$v.'">';
+			$style_choices[$choice_key] .= '<span class="wpbc-root_color_choice-label">'.strtoupper($choice_key).'</span>';
+			$style_choices[$choice_key] .= '</span>';	
+		$style_choices[$choice_key] .= '</span>';
+
 	}
 
 	$style_choices = apply_filters('wpbc/filter/acf/root_color_choices', $style_choices, $field_name);
 
 	return $style_choices;
-}
-
-
+} 
 
 /*
  *

@@ -16,7 +16,8 @@ add_filter('wpbc/filter/acf/builder/flexible_content/layouts', 'WPBC_build__ui_l
 		
 		$content_sub_fields[] = WPBC_acf_make_wysiwyg_field(array(
 			'label' => __('Content','bootclean'),
-			'name' => $layout_name.'__code',  
+			'name' => $layout_name.'__code',
+			'qtranslate' => true,  
 		)); 
 
 		$layouts = WPBC_acf_make_flex_builder_layout(array(

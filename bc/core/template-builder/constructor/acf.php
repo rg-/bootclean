@@ -2,22 +2,13 @@
 
 function WPBC_group_builder__layout__custom_layout($fields){
 
-	$fields[] = array (
-		'key' => 'field_custom_layout__tab',
-		'label' => '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 5v14h19V5H3zm2 2h15v4H5V7zm0 10v-4h4v4H5zm6 0v-4h9v4h-9z"/></svg> Custom Layout',
-		'name' => '',
-		'type' => 'tab',
-		'instructions' => '',
-		'required' => 0,
-		'conditional_logic' => 0,
-		'wrapper' => array (
-			'width' => '',
-			'class' => '',
-			'id' => '',
-		),
-		'placement' => 'top',
-		'endpoint' => 0,
-	);
+	$fields[] = WPBC_acf_make_tab_settings( 
+		'custom_layout__enable', 
+		'custom_layout__tab', 
+		__('Custom Layout','bootclean'), 
+		'<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 5v14h19V5H3zm2 2h15v4H5V7zm0 10v-4h4v4H5zm6 0v-4h9v4h-9z"/></svg>',
+		'true_false'
+	);  
 
 	$fields[] = array (
 		'key' => 'field_custom_layout__enable',
@@ -29,7 +20,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 		'conditional_logic' => 0,
 		'wrapper' => array (
 			'width' => '',
-			'class' => 'wpbc-true_false-ui',
+			'class' => 'wpbc-true_false-ui wpbc-select-type wpbc-select-type-field_custom_layout__tab',
 			'id' => '',
 		),
 		'message' => '',
@@ -51,6 +42,10 @@ function WPBC_group_builder__layout__custom_layout($fields){
 		'fixed-right'=> '<img src="'.$img_path.'/bc/core/assets/images/layout_fixed-right.png'.'" width="24" class=""/> fixed-right',
 		'fluid'=> '<img src="'.$img_path.'/bc/core/assets/images/layout_fluid.png'.'" width="24" class=""/> fluid',
 	); 
+
+	$custom_layout__container_type_choices = WPBC_get_layout_container_type_choices(array(
+		'width' => '50',
+	));  
 
 	$fields[] = array (
 		'key' => 'field_custom_layout__custom_location',
@@ -101,7 +96,7 @@ function WPBC_group_builder__layout__custom_layout($fields){
 		),
 		'wrapper' => array (
 			'width' => '100%',
-			'class' => 'radio-with-thumb',
+			'class' => 'radio-as-thumb',
 			'id' => '',
 		),
 		'default_value' => 'none',

@@ -151,7 +151,7 @@
 		$use_lazyload = true; 
 	}
 	
-	$slick_attrs = apply_filters('wpbc/slick/slick_attrs', $slick_attrs, $params);
+	$slick_attrs = apply_filters('wpbc/slick/slick_attrs', $slick_attrs, $params); 
 
 	$slick_data = apply_filters('wpbc/slick/slick_data', $slick_data, $params);
 	$slick_class = 'theme-slick-slider';

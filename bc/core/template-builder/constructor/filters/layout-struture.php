@@ -27,7 +27,7 @@ add_filter('wpbc/filter/layout/struture', function($args){
 	/* NEW v 11.00 */
 	$using_theme_settings = false;
 	$theme_settings_location = WPBC_get_option('layout_location__'.$template ); 
-	if($theme_settings_location['layout_container_type__'.$template]){ 
+	if( isset($theme_settings_location['layout_container_type__'.$template]) && $theme_settings_location['layout_container_type__'.$template]){ 
 		$using_settings = 'from_theme_settings_v11';
 		$using_theme_settings = true;
 		$custom_layout_container_type = $theme_settings_location['layout_container_type__'.$template];

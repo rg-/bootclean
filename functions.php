@@ -36,10 +36,22 @@ if ( ! defined( 'BC_WP_DIR' ) ) {
 require BC_WP_DIR . 'version_compare.php';  
 /* All define() variables here */
 require BC_WP_DIR . 'defines.php'; 
+
+/*
+	
+	Required on acf/init since ACF Field Functions in 5.11
+	https://www.advancedcustomfields.com/resources/acf-field-functions/
+
+*/
+add_action('acf/init',function(){
+	
+},10);
+
 /* This one is shared php functions, arrays, components builders, etc. */
 require BC_WP_DIR . 'init.php';  
 /* BC Core files */
 require BC_WP_DIR . 'core.php'; 
+
 
 /*
 	That´s all here.

@@ -91,10 +91,14 @@ add_action('admin_head',function(){
 
 }
 [data-layout] .acf-fc-layout-handle svg{
+	width:13px;
 	vertical-align: -2px;
 }
 [data-layout] .acf-fc-layout-handle svg.sep{
 	vertical-align: -3px;
+}
+[data-layout].-collapsed .acf-fc-layout-handle .wpbc-badge{
+	color:#333;
 }
 [data-layout].-collapsed .acf-fc-layout-handle svg.svg,
 [data-layout].-collapsed .acf-fc-layout-handle svg path.path{

@@ -28,7 +28,7 @@ include('template-tags/parts/WPBC_posts_pagination.php');
 include('template-tags/parts/WPBC_post_taxonomies.php'); 
 include('template-tags/parts/WPBC_post_date.php'); 
 include('template-tags/parts/WPBC_post_share.php');
-include('template-tags/parts/WPBC_post_breadcrumb.php'); 
+// include('template-tags/parts/WPBC_post_breadcrumb.php');   // Obsolete see bc/functions/WPBC
 /*
 
 	TODO, see how i´m working on WPBC_get_template(), this is crucial to keep theme with just one "index" theme root template for all.

@@ -5,9 +5,7 @@
  * wpbc_full_content_fit
  * ui_layout_full_content_fit
  *
-*/
-
-$args = apply_filters('wpbc/filter/wpbc-full-content-fit/args',$args);
+*/ 
 
 $layout_id = !empty($args['layout_id']) ? $args['layout_id'] : 'wpbc-full-content-fit-'.uniqid();
 $breakpoint = !empty($args['breakpoint']) ? $args['breakpoint'] : 'lg';
@@ -32,7 +30,7 @@ if(!empty($args['cols'])){
 						'col_size' => '6',
 						'col_order' => '1',
 						'col_order_breakpoint' => '1', 
-						'col_class' => 'p-0', 
+						'col_class' => '', 
 
 						'content' => array(
 							'content_class' => '', 
@@ -63,7 +61,7 @@ if(!empty($args['cols'])){
 					$col_type = $col['col_type'];
 					$col_side = $col['col_side'];
 
-					$col = apply_filters('wpbc/filter/wpbc-full-content-fit/col/args', $col, $breakpoint, $col_type, $col_side, $layout_id);
+					$col = apply_filters('wpbc/filter/ui_layout_full_content_fit/col/args', $col, $breakpoint, $col_type, $col_side, $layout_id); 
  
 					$col_order = $col['col_order'];
 					$col_order_breakpoint = $col['col_order_breakpoint'];
@@ -107,7 +105,7 @@ if(!empty($args['cols'])){
 					?>
 <div id="<?php echo $col_id; ?>" class="<?php echo $class; ?>">
 
-	<div class="d-flex flex-column d-<?php echo $breakpoint; ?>-block position-relative h-100">
+	<div class="d-flex flex-column d-<?php echo $breakpoint; ?>-block h-100">
 
 		<?php if($col_type == 'title-up') { ?>
 			<div class="d-<?php echo $breakpoint; ?>-none order-0">

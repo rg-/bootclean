@@ -15,6 +15,15 @@ function WPBC_get_font_family_styles(){
 }
 
 function WPBC_get_google_family_styles(){
+
+	/*
+	
+		ej:
+
+		$styles['google-font-name']['src'] = 'google-font-url'; 
+
+	*/
+
 	$google_family_styles = apply_filters('wpbc/filter/typography/google_family', array()); 
 	return $google_family_styles;  
 }
@@ -65,7 +74,10 @@ function WPBC_get_typography_tags(){
 			'margin-top' => $commons['p-margin-top'],
 			'margin-bottom' => $commons['p-margin-bottom'],
 		),
-
+		'.lead' => array(
+			'font-size' => ( number_format($commons['font-size-base']) * 1.25 ).'rem',
+			'font-weight' => $commons['display-font-weight'],
+		),
 		'small' => array(
 			'font-size' => $commons['small-font-size'],
 			'font-weight' => $commons['font-weight-base'],
@@ -234,9 +246,13 @@ function WPBC_get_typography_tags(){
 	);
 	foreach ($arr_fix as $fix) {
 		$tags[$fix.':last-child'] = array(
-			'margin-bottom' => '0',
+			//'margin-bottom' => '0',
 		);
 	}
+
+	$arr_headlines = array(
+		'.h1','.h2','.h3','.h4','.h5','.h6','h1','h2','h3','h4','h5','h6','.display-1','.display-2','.display-3','.display-4'
+	);
 
 	$tags = apply_filters('wpbc/filter/typography', $tags);
 
@@ -275,7 +291,7 @@ function wpbc_font_family_styles() {
 
 		foreach ($g_styles as $key => $style) {
 			
-			wp_register_style( 'wpbc-google-family-'.$key, $style['src'], false, (!empty($style['version'])) ? $style['version'] : '' );
+			wp_register_style( 'wpbc-google-family-'.$key, $style['src'], false, null );
 	  	wp_enqueue_style( 'wpbc-google-family-'.$key );
 
 		}
@@ -331,13 +347,52 @@ add_filter('wpbc/filter/tiny_mce/custom_css', function($styles){
 	}
 	return $styles;
 
-},10,1);
+},99,1);
 
 /*
 
 	Render style for front end styles
 
 */  
+
+function wpbc_typography_make_style(){
+	$root_breakpoint = BC_get_root_breakpoint(); 
+	$styles = '';
+  $tags = WPBC_get_typography_tags();
+	if(!empty($tags)){
+		foreach ($tags as $key => $value) {
+			$styles .= $key.'{'."\n";
+			foreach ($value as $k => $v) {
+				if($k!='responsive'){
+					$styles .= $k . ':' . $v . '!important;'."\n";
+				}
+			}
+			$styles .= '}'."\n"."\n"; 
+
+			foreach ($value as $k => $v) {
+				if($k=='responsive'){
+					if(!empty($v)){ 
+						foreach ($v as $kr => $vr) {
+							 
+							$styles .= '@media (min-width: '.$root_breakpoint[$kr].'){'."\n";
+							$styles .= $key.'{'."\n";
+							if(!empty($vr)){ 
+								foreach ($vr as $krs => $vrs) {
+									$styles .= $krs . ':' . $vrs . '!important;'."\n";
+								}
+							}
+							$styles .= '}'."\n";
+							$styles .= '}'."\n"."\n"; 
+
+						}
+					} 
+				}
+			}
+
+		}
+	}
+	return $styles;
+}
  
 function wpbc_typography() { 	 
 	wp_enqueue_style( 'wpbc_typography', '?wpbc_typography=css', '', __scripts_version());
@@ -346,47 +401,9 @@ function wpbc_typography() {
 add_action( 'wp_enqueue_scripts', 'wpbc_typography', 0 );
 
 function style_options( $wp ) {
-    if( !empty( $_GET['wpbc_typography'] ) && $_GET['wpbc_typography'] == 'css' ) {
-    
-    	$root_breakpoint = BC_get_root_breakpoint(); 
-
+    if( !empty( $_GET['wpbc_typography'] ) && $_GET['wpbc_typography'] == 'css' ) { 
     header('Content-type: text/css; charset=utf-8'); 
-    $styles = '';
-    $tags = WPBC_get_typography_tags();
-		if(!empty($tags)){
-			foreach ($tags as $key => $value) {
-				$styles .= $key.'{'."\n";
-				foreach ($value as $k => $v) {
-					if($k!='responsive'){
-						$styles .= $k . ':' . $v . '!important;'."\n";
-					}
-				}
-				$styles .= '}'."\n"."\n"; 
-
-				foreach ($value as $k => $v) {
-					if($k=='responsive'){
-						if(!empty($v)){ 
-							foreach ($v as $kr => $vr) {
-								 
-								$styles .= '@media (min-width: '.$root_breakpoint[$kr].'){'."\n";
-								$styles .= $key.'{'."\n";
-								if(!empty($vr)){ 
-									foreach ($vr as $krs => $vrs) {
-										$styles .= $krs . ':' . $vrs . '!important;'."\n";
-									}
-								}
-								$styles .= '}'."\n";
-								$styles .= '}'."\n"."\n"; 
-
-							}
-						} 
-					}
-				}
-
-			}
-		}
-		echo $styles;
-
+    echo wpbc_typography_make_style(); 
     exit;
     }
 }
@@ -398,7 +415,7 @@ add_action( 'parse_request', 'style_options' );
 
 */
 
-add_action('admin_head','wpbc_flex_builder_admin_head', 0);
+add_action('admin_head','wpbc_flex_builder_admin_head', 100);
 function wpbc_flex_builder_admin_head(){
 
 	$tags = WPBC_get_typography_tags();

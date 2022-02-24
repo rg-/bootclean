@@ -75,6 +75,12 @@ function WPBC_acf_make_wysiwyg_field_format($args,$is_registered_option=false){
 }
 	function WPBC_acf_make_wysiwyg_field_format_all($args,$is_registered_option=false){
 		$args['toolbar'] = 'wpbc_format';
-		$args['tabs'] = 'alll';
+		$args['tabs'] = 'all';
+		return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
+	}
+
+	function WPBC_acf_make_wysiwyg_field_format_family_all($args,$is_registered_option=false){
+		$args['toolbar'] = 'wpbc_format_family';
+		$args['tabs'] = 'all';
 		return WPBC_acf_make_wysiwyg_field($args,$is_registered_option);
 	}

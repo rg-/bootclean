@@ -5,9 +5,7 @@
 */
 
 
-jQuery(function($) { 
-
-
+jQuery(function($) {  
 
 	if( !$('body').hasClass('disable-woocommerce-selectpicker') ){
 

@@ -18,8 +18,19 @@ function WPBC_build__ui_layout_posts_advanced($layouts){
 
 	$layout_label = '<i class="icon-badge">
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path class="path" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg></i> Advanced POSTS'; 
-	
-	$content_sub_fields = WPBC_acf_make_layout_posts_advanced($layout_name, false, array('post'));
+		
+	$query_by_taxonomy = array(
+			array(
+				'slug' => 'category',
+				'name' => 'Category',	
+			),
+			array(
+				'slug' => 'post_tag',
+				'name' => 'Tag',	
+			),
+		);
+
+	$content_sub_fields = WPBC_acf_make_layout_posts_advanced($layout_name, false, array('post'), false, $query_by_taxonomy);
 
 	$layouts = WPBC_acf_make_flex_builder_layout(array(
 		'layout_name' => $layout_name,

@@ -35,3 +35,4 @@
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/core/inview.js" 
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/core/slick.js" 
 // @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/core/modal.js" 
+// @koala-append "C:/xampp/htdocs/_www/_BC_builder_v4/_source/bootclean/js/core/ajax-navigation.js" 

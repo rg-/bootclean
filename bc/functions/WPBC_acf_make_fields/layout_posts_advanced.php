@@ -1,14 +1,34 @@
 <?php
 
-function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $post_types=array('post'), $use_taxonomy = array() ){
+function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $post_types=array('post'), $use_taxonomy = array() , $query_by_taxonomy = array() ){
 
 	$content_sub_fields = array(); 
 
 			$style_choices = array(
 				'default' => 'Default', 
 				'masonry' => 'Masonry', 
-				// 'slider' => 'Slider', // TODOING !!
+				'slider' => 'Slider', // TODOING !!
 			);
+
+			$style_choices_slider_notcond = array (
+						array (
+							array (
+								'field' => 'field_'.$layout_name.'__style',
+								'operator' => '!=',
+								'value' => 'slider',
+							),
+						), 
+					);
+			$style_choices_slider_cond = array (
+						array (
+							array (
+								'field' => 'field_'.$layout_name.'__style',
+								'operator' => '==',
+								'value' => 'slider',
+							),
+						), 
+					);
+
 			if($is_front){
 				unset($style_choices['slider']);
 			}
@@ -32,11 +52,30 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 
 			}
 
+			$slider_options_sub_fields = array();
+
+				$slider_options_sub_fields[] = WPBC_acf_make_number_field(array(
+					'name' => $layout_name.'__slider_options_slidesToShow',
+					'label' => 'slidesToShow',
+					'width' => '33%', 
+					'class' => 'wpbc-ui-mini',
+					'default_value' => '3',
+				));
+
+				$sub_fields__style_options[] = WPBC_acf_make_respnsive_field(array(
+					'name' => $layout_name.'__slider_options',
+					'label' => 'Slider Responsive Options',
+					'width' => '66%', 
+					'sub_fields' => $slider_options_sub_fields,
+					'conditional_logic' => $style_choices_slider_cond,
+				));
+
 				$sub_fields__style_options[] = WPBC_acf_make_text_field(array(
 					'name' => $layout_name.'__row_class',
 					'label' => 'Row CLASS',
 					'width' => '33%',
 					'default_value' => 'row',
+					'conditional_logic' => $style_choices_slider_notcond,
 				));
 
 				$sub_fields__style_options[] = WPBC_acf_make_text_field(array(
@@ -44,6 +83,7 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 					'label' => 'Item CLASS',
 					'width' => '33%',
 					'default_value' => 'col-md-6 col-lg-4 gmb-1',
+					'conditional_logic' => $style_choices_slider_notcond,
 				)); 
   
 				$sub_fields__style_options[] = WPBC_acf_make_select_field(array(
@@ -53,6 +93,7 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 					'multiple' => 0,
 					'ui' => 0,
 					'ajax' => 0, 
+					'post_types' => $post_types,
 					'as_ui_layout_posts_advanced' => empty($use_taxonomy) ? 1 : 2, 
 					'width' => '66%',
 				));
@@ -103,7 +144,7 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 					'label' => 'Posts per page',
 					'min' => '-1',
 					'default_value' => get_option('posts_per_page'),
-					'width' => '30%',
+					'width' => '20%',
 					'conditional_logic' => array (
 						array (
 							array (
@@ -119,7 +160,7 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 					'key' => $layout_name.'__posts_per_page__message',
 					'label' => 'Posts per page', 
 					'message' => '<b>'.get_option('posts_per_page'). '</b> | <i>Options > Reading</i>',
-					'width' => '30%',
+					'width' => '20%',
 					'conditional_logic' => array (
 						array (
 							array (
@@ -187,12 +228,47 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 							'width' => '20%' 
 						)
 					);
+					
+					$sub_fields__query[] = WPBC_acf_make_message_field(array(
+						'key' => $layout_name.'__post_query_separator_more',
+						'width' => '100%',
+						'class' => 'wpbc-field-no-label wpbc-field-no-padding'
+					));
+
+					$sub_fields__query[] = WPBC_acf_make_post_object_field( array( 
+							'name' => $layout_name.'__post__not_in',  
+							'label'=> 'Not include',  
+							'post_type' => $post_types,
+							'return_format' => 'id',
+							'width' => '100%' 
+						) );
+
+					if( in_array( 'page', $post_types ) ){
+
+						$sub_fields__query[] = WPBC_acf_make_number_field( array( 
+							'name' => $layout_name.'__post_parent',  
+							'label'=> 'Child of (Page ID)',  
+							'default_value' => '',
+							'width' => '20%' 
+						) );
+
+					} 
+
+					if( !empty($query_by_taxonomy) ){
+ 							
+ 						$sub_fields__query = WPBC_acf_make_tax_query_field($sub_fields__query, $layout_name, $query_by_taxonomy, false); 
+						
+					} 
+					// $query_by_taxonomy END
+
 					$sub_fields__query[] = WPBC_acf_make_message_field(array(
 						'key' => $layout_name.'__post_query_separator',
 						'width' => '100%',
 						'class' => 'wpbc-field-no-label wpbc-field-no-padding'
 					));
 				}
+				// !$is_front END
+				
 
 				$sub_fields__query[] = WPBC_acf_make_relationship_field(array(
 					'name' => $layout_name.'__post__in',
@@ -235,6 +311,13 @@ function WPBC_acf_make_layout_posts_advanced($layout_name='', $is_front=false, $
 						),
 						'default_value' => 'pager',
 					));
+
+					$sub_fields__pagination[] = WPBC_acf_make_textarea_field(array(
+						'name' => $layout_name.'__pagination_div_data',
+						'label' => 'Pagination data-* attributes', 
+						'width' => '100%',
+						));
+
 
 				$content_sub_fields[] = WPBC_acf_make_group_field(array(
 						'name' => $layout_name.'__pagination',

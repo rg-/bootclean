@@ -7,7 +7,7 @@
 add_action( 'woocommerce_before_edit_account_form', 'wpbc_woo_user_profile_picture' );
 function wpbc_woo_user_profile_picture( $atts, $content= NULL) {
 	?>
-<div class="d-flex gmb-1">
+<div class="d-sm-flex gmb-1">
 
 	<div class="woo-account-panel-dashboard-profile_pic">
 		<?php
@@ -20,16 +20,16 @@ function wpbc_woo_user_profile_picture( $atts, $content= NULL) {
 		
 	</div>
 
-	<div class="woo-account-panel-dashboard-profile_name gpl-1">
+	<div class="woo-account-panel-dashboard-profile_name gpl-sm-1">
 		<label>Imagen de perfil</label>
 		<form enctype="multipart/form-data" action="" method="POST">
 	    <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
-	    <div class="d-flex">
+	    <div class="d-sm-flex">
 	    	<div class="custom-file">
 				  <input type="file" name="profile_pic" class="custom-file-input" id="profile_pic" lang="es">
 				  <label class="custom-file-label" for="profile_pic">Seleccionar Imagen</label>
 				</div>
-				<div class="gml-1">
+				<div class="gml-sm-1">
 			    <input type="submit" value="Subir" class="btn btn-outline-secondary" />
 			  </div>
 	    </div>

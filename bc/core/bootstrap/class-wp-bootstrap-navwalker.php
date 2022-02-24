@@ -63,6 +63,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			// Default class to add to the file.
 			$classes = array(); 
 			$use_dropdown = self::use_dropdown();
+			$use_dropdown = apply_filters('WP_Bootstrap_Navwalker/dropdown',$use_dropdown,$args);
 			if($use_dropdown){
 				$classes[] = 'dropdown-menu';
 			}else{
@@ -169,7 +170,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
 
 			$use_dropdown = self::use_dropdown();
-
+			$use_dropdown = apply_filters('WP_Bootstrap_Navwalker/dropdown',$use_dropdown,$args);
 			// Add .dropdown or .active classes where they are needed.
 			if ( $use_dropdown && isset( $args->has_children ) && $args->has_children ) {
 				$classes[] = 'dropdown';

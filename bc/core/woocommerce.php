@@ -33,6 +33,7 @@ if ( WPBC_is_woocommerce_active() ) {
 	    include('woocommerce/init.php'); 
 	    include('woocommerce/acf.php'); 
 	    include('woocommerce/enqueue.php'); 
+	    include('woocommerce/bulder.php'); 
 	    include('woocommerce/layout.php'); 
 	    include('woocommerce/layout-templates.php');
 	    include('woocommerce/addons.php');

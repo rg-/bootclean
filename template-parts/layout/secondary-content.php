@@ -77,6 +77,8 @@
 			if(is_active_sidebar( $name_to_id ) ){
 				dynamic_sidebar( $name_to_id );
 			}else{
+				$show_inactive = apply_filters('wpbc/filter/layout/secondary-content/show_inactive',1);
+				if($show_inactive){
 				?>
 				<div class="widget-box">
 					<p><?php _e('There are no widgets used for:', 'bootclean'); ?></p>
@@ -84,6 +86,7 @@
 					<p><a target="_blank" class="btn btn-primary btn-sm" href="<?php echo get_admin_url(); ?>/widgets.php"><?php _e('Manage your Widgets', 'bootclean'); ?></a></p>
 				</div>
 				<?php
+				}
 				}
 			}
 			

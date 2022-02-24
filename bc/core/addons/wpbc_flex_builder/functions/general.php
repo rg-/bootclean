@@ -60,6 +60,8 @@ function WPBC_acf_make_section_title_field($sub_fields, $args){
 				'width' => '100%',
 				'new_lines' => 0,
 				'conditional_logic' => $conditional_logic,
+
+				'qtranslate' => true,
 			)
 		); 
 
@@ -74,7 +76,9 @@ function WPBC_get_layout_fields(){
 	return $fields; 
 	
 }
-
+function WPBC_clean_array_prefix( $oldArr, $prefix ) {
+	return WPBC_get_flex_layout_cleaned( $oldArr, $prefix );
+}
 function WPBC_get_flex_layout_cleaned( $oldArr, $prefix ) { 
 
  	$copyArr = $oldArr;
@@ -120,7 +124,7 @@ function WPBC_get_flex_layout($row=array()){
 
 		$section_settings = !empty($row_cleaned[$p.'section_settings']) ? $row_cleaned[$p.'section_settings'] : array();
 
-		$attr = $section_settings[$p.'attributes'];
+		$attr = !empty($section_settings[$p.'attributes']) ? $section_settings[$p.'attributes'] : array();
 
 			$id = !empty($attr[$p.'attributes_id']) ? $attr[$p.'attributes_id'] : $layout.'-'.uniqid(); 
 			$class = !empty($attr[$p.'attributes_class']) ? $attr[$p.'attributes_class'] : '';
@@ -135,24 +139,40 @@ function WPBC_get_flex_layout($row=array()){
 
 		$section_styles = !empty($row_cleaned[$p.'section_styles']) ? $row_cleaned[$p.'section_styles'] : array(); 
 
-			$background_color = $section_styles['section_styles_background_color'];
-			if( !empty($background_color) ){
-				$class .= ' bg-'.$background_color;
+			$background_color = !empty($section_styles['section_styles_background_color']) ? $section_styles['section_styles_background_color'] : ''; 
+			$text_color = !empty($section_styles['section_styles_text_color']) ? $section_styles['section_styles_text_color'] : '';
+			
+			global $WPBC_VERSION;  
+			if ( version_compare( $WPBC_VERSION, '12', '>' ) ) {
+				if( !empty($background_color) || !empty($text_color) ){
+					$style = '';
+					if(!empty($background_color)){
+						$style .= 'background-color:'.$background_color.';';
+					}
+					if(!empty($text_color)){
+						$style .= 'color:'.$text_color.';';
+					}
+					$data .= ' style="'.$style.'"';
+				}
+			}else{
+				if( !empty($background_color) && 'transparent' != $background_color ){
+					$class .= ' bg-'.$background_color;
+				}
+				if( !empty($text_color) && 'transparent' != $text_color ){
+					$class .= ' text-'.$text_color;
+				}
 			}
-			$text_color = $section_styles['section_styles_text_color'];
-			if( !empty($text_color) ){
-				$class .= ' text-'.$text_color;
-			}
-
 
 			$has_background = false;
 
-			$images = $section_styles['section_styles_images'];
-			$html = $section_styles['section_styles_html'];
+			$images = !empty($section_styles['section_styles_images']) ? $section_styles['section_styles_images'] : '';
+			$html = !empty($section_styles['section_styles_html']) ? $section_styles['section_styles_html'] : '';
 			if( !empty($images) || !empty($html) ){
 				$class .= ' has-background';
 				$has_background = true;
-			}
+			} 
+
+			$nowrap = !empty($row_cleaned['section_nowrap']) ? true : false;
 
 		$return_settings = array(
 
@@ -167,8 +187,13 @@ function WPBC_get_flex_layout($row=array()){
 			'data' => $data,
 
 			'section_styles' => $section_styles,
-			'has_background' => $has_background
+			'has_background' => $has_background,
+ 
+			'nowrap' => $nowrap,
 		);
+
+		// New v13 sep2021
+		$return_settings = apply_filters('wpbc/filter/WPBC_get_flex_layout/args',$return_settings,$row);
 
 		return $return_settings;
 	}
@@ -202,12 +227,16 @@ function WPBC_get_flex_layout_field($name=null, $row_passed=null){
 /* TODO move to general.php */
 function WPBC_acf_get_dynamic_params_choices(){
 	$choices = array(
+		'number' => __('Number','bootclean'),
 				'text' => __('Text','bootclean'),
 				'html' => __('Html','bootclean'),
+				'wysiwyg' => __('Wysiwyg','bootclean'),
 				'image' => __('Image','bootclean'),
 				'gallery' => __('Gallery','bootclean'),
 				'file' => __('File','bootclean'),
 				'template' => __('Template','bootclean'),
+				'page' => __('Page','bootclean'),
+				'post' => __('Post','bootclean'),
 				'post_object' => __('Post Object','bootclean'),
 			);
 	return $choices;
@@ -252,18 +281,38 @@ function WPBC_acf_get_dynamic_params_sub_fields($layout_name){
 			'width' => '20',
 		));
 
+		$fields[] = WPBC_acf_make_number_field(array(
+			'name' => $layout_name.'__param_value_number',
+			'label' => __('Value','bootclean'), 
+			'width' => '60',
+			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'number'), 
+		));
+
 		$fields[] = WPBC_acf_make_text_field(array(
 			'name' => $layout_name.'__param_value_text',
 			'label' => __('Value','bootclean'), 
 			'width' => '60',
 			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'text'),
+
+			'qtranslate' => true,
 		));
 
 		$fields[] = WPBC_acf_make_textarea_field(array(
 			'name' => $layout_name.'__param_value_html',
-			'label' => __('Value','bootclean'), 
+			'label' => __('Value/Value','bootclean'), 
 			'width' => '60',
 			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'html'),
+
+			'qtranslate' => true,
+		));
+
+		$fields[] = WPBC_acf_make_wysiwyg_field_format(array(
+			'name' => $layout_name.'__param_value_wysiwyg',
+			'label' => __('Value/Content','bootclean'), 
+			'width' => '60',
+			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'wysiwyg'),
+
+			'qtranslate' => true,
 		));
 
 		$fields[] = WPBC_acf_make_image_field(array(
@@ -295,6 +344,26 @@ function WPBC_acf_get_dynamic_params_sub_fields($layout_name){
 			'label' => __('Value','bootclean'), 
 			'width' => '60',
 			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'template'),
+			'return_format' => 'id',
+		));
+
+		$fields[] = WPBC_acf_make_post_object_field(array(
+			'name' => $layout_name.'__param_value_page',
+			'label' => __('Value','bootclean'), 
+			'width' => '60',
+			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'page'),
+			'post_type' => array( 'page' ),
+			'multiple' => 0,
+			'return_format' => 'id',
+		));
+
+		$fields[] = WPBC_acf_make_post_object_field(array(
+			'name' => $layout_name.'__param_value_post',
+			'label' => __('Value','bootclean'), 
+			'width' => '60',
+			'conditional_logic' => WPBC_acf_get_dynamic_params_conditional_logic($layout_name, 'post'),
+			'post_type' => array( 'post' ),
+			'multiple' => 0,
 			'return_format' => 'id',
 		));
 
@@ -351,6 +420,12 @@ function WPBC_get_dynamic_param($param_key=null, $value=true, $row_passed=null){
 
 /* Front end */
 
+function WPBC_get_slick_custom_options($settings){
+	$slick_options = array(); 
+	$settings__custom_options = $settings['settings__custom_options']; 
+	return $settings__custom_options;
+}
+
 function WPBC_get_slick_options($settings){
  
 	$slick_options = array();
@@ -373,7 +448,7 @@ function WPBC_get_slick_options($settings){
 	
 	foreach ($settings__options as $key => $value) { 
 		$new_key = str_replace('settings__options__', '', $key); 
-		if (strpos($key, 'tab') !== false) { 
+		if (strpos($key, 'tab') !== false || strpos($key, 'message') !== false) { 
 		}else{ 
 			foreach ($breakpoints as $k=>$point) {
 				if (strpos($new_key, $point) !== false) {
@@ -417,8 +492,16 @@ function WPBC_get_slick_options($settings){
 		$slick['responsive'] = array_reverse($responsive);
 	}
 
-	//$slick['slidesToShow'] = 3;
-	//$slick['slidesToScroll'] = 1;
+	// $slick['slidesToShow'] = 3;
+	// $slick['slidesToScroll'] = 1; 
+
+	$slick_custom = WPBC_get_slick_custom_options($settings);
+	if( !empty($slick_custom['settings__custom_options__overlapContainerDif']) ){
+		$slick['overlapContainerDif'] = true;
+	}
+	if( !empty($slick_custom['settings__custom_options__equalHeightSlides']) ){
+		$slick['equalHeightSlides'] = true;
+	}  
 
 	$slick = json_encode($slick); 
 
@@ -493,7 +576,7 @@ function WPBC_acf_get_slick_heights($name){
 
 		$sub_fields[] = WPBC_acf_make_number_field(array(
 			'name' => $name.'__'.$value['key_prefix'],
-			'label' => $value['label'].' - '._x('Height','bootclean'),
+			'label' => '<small style="color:#000;">' .$value['label'].' - '._x('Height','bootclean'). '</small>', 
 			'default_value' => $default_value,
 			'min' => '0',
 			'width' => '20%',
@@ -507,7 +590,7 @@ function WPBC_acf_get_slick_heights($name){
 
 		$sub_fields[] = WPBC_acf_make_number_field(array(
 			'name' => $name.'__'.$value['key_prefix'].'_min',
-			'label' => $value['label'].' - '._x('Min-Height','bootclean'),
+			'label' => '<small style="color:#000;">' .$value['label'].' - '._x('Min-Height','bootclean'). '</small>',
 			'default_value' => $default_value,
 			'min' => '0',
 			'width' => '20%',
@@ -521,7 +604,7 @@ function WPBC_acf_get_slick_heights($name){
 
 		$sub_fields[] = WPBC_acf_make_number_field(array(
 			'name' => $name.'__'.$value['key_prefix'].'_max',
-			'label' => $value['label'].' - '._x('Max-Height','bootclean'),
+			'label' => '<small style="color:#000;">' .$value['label'].' - '._x('Max-Height','bootclean'). '</small>',
 			'default_value' => $default_value,
 			'min' => '0',
 			'width' => '20%',
@@ -537,20 +620,131 @@ function WPBC_acf_get_slick_heights($name){
 	return $sub_fields;
 } 
 
+function WPBC_acf_get_slick_custom_options($name){
+
+	// $slick['equalHeightSlides'] = false;
+ 	// $slick['overlapContainerDif'] = false;
+	
+	$sub_fields = array(); 
+	
+	$sub_fields[] = WPBC_acf_make_true_false_field( array(
+		'name' => $name.'__overflowSides',
+		'label'=>  __('Overflow Sides','bootclean'), 
+		'width' => '33%',  
+		'default_value' => 0,  
+	) );
+
+	$sub_fields[] = WPBC_acf_make_true_false_field( array(
+		'name' => $name.'__rowItemsList',
+		'label'=>  __('Row Items List','bootclean'), 
+		'width' => '33%',  
+		'default_value' => 0,  
+	) );
+	/*
+	$sub_fields[] = WPBC_acf_make_true_false_field( array(
+		'name' => $name.'__overlapContainerDif',
+		'label'=>  __('Overlap Container Dif (beta)','bootclean'), 
+		'width' => '33%',  
+		'default_value' => 0,  
+	) );
+	*/
+
+	$sub_fields[] = WPBC_acf_make_true_false_field( array(
+		'name' => $name.'__equalHeightSlides',
+		'label'=>  __('Equal Height Slides','bootclean'), 
+		'width' => '33%',  
+		'default_value' => 0,  
+	) );
+
+
+		$sub_fields[] = WPBC_acf_make_select_field( array(
+			'name' => $name.'__overflowSides_type',
+			'label'=>  __('Overflow Sides Type','bootclean'), 
+			'width' => '30%',  
+			'choices' => array(
+				'default' => 'Default',
+				'opacity' => 'Opaque',
+				'fade-edges' => 'Faded Edges'
+			),
+			'default_value' => 'default',  
+			'conditional_logic' => array (
+					array (
+						array (
+							'field' => 'field_'.$name.'__overflowSides',
+							'operator' => '==',
+							'value' => '1',
+						),
+					), 
+				),
+		) );
+ 
+		$sub_fields[] = WPBC_acf_make_radio_field( array(
+				'name' => $name.'__overflowSides_fade_edges_color',
+				'label'=>  __('Faded Edges base color','bootclean'),
+				'choices' => WPBC_get_acf_root_colors_choices($name.'__overflowSides_fade_edges_color', 'body-bg'),
+				//'default_value' => $def_color,
+				'width' => '50%',
+				'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+				'conditional_logic' => array (
+					array (
+						array (
+							'field' => 'field_'.$name.'__overflowSides',
+							'operator' => '==',
+							'value' => '1',
+						),
+						array (
+							'field' => 'field_'.$name.'__overflowSides_type',
+							'operator' => '==',
+							'value' => 'fade-edges',
+						),
+					), 
+				),
+			) );
+
+		$sub_fields[] = WPBC_acf_make_number_field( array(
+				'name' => $name.'__overflowSides_fade_edges_plus_size',
+				'label'=>  __('Faded Edges Extra width','bootclean'),
+				'append' => 'px',
+				'default_value' => '0',
+				'min' => '0',
+				'max' => '700',
+				'width' => '30%',
+				'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+				'conditional_logic' => array (
+					array (
+						array (
+							'field' => 'field_'.$name.'__overflowSides',
+							'operator' => '==',
+							'value' => '1',
+						),
+						array (
+							'field' => 'field_'.$name.'__overflowSides_type',
+							'operator' => '==',
+							'value' => 'fade-edges',
+						),
+					), 
+				),
+			) );
+ 
+
+	return $sub_fields;
+}
+
 function WPBC_acf_get_slick_options($name){
 
 	$root_breakpoint = BC_get_root_breakpoint();
 
 	$responsive_tabs_groups = WPBC_acf_get_breakpoints();
 
-	$sub_fields = array();
+	$sub_fields = array();  
 
 	$breakpoints_choices = array();
 	foreach ($responsive_tabs_groups as $key => $value) {
 		if( 'xs' != $value['key_prefix'] ){
 			$breakpoints_choices[$value['key_prefix']] = $value['key_prefix'] . ' <small>' . $root_breakpoint[$value['key_prefix']] . '</small>';
 		}
-	}
+	}    
+
 
 	$sub_fields[] = WPBC_acf_make_checkbox_field( array(
 		'name' => $name.'__breakpoints',
@@ -651,8 +845,87 @@ function WPBC_acf_get_slick_options($name){
 				));
 			}
 
-		}
-		 
+		} 
+
+		// NEW V12
+
+		$sub_fields[] = WPBC_acf_make_message_field(array(
+				'message' => 'Style Options',
+				'key' => $name.'__'.$value['key_prefix'].'__style_options_message',  
+				'class' => 'wpbc-acf-no-label',
+				'width' => '100', 
+			));  
+
+			$def_color = 'transparent'; 
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_dots_color',  
+					'label'=>  __('DOTS COLOR','bootclean'),
+					'choices' => WPBC_get_acf_root_colors_choices($name.'__'.$value['key_prefix'].'__style_options_dots_color', 'none'),
+					//'default_value' => $def_color,
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+				) );
+
+			$def_color = 'body-color'; 
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_arrows_color',
+					'label'=>  __('ARROWS COLOR','bootclean'),
+					'choices' => WPBC_get_acf_root_colors_choices($name.'__'.$value['key_prefix'].'__style_options_arrows_color', 'none'),
+					//'default_value' => $def_color,
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+				) ); 
+
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_dots_position',  
+					'label'=>  __('DOTS POSITION','bootclean'),
+					'choices' => array(
+						'top' => 'Top',
+						'bottom' => 'Bottom',
+						'outside-top' => 'Outside Top',
+						'outside-bottom' => 'Outside Bottom',
+					),
+					'default_value' => 'bottom',
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn  as-btn-danger wpbc-ui-mini', 
+				) );
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_dots_align',  
+					'label'=>  __('DOTS ALIGN','bootclean'),
+					'choices' => array(
+						'left' => 'Left',
+						'center' => 'Center',
+						'right' => 'Right',
+					),
+					'default_value' => 'center',
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn  as-btn-danger wpbc-ui-mini', 
+				) );
+
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_arrows_position',  
+					'label'=>  __('ARROWS POSITION','bootclean'),
+					'choices' => array(
+						'inside' => 'Inside',
+						'outside' => 'Outside', 
+					),
+					'default_value' => 'inside',
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn  as-btn-danger wpbc-ui-mini', 
+				) );
+
+			$sub_fields[] = WPBC_acf_make_radio_field( array(
+					'name' => $name.'__'.$value['key_prefix'].'__style_options_arrows_align',  
+					'label'=>  __('ARROWS ALIGN','bootclean'),
+					'choices' => array(
+						'top' => 'Top',
+						'center' => 'Center',
+						'bottom' => 'Bottom', 
+					),
+					'default_value' => 'center',
+					'width' => '50%',
+					'class' => 'wpbc-radio-as-btn  as-btn-danger wpbc-ui-mini', 
+				) );
 
 	} 
 
@@ -741,12 +1014,18 @@ add_filter( 'acf/load_field/type=select', function ( $field ) {
 		} 
  
 		foreach($files as $item){  
-			$field['choices'][$item['file']] = $item['name'];  
+			$field['choices'][$item['file']] = $item['name'];   
 		} 
-		
+
 		$field['instructions'] = __('Folder:','bootclean').' "'.$temp_folder.'"';
 
 		$field['default_value'] = 'card'; 
+		
+		if(!WPBC_is_woocommerce_active() || !in_array('product', $field['post_types'] ) ){
+			unset($field['choices']['product']);
+		}else{
+			$field['default_value'] = 'product';
+		} 
 
 	}
 	  
@@ -772,8 +1051,7 @@ function WPBC_get_ui_layout_posts_advanced_args(){
 		$row_id = 'ui_layout_posts_advanced-'.$row_index;
 	}else{
 		$row_id = 'ui_layout_'.$post_types.'_advanced-'.$row_index;
-	}
-	
+	} 
 
 	$style = WPBC_get_flex_layout_field('style', $row); 
 	$style_options = WPBC_get_flex_layout_field('style_options', $row); 
@@ -799,7 +1077,63 @@ function WPBC_get_ui_layout_posts_advanced_args(){
 		$style_args['row_class'] .= ' wpbc-masonry-row';
 		$style_args['item_class'] .= ' wpbc-masonry-item';
 	}
+	if($style == 'slider'){
+
+		$slider_options = $style_options['slider_options']; 
+		$slider_options = WPBC_get_flex_layout_cleaned($slider_options, 'slider_options_'); 
+
+		$slidesToShow = $slider_options['slidesToShow_xs'];
+		$responsive = array(); 
+
+		$root_breakpoint = BC_get_root_breakpoint(array('remove_units'=>true)); 
+		if(!empty($root_breakpoint)){
+			foreach ($root_breakpoint as $key => $value) { 
+				if($key!='xs'){
+					$responsive[] = array(
+						'breakpoint' => $root_breakpoint[$key],
+						'settings' => array(
+							'slidesToShow' => $slider_options['slidesToShow_'.$key]
+						)
+					);
+				}
+			}  
+		}
+
+		$slick = array(
+			'dots' => true,
+			'arrows' => true,
+			'autoplay' => true, 
+			'slidesToShow' => $slidesToShow,
+			'slidesToScroll' => 1,
+			'mobileFirst' => true, 
+		); 
+		if(!empty($responsive)){
+			$slick['responsive'] = $responsive;
+		}
+
+		$slick = apply_filters('WPBC_get_ui_layout_posts_advanced_slick_args', $slick);
+
+		$slick_class = 'theme-slick-slider';
+
+		if( !empty($slick['overflowSides']) ){
+			$slick_class .= ' slick-overflowSides';
+		}
+
+		$slick = json_encode($slick); 
+		
+		// Not used yet
+		// $slick_heights = json_encode($slick_heights); 
+
+		$data_slick = " data-slick='". $slick ."' data-disable-affix-offset='true' ";
+
+		$row_args .= ' '.$data_slick;
+
+		$style_args['row_class'] = ' wpbc-slick-row '.$slick_class;
+		$style_args['item_class'] = ' wpbc-slick-item';
+	} 
 	$style_args['row_args'] = $row_args;
+
+	$style_args['container_args'] = 'data-type="'.$style.'"';
 
 	$query_args = array(); 
 	if(!empty($query)){
@@ -815,17 +1149,29 @@ function WPBC_get_ui_layout_posts_advanced_args(){
 	}
 	$query_args['paged'] = intval($paged);  
 
-
+ 	
 	$query_args = WPBC_get_layout_posts_query($query_args);
+		
+	$style_args['btn_more_class'] = 'btn btn-primary';
+	$style_args['btn_more_label'] = __('Read more', 'bootclean');
+ 
 
 	$ui_layout_args = array(
 		'paged' => $paged,
 		'query' => $query_args,
 		'style' => $style,
 		'style_args' => $style_args,
-		'pagination' => $pagination_args,
+		'pagination' => $pagination_args, 
 		'row_id' => $row_id,
 	);
 
 	return apply_filters('WPBC_get_ui_layout_posts_advanced_args', $ui_layout_args);
+}
+
+
+function WPBC_get_flex_flex_builder_layout_BS_icon(){
+	return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7952b3" class="bi bi-bootstrap-fill" viewBox="0 0 16 16">
+  <path d="M6.375 7.125V4.658h1.78c.973 0 1.542.457 1.542 1.237 0 .802-.604 1.23-1.764 1.23H6.375zm0 3.762h1.898c1.184 0 1.81-.48 1.81-1.377 0-.885-.65-1.348-1.886-1.348H6.375v2.725z"/>
+  <path d="M4.002 0a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4h-8zm1.06 12V3.545h3.399c1.587 0 2.543.809 2.543 2.11 0 .884-.65 1.675-1.483 1.816v.1c1.143.117 1.904.931 1.904 2.033 0 1.488-1.084 2.396-2.888 2.396H5.062z"/>
+</svg>';
 }

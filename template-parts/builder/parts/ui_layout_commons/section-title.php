@@ -5,11 +5,13 @@
 	 * @see _print_code($args);
 	*/
 
+	$args = apply_filters('wpbc/filter/ui_layout_commons/section-title/args', $args);
+
 	$layout_name = $args['layout'];
 	$section_title = $args['section-title']; 
 
 	$section_title_settings = !empty($args['section-title-settings']) ? $args['section-title-settings'] : array('heading' => '');  
-
+	
 	$style = '';
 	$attrs = '';
 
@@ -84,13 +86,14 @@
 		$attrs .= " data-responsive-class='".json_encode($temp_class)."'";
 	}
 
-
-	$heading_class = str_replace('.', '', $section_title_settings['heading']);
-
+	$heading_class = str_replace(',', ' ', $section_title_settings['heading']);
+	$heading_class = str_replace('.', '', $heading_class);
+	// Remove duplicated classes ??
+	// $heading_class = implode(',',array_unique(explode(',', $heading_class)));
 ?>
 
 <?php do_action('wpbc/ui_layouts/section_title/before', $layout_name); ?>
 
-	<h2 <?php echo $attrs; ?> style="<?php echo $style; ?>" class="<?php echo $heading_class; ?>"><?php echo $section_title; ?></h2>
+	<h2 <?php echo $attrs; ?> data-layout="section-title" style="<?php echo $style; ?>" class="<?php echo $heading_class; ?>"><?php echo $section_title; ?></h2>
 
 <?php do_action('wpbc/ui_layouts/section_title/after', $layout_name); ?>

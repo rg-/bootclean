@@ -140,7 +140,20 @@ if(!function_exists('WPBC_theme_settings_admin_head')){
 			vertical-align: -6px; width: 16px;
 			margin-right: 5px;
 		}
-
+		body.wpbc_site_settings .acf-label h4{
+			font-size: 18px;
+			margin-top: 0;
+		}
+		body.wpbc_site_settings .acf-label h4 svg{
+			width: 24px;
+			height: 24px;
+			vertical-align: -7px;
+		}
+		body.wpbc_site_settings .acf-tab-group li a svg{
+			width: 24px;
+			height: 24px;
+			vertical-align: -7px;
+		}
 		body.wpbc_site_settings .acf-fields .acf-label label h2{
 			font-size: 1.6em!important;
 	    margin: 1em 0!important;

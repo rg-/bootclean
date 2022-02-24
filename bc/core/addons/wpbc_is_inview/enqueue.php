@@ -16,6 +16,13 @@ function WPBC_is_inview_enqueue_scripts(){
 		//wp_enqueue_script( 'wpbc-is-inview-js-lzsrc' );
 
 	//wp_register_script( 'wpbc-is-inview-js-lzbg', THEME_URI .'/bc/core/addons/wpbc_is_inview/assets/is-inview-lazybackground.js', array('wpbc-is-inview-js'), __scripts_version(), true);
-		//wp_enqueue_script( 'wpbc-is-inview-js-lzbg' );
+		//wp_enqueue_script( 'wpbc-is-inview-js-lzbg' ); 
+
+	if( true == apply_filters('wpbc/filter/is_inview/init', 0) ){
+
+		// $('[data-is-inview]').is_inview(); 
+		wp_register_script( 'wpbc-is-inview-init-js', THEME_URI .'/bc/core/addons/wpbc_is_inview/assets/is-inview-init.js', array('jquery','wpbc-is-inview-js'), __scripts_version(), true);
+			wp_enqueue_script( 'wpbc-is-inview-init-js' );
+	}
 
 }

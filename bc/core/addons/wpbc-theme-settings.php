@@ -13,6 +13,10 @@ $use_wpbc_theme_settings = apply_filters('wpbc/filter/theme_settings/installed',
 
 define( 'WPBC_THEME_SETTINGS_ACTIVE', $use_wpbc_theme_settings ); 
 
+// Leave outside since functions here can be used outside addon
+
+include('wpbc_theme_settings/functions.php');
+
 if($use_wpbc_theme_settings){
 
 	add_filter('wpbc/filter/theme_settings/args',function($args){
@@ -34,7 +38,7 @@ if($use_wpbc_theme_settings){
 
 	
  
-	include('wpbc_theme_settings/functions.php');
+	
 
 	/* Make addon be able to see over dashboard status 
 	I did this so i can controll over each addon init file if it´s actived or not

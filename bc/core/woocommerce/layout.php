@@ -202,7 +202,7 @@ if(!function_exists('WPBC_layout_struture__woocommerce_shop_end')){
 	function WPBC_layout_struture__woocommerce_shop_end(){
 		$args = WPBC_woocommerce_get_layout();
 		if(WPBC_if_woocommerce_use_cols()){
-			$content = $args['shop']['content_areas_cols']['col_content'];
+			$content = !empty($args['shop']['content_areas_cols']['col_content']) ? $args['shop']['content_areas_cols']['col_content'] : '';
 			?>
 			</div>
 			<div id="area-1" class="wpbc-woo-main-content-area-1 <?php echo $args['shop']['content_areas_cols']['col_class'];?>">
@@ -334,19 +334,19 @@ function woocommerce_body_class($class){
 	}
 	if(is_shop()){
 		$class .= ' woocommerce-is_shop ';  
-		$class .= $args['shop']['class']; 
+		$class .= !empty($args['shop']['class']) ? $args['shop']['class'] : ''; 
 	}
 	if(is_cart()){
 		$class .= ' woocommerce-is_cart ';
-		$class .= $args['cart']['class'];
+		$class .= !empty($args['cart']['class']) ? $args['cart']['class'] : '';
 	}
 	if(is_checkout()){
 		$class .= ' woocommerce-is_checkout ';
-		$class .= $args['checkout']['class'];
+		$class .= !empty($args['checkout']['class']) ? $args['checkout']['class'] : '';
 	}
 	if(is_account_page()){ 
 		$class .= ' woocommerce-is_account_page ';  
-		$class .= $args['myaccount']['class'];
+		$class .= !empty($args['myaccount']['class']) ? $args['myaccount']['class'] : '';
 
 		$endpoints = array(
 			'orders', 'edit-address', 'edit-account'
@@ -429,9 +429,16 @@ function WPBC_woocommerce_single_product_upsell_end( $product_summary ) {
 };
 
 // related
+function WPBC_woocommerce_single_product_related_classes($classes, $product){
+	if(is_product()){
+		$classes[] = ' col-md-3 gmb-1 wpbc-masonry-item ';
+	}
+	return $classes;
+}
 add_action( 'woocommerce_after_single_product_summary', 'WPBC_woocommerce_single_product_related_start', 18, 1);
 function WPBC_woocommerce_single_product_related_start( $product_summary ) { 
-	$args = WPBC_woocommerce_get_layout();
+	$args = WPBC_woocommerce_get_layout(); 
+	add_filter( 'woocommerce_post_class', 'WPBC_woocommerce_single_product_related_classes',10,2 );
 ?>
 <div class="wpbc-woocommerce-single-product-related <?php echo $args['product']['related_class'];?>">
 <?php
@@ -442,4 +449,48 @@ function WPBC_woocommerce_single_product_related_end( $product_summary ) {
 ?>
 </div>
 <?php
+	remove_filter( 'woocommerce_post_class', 'WPBC_woocommerce_single_product_related_classes',10,2 );
 };
+
+
+add_action('woocommerce_after_single_product_summary', 'WPBC_woocommerce_remove_related_product',10);
+
+function WPBC_woocommerce_remove_related_product(){
+    
+    global $product; 
+
+    $product_id = method_exists( $product, 'get_id' ) ? $product->get_id() : $product->id;
+    $terms = wp_get_post_terms( $product_id, 'product_cat' );
+    if(!empty($terms)){
+    	$term_ids = array();
+    	foreach ($terms as $key => $value) {
+    		$term_ids[] = $value->term_id;
+    	} 
+
+	    $query = new WP_Query( array(
+			    'post_type'             => 'product',
+			    'post_status'           => 'publish',
+			    'ignore_sticky_posts'   => 1,
+			    'posts_per_page'        => -1, // Limit: two products
+			    'post__not_in'          => array( $product->get_id() ), // Excluding current product
+			    'tax_query'             => array( array(
+			        'taxonomy'      => 'product_cat',
+			        'field'         => 'term_id', // can be 'term_id', 'slug' or 'name'
+			        'terms'         => $term_ids,
+			    ), ),
+				)
+			);
+
+			if($query->post_count<1){
+				remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+			}
+
+		}
+
+    if(empty($terms)) {
+         //remove_action( 'woocommerce_after_single_product_summary', 'WPBC_woocommerce_single_product_related_start', 18 );
+         remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+         //remove_action( 'woocommerce_after_single_product_summary', 'WPBC_woocommerce_single_product_related_end', 30 );
+    }
+
+}

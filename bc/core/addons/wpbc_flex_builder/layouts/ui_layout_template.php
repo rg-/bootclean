@@ -16,7 +16,68 @@
 		
 		$content_sub_fields[] = WPBC_acf_make_post_object_wpbc_template(array( 
 			'name' => $layout_name.'__post',  
+			'width' => '80%',
 		)); 
+
+		$content_sub_fields[] = WPBC_acf_make_true_false_field(array( 
+			'name' => $layout_name.'__ajax_load',  
+			'label' => __('Ajax load','bootclean'),
+			'default_value' => 0,
+			'width' => '20%',
+		)); 
+
+		$cond_ajax = array (
+						array (
+							array (
+								'field' => 'field_'.$layout_name.'__ajax_load',
+								'operator' => '==',
+								'value' => '1',
+							),
+						), 
+					);
+
+			$content_sub_fields[] = WPBC_acf_make_select_field(array( 
+				'name' => $layout_name.'__ajax_onload',  
+				'label' => __('Ajax onload type','bootclean'),
+				'choices' => array(
+					'button' => 'Load Button',
+					'ready' => 'Document Ready',
+					'load' => 'Window Load',
+					'init' => 'After Body Loader',
+					'inview' => 'Inview Lazyload',
+				),
+				'conditional_logic' => $cond_ajax,
+				'default_value' => 'ready',
+				'width' => '30%',
+			));
+
+			$content_sub_fields[] = WPBC_acf_make_color_picker_field(array( 
+				'name' => $layout_name.'__ajax_loading_background_color',  
+				'label' => __('Background Color','bootclean'), 
+				'conditional_logic' => $cond_ajax, 
+				'default_value' => '#fff',
+				'width' => '20%',
+			));
+
+			$content_sub_fields[] = WPBC_acf_make_number_field(array( 
+				'name' => $layout_name.'__ajax_loading_background_opacity',  
+				'label' => __('Background Opacity','bootclean'), 
+				'conditional_logic' => $cond_ajax, 
+				'default_value' => '.1',
+				'min' => '0',
+				'max' => '1',
+				'step' => '.1',
+				'width' => '20%',
+			));
+
+			$content_sub_fields[] = WPBC_acf_make_color_picker_field(array( 
+				'name' => $layout_name.'__ajax_loading_spinner_color',  
+				'label' => __('Spinner Color','bootclean'), 
+				'conditional_logic' => $cond_ajax, 
+				'default_value' => '#000',
+				'width' => '20%',
+			));
+
 
 		$layouts = WPBC_acf_make_flex_builder_layout(array(
 			'layout_name' => $layout_name,

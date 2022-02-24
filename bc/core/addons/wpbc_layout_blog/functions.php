@@ -27,18 +27,62 @@ function WPBC_if_is_post_type_layout($single=false, $post_type){
 }
 
 function WPBC_get_layout_posts_query($query_args){
+	
 
 	if( $query_args['posts_per_page_type'] == 'default' ){
 		$query_args['posts_per_page'] = get_option('posts_per_page');
+		$query_args['post__in'] = '';
 	} 
 
+	if( $query_args['posts_per_page_type'] == 'custom' ){
+		$query_args['post__in'] = '';
+	}
+
 	$post_types = $query_args['post_types'];
+	unset($query_args['ui_layout_'.$post_types.'_advanced__posts_per_page__message']);
+	unset($query_args['ui_layout_'.$post_types.'_advanced__post_query_separator_more']);
+	unset($query_args['ui_layout_'.$post_types.'_advanced__post_query_separator']); 
+
 	$post_types = explode(',', $post_types);
 	$query_args['post_type'] = $post_types;
 
+	if(!empty($query_args['tax_query_passed'])){ 
+
+		$tax_query_passed = $query_args['tax_query_passed'];
+		unset($query_args['tax_query_passed']);
+
+		$tax_query_passed = WPBC_get_flex_layout_cleaned($tax_query_passed, 'tax_query_passed_');
+		$array = $tax_query_passed['array'];
+		$array = WPBC_get_flex_layout_cleaned($array, 'array__');
+
+		$tax_query = array();
+		if(count($array)>0){
+			$tax_query['relation'] = $tax_query_passed['relation'];
+		}
+		if(!empty($array)){
+			foreach ($array as $key => $value) { 
+				$taxonomy = $value['taxonomy'];
+				$terms = $value[$taxonomy];
+				$operator = $value['operator'];
+				$include_children = $value['include_children'];
+				$tax_query[] = array(
+					'taxonomy' => $taxonomy,
+				  'field' => 'id',
+				  'terms' => $terms,
+				  'include_children' => $include_children,
+				  'operator' => $operator
+				);
+			}  
+		}
+
+	}
+	if(!empty($tax_query)){
+		$query_args['tax_query'] = $tax_query;
+	} 
+
 	unset($query_args['post_query_separator']);
 	//unset($query_args['posts_per_page_type']);
-	unset($query_args['post_types']); 
+	unset($query_args['post_types']);  
 	 
 	return apply_filters('WPBC_get_layout_posts_query', $query_args);
 }

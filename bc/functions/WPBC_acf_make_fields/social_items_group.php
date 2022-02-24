@@ -53,3 +53,61 @@ function WPBC_acf_make_social_items_group_field($args,$is_registered_option=fals
 	$field = WPBC_acf_make_fields__filter($field, $args); 
 	return $field;
 }
+
+
+function WPBC_acf_make_social_group_field($args,$is_registered_option=false){
+	if(empty($args['name'])) return; 
+
+	$social_choices = array (
+		'facebook' => 'Facebook', 
+		'instagram' => 'Instagram', 
+		'twitter' => 'Twitter', 
+		'linkedin' => 'Linkedin', 
+		'whatsapp' => 'Whatsapp',
+		'google-maps' => 'Google Maps',
+		'youtube' => 'Youtube'
+	);
+	
+	$social_choices = apply_filters('wpbc/filter/settings/social_choices', $social_choices);
+
+	$sub_fields = array();
+
+	if(!empty($social_choices)){
+		foreach ($social_choices as $key => $value) {
+			$sub_fields[] = WPBC_acf_make_url_field( array( 
+				'name' => $args['name'].'__url_'.$key,
+				'label'=> '<span style="width:80px; padding-right:6px; display:inline-block; ">'.$value.'</span>',  
+				'class' => 'wpbc-acf-flex-field',
+				'width' => '70%',
+			) );
+			$sub_fields[] = WPBC_acf_make_text_field( array( 
+				'name' => $args['name'].'__label_'.$key,
+				'label'=> __('Label','bootclean'),  
+				'class' => 'wpbc-acf-no-label',
+				'placeholder' =>  __('Label (optional)','bootclean'),
+				'width' => '30%',
+			) );
+		} 
+	}
+
+	// the field itself
+	$defaults = array (
+		'key' => 'field_'.$args['name'],
+		'label' => 'Group Field',
+		'name' => 'group',
+		'type' => 'group',
+		'instructions' => '',
+		'required' => 0,
+		'conditional_logic' => 0,
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		), 
+		'layout' => 'block', 
+		'sub_fields' => $sub_fields,
+	);
+	$field = array_merge($defaults, $args); 
+	$field = WPBC_acf_make_fields__filter($field, $args); 
+	return $field;
+}

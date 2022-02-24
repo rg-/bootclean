@@ -3,13 +3,15 @@
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?>>
 	
+	<div class="entry-header gmb-1">
 	<?php get_template_part('template-parts/header-post_title'); ?>
-	
-	<div class="entry-thumbnail">
+	</div>
+
+	<div class="entry-thumbnail gmb-1">
 		<?php get_template_part( 'template-parts/post_thumbnail' );  ?>
 	</div>
 	
-	<div class="entry-content">
+	<div class="entry-content gmb-1">
 		<?php the_content(); ?>
 	</div>
 	

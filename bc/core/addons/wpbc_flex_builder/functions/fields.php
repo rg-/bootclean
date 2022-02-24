@@ -12,11 +12,11 @@ add_filter('acf/fields/flexible_content/layout_title', function($title, $field, 
 
     $check = WPBC_flex_builder_layouts(); 
     $check = apply_filters('wpbc/filter/flexible_content/layout_title/layouts', $check);
-   
+   	
     if( in_array($layout['name'], $check) ){ 
 
     	$before = '';
-    	$after = '';
+    	$after = ''; 
 
     	$section_styles = WPBC_get_flex_layout_field('section_styles', $value); 
 
@@ -24,7 +24,17 @@ add_filter('acf/fields/flexible_content/layout_title', function($title, $field, 
     		$background_color = $section_styles['section_styles_background_color'];
     		$text_color = $section_styles['section_styles_text_color'];
 
-    		$before = '<small title="background-color: '.$background_color.'; text-color: '.$text_color.'" style="background-color:var(--'.$background_color.'); color:var(--'.$text_color.');" class="wpbc-badge wpbc-badge-style bg-'.$background_color.'"><span style="color:var(--'.$text_color.');display: flex;height: 100%;width: 100%;align-items: center;justify-content: center;">a</span></small> ';
+    		if( !$background_color ){
+    			$background_color = 'transparent';
+    		}
+
+    		global $WPBC_VERSION; 
+				if ( version_compare( $WPBC_VERSION, '11.9.9', '>' ) ) {
+					$before = '<small title="background-color: '.$background_color.'; text-color: '.$text_color.'" style="background-color:'.$background_color.'; color:'.$text_color.';" class="wpbc-badge wpbc-badge-style"><span style="color:'.$text_color.';display: flex;height: 100%;width: 100%;align-items: center;justify-content: center;">a</span></small> ';
+				}else{
+					$before = '<small title="background-color: '.$background_color.'; text-color: '.$text_color.'" style="background-color:var(--'.$background_color.'); color:var(--'.$text_color.');" class="wpbc-badge wpbc-badge-style bg-'.$background_color.'"><span style="color:var(--'.$text_color.');display: flex;height: 100%;width: 100%;align-items: center;justify-content: center;">a</span></small> ';
+				}
+    		
     	} 
 
     	if($layout['name'] == 'ui_layout_template'){
@@ -32,26 +42,34 @@ add_filter('acf/fields/flexible_content/layout_title', function($title, $field, 
     		if(!empty($template_id)){ 
 	    		$t = get_the_title($template_id);
 	    		$edit_link = get_edit_post_link($template_id);
-	    		$after = ' <a title="'.__('EDIT','bootclean').': '.$t.'" class="wpbc-btn-small button" href="'.$edit_link.'"><small>'.$t.'</small></a>';
+	    		$after = ' <a class="wpbc-btn-small alt button " href="'.$edit_link.'"><small>'.$t.'</small></a>';
     		}
     	}
 
     	if($layout['name'] == 'ui_layout_template_part'){
+
     		$template_file = WPBC_get_flex_layout_field('file', $value); 
-    		$after = '&nbsp;&nbsp;<span title="template-parts/theme/'.$template_file.'.php" class="wpbc-badge" style="padding:0 5px;"><small>'.$template_file.'.php</small></span>';
+    		$after = '&nbsp;&nbsp;<span title="template-parts/theme/'.$template_file.'.php" class="wpbc-badge alt" style="padding:0 5px;color:#fff;"><small>'.$template_file.'.php</small></span>';
     	}
 
     	$section_title = WPBC_get_flex_layout_field('section-title', $value);
     	if(empty($section_title)){
     		$section_content = WPBC_get_flex_layout_field('content', $value);
-    		$section_title = $section_content['section-title'];
+    		$section_title = !empty($section_content['section-title']) ? $section_content['section-title'] : '';
     	}
+ 
+    	$title_field = apply_filters('wpbc/filter/flexible_content/layout_title?name='.$layout['name'], '', $value);
+    	
+    	if( !empty($title_field) ){ 
+    		$section_title = $title_field;  
+    	} 
+
     	if(!empty($section_title)){
     		$trim_title = wp_trim_words( $section_title, 5, '...' );
-    		$title .= ' - <span title="'.__('Section Title','bootclean').'" class="wpbc-badge success" style="padding:0 5px;"><small>'.$trim_title.'</small></span>';
+    		$after .= ' - <span title="'.__('Section Title','bootclean').'" class="wpbc-badge success" style="padding:0 5px;">'.$trim_title.'</span>';
     	}
     	// _print_code($layout);
-    	$title = $before.$title.$after;
+    	$title = $before.'<span style="font-size:10px;">'.$title.'</span>'.$after;
 
     }
 
@@ -107,6 +125,10 @@ if(!function_exists('WPBC_acf_make_flex_builder_layout')){
 		
 		if(!empty($args['content_sub_fields'])){
 			$content_sub_fields = $args['content_sub_fields'];
+
+			// NEW V13 - sep2021
+			$content_sub_fields = apply_filters('wpbc/filter/make_flex_builder_layout/content_sub_fields/args',$content_sub_fields,$layout_name);
+
 			foreach ($content_sub_fields as $key => $value) {
 				$sub_fields[] = $value;
 			}
@@ -133,7 +155,16 @@ if(!function_exists('WPBC_acf_make_flex_builder_layout')){
 					'class' => 'wpbc-group-no-border wpbc-group-no-label',
 				)
 			); 
-
+			$sub_fields[] = WPBC_acf_make_true_false_field(
+					array(
+						'name' => $layout_name.'__section_nowrap',
+						'label'=> __('No html wrap','bootclean'),
+						'instructions' => __('Enable to include template without div wrapper','bootclean'),  
+						'default_value' => 0, 
+						'message' => '',
+						'width' => '50%', 
+					)
+				);
 			$sub_fields[] = WPBC_acf_make_true_false_field(
 					array(
 						'name' => $layout_name.'__section_visible',
@@ -141,7 +172,7 @@ if(!function_exists('WPBC_acf_make_flex_builder_layout')){
 						'instructions' => __('Enabling this HTML for this layout will not be rendered. This is not same as hidding it using css like "d-none" for example.','bootclean'),  
 						'default_value' => 0, 
 						'message' => '',
-						'width' => '100%', 
+						'width' => '50%', 
 					)
 				); 
 		}
@@ -189,32 +220,34 @@ if(!function_exists('WPBC_acf_make_flex_builder_layout')){
 
 function WPBC_acf_make_layout_styles_sub_fields($args, $layout_name){
 
-	$sub_fields_section_styles = array();
-
-	$def_color = 'transparent'; 
-	$sub_fields_section_styles[] = WPBC_acf_make_radio_field( array(
-			'name' => $layout_name.'__section_styles_background_color',
-			'label'=>  __('Background color','bootclean'),
-			'choices' => WPBC_get_acf_root_colors_choices($layout_name.'__section_styles_background_color'),
-			'default_value' => $def_color,
-			'width' => '50%',
-			'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
-		) );
-
-	$def_color = 'body-color'; 
-	$sub_fields_section_styles[] = WPBC_acf_make_radio_field( array(
-			'name' => $layout_name.'__section_styles_text_color',
-			'label'=>  __('Text color','bootclean'),
-			'choices' => WPBC_get_acf_root_colors_choices($layout_name.'__section_styles_text_color'),
-			'default_value' => $def_color,
-			'width' => '50%',
-			'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
-		) );
+	$sub_fields_section_styles = array(); 
 
 
 	// NEW V12
 	global $WPBC_VERSION;  
-	if ( version_compare( $WPBC_VERSION, '12', '>' ) ) {
+	if ( version_compare( $WPBC_VERSION, '12', '>' ) ) { 
+
+
+		$sub_fields_section_styles[] = WPBC_acf_make_message_field( array(
+			'key' => 'field_'.$layout_name.'__section_styles_message',
+			'label'=>  __('Layout styles','bootclean'), 
+			'width' => '100%', 
+			'class' => '',
+		) );
+
+		$sub_fields_section_styles[] = WPBC_acf_make_color_picker_field( array(
+			'name' => $layout_name.'__section_styles_background_color',
+			'label'=>  __('Background color','bootclean'), 
+			'width' => '15%', 
+			'class' => 'wpbc-ui-mini',
+		) );
+
+		$sub_fields_section_styles[] = WPBC_acf_make_color_picker_field( array(
+			'name' => $layout_name.'__section_styles_text_color',
+			'label'=>  __('Text color','bootclean'), 
+			'width' => '15%', 
+			'class' => 'wpbc-ui-mini',
+		) );
 
 		$sub_fields_section_styles[] = WPBC_acf_make_gallery_advanced_field( array(
 			'name' => $layout_name.'__section_styles_images',
@@ -226,7 +259,31 @@ function WPBC_acf_make_layout_styles_sub_fields($args, $layout_name){
 		$sub_fields_section_styles[] = WPBC_acf_make_codemirror_field( array(
 			'name' => $layout_name.'__section_styles_html',
 			'label' => __('Background Custom HTML','bootclean'), 
-		) );
+		) );  
+	}else{
+
+
+		/* OBSOLETE */
+
+		$def_color = 'transparent'; 
+		$sub_fields_section_styles[] = WPBC_acf_make_radio_field( array(
+				'name' => $layout_name.'__section_styles_background_color',
+				'label'=>  __('Background color','bootclean'),
+				'choices' => WPBC_get_acf_root_colors_choices($layout_name.'__section_styles_background_color'),
+				'default_value' => $def_color,
+				'width' => '50%',
+				'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+			) );
+
+		$def_color = 'body-color'; 
+		$sub_fields_section_styles[] = WPBC_acf_make_radio_field( array(
+				'name' => $layout_name.'__section_styles_text_color',
+				'label'=>  __('Text color','bootclean'),
+				'choices' => WPBC_get_acf_root_colors_choices($layout_name.'__section_styles_text_color'),
+				'default_value' => $def_color,
+				'width' => '50%',
+				'class' => 'wpbc-radio-as-btn no-padding-radio-label', 
+			) );
 
 
 	}
